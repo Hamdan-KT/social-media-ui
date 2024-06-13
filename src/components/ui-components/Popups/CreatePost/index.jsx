@@ -4,6 +4,7 @@ import PostView from "./PostView";
 import CreateHeader from "./Header";
 import PostSelect from "./PostSelect";
 import { useDispatch, useSelector } from "react-redux";
+import FilterAdjustment from "./FilterAdjustment";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "max-content",
@@ -22,8 +23,6 @@ const ContentBox = styled(Box)(({ theme }) => ({
 	height: "max-content",
 	display: "flex",
 	background: theme.palette.background.paper,
-	alignItems: "center",
-	justifyContent: "center",
 	overflow: "hidden",
 }));
 
@@ -42,6 +41,7 @@ function CreatePost({ open = false, onClose }) {
 				<CreateHeader />
 				<ContentBox>
 					{postMedias?.length !== 0 ? <PostView /> : <PostSelect />}
+					<FilterAdjustment />
 				</ContentBox>
 			</MainBox>
 		</CustomModal>

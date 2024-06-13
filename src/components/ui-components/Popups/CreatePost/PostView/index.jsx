@@ -62,25 +62,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 	},
 }));
 
-const carImages = [
-	{
-		type: "image",
-		src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-	},
-	{
-		type: "image",
-		src: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-	},
-	{
-		type: "image",
-		src: "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1937&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-	},
-	{
-		type: "image",
-		src: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=2724&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-	},
-];
-
 const aspectRatios = [
 	{
 		Icon: <ReactIcons.MdCropDin size={23} />,
@@ -133,7 +114,6 @@ function PostView() {
 				rotation: rotation == 360 ? 90 : rotation + 90,
 			})
 		);
-		// rotation == 360 ? setRotation(90) : setRotation(rotation + 90);
 	};
 	// handling media Flip
 	const handleFlip = (type) => {
