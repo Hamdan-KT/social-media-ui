@@ -1,0 +1,22 @@
+.lds-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: red;
+}
+.lds-spinner div {
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div {
+  transform: rotate(calc(var(--i) * 30deg)) translateY(3px);
+  animation-delay: calc(-1s + var(--i) * 0.1s);
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
