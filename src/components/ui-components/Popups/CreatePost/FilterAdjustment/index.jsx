@@ -2,10 +2,8 @@ import { Box, styled } from "@mui/material";
 import React from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import MediaFilters from "./filters";
 import EditPanel from "./edit";
 
@@ -25,7 +23,8 @@ function TabPanel(props) {
 	return (
 		<div
 			role="tabpanel"
-			style={{ width: "100%" }}
+			className="scrollbar-hide"
+			style={{ width: "100%", maxHeight: "67.5vh", overflowY: "scroll" }}
 			hidden={value !== index}
 			id={`full-width-tabpanel-${index}`}
 			aria-labelledby={`full-width-tab-${index}`}
@@ -74,10 +73,10 @@ function FilterAdjustment() {
 				</Tabs>
 			</Box>
 			<TabPanel value={value} index={0} dir={theme.direction}>
-				<EditPanel />
+				<MediaFilters />
 			</TabPanel>
 			<TabPanel value={value} index={1} dir={theme.direction}>
-				<MediaFilters />
+				<EditPanel />
 			</TabPanel>
 		</ContentBox>
 	);

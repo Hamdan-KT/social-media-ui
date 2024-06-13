@@ -12,3 +12,9 @@ export const sidebarpopUps = {
 	NOTIFICATION: "notification",
 	CREATE: "create",
 };
+
+export const postStages = {
+	CROP: "crop",
+	EDIT: "edit",
+	SHARE: "share",
+};

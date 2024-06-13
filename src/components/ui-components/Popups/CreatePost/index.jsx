@@ -5,6 +5,8 @@ import CreateHeader from "./Header";
 import PostSelect from "./PostSelect";
 import { useDispatch, useSelector } from "react-redux";
 import FilterAdjustment from "./FilterAdjustment";
+import PostSettings from "./PostSettings";
+import { postStages as ps } from "utils/constants";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "max-content",
@@ -29,6 +31,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
 function CreatePost({ open = false, onClose }) {
 	const theme = useTheme();
 	const postMedias = useSelector((state) => state.app.postMedias);
+	const postStages = useSelector((state) => state.app.postStages);
 
 	return (
 		<CustomModal
@@ -41,7 +44,8 @@ function CreatePost({ open = false, onClose }) {
 				<CreateHeader />
 				<ContentBox>
 					{postMedias?.length !== 0 ? <PostView /> : <PostSelect />}
-					<FilterAdjustment />
+					{postStages[ps.EDIT] && <FilterAdjustment />}
+					{postStages[ps.SHARE] && <PostSettings />}
 				</ContentBox>
 			</MainBox>
 		</CustomModal>

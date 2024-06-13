@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAspectRatioVal } from "app/slices/appSlice/appSlice";
 import { setFlipVal } from "app/slices/appSlice/appSlice";
 import { setRotationVal } from "app/slices/appSlice/appSlice";
+import { postStages as ps } from "utils/constants";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "auto",
@@ -88,6 +89,7 @@ function PostView() {
 	const [activeItem, setActiveItem] = useState({});
 	const postMedias = useSelector((state) => state.app.postMedias);
 	const aspectRatio = useSelector((state) => state.app.aspectRatio);
+	const postStages = useSelector((state) => state.app.postStages);
 
 	useEffect(() => {
 		console.log(crop);
@@ -152,7 +154,6 @@ function PostView() {
 				})
 			);
 		}
-		
 	};
 
 	return (
@@ -197,98 +198,100 @@ function PostView() {
 						</Slide>
 					))}
 			</Slider>
-			<Box
-				sx={{
-					display: "flex",
-					width: "100%",
-					alignItems: "center",
-					justifyContent: "space-between",
-					p: "0.2rem 0.5rem",
-				}}
-			>
+			{postStages[ps.CROP] && (
 				<Box
 					sx={{
 						display: "flex",
+						width: "100%",
 						alignItems: "center",
-						justifyContent: "center",
-						gap: "0.5rem",
+						justifyContent: "space-between",
+						p: "0.2rem 0.5rem",
 					}}
 				>
-					<PopOver
-						ref={aspectRatioMenuRef}
-						Button={
-							<Tooltip title="Crop" placement="top" arrow>
-								<StyledIconButton>
-									<ReactIcons.LuCrop size={17} />
-								</StyledIconButton>
-							</Tooltip>
-						}
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							gap: "0.5rem",
+						}}
 					>
-						<StyledPopoverBox>
-							{aspectRatios.map((ratio, ind) => (
-								<StyledTypography
-									key={ind}
-									onClick={() => {
-										dispatch(setAspectRatioVal({ ratio: ratio.value }));
-										aspectRatioMenuRef.current?.handleClose();
-									}}
-								>
-									{ratio.Icon}
-									{ratio.label}
-								</StyledTypography>
-							))}
-						</StyledPopoverBox>
-					</PopOver>
-					<PopOver
-						Button={
-							<Tooltip title="Zoom" placement="top" arrow>
-								<StyledIconButton>
-									<ReactIcons.TbZoomIn size={17} />
-								</StyledIconButton>
-							</Tooltip>
-						}
-					>
-						<StyledPopoverBox sx={{ width: 200, p: "0.5rem 1rem" }}>
-							<Tooltip title={zoom} placement="top" arrow>
-								<MUISlider
-									value={zoom}
-									min={1}
-									max={3}
-									step={0.1}
-									onChange={(e, zoom) => setZoom(zoom)}
-									size="small"
-									aria-label="Zoom"
-								/>
-							</Tooltip>
-						</StyledPopoverBox>
-					</PopOver>
-
-					<Tooltip title="Rotate" placement="top" arrow>
-						<StyledIconButton
-							onClick={() => onRotationChange(activeItem?.rotation)}
+						<PopOver
+							ref={aspectRatioMenuRef}
+							Button={
+								<Tooltip title="Crop" placement="top" arrow>
+									<StyledIconButton>
+										<ReactIcons.LuCrop size={17} />
+									</StyledIconButton>
+								</Tooltip>
+							}
 						>
-							<ReactIcons.MdCropRotate size={17} />
-						</StyledIconButton>
-					</Tooltip>
-					<Tooltip title="Flip Horizontal" placement="top" arrow>
-						<StyledIconButton onClick={() => handleFlip("Horizontal")}>
-							<ReactIcons.LuFlipHorizontal2 size={17} />
-						</StyledIconButton>
-					</Tooltip>
-					<Tooltip title="Flip Vertical" placement="top" arrow>
-						<StyledIconButton onClick={() => handleFlip("Vertical")}>
-							<ReactIcons.LuFlipVertical2 size={17} />
-						</StyledIconButton>
-					</Tooltip>
+							<StyledPopoverBox>
+								{aspectRatios.map((ratio, ind) => (
+									<StyledTypography
+										key={ind}
+										onClick={() => {
+											dispatch(setAspectRatioVal({ ratio: ratio.value }));
+											aspectRatioMenuRef.current?.handleClose();
+										}}
+									>
+										{ratio.Icon}
+										{ratio.label}
+									</StyledTypography>
+								))}
+							</StyledPopoverBox>
+						</PopOver>
+						<PopOver
+							Button={
+								<Tooltip title="Zoom" placement="top" arrow>
+									<StyledIconButton>
+										<ReactIcons.TbZoomIn size={17} />
+									</StyledIconButton>
+								</Tooltip>
+							}
+						>
+							<StyledPopoverBox sx={{ width: 200, p: "0.5rem 1rem" }}>
+								<Tooltip title={zoom} placement="top" arrow>
+									<MUISlider
+										value={zoom}
+										min={1}
+										max={3}
+										step={0.1}
+										onChange={(e, zoom) => setZoom(zoom)}
+										size="small"
+										aria-label="Zoom"
+									/>
+								</Tooltip>
+							</StyledPopoverBox>
+						</PopOver>
+
+						<Tooltip title="Rotate" placement="top" arrow>
+							<StyledIconButton
+								onClick={() => onRotationChange(activeItem?.rotation)}
+							>
+								<ReactIcons.MdCropRotate size={17} />
+							</StyledIconButton>
+						</Tooltip>
+						<Tooltip title="Flip Horizontal" placement="top" arrow>
+							<StyledIconButton onClick={() => handleFlip("Horizontal")}>
+								<ReactIcons.LuFlipHorizontal2 size={17} />
+							</StyledIconButton>
+						</Tooltip>
+						<Tooltip title="Flip Vertical" placement="top" arrow>
+							<StyledIconButton onClick={() => handleFlip("Vertical")}>
+								<ReactIcons.LuFlipVertical2 size={17} />
+							</StyledIconButton>
+						</Tooltip>
+					</Box>
+					<Box>
+						<Tooltip title="Select Multiple Files" placement="top" arrow>
+							<StyledIconButton>
+								<ReactIcons.TbBoxMultiple size={17} />
+							</StyledIconButton>
+						</Tooltip>
+					</Box>
 				</Box>
-				<Box>
-					<Tooltip title="Select Multiple Files" placement="top" arrow>
-						<StyledIconButton>
-							<ReactIcons.TbBoxMultiple size={17} />
-						</StyledIconButton>
-					</Tooltip>
-				</Box>
-			</Box>
+			)}
 		</MainBox>
 	);
 }

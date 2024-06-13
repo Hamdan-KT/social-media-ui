@@ -6,6 +6,7 @@ import {
 	IoInformationCircleOutline,
 	IoChatbubblesOutline,
 	IoArrowBack,
+	IoLocationOutline,
 } from "react-icons/io5";
 import {
 	MdOutlineExplore,
@@ -32,7 +33,7 @@ import {
 	RiBookmarkLine,
 	RiBookmarkFill,
 } from "react-icons/ri";
-import { IoMdImages } from "react-icons/io";
+import { IoMdImages, IoIosArrowDown } from "react-icons/io";
 import {
 	LuSend,
 	LuReply,
@@ -87,6 +88,8 @@ const ReactIcons = {
 	LuFlipVertical2,
 	IoArrowBack,
 	LiaPhotoVideoSolid,
+	IoLocationOutline,
+	IoIosArrowDown,
 };
 
 export default ReactIcons;

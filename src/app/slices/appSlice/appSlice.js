@@ -1,5 +1,7 @@
+import { postStages } from "utils/constants";
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+import _ from "lodash";
 
 const initialState = {
 	postMedias: [
@@ -32,6 +34,11 @@ const initialState = {
 		},
 	],
 	aspectRatio: 1 / 1, //default aspect ratio to post medias
+	postStages: {
+		[postStages.CROP]: true,
+		[postStages.EDIT]: false,
+		[postStages.SHARE]: false,
+	},
 };
 
 export const appSlice = createSlice({
@@ -44,8 +51,16 @@ export const appSlice = createSlice({
 		clearPosts: (state) => {
 			state.postMedias = [];
 		},
+		setPostStages: (state, action) => {
+			// initially setting all values to false
+			state.postStages = _.mapValues(state.postStages, () => false);
+			// set post stage
+			if (action.payload?.type) {
+				state.postStages[action.payload?.type] = action.payload?.value;
+			}
+		},
 		setAspectRatioVal: (state, action) => {
-			state.aspectRatio = action.payload.ratio
+			state.aspectRatio = action.payload.ratio;
 			state.postMedias = state.postMedias?.map((item) => {
 				return {
 					...item,
@@ -113,6 +128,7 @@ export const {
 	setFlipVal,
 	setCroVal,
 	setAspectRatioVal,
+	setPostStages,
 } = appSlice.actions;
 
 export default appSlice.reducer;
