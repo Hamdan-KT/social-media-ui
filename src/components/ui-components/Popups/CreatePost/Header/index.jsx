@@ -2,7 +2,7 @@ import ReactIcons from "utils/ReactIcons";
 import { Box, Typography, styled, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
-import { setPostStages } from "app/slices/appSlice/appSlice";
+import { setPostStages } from "app/slices/postSlice/postSlice";
 
 const StyledHeader = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -18,7 +18,7 @@ const StyledHeader = styled(Box)(({ theme }) => ({
 function CreateHeader() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
-	const postStages = useSelector((state) => state.app.postStages);
+	const postStages = useSelector((state) => state.post.postStages);
 	const statgeArr = [...Object.keys(postStages).map((key) => postStages[key])];
 	console.log({ statgeArr });
 

@@ -11,7 +11,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createURLfromImage } from "utils/common";
 import { v4 as uuidv4 } from "uuid";
-import { loadPosts } from "app/slices/appSlice/appSlice";
+import { loadPosts } from "app/slices/postSlice/postSlice";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "auto",
@@ -29,7 +29,7 @@ const MainBox = styled(Box)(({ theme }) => ({
 function PostSelect() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
-	const aspectRatio = useSelector((state) => state.app.aspectRatio);
+	const aspectRatio = useSelector((state) => state.post.aspectRatio);
 
 	// handle selection of post images
 	const handleSelectPostFile = (e) => {
@@ -43,6 +43,8 @@ function PostSelect() {
 				rotation: 0,
 				flip: { x: 1, y: 1 },
 				aspectRatio,
+				filterClassName: "",
+				customFilters: {},
 			};
 		});
 		dispatch(loadPosts(selectedPosts));

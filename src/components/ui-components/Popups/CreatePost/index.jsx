@@ -30,8 +30,8 @@ const ContentBox = styled(Box)(({ theme }) => ({
 
 function CreatePost({ open = false, onClose }) {
 	const theme = useTheme();
-	const postMedias = useSelector((state) => state.app.postMedias);
-	const postStages = useSelector((state) => state.app.postStages);
+	const postMedias = useSelector((state) => state.post.postMedias);
+	const postStages = useSelector((state) => state.post.postStages);
 
 	return (
 		<CustomModal
@@ -44,8 +44,8 @@ function CreatePost({ open = false, onClose }) {
 				<CreateHeader />
 				<ContentBox>
 					{postMedias?.length !== 0 ? <PostView /> : <PostSelect />}
-					{postStages[ps.EDIT] && <FilterAdjustment />}
-					{postStages[ps.SHARE] && <PostSettings />}
+					<FilterAdjustment />
+					<PostSettings />
 				</ContentBox>
 			</MainBox>
 		</CustomModal>

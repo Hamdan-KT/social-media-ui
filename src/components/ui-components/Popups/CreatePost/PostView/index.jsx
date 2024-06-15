@@ -14,9 +14,9 @@ import Cropper from "react-easy-crop";
 import PopOver from "components/common/Popover";
 import ReactIcons from "utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
-import { setAspectRatioVal } from "app/slices/appSlice/appSlice";
-import { setFlipVal } from "app/slices/appSlice/appSlice";
-import { setRotationVal } from "app/slices/appSlice/appSlice";
+import { setAspectRatioVal } from "app/slices/postSlice/postSlice";
+import { setFlipVal } from "app/slices/postSlice/postSlice";
+import { setRotationVal } from "app/slices/postSlice/postSlice";
 import { postStages as ps } from "utils/constants";
 
 const MainBox = styled(Box)(({ theme }) => ({
@@ -87,9 +87,9 @@ function PostView() {
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = useState(1);
 	const [activeItem, setActiveItem] = useState({});
-	const postMedias = useSelector((state) => state.app.postMedias);
-	const aspectRatio = useSelector((state) => state.app.aspectRatio);
-	const postStages = useSelector((state) => state.app.postStages);
+	const postMedias = useSelector((state) => state.post.postMedias);
+	const aspectRatio = useSelector((state) => state.post.aspectRatio);
+	const postStages = useSelector((state) => state.post.postStages);
 
 	useEffect(() => {
 		console.log(crop);

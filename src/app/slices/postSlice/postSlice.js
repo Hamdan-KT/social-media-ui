@@ -13,6 +13,15 @@ const initialState = {
 			rotation: 0,
 			flip: { x: 1, y: 1 },
 			aspectRatio: 1 / 1,
+			filterClassName: "",
+			customFilters: {
+				Brightness: "",
+				Contrast: "",
+				Fade: "",
+				Saturation: "",
+				Temperature: "",
+				Vignette: "",
+			},
 		},
 		{
 			uID: uuidv4(),
@@ -22,6 +31,15 @@ const initialState = {
 			rotation: 0,
 			flip: { x: 1, y: 1 },
 			aspectRatio: 1 / 1,
+			filterClassName: "",
+			customFilters: {
+				Brightness: "",
+				Contrast: "",
+				Fade: "",
+				Saturation: "",
+				Temperature: "",
+				Vignette: "",
+			},
 		},
 		{
 			uID: uuidv4(),
@@ -31,9 +49,18 @@ const initialState = {
 			rotation: 0,
 			flip: { x: 1, y: 1 },
 			aspectRatio: 1 / 1,
+			filterClassName: "",
+			customFilters: {
+				Brightness: "",
+				Contrast: "",
+				Fade: "",
+				Saturation: "",
+				Temperature: "",
+				Vignette: "",
+			},
 		},
 	],
-	aspectRatio: 1 / 1, //default aspect ratio to post medias
+	aspectRatio: 1 / 1, //default aspect ratio to all post medias
 	postStages: {
 		[postStages.CROP]: true,
 		[postStages.EDIT]: false,
@@ -41,8 +68,8 @@ const initialState = {
 	},
 };
 
-export const appSlice = createSlice({
-	name: "app",
+export const postSlice = createSlice({
+	name: "post",
 	initialState,
 	reducers: {
 		loadPosts: (state, action) => {
@@ -50,6 +77,17 @@ export const appSlice = createSlice({
 		},
 		clearPosts: (state) => {
 			state.postMedias = [];
+		},
+		setFilterClassName: (state, action) => {
+			const index = state.postMedias?.findIndex(
+				(item) => item.uID === action.payload.uID
+			);
+			if (index !== -1) {
+				state.postMedias[index] = {
+					...state.postMedias[index],
+					filterClassName: action.payload.className,
+				};
+			}
 		},
 		setPostStages: (state, action) => {
 			// initially setting all values to false
@@ -129,6 +167,7 @@ export const {
 	setCroVal,
 	setAspectRatioVal,
 	setPostStages,
-} = appSlice.actions;
+	setFilterClassName,
+} = postSlice.actions;
 
-export default appSlice.reducer;
+export default postSlice.reducer;
