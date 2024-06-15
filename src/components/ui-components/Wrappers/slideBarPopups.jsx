@@ -18,10 +18,10 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
   maxHeight: "99vh",
   display: "flex",
   alignItems: "flex-start",
-  padding: "1.3rem 0.8rem",
+  padding: "1.3rem 0.5rem",
   justifyContent: "flex-start",
-  borderTopRightRadius: "50px",
-  borderBottomRightRadius: "50px",
+  borderTopRightRadius: "20px",
+  borderBottomRightRadius: "20px",
 }));
 
 const StyledBox = styled(Box)(({ theme }) => ({

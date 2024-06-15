@@ -1,13 +1,15 @@
-import React from 'react'
-import NotificationList from '../../NotificationList'
+import React from "react";
+import NotificationList from "../../NotificationList";
 import { notifications } from "src/data";
-import { Box, Typography } from '@mui/material';
-import CommentList from '../../CommentList';
+import { Box, Typography } from "@mui/material";
+import CommentList from "../../CommentList";
 
 function NotificationPopUp() {
-  return (
-		<Box sx={{display: "flex", width: "100%", flexDirection: "column"}}>
-			<Typography variant="h4">Notifications</Typography>
+	return (
+		<Box sx={{ display: "flex", width: "100%", flexDirection: "column" }}>
+			<Typography variant="h2" p="0.5rem">
+				Notifications
+			</Typography>
 			<NotificationList
 				data={notifications}
 				actionButton
@@ -17,4 +19,4 @@ function NotificationPopUp() {
 	);
 }
 
-export default NotificationPopUp
+export default NotificationPopUp;

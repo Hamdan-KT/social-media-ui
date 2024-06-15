@@ -11,6 +11,7 @@ import Btn from "components/common/Button";
 import { forwardRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ImgWrapper from "components/common/ImgWrapper";
+import { Typography } from "@mui/material";
 
 function NotificationList({
 	data,
@@ -33,7 +34,7 @@ function NotificationList({
 			dense
 			sx={{
 				width: "100%",
-				maxWidth: 350,
+				maxWidth: 400,
 				bgcolor: theme.palette.background.default,
 				gap: "0.5rem",
 				...sx,
@@ -61,7 +62,13 @@ function NotificationList({
 											<Btn onClick={() => onButtonClick(noti)}>Follow</Btn>
 										)
 									) : noti?.type === "action" ? (
-										<ImgWrapper>
+										<ImgWrapper
+											sx={{
+												borderRadius: "7px",
+												width: "2.5rem",
+												height: "2.5rem",
+											}}
+										>
 											<img
 												style={{
 													display: "block",
@@ -97,13 +104,14 @@ function NotificationList({
 								secondaryTypographyProps={{
 									whiteSpace: "wrap",
 									flexWrap: "wrap",
-									fontSize: 12,
+									fontSize: 14,
 									mr: 6,
 								}}
 								id={labelId}
 								primary={noti[primaryText] ?? noti?.name}
 								secondary={noti[secondaryText]}
-							/>
+							>
+							</ListItemText>
 						</ListItemButton>
 					</ListItem>
 				);

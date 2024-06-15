@@ -1,4 +1,6 @@
 import "./App.css";
+// instagram filter css
+import "src/assets/css/instagramFilters.css";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
 

@@ -30,6 +30,8 @@ function PostSelect() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const aspectRatio = useSelector((state) => state.post.aspectRatio);
+	// const postStates = useSelector((state) => state.post);
+
 
 	// handle selection of post images
 	const handleSelectPostFile = (e) => {

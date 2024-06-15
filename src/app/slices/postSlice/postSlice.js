@@ -60,6 +60,7 @@ const initialState = {
 			},
 		},
 	],
+	activePost: {},
 	aspectRatio: 1 / 1, //default aspect ratio to all post medias
 	postStages: {
 		[postStages.CROP]: true,
@@ -73,20 +74,47 @@ export const postSlice = createSlice({
 	initialState,
 	reducers: {
 		loadPosts: (state, action) => {
+			if (!Array.isArray(action.payload)) {
+				throw new Error(
+					"Posts should be an array of that contain objects of posts with properties!"
+				);
+			}
+			state.activePost = action.payload[0];
 			state.postMedias = action.payload;
 		},
 		clearPosts: (state) => {
+			state.activePost = {};
 			state.postMedias = [];
+		},
+		setActivePost: (state, action) => {
+			state.activePost = action.payload;
 		},
 		setFilterClassName: (state, action) => {
 			const index = state.postMedias?.findIndex(
-				(item) => item.uID === action.payload.uID
+				(item) => item.uID === state.activePost.uID
 			);
 			if (index !== -1) {
 				state.postMedias[index] = {
 					...state.postMedias[index],
 					filterClassName: action.payload.className,
 				};
+				state.activePost = state.postMedias[index];
+			}
+		},
+		setCustomFilter: (state, action) => {
+			const index = state.postMedias?.findIndex(
+				(item) => item.uID === state.activePost.uID
+			);
+			if (index !== -1) {
+				state.postMedias[index] = {
+					...state.postMedias[index],
+					filterClassName: "",
+					customFilters: {
+						...state.postMedias[index].customFilters,
+						[action.payload.filter]: action.payload.value,
+					},
+				};
+				state.activePost = state.postMedias[index];
 			}
 		},
 		setPostStages: (state, action) => {
@@ -109,49 +137,53 @@ export const postSlice = createSlice({
 		setZoomVal: (state, action) => {
 			// state.postMedias = action.payload;
 			const index = state.postMedias?.findIndex(
-				(item) => item.uID === action.payload.uID
+				(item) => item.uID === state.activePost.uID
 			);
 			if (index !== -1) {
 				state.postMedias[index] = {
 					...state.postMedias[index],
 					zoom: action.payload.zoom,
 				};
+				state.activePost = state.postMedias[index];
 			}
 		},
 		setRotationVal: (state, action) => {
 			// state.postMedias = action.payload;
 			const index = state.postMedias?.findIndex(
-				(item) => item.uID === action.payload.uID
+				(item) => item.uID === state.activePost.uID
 			);
 			if (index !== -1) {
 				state.postMedias[index] = {
 					...state.postMedias[index],
 					rotation: action.payload.rotation,
 				};
+				state.activePost = state.postMedias[index];
 			}
 		},
 		setFlipVal: (state, action) => {
 			// state.postMedias = action.payload;
 			const index = state.postMedias?.findIndex(
-				(item) => item.uID === action.payload.uID
+				(item) => item.uID === state.activePost.uID
 			);
 			if (index !== -1) {
 				state.postMedias[index] = {
 					...state.postMedias[index],
 					flip: action.payload.flip,
 				};
+				state.activePost = state.postMedias[index];
 			}
 		},
 		setCroVal: (state, action) => {
 			// state.postMedias = action.payload;
 			const index = state.postMedias?.findIndex(
-				(item) => item.uID === action.payload.uID
+				(item) => item.uID === state.activePost.uID
 			);
 			if (index !== -1) {
 				state.postMedias[index] = {
 					...state.postMedias[index],
 					crop: action.payload.crop,
 				};
+				state.activePost = state.postMedias[index];
 			}
 		},
 	},
@@ -168,6 +200,8 @@ export const {
 	setAspectRatioVal,
 	setPostStages,
 	setFilterClassName,
+	setCustomFilter,
+	setActivePost,
 } = postSlice.actions;
 
 export default postSlice.reducer;

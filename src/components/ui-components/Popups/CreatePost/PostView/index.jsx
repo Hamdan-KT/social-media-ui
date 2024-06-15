@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAspectRatioVal } from "app/slices/postSlice/postSlice";
 import { setFlipVal } from "app/slices/postSlice/postSlice";
 import { setRotationVal } from "app/slices/postSlice/postSlice";
+import { setActivePost } from "app/slices/postSlice/postSlice";
 import { postStages as ps } from "utils/constants";
 
 const MainBox = styled(Box)(({ theme }) => ({
@@ -86,33 +87,28 @@ function PostView() {
 	const dispatch = useDispatch();
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = useState(1);
-	const [activeItem, setActiveItem] = useState({});
-	const postMedias = useSelector((state) => state.post.postMedias);
-	const aspectRatio = useSelector((state) => state.post.aspectRatio);
-	const postStages = useSelector((state) => state.post.postStages);
-
-	useEffect(() => {
-		console.log(crop);
-		console.log(activeItem);
-	}, [crop, activeItem]);
+	const postStates = useSelector((state) => state.post);
 	// refs
 	const aspectRatioMenuRef = useRef();
+
+	// test useEffect
+	useEffect(() => {
+		console.log(crop);
+		console.log(postStates.activePost);
+	}, [crop, postStates.activePost]);
+
 	// handle post slide view change to get current item to manage values for each one
-	const onSlideChange = (activeIndex) => setActiveItem(postMedias[activeIndex]);
+	const onSlideChange = (activeIndex) =>
+		dispatch(setActivePost(postStates.postMedias[activeIndex]));
 	// handling crop
 	const onCropComplete = (croppedArea, croppedAreaPixels) => {
 		console.log(croppedArea, croppedAreaPixels);
 	};
 	// handling media Rotation
 	const onRotationChange = (rotation) => {
-		console.log(rotation);
-		setActiveItem((prev) => ({
-			...prev,
-			rotation: rotation == 360 ? 90 : rotation + 90,
-		}));
 		dispatch(
 			setRotationVal({
-				uID: activeItem?.uID,
+				uID: postStates.activePost?.uID,
 				rotation: rotation == 360 ? 90 : rotation + 90,
 			})
 		);
@@ -120,36 +116,22 @@ function PostView() {
 	// handling media Flip
 	const handleFlip = (type) => {
 		if (type == "Horizontal") {
-			setActiveItem((prev) => ({
-				...prev,
-				flip: {
-					x: activeItem?.flip?.x == 1 ? -1 : 1,
-					y: activeItem?.flip?.y,
-				},
-			}));
 			dispatch(
 				setFlipVal({
-					uID: activeItem?.uID,
+					uID: postStates.activePost?.uID,
 					flip: {
-						x: activeItem?.flip?.x == 1 ? -1 : 1,
-						y: activeItem?.flip?.y,
+						x: postStates.activePost?.flip?.x == 1 ? -1 : 1,
+						y: postStates.activePost?.flip?.y,
 					},
 				})
 			);
 		} else {
-			setActiveItem((prev) => ({
-				...prev,
-				flip: {
-					x: activeItem?.flip?.x,
-					y: activeItem?.flip?.y == 1 ? -1 : 1,
-				},
-			}));
 			dispatch(
 				setFlipVal({
-					uID: activeItem?.uID,
+					uID: postStates.activePost?.uID,
 					flip: {
-						x: activeItem?.flip?.x,
-						y: activeItem?.flip?.y == 1 ? -1 : 1,
+						x: postStates.activePost?.flip?.x,
+						y: postStates.activePost?.flip?.y == 1 ? -1 : 1,
 					},
 				})
 			);
@@ -163,8 +145,8 @@ function PostView() {
 				onSlideChange={onSlideChange}
 				disableDrag={true}
 			>
-				{Array.isArray(postMedias) &&
-					postMedias?.map((media, ind) => (
+				{Array.isArray(postStates.postMedias) &&
+					postStates.postMedias?.map((media, ind) => (
 						<Slide
 							key={media.uID}
 							sx={{
@@ -181,8 +163,8 @@ function PostView() {
 								image={media.url}
 								crop={crop}
 								zoom={zoom}
-								rotation={activeItem?.rotation}
-								aspect={aspectRatio}
+								rotation={postStates.activePost?.rotation}
+								aspect={postStates.aspectRatio}
 								onCropChange={setCrop}
 								onCropComplete={onCropComplete}
 								onZoomChange={setZoom}
@@ -194,11 +176,14 @@ function PostView() {
 										scale: `${media.flip.x} ${media.flip.y}`,
 									},
 								}}
+								classes={{
+									mediaClassName: media.filterClassName,
+								}}
 							/>
 						</Slide>
 					))}
 			</Slider>
-			{postStages[ps.CROP] && (
+			{postStates.postStages[ps.CROP] && (
 				<Box
 					sx={{
 						display: "flex",
@@ -267,7 +252,9 @@ function PostView() {
 
 						<Tooltip title="Rotate" placement="top" arrow>
 							<StyledIconButton
-								onClick={() => onRotationChange(activeItem?.rotation)}
+								onClick={() =>
+									onRotationChange(postStates.activePost?.rotation)
+								}
 							>
 								<ReactIcons.MdCropRotate size={17} />
 							</StyledIconButton>

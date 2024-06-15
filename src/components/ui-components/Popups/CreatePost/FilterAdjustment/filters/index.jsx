@@ -1,8 +1,18 @@
 import { defaultSpacing } from "utils/constants";
-import { Box, Divider, Grid, Typography, styled, useTheme } from "@mui/material";
+import {
+	Box,
+	Divider,
+	Grid,
+	Typography,
+	styled,
+	useTheme,
+} from "@mui/material";
 import React, { useState } from "react";
 import filterDefaultImg from "assets/images/filtersDefault.jpeg";
 import MuiIOSSlider from "components/common/formInputs/Slider";
+import { useDispatch, useSelector } from "react-redux";
+import { InstagramFilters } from "src/utils/filters";
+import { setFilterClassName } from "app/slices/postSlice/postSlice";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -39,16 +49,20 @@ const SliderWrapper = styled(Box)(({ theme }) => ({
 }));
 
 function MediaFilters() {
-	const theme = useTheme()
-	const [activeFilter, setActiveFilter] = useState(0);
+	const theme = useTheme();
+	const dispatch = useDispatch();
+	const postStates = useSelector((state) => state.post);
+
 	return (
 		<ContentBox>
 			<Grid container spacing={2.5}>
-				{Array.from({ length: 12 }).map((item, index) => (
+				{InstagramFilters.map((filter, index) => (
 					<Grid item xs={4} key={index}>
 						<ContentBox
 							sx={{ padding: 0, cursor: "pointer" }}
-							onClick={() => setActiveFilter(index)}
+							onClick={() => {
+								dispatch(setFilterClassName({ className: filter.class }));
+							}}
 						>
 							<img
 								src={filterDefaultImg}
@@ -57,13 +71,22 @@ function MediaFilters() {
 									display: "block",
 									borderRadius: "4px",
 									width: "100%",
-									border: index === activeFilter ? "2.4px solid black" : "",
+									border:
+										filter.class === postStates.activePost.filterClassName
+											? "2.4px solid black"
+											: "",
 								}}
+								className={`${filter.class}`}
 							/>
 							<FilterText
-								sx={{ fontWeight: index === activeFilter ? "bold" : "" }}
+								sx={{
+									fontWeight:
+										filter.class === postStates.activePost.filterClassName
+											? "bold"
+											: "",
+								}}
 							>
-								Aden
+								{filter?.name}
 							</FilterText>
 						</ContentBox>
 					</Grid>

@@ -1,6 +1,7 @@
 import MuiIOSSlider from "components/common/formInputs/Slider";
 import { Box, Typography, styled } from "@mui/material";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -26,6 +27,8 @@ const SliderWrapper = styled(Box)(({ theme }) => ({
 }));
 
 function EditPanel() {
+	const postStates = useSelector((state) => state.post);
+
 	return (
 		<ContentBox>
 			<SliderWrapper>

@@ -40,12 +40,12 @@ const ItemsWrapper = styled(Box)(({ theme, hoverEffect }) => ({
 }));
 
 function PostSettings() {
-	const postStages = useSelector((state) => state.post.postStages);
+	const postStates = useSelector((state) => state.post);
 	const [openADVsettings, setOpenADVsettings] = useState(false);
 
 	return (
-		<Collapse in={postStages[ps.SHARE]} orientation="horizontal">
-			{postStages[ps.SHARE] && (
+		<Collapse in={postStates.postStages[ps.SHARE]} orientation="horizontal">
+			{postStates.postStages[ps.SHARE] && (
 				<ContentBox className="scrollbar-hide">
 					<Box
 						sx={{

@@ -31,7 +31,8 @@ const ContentBox = styled(Box)(({ theme }) => ({
 function CreatePost({ open = false, onClose }) {
 	const theme = useTheme();
 	const postMedias = useSelector((state) => state.post.postMedias);
-	const postStages = useSelector((state) => state.post.postStages);
+	// const postStates = useSelector((state) => state.post);
+
 
 	return (
 		<CustomModal
