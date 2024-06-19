@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createURLfromImage } from "utils/common";
+import { fileToDataURL, createURLfromImage } from "utils/common";
 import { v4 as uuidv4 } from "uuid";
 import { loadPosts } from "app/slices/postSlice/postSlice";
 
@@ -32,7 +32,6 @@ function PostSelect() {
 	const aspectRatio = useSelector((state) => state.post.aspectRatio);
 	// const postStates = useSelector((state) => state.post);
 
-
 	// handle selection of post images
 	const handleSelectPostFile = (e) => {
 		const files = e.target.files;
@@ -40,13 +39,22 @@ function PostSelect() {
 			return {
 				uID: uuidv4(),
 				url: createURLfromImage(files[key]),
+				croppedUrl: "",
+				croppedAreaPixels: {},
 				crop: { x: 0, y: 0 },
 				zoom: 1,
 				rotation: 0,
 				flip: { x: 1, y: 1 },
 				aspectRatio,
 				filterClassName: "",
-				customFilters: {},
+				customFilters: {
+					Brightness: 0,
+					Contrast: 0,
+					Fade: 0,
+					Saturation: 0,
+					Temperature: 0,
+					Vignette: 0,
+				},
 			};
 		});
 		dispatch(loadPosts(selectedPosts));

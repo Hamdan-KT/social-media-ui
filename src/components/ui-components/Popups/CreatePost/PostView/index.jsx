@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Slider from "components/common/Carousel/Carousel";
 import Slide from "components/common/Carousel/Slide";
 import {
@@ -9,15 +10,20 @@ import {
 	styled,
 	useTheme,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 import PopOver from "components/common/Popover";
 import ReactIcons from "utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
-import { setAspectRatioVal } from "app/slices/postSlice/postSlice";
-import { setFlipVal } from "app/slices/postSlice/postSlice";
-import { setRotationVal } from "app/slices/postSlice/postSlice";
-import { setActivePost } from "app/slices/postSlice/postSlice";
+import {
+	setAspectRatioVal,
+	setCroppedAreaPixels,
+	setFlipVal,
+	setRotationVal,
+	setActivePost,
+	setCropVal,
+	setZoomVal,
+} from "app/slices/postSlice/postSlice";
 import { postStages as ps } from "utils/constants";
 
 const MainBox = styled(Box)(({ theme }) => ({
@@ -85,25 +91,29 @@ const aspectRatios = [
 function PostView() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
-	const [crop, setCrop] = useState({ x: 0, y: 0 });
-	const [zoom, setZoom] = useState(1);
 	const postStates = useSelector((state) => state.post);
 	// refs
 	const aspectRatioMenuRef = useRef();
 
 	// test useEffect
 	useEffect(() => {
-		console.log(crop);
+		console.log(postStates.activePost?.crop);
 		console.log(postStates.activePost);
-	}, [crop, postStates.activePost]);
+	}, [postStates.activePost?.flip, postStates.activePost]);
 
 	// handle post slide view change to get current item to manage values for each one
 	const onSlideChange = (activeIndex) =>
 		dispatch(setActivePost(postStates.postMedias[activeIndex]));
 	// handling crop
-	const onCropComplete = (croppedArea, croppedAreaPixels) => {
+	const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
 		console.log(croppedArea, croppedAreaPixels);
-	};
+		dispatch(
+			setCroppedAreaPixels({
+				uID: postStates.activePost?.uID,
+				croppedAreaPixels,
+			})
+		);
+	}, []);
 	// handling media Rotation
 	const onRotationChange = (rotation) => {
 		dispatch(
@@ -157,29 +167,51 @@ function PostView() {
 								alignItems: "center",
 								justifyContent: "center",
 								position: "relative",
+								overflow: "hidden",
+								background: "black",
 							}}
 						>
-							<Cropper
-								image={media.url}
-								crop={crop}
-								zoom={zoom}
-								rotation={postStates.activePost?.rotation}
-								aspect={postStates.aspectRatio}
-								onCropChange={setCrop}
-								onCropComplete={onCropComplete}
-								onZoomChange={setZoom}
-								style={{
-									containerStyle: {
-										background: "black",
-									},
-									mediaStyle: {
-										scale: `${media.flip.x} ${media.flip.y}`,
-									},
-								}}
-								classes={{
-									mediaClassName: media.filterClassName,
-								}}
-							/>
+							{postStates.postStages[ps.CROP] ? (
+								<Cropper
+									image={media.url}
+									crop={postStates.activePost?.crop}
+									zoom={postStates.activePost?.zoom}
+									rotation={postStates.activePost?.rotation}
+									aspect={postStates.aspectRatio}
+									onCropComplete={onCropComplete}
+									onCropChange={(crop) => {
+										dispatch(
+											setCropVal({ uID: postStates.activePost?.uID, crop })
+										);
+									}}
+									onZoomChange={(zoom) => {
+										dispatch(
+											setZoomVal({ uID: postStates.activePost?.uID, zoom })
+										);
+									}}
+									style={{
+										containerStyle: {
+											background: "black",
+										},
+										mediaStyle: {
+											scale: `${media.flip?.x} ${media.flip?.y}`,
+										},
+									}}
+								/>
+							) : (
+								<img
+									draggable={false}
+									src={media?.url}
+									className={media.filterClassName}
+									style={{
+										display: "block",
+										height: "100%",
+										width: "100%",
+										objectFit: "contain",
+										scale: `${media.flip?.x} ${media.flip?.y}`,
+									}}
+								/>
+							)}
 						</Slide>
 					))}
 			</Slider>
@@ -236,13 +268,21 @@ function PostView() {
 							}
 						>
 							<StyledPopoverBox sx={{ width: 200, p: "0.5rem 1rem" }}>
-								<Tooltip title={zoom} placement="top" arrow>
+								<Tooltip
+									title={postStates.activePost?.zoom}
+									placement="top"
+									arrow
+								>
 									<MUISlider
-										value={zoom}
+										value={postStates.activePost?.zoom}
 										min={1}
 										max={3}
 										step={0.1}
-										onChange={(e, zoom) => setZoom(zoom)}
+										onChange={(e, zoom) =>
+											dispatch(
+												setZoomVal({ uID: postStates.activePost?.uID, zoom })
+											)
+										}
 										size="small"
 										aria-label="Zoom"
 									/>

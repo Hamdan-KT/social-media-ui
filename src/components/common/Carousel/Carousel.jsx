@@ -108,7 +108,7 @@ const Slider = ({
 				drag={disableDrag ? "" : "x"}
 				dragConstraints={disableDrag ? {} : { left: 0, right: 0 }}
 				animate={{
-					translateX: `-${activeIndex * 99.95}%`,
+					translateX: `-${activeIndex * 100}%`,
 				}}
 				transition={SPRING_OPTIONS}
 				onDragEnd={!disableDrag && onDragEnd}

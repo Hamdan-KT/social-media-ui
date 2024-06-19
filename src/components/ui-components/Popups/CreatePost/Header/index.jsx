@@ -19,9 +19,7 @@ function CreateHeader() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const postStages = useSelector((state) => state.post.postStages);
-	const statgeArr = [...Object.keys(postStages).map((key) => postStages[key])];
-	console.log({ statgeArr });
-
+	
 	const handleStageChange = (type = "next") => {
 		if (type === "next") {
 			if (postStages[ps.CROP]) {

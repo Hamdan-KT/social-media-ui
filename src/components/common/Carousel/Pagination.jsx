@@ -13,9 +13,9 @@ const ActiveIndex = styled(Box)({
 	gap: "0.3rem",
 });
 
-const ActiveIndexItem = styled(Box)(({ active }) => ({
+const ActiveIndexItem = styled(Box)(({ theme,active }) => ({
 	padding: "4px",
-	backgroundColor: active ? "#ffff" : "rgba(202, 202, 202, 0.61)",
+	backgroundColor: active ? theme.palette.primary.main : "rgba(202, 202, 202, 0.61)",
 	borderRadius: "50%",
 	cursor: "pointer",
 }));
