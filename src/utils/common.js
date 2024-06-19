@@ -29,31 +29,40 @@ export const createURLfromImage = (imgFile) => {
 };
 
 export const getCroppedImg = (imageSrc, crop) => {
-	const image = new Image();
-	image.src = imageSrc;
-	const canvas = document.createElement("canvas");
-	const ctx = canvas.getContext("2d");
+	return new Promise((resolve, reject) => {
+		const image = new Image();
+		image.src = imageSrc;
 
-	canvas.width = crop.width;
-	canvas.height = crop.height;
+		image.onload = () => {
+			const canvas = document.createElement("canvas");
+			const ctx = canvas.getContext("2d");
 
-	image.onload = () => {
-		ctx.drawImage(
-			image,
-			crop.x,
-			crop.y,
-			crop.width,
-			crop.height,
-			0,
-			0,
-			crop.width,
-			crop.height
-		);
-	};
+			canvas.width = crop.width;
+			canvas.height = crop.height;
 
-	return new Promise((resolve) => {
-		canvas.toBlob((blob) => {
-			resolve(URL.createObjectURL(blob));
-		}, "image/png");
+			ctx.drawImage(
+				image,
+				crop.x,
+				crop.y,
+				crop.width,
+				crop.height,
+				0,
+				0,
+				crop.width,
+				crop.height
+			);
+
+			canvas.toBlob((blob) => {
+				if (!blob) {
+					reject(new Error("Canvas is empty"));
+					return;
+				}
+				resolve(URL.createObjectURL(blob));
+			}, "image/png");
+		};
+
+		image.onerror = (error) => {
+			reject(error);
+		};
 	});
 };

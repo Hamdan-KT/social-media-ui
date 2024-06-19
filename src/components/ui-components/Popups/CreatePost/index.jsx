@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FilterAdjustment from "./FilterAdjustment";
 import PostSettings from "./PostSettings";
 import { postStages as ps } from "utils/constants";
+import { clearPosts } from "app/slices/postSlice/postSlice";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "max-content",
@@ -30,6 +31,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
 
 function CreatePost({ open = false, onClose }) {
 	const theme = useTheme();
+	const dispatch = useDispatch()
 	const postMedias = useSelector((state) => state.post.postMedias);
 	// const postStates = useSelector((state) => state.post);
 
@@ -39,7 +41,10 @@ function CreatePost({ open = false, onClose }) {
 			sx={{ background: "rgba(0, 0, 0, 0.3)" }}
 			closeIcon={true}
 			open={open}
-			onClose={onClose}
+			onClose={() => {
+				onClose();
+				dispatch(clearPosts());
+			}}
 		>
 			<MainBox>
 				<CreateHeader />

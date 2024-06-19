@@ -201,7 +201,7 @@ function PostView() {
 							) : (
 								<img
 									draggable={false}
-									src={media?.url}
+									src={media?.croppedUrl}
 									className={media.filterClassName}
 									style={{
 										display: "block",

@@ -1,8 +1,10 @@
 import ReactIcons from "utils/ReactIcons";
-import { Box, Typography, styled, useTheme } from "@mui/material";
+import { Box, CircularProgress, Typography, styled, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
-import { setPostStages } from "app/slices/postSlice/postSlice";
+import { setPostStages, cropPosts } from "app/slices/postSlice/postSlice";
+import { getCroppedImg } from "utils/common";
+import { useState } from "react";
 
 const StyledHeader = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -18,19 +20,36 @@ const StyledHeader = styled(Box)(({ theme }) => ({
 function CreateHeader() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
-	const postStages = useSelector((state) => state.post.postStages);
-	
+	const postStates = useSelector((state) => state.post);
+	const [loading, setLoading] = useState(false)
+
+	// set cropped media to redux
+	const handleCrop = async (postMedias) => {
+		setLoading(true);
+		await Promise.all(
+			postMedias?.map(async (media) => ({
+				...media,
+				croppedUrl: await getCroppedImg(media?.url, media.croppedAreaPixels),
+			}))
+		).then((result) => {
+			setLoading(false);
+			return dispatch(cropPosts(result));
+		}).catch((error) => {
+			setLoading(false)
+		})
+	};
+
 	const handleStageChange = (type = "next") => {
 		if (type === "next") {
-			if (postStages[ps.CROP]) {
-				dispatch(setPostStages({ type: ps.EDIT, value: true }));
-			} else if (postStages[ps.EDIT]) {
+			if (postStates?.postStages[ps.CROP]) {
+				handleCrop(postStates?.postMedias);
+			} else if (postStates?.postStages[ps.EDIT]) {
 				dispatch(setPostStages({ type: ps.SHARE, value: true }));
 			} else return;
 		} else {
-			if (postStages[ps.SHARE]) {
+			if (postStates?.postStages[ps.SHARE]) {
 				dispatch(setPostStages({ type: ps.EDIT, value: true }));
-			} else if (postStages[ps.EDIT]) {
+			} else if (postStates?.postStages[ps.EDIT]) {
 				dispatch(setPostStages({ type: ps.CROP, value: true }));
 			} else return;
 		}
@@ -43,27 +62,31 @@ function CreateHeader() {
 				onClick={() => handleStageChange("prev")}
 			/>
 			<Typography variant="h4">
-				{postStages[ps.CROP]
+				{postStates?.postStages[ps.CROP]
 					? "Crop"
-					: postStages[ps.EDIT]
+					: postStates?.postStages[ps.EDIT]
 					? "Edit"
-					: postStages[ps.SHARE]
+					: postStates?.postStages[ps.SHARE]
 					? "Share"
 					: ""}
 			</Typography>
-			<Typography
-				variant="body"
-				sx={{
-					cursor: "pointer",
-					padding: "0 0.3rem",
-					fontWeight: 600,
-					"&:hover": { color: theme.palette.text.primary },
-				}}
-				color={theme.palette.primary.main}
-				onClick={() => handleStageChange("next")}
-			>
-				{postStages[ps.SHARE] ? "Share" : "Next"}
-			</Typography>
+			{loading ? (
+				<CircularProgress thickness={6} size={20} />
+			) : (
+				<Typography
+					variant="body"
+					sx={{
+						cursor: "pointer",
+						padding: "0 0.3rem",
+						fontWeight: 600,
+						"&:hover": { color: theme.palette.text.primary },
+					}}
+					color={theme.palette.primary.main}
+					onClick={() => handleStageChange("next")}
+				>
+					{postStates?.postStages[ps.SHARE] ? "Share" : "Next"}
+				</Typography>
+			)}
 		</StyledHeader>
 	);
 }
