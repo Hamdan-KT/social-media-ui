@@ -1,7 +1,8 @@
-import MuiIOSSlider from "components/common/formInputs/Slider";
+import MuiIOSSlider from "components/common/FormInputs/Slider";
 import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { editingSlidersConfig } from "utils/constants";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -31,60 +32,17 @@ function EditPanel() {
 
 	return (
 		<ContentBox>
-			<SliderWrapper>
-				<Typography mb={3} fontWeight={600}>
-					Brightness
-				</Typography>
-				<MuiIOSSlider
-					defaultValue={50}
-					valueLabelDisplay="on"
-				/>
-			</SliderWrapper>
-			<SliderWrapper>
-				<Typography mb={3} fontWeight={600}>
-					Contrast
-				</Typography>
-				<MuiIOSSlider
-					defaultValue={50}
-					valueLabelDisplay="on"
-				/>
-			</SliderWrapper>
-			<SliderWrapper>
-				<Typography mb={3} fontWeight={600}>
-					Fade
-				</Typography>
-				<MuiIOSSlider
-					defaultValue={50}
-					valueLabelDisplay="on"
-				/>
-			</SliderWrapper>
-			<SliderWrapper>
-				<Typography mb={3} fontWeight={600}>
-					Saturation
-				</Typography>
-				<MuiIOSSlider
-					defaultValue={50}
-					valueLabelDisplay="on"
-				/>
-			</SliderWrapper>
-			<SliderWrapper>
-				<Typography mb={3} fontWeight={600}>
-					Temperature
-				</Typography>
-				<MuiIOSSlider
-					defaultValue={50}
-					valueLabelDisplay="on"
-				/>
-			</SliderWrapper>
-			<SliderWrapper>
-				<Typography mb={3} fontWeight={600}>
-					Vignette
-				</Typography>
-				<MuiIOSSlider
-					defaultValue={50}
-					valueLabelDisplay="on"
-				/>
-			</SliderWrapper>
+			{editingSlidersConfig.map((slider, index) => (
+				<SliderWrapper key={slider.id}>
+					<Typography mb={3} fontWeight={600}>
+						{slider.label}
+					</Typography>
+					<MuiIOSSlider
+						defaultValue={slider.defaultValue}
+						valueLabelDisplay="on"
+					/>
+				</SliderWrapper>
+			))}
 		</ContentBox>
 	);
 }

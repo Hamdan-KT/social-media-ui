@@ -23,6 +23,7 @@ export const BottomBarMenuList = [
 		title: "Create",
 		icon: ReactIcons.RiAddBoxFill,
 		outLinedIcon: ReactIcons.RiAddBoxLine,
+		popup: true,
 	},
 	{
 		id: "reels",

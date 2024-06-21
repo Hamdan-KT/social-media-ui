@@ -15,7 +15,6 @@ const Messages = Loadable(lazy(() => import("views/Messages")));
 const Reels = Loadable(lazy(() => import("views/Reels")));
 const Profile = Loadable(lazy(() => import("views/Profile")));
 const Notifications = Loadable(lazy(() => import("views/Notifications")));
-
 // Sub windows
 const ChatLayout = Loadable(lazy(() => import("views/Messages/chatLayout")));
 
@@ -58,6 +57,7 @@ const MainRoutes = () => {
 				path: RoutePath.NOTIFICATIONS,
 				element: <Notifications />,
 			},
+			
 		],
 	};
 };

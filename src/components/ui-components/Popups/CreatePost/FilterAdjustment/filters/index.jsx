@@ -72,7 +72,7 @@ function MediaFilters() {
 									borderRadius: "4px",
 									width: "100%",
 									border:
-										filter.class === postStates.activePost.filterClassName
+										filter.class === postStates?.activePost?.filterClassName
 											? "2.4px solid black"
 											: "",
 								}}
@@ -81,7 +81,7 @@ function MediaFilters() {
 							<FilterText
 								sx={{
 									fontWeight:
-										filter.class === postStates.activePost.filterClassName
+										filter.class === postStates?.activePost?.filterClassName
 											? "bold"
 											: "",
 								}}

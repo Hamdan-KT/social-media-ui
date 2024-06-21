@@ -1,3 +1,5 @@
+import ReactIcons from "./ReactIcons";
+
 export const drawerWidth = 250;
 export const defaultSpacing = 2;
 
@@ -18,3 +20,55 @@ export const postStages = {
 	EDIT: "edit",
 	SHARE: "share",
 };
+
+export const editingSlidersConfig = [
+	{
+		id: "Brightness",
+		label: "Brightness",
+		min: 0,
+		max: 100,
+		defaultValue: 50,
+		Icon: ReactIcons.BsBrightnessHigh,
+	},
+	{
+		id: "Contrast",
+		label: "Contrast",
+		min: 0,
+		max: 100,
+		defaultValue: 50,
+		Icon: ReactIcons.IoContrast,
+	},
+	{
+		id: "Saturation",
+		label: "Saturation",
+		min: 0,
+		max: 100,
+		defaultValue: 50,
+		Icon: ReactIcons.MdOutlineWaterDrop,
+	},
+	{
+		id: "Fade",
+		label: "Fade",
+		min: 0,
+		max: 100,
+		defaultValue: 50,
+		Icon: ReactIcons.LuCloudy,
+	},
+
+	{
+		id: "Temperature",
+		label: "Temperature",
+		min: 0,
+		max: 100,
+		defaultValue: 50,
+		Icon: ReactIcons.BsThermometerHalf,
+	},
+	{
+		id: "Vignette",
+		label: "Vignette",
+		min: 0,
+		max: 100,
+		defaultValue: 50,
+		Icon: ReactIcons.BsVignette,
+	},
+];

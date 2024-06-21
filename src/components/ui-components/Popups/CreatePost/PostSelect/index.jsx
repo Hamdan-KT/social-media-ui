@@ -7,9 +7,8 @@ import {
 	styled,
 	useTheme,
 } from "@mui/material";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fileToDataURL, createURLfromImage } from "utils/common";
+import { createURLfromImage } from "utils/common";
 import { v4 as uuidv4 } from "uuid";
 import { loadPosts } from "app/slices/postSlice/postSlice";
 
@@ -48,10 +47,10 @@ function PostSelect() {
 				aspectRatio,
 				filterClassName: "",
 				customFilters: {
-					Brightness: 0,
+					Brightness: 100,
 					Contrast: 0,
+					Saturation: 100,
 					Fade: 0,
-					Saturation: 0,
 					Temperature: 0,
 					Vignette: 0,
 				},

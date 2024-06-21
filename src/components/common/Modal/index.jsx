@@ -2,11 +2,12 @@ import * as React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Fade, Zoom, styled } from "@mui/material";
+import { Fade, Zoom, styled, useTheme } from "@mui/material";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRef } from "react";
 import { useEffect } from "react";
+import ReactIcons from "utils/ReactIcons";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -27,6 +28,7 @@ function CustomModal({
 	closeIcon = false,
 	sx = {},
 }) {
+	const theme = useTheme()
 	return (
 		<Modal
 			aria-labelledby="transition-modal-title"
@@ -48,15 +50,15 @@ function CustomModal({
 				{closeIcon ? (
 					<MainBox>
 						{closeIcon && (
-							<CloseIcon
-								sx={(theme) => ({
+							<ReactIcons.IoClose
+								style={{
 									position: "absolute",
 									left: "0.3rem",
 									top: "0.3rem",
 									color: theme.palette.background.paper,
 									cursor: "pointer",
 									fontSize: "2rem",
-								})}
+								}}
 								onClick={onClose}
 							/>
 						)}

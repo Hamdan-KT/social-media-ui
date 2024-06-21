@@ -6,7 +6,10 @@ import {
 	IoInformationCircleOutline,
 	IoChatbubblesOutline,
 	IoArrowBack,
+	IoArrowForward,
 	IoLocationOutline,
+	IoClose,
+	IoContrast,
 } from "react-icons/io5";
 import {
 	MdOutlineExplore,
@@ -15,6 +18,9 @@ import {
 	MdCropPortrait,
 	MdCropDin,
 	MdCrop32,
+	MdOutlineGridOn,
+	MdOutlineAddCircleOutline,
+	MdOutlineWaterDrop,
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
 import {
@@ -41,10 +47,18 @@ import {
 	LuFlipHorizontal2,
 	LuCrop,
 	LuFlipVertical2,
+	LuCloudy,
 } from "react-icons/lu";
 import { FaRegImage } from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
 import { LiaPhotoVideoSolid } from "react-icons/lia";
+import {
+	BsBrightnessHigh,
+	BsThermometerHalf,
+	BsVignette,
+} from "react-icons/bs";
+import { SiTicktick } from "react-icons/si";
+
 
 
 const ReactIcons = {
@@ -90,6 +104,17 @@ const ReactIcons = {
 	LiaPhotoVideoSolid,
 	IoLocationOutline,
 	IoIosArrowDown,
+	IoClose,
+	MdOutlineGridOn,
+	MdOutlineAddCircleOutline,
+	IoArrowForward,
+	BsBrightnessHigh,
+	IoContrast,
+	LuCloudy,
+	MdOutlineWaterDrop,
+	BsThermometerHalf,
+	BsVignette,
+	SiTicktick,
 };
 
 export default ReactIcons;
