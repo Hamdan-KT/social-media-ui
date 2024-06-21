@@ -23,7 +23,7 @@ const ScrollBox = styled(Box)(({ theme }) => ({
 }));
 
 const ContentBox = styled(Box)(({ theme }) => ({
-	minWidth: "6.5rem",
+	minWidth: "5.5rem",
 	height: "8.5rem",
 	display: "flex",
 	gap: "0.5rem",
@@ -46,7 +46,7 @@ const FilterText = styled(Typography)(({ theme }) => ({
 
 const IconBox = styled(Box)(({ theme }) => ({
 	width: "100%",
-	height: "6.5rem",
+	height: "5.5rem",
 	display: "flex",
 	border: `2px solid ${theme.palette.grey[300]}`,
 	background: theme.palette.background.paper,
@@ -127,7 +127,7 @@ function PostEditorMobile({ setHideOptions }) {
 							>
 								<FilterText>{editSlider?.label}</FilterText>
 								<IconBox>
-									<Icon size={60} />
+									<Icon size={50} />
 								</IconBox>
 							</ContentBox>
 						);
