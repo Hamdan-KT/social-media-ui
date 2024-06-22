@@ -7,10 +7,10 @@ import { chatData } from "src/data";
 import Chat from "../chat";
 
 function ChatLayout() {
-  const theme = useTheme();
-  const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
+	const theme = useTheme();
+	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 
-  return (
+	return (
 		<motion.div
 			initial={{ width: matchDownMd && 0 }}
 			animate={{ width: matchDownMd && "100%" }}
@@ -23,6 +23,7 @@ function ChatLayout() {
 						sx={{
 							width: "100%",
 							position: "relative",
+							padding: 0,
 						}}
 					>
 						{/* message header */}
@@ -33,13 +34,13 @@ function ChatLayout() {
 					<Box
 						sx={{
 							overflowX: "hidden",
-							mt: { xs: 7, sm: 6, md: 8 },
+							mt: { xs: 6, sm: 6, md: 8 },
 							height: {
 								md: `calc(100vh - 165px)`,
 							},
 							maxHeight: { xs: `100%`, md: `calc(100vh - 165px)` },
 							overflowY: { md: "scroll" },
-							p: { xs: 0.5, sm: 1},
+							p: { xs: 0.5, sm: 1 }, 
 						}}
 					>
 						{/* chats will render heare */}

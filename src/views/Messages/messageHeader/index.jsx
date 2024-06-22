@@ -22,7 +22,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     position: "fixed",
-    padding: "0.5rem",
+    padding: "0rem 0.5rem",
     width: `100%`,
     marginLeft: 0,
   },

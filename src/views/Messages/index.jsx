@@ -96,12 +96,13 @@ function Messages() {
 						sx={{
 							width: "100%",
 							position: "relative",
+							padding: 0,
 						}}
 					>
 						{/* message header */}
 						{!matchDownMd && <MessageHeader />}
 					</Box>
-					<Box sx={{ mt: 8 }}>
+					<Box sx={{ mt: 6 }}>
 						<MobileSearchBar />
 						<Box
 							sx={{
@@ -136,7 +137,7 @@ function Messages() {
 										borderRadius: "8px",
 										userSelect: "none",
 										cursor: "pointer",
-										fontWeight: "medium"
+										fontWeight: "medium",
 									}}
 									onClick={() => {
 										setActiveSection(item);
@@ -147,7 +148,7 @@ function Messages() {
 							))}
 						</Box>
 						<Box sx={{ width: "100%" }}>
-							<StyledScrollBox className="scrollbar-hide" sx={{mt: 0.5}}>
+							<StyledScrollBox className="scrollbar-hide" sx={{ mt: 0.5 }}>
 								<MessageList
 									data={Users}
 									sx={{ maxWidth: "100%" }}
