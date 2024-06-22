@@ -55,6 +55,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	zIndex: 7,
 	top: 0,
 	left: 0,
+	borderBottom: `1px solid ${theme.palette.grey[400]}`,
 }));
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -181,8 +182,8 @@ function PostViewMobile() {
 		)
 			.then((result) => {
 				setLoading(false);
-                dispatch(cropPosts(result));
-                return navigate(`/${RoutePath.CREATE}/${RoutePath.EDIT}`);
+				dispatch(cropPosts(result));
+				return navigate(`/${RoutePath.CREATE}/${RoutePath.EDIT}`);
 			})
 			.catch((error) => {
 				setLoading(false);

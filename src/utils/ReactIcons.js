@@ -21,6 +21,7 @@ import {
 	MdOutlineGridOn,
 	MdOutlineAddCircleOutline,
 	MdOutlineWaterDrop,
+	MdNavigateNext,
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
 import {
@@ -115,6 +116,7 @@ const ReactIcons = {
 	BsThermometerHalf,
 	BsVignette,
 	SiTicktick,
+	MdNavigateNext
 };
 
 export default ReactIcons;

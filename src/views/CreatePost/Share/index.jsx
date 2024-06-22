@@ -4,14 +4,19 @@ import {
 	Box,
 	Collapse,
 	Divider,
+	IconButton,
 	TextField,
+	Toolbar,
 	Typography,
 	styled,
+	useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
 import MUISwitch from "components/common/formInputs/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
+import { useNavigate } from "react-router";
+import { RoutePath } from "utils/routes";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -39,12 +44,53 @@ const ItemsWrapper = styled(Box)(({ theme, hoverEffect }) => ({
 	},
 }));
 
+const StyledToolBar = styled(Toolbar)(({ theme }) => ({
+	display: "flex",
+	width: "100%",
+	alignItems: "center",
+	justifyContent: "space-between",
+	padding: "0.2em",
+	backgroundColor: theme.palette.background.default,
+	position: "fixed",
+	zIndex: 7,
+	top: 0,
+	left: 0,
+	borderBottom: `1px solid ${theme.palette.grey[400]}`,
+}));
+
 function PostSettingsMobile() {
 	const postStates = useSelector((state) => state.post);
 	const [openADVsettings, setOpenADVsettings] = useState(false);
+	const navigate = useNavigate();
+	const theme = useTheme();
 
 	return (
 		<ContentBox className="scrollbar-hide">
+			{/* header */}
+			<StyledToolBar>
+				<IconButton
+					size="large"
+					sx={{ padding: 0 }}
+					color="inherit"
+					onClick={() => navigate(-1)}
+				>
+					<ReactIcons.IoClose style={{ fontSize: "2rem", cursor: "pointer" }} />
+				</IconButton>
+				<Typography variant="h4">New post</Typography>
+				<Typography
+					variant="body"
+					sx={{
+						cursor: "pointer",
+						padding: "0 0.3rem",
+						fontWeight: 600,
+						"&:hover": { color: theme.palette.text.primary },
+					}}
+					color={theme.palette.primary.main}
+				>
+					Share
+				</Typography>
+			</StyledToolBar>
+			{/* contents */}
 			<Box
 				sx={{
 					display: "flex",
@@ -53,6 +99,7 @@ function PostSettingsMobile() {
 					width: "100%",
 					alignItems: "center",
 					justifyContent: "start",
+					mt: 6,
 				}}
 			>
 				<Avatar
@@ -76,13 +123,22 @@ function PostSettingsMobile() {
 				<ReactIcons.IoLocationOutline size={20} />
 			</ItemsWrapper>
 			<ItemsWrapper
+				hoverEffect={true}
+				onClick={() => navigate(`/${RoutePath.CREATE}/${RoutePath.TAG}`)}
+			>
+				<Typography variant="body" sx={{ fontWeight: "medium" }}>
+					Tag People
+				</Typography>
+				<ReactIcons.MdNavigateNext size={26} />
+			</ItemsWrapper>
+			<ItemsWrapper
 				onClick={() => setOpenADVsettings(!openADVsettings)}
 				hoverEffect={true}
 			>
 				<Typography variant="body" sx={{ fontWeight: "medium" }}>
 					Advanced Settings
 				</Typography>
-				<ReactIcons.IoIosArrowDown size={20} />
+				<ReactIcons.MdNavigateNext size={26} />
 			</ItemsWrapper>
 			<Collapse in={openADVsettings} timeout={300} sx={{ width: "100%" }}>
 				<ItemsWrapper

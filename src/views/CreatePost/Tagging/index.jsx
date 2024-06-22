@@ -3,7 +3,6 @@ import Slider from "components/common/Carousel/Carousel";
 import Slide from "components/common/Carousel/Slide";
 import {
 	Box,
-	Button,
 	IconButton,
 	Toolbar,
 	Typography,
@@ -16,8 +15,6 @@ import ReactIcons from "utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePost } from "app/slices/postSlice/postSlice";
 import { useNavigate } from "react-router";
-import PostFiltersMobile from "./Fiter";
-import PostEditorMobile from "./Edit";
 import { RoutePath } from "utils/routes";
 
 const MainBox = styled(Box)(({ theme }) => ({
@@ -45,13 +42,11 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	borderBottom: `1px solid ${theme.palette.grey[400]}`,
 }));
 
-function PostEditMobile() {
+function PostTaggingMobile() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const [editState, setEditState] = useState("Filter");
-	const [hideOptions, setHideOptions] = useState(false);
 	const navigate = useNavigate();
 	// test useEffect
 	useEffect(() => {
@@ -68,25 +63,28 @@ function PostEditMobile() {
 		<MainBox>
 			{matchDownSm && (
 				<StyledToolBar>
-					<IconButton
-						size="large"
-						sx={{ padding: 0 }}
-						color="inherit"
+					<Typography variant="h4" ml="39%">
+						Tag People
+					</Typography>
+					<Typography
+						variant="body"
+						sx={{
+							cursor: "pointer",
+							padding: "0 0.3rem",
+							fontWeight: 600,
+							"&:hover": { color: theme.palette.text.primary },
+						}}
+						color={theme.palette.primary.main}
 						onClick={() => navigate(-1)}
 					>
-						<ReactIcons.IoClose
-							style={{ fontSize: "2rem", cursor: "pointer" }}
-						/>
-					</IconButton>
-					<Typography variant="h4" mr="47%">
-						Edit
+						Done
 					</Typography>
 				</StyledToolBar>
 			)}
 			<Slider
 				sx={{
 					width: "100%",
-					height: "65vh",
+					height: "auto",
 					marginTop: 6,
 				}}
 				onSlideChange={onSlideChange}
@@ -104,7 +102,6 @@ function PostEditMobile() {
 								justifyContent: "center",
 								position: "relative",
 								overflow: "hidden",
-								padding: "0 0.5rem"
 							}}
 						>
 							<img
@@ -112,10 +109,8 @@ function PostEditMobile() {
 								src={media?.croppedUrl}
 								className={media.filterClassName}
 								style={{
-									borderRadius: "10px",
-									overflow: "hidden",
 									display: "block",
-									height: "auto",
+									height: "100%",
 									width: "100%",
 									objectFit: "contain",
 									scale: `${media.flip?.x} ${media.flip?.y}`,
@@ -127,50 +122,8 @@ function PostEditMobile() {
 						</Slide>
 					))}
 			</Slider>
-			{/* filters and adjustments */}
-			{editState === "Filter" ? (
-				<PostFiltersMobile />
-			) : (
-				<PostEditorMobile setHideOptions={setHideOptions} />
-			)}
-			{/*  */}
-			{!hideOptions && (
-				<MainBox sx={{ justifyContent: "space-between", flexDirection: "row" }}>
-					<Button
-						variant="contained"
-						sx={{
-							m: 1,
-							p: "0.7rem",
-							borderRadius: "20px",
-							fontSize: "0.7rem",
-							fontWeight: "bold",
-							background: theme.palette.grey[500],
-						}}
-						onClick={() =>
-							setEditState((prev) => (prev === "Filter" ? "Edit" : "Filter"))
-						}
-					>
-						{editState === "Filter" ? "Edit" : "Filter"}
-					</Button>
-					<Button
-						variant="contained"
-						sx={{
-							m: 1,
-							p: "0.7rem 1rem",
-							borderRadius: "20px",
-							fontSize: "0.7rem",
-							fontWeight: "bold",
-							background: theme.palette.primary.main,
-						}}
-						endIcon={<ReactIcons.IoArrowForward style={{ fontSize: "1rem" }} />}
-						onClick={() => navigate(`/${RoutePath.CREATE}/${RoutePath.SHARE}`)}
-					>
-						Next
-					</Button>
-				</MainBox>
-			)}
 		</MainBox>
 	);
 }
 
-export default PostEditMobile;
+export default PostTaggingMobile;

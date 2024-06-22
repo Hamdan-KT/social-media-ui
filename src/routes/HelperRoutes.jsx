@@ -5,17 +5,21 @@ import MinimalLayout from "../layouts/MinimalLayout";
 
 // testroute
 
-
 // MAIN ROUTES
 const StoryPopUp = Loadable(
 	lazy(() => import("components/ui-components/StoryPopUp"))
 );
 const CropPostMobile = Loadable(lazy(() => import("views/CreatePost/Crop")));
-const EditPostMobile = Loadable(lazy(() => import("views/CreatePost/FilterAdjustment")));
+const EditPostMobile = Loadable(
+	lazy(() => import("views/CreatePost/FilterAdjustment"))
+);
 const SharePostMobile = Loadable(lazy(() => import("views/CreatePost/Share")));
+const PostTaggingMobile = Loadable(
+	lazy(() => import("views/CreatePost/Tagging"))
+);
 
 const HelperRoutes = () => {
-  return {
+	return {
 		path: RoutePath.HOME,
 		element: <MinimalLayout />,
 		children: [
@@ -37,6 +41,10 @@ const HelperRoutes = () => {
 					{
 						path: RoutePath.SHARE,
 						element: <SharePostMobile />,
+					},
+					{
+						path: RoutePath.TAG,
+						element: <PostTaggingMobile />,
 					},
 				],
 			},
