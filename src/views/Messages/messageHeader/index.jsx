@@ -7,28 +7,28 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
-  display: "flex",
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "0.5rem 0",
-  backgroundColor: theme.palette.background.default,
-  position: "absolute",
-  [theme.breakpoints.down("md")]: {
-    position: "fixed",
-    padding: "0.5rem",
-    width: `calc(100% - ${theme.spacing(14)})`,
-    marginLeft: `calc(${theme.spacing(12)} + 1px)`,
-  },
-  [theme.breakpoints.down("sm")]: {
-    position: "fixed",
-    padding: "0rem 0.5rem",
-    width: `100%`,
-    marginLeft: 0,
-  },
-  top: 0,
-  left: 0,
-  zIndex: 7,
+	display: "flex",
+	width: "100%",
+	alignItems: "center",
+	justifyContent: "space-between",
+	backgroundColor: theme.palette.background.default,
+	padding: "0rem",
+	position: "absolute",
+	[theme.breakpoints.down("md")]: {
+		position: "fixed",
+		padding: "0rem 0.5rem",
+		width: `calc(100% - ${theme.spacing(14)})`,
+		marginLeft: `calc(${theme.spacing(12)} + 1px)`,
+	},
+	[theme.breakpoints.down("sm")]: {
+		position: "fixed",
+		padding: "0rem 0.5rem",
+		width: `100%`,
+		marginLeft: 0,
+	},
+	top: 0,
+	left: 0,
+	zIndex: 7,
 }));
 
 function MessageHeader() {

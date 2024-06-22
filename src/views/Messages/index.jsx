@@ -53,13 +53,14 @@ function a11yProps(index) {
 const StyledScrollBox = styled(Box)(({ theme }) => ({
 	display: "flex",
 	justifyContent: "center",
-	height: "71vh",
+	height: "80vh",
 	alignItems: "flex-start",
 	overflowY: "scroll",
 	scrollBehavior: "smooth",
 	[theme.breakpoints.down("md")]: {
 		height: "100%",
 	},
+	border: "1px solid black"
 }));
 
 const CustomButton = (props) => (
@@ -102,7 +103,11 @@ function Messages() {
 						{/* message header */}
 						{!matchDownMd && <MessageHeader />}
 					</Box>
-					<Box sx={{ mt: 6 }}>
+					<Box
+						sx={{
+							mt: 6
+						}}
+					>
 						<MobileSearchBar />
 						<Box
 							sx={{
