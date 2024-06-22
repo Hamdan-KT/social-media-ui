@@ -60,7 +60,6 @@ const StyledScrollBox = styled(Box)(({ theme }) => ({
 	[theme.breakpoints.down("md")]: {
 		height: "100%",
 	},
-	border: "1px solid black"
 }));
 
 const CustomButton = (props) => (
