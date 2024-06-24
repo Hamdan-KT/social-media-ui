@@ -5,11 +5,11 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	assetsInclude: ["**/*.manifest"],
+	// assetsInclude: ["**/*.manifest"],
 	plugins: [
 		react(),
 		VitePWA({
-			registerType: "prompt",
+			registerType: "autoUpdate",
 			includeAssets: [
 				"favicon.ico",
 				"apple-touch-icon.png",
@@ -21,29 +21,53 @@ export default defineConfig({
 				description:
 					"It is clone application of Instagram application, not included all features",
 				icons: [
+					// {
+					// 	src: "/android-chrome-192x192.png",
+					// 	sizes: "192x192",
+					// 	type: "image/png",
+					// 	purpose: "favicon",
+					// },
+					// {
+					// 	src: "/android-chrome-512x512.png",
+					// 	sizes: "512x512",
+					// 	type: "image/png",
+					// 	purpose: "favicon",
+					// },
+					// {
+					// 	src: "/apple-touch-icon.png",
+					// 	sizes: "180x180",
+					// 	type: "image/png",
+					// 	purpose: "apple touch icon",
+					// },
+					// {
+					// 	src: "/maskable_icon.png",
+					// 	sizes: "512x512",
+					// 	type: "image/png",
+					// 	purpose: "any maskable",
+					// },
 					{
-						src: "/android-chrome-192x192.png",
+						src: "/pwa-192x192.png",
 						sizes: "192x192",
 						type: "image/png",
-						purpose: "favicon",
+						purpose: "any",
 					},
 					{
-						src: "/android-chrome-512x512.png",
+						src: "/pwa-512x512.png",
 						sizes: "512x512",
 						type: "image/png",
-						purpose: "favicon",
+						purpose: "any",
 					},
 					{
-						src: "/apple-touch-icon.png",
-						sizes: "180x180",
+						src: "/pwa-maskable-192x192.png",
+						sizes: "192x192",
 						type: "image/png",
-						purpose: "apple touch icon",
+						purpose: "maskable",
 					},
 					{
-						src: "/maskable_icon.png",
+						src: "/pwa-maskable-512x512.png",
 						sizes: "512x512",
 						type: "image/png",
-						purpose: "any maskable",
+						purpose: "maskable",
 					},
 				],
 				theme_color: "#171717",
