@@ -75,12 +75,11 @@ function BottomSheet({
 	const startHeight = useRef(contentRef.current);
 
 	useEffect(() => {
-		updateSheetHeight(60);
-	}, []);
+		if(open) updateSheetHeight(60);
+	}, [open]);
 
 	useEffect(() => {
 		const header = headerRef.current;
-		const backdrop = backdropRef.current;
 
 		const dragStart = (e) => {
 			isDragging.current = true;
