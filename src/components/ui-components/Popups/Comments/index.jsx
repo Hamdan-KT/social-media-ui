@@ -7,22 +7,11 @@ import BottomSheet from "components/common/BottomSheet";
 import CommentList from "components/ui-components/CommentList";
 import { commentList } from "src/data";
 
-function Comments() {
-	const theme = useTheme();
-    const [open, setOpen] = useState(true);
-
-    const handleClose = () => {
-        setOpen(false)
-    }
-
+function Comments({ open = false, handleClose }) {
 	return (
-		<BottomSheet
-			title="Comments"
-			open={open}
-			onClose={handleClose}
-        >
-            <CommentList data={commentList} />
-        </BottomSheet>
+		<BottomSheet title="Comments" open={open} onClose={handleClose}>
+			<CommentList data={commentList} />
+		</BottomSheet>
 	);
 }
 

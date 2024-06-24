@@ -20,6 +20,7 @@ import { useState } from "react";
 import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ReactIcons from "utils/ReactIcons";
+import Comments from "../Popups/Comments";
 
 // caption style
 const captionStyle = {
@@ -32,6 +33,7 @@ const captionStyle = {
 function Post({ data }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
+	const [openComments, setOpenComments] = useState(false);
 	const captionRef = useRef(null);
 	const customization = useSelector((state) => state.customization);
 	const theme = useTheme();
@@ -186,7 +188,7 @@ function Post({ data }) {
 						/>
 					}
 				/>
-				<IconButton aria-label="comment">
+				<IconButton aria-label="comment" onClick={() => setOpenComments(true)}>
 					<ReactIcons.RiChat1Line
 						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
 					/>
@@ -265,11 +267,16 @@ function Post({ data }) {
 					<Typography
 						variant="greyTags" // onClick={handleExpandClick}
 						sx={{ cursor: "pointer" }}
+						onClick={() => setOpenComments(true)}
 					>
 						View all {data?.comments} comments
 					</Typography>
 				</Box>
 			</CardContent>
+			<Comments
+				open={openComments}
+				handleClose={() => setOpenComments(false)}
+			/>
 		</Card>
 	);
 }
