@@ -1,7 +1,9 @@
-# how to create popup with changin route
+# how to create popup with changing route
 # complete posting window in mobile too
-# voice record
-# reply in message section white swiping
+# post view complete in pc
+# individual post view window for explore or profiles
+# reply in message section while swiping
+# bottom bar for each menu and model for large devices
 # touch and hold and normal menu in each chat..
 # profile edit window
-# bottom bar for each menu and model for large devices
+# voice record

@@ -102,7 +102,7 @@ function MobileSearchBar() {
 						zIndex: 10,
 					}}
 				>
-					<StyledPaper elevation={5} customization={customization}>
+					<StyledPaper elevation={0} customization={customization}>
 						<Box
 							sx={{
 								display: "flex",

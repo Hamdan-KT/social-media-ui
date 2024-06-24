@@ -19,6 +19,7 @@ const MainBox = styled(Box)(({ theme }) => ({
 	alignItems: "center",
 	justifyContent: "center",
 	padding: "2.5rem 0.5rem 0.5rem 0.5rem",
+	overflow: "hidden"
 }));
 
 function CustomModal({

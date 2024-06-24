@@ -1,4 +1,3 @@
-import { FavoriteBorder, Favorite } from "@mui/icons-material";
 import {
 	Avatar,
 	Box,
@@ -13,6 +12,7 @@ import React from "react";
 import { useState } from "react";
 import CommentList from "..";
 import DefaultLoader from "components/common/DefaultLoader";
+import ReactIcons from "utils/ReactIcons";
 
 export default function CommentListItem({
 	comment = {},
@@ -36,24 +36,18 @@ export default function CommentListItem({
 				alignItems="flex-start"
 				secondaryAction={
 					<Checkbox
-						aria-label="like"
-						icon={
-							<FavoriteBorder
-								sx={{
-									color: `${theme.palette.text.dark}`,
-									fontSize: "0.9rem",
-								}}
-							/>
-						}
-						checkedIcon={
-							<Favorite
-								sx={{
-									color: `${theme.palette.error.main}`,
-									fontSize: "0.9rem",
-								}}
-							/>
-						}
-					/>
+					aria-label="like"
+					icon={
+						<ReactIcons.RiHeart3Line
+							style={{ color: `${theme.palette.text.dark}`, fontSize: "0.9rem" }}
+						/>
+					}
+					checkedIcon={
+						<ReactIcons.RiHeart3Fill
+							style={{ color: `${theme.palette.error.main}`, fontSize: "0.9rem" }}
+						/>
+					}
+				/>
 				}
 			>
 				<ListItemAvatar>

@@ -1,41 +1,30 @@
-import { Box, Modal, Typography, Backdrop, Fade, Grid, CardMedia, Dialog, useTheme, Avatar, IconButton, Checkbox, useMediaQuery, Menu, styled, InputBase, Button } from '@mui/material';
-import React from 'react'
-import PostSlider from '../../Post/PostSlider';
-import { commentList, userPosts } from 'src/data';
-import CommentList from '../../CommentList';
-import { Bookmark, BookmarkBorderOutlined, Favorite, FavoriteBorder } from '@mui/icons-material';
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import {
+	Box,
+	Typography,
+	useTheme,
+	Avatar,
+	IconButton,
+	Checkbox,
+	useMediaQuery,
+	Menu,
+	styled,
+	InputBase,
+} from "@mui/material";
+import React, { useState } from "react";
+import PostSlider from "../../Post/PostSlider";
+import { commentList, userPosts } from "src/data";
+import CommentList from "../../CommentList";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
-// imoji picker import
-import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { useState } from 'react';
-import CustomModal from 'components/common/Modal';
+import CustomModal from "components/common/Modal";
 import ReactIcons from "utils/ReactIcons";
-
-// box layout style
-const style = {
-	position: "absolute",
-	top: "50%",
-  	left: "50%",
-  	display: "flex",
-	alignItems: "center",
-	width: "max-content",
-	transform: "translate(-50%, -50%)",
-	maxWidth: { xs: "98vw", sm: "98vw", md: "90vw" },
-	bgcolor: "background.paper",
-	border: "2px solid #000",
-	height: "95vh",
-	maxHeight: "95vh",
-};
-
+import data from "@emoji-mart/data";
 
 const commonStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+};
 
 const InputBox = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -57,38 +46,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 		transition: theme.transitions.create("width"),
 	},
 }));
- 
+
 function ViewPost() {
-  const theme = useTheme();
-  const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
-  const [value, setValue] = useState("");
-    const [anchorEl, setAnchorEl] = useState(null);
-		const open = Boolean(anchorEl);
+	const theme = useTheme();
+	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
+	const [value, setValue] = useState("");
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
 
-		// handling emoji window
-		const handleClick = (event) => {
-			setAnchorEl(event.currentTarget);
-		};
-		const handleClose = () => {
-			setAnchorEl(null);
-		};
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
-  return (
+	return (
 		<CustomModal open={true} closeIcon={true}>
 			<Box
 				sx={{
 					...commonStyle,
-					height: "93vh",
-					maxHeight: "95vh",
-					bgcolor: "background.paper",
+					height: "92vh",
+					display: "flex",
+					width: "auto",
+					border: "5px solid black",
+					overflow: "hidden",
 				}}
 			>
-				<Box sx={{ ...commonStyle, height: "93vh" }}>
-					<Box sx={{ width: "500px", height: "auto", backgroundColor: "red" }}>
-						<PostSlider medias={userPosts[0].media} />
-					</Box>
-				</Box>
-				<Box sx={{ height: "100%", width: "33vw" }}>
+				<PostSlider
+					medias={userPosts[0].media}
+					mediaStyles={{ height: "92vh", width: "auto" }}
+				/>
+				<Box sx={{ height: "100%", width: "33vw", background: "green" }}>
 					{/* header */}
 					<Box
 						sx={{
@@ -167,12 +156,18 @@ function ViewPost() {
 							/>
 							<IconButton aria-label="comment">
 								<ReactIcons.RiChat1Line
-									style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
+									style={{
+										color: `${theme.palette.text.dark}`,
+										fontSize: 25,
+									}}
 								/>
 							</IconButton>
 							<IconButton aria-label="share">
 								<ReactIcons.LuSend
-									style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
+									style={{
+										color: `${theme.palette.text.dark}`,
+										fontSize: 25,
+									}}
 								/>
 							</IconButton>
 							<Checkbox

@@ -21,8 +21,7 @@ function Comments() {
 			open={open}
 			onClose={handleClose}
         >
-            {/* <CommentList data={commentList} /> */}
-            <Typography variant="h1">Hello</Typography>
+            <CommentList data={commentList} />
         </BottomSheet>
 	);
 }

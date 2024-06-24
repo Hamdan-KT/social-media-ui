@@ -38,7 +38,6 @@ function App() {
 					{/* <ViewPost /> */}
 					{/* <Comments /> */}
 					{/* <CreatePost open={true} /> */}
-					{/* <ImageViewer /> */}
 				</NavigationScroll>
 			</ThemeProvider>
 		</StyledEngineProvider>

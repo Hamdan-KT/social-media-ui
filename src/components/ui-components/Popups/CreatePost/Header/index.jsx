@@ -1,5 +1,11 @@
 import ReactIcons from "utils/ReactIcons";
-import { Box, CircularProgress, Typography, styled, useTheme } from "@mui/material";
+import {
+	Box,
+	CircularProgress,
+	Typography,
+	styled,
+	useTheme,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
 import { setPostStages, cropPosts } from "app/slices/postSlice/postSlice";
@@ -21,7 +27,7 @@ function CreateHeader() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false);
 
 	// set cropped media to redux
 	const handleCrop = async (postMedias) => {
@@ -31,18 +37,22 @@ function CreateHeader() {
 				...media,
 				croppedUrl: await getCroppedImg(media?.url, media.croppedAreaPixels),
 			}))
-		).then((result) => {
-			setLoading(false);
-			return dispatch(cropPosts(result));
-		}).catch((error) => {
-			setLoading(false)
-		})
+		)
+			.then((result) => {
+				setLoading(false);
+				return dispatch(cropPosts(result));
+			})
+			.catch((error) => {
+				setLoading(false);
+			});
 	};
 
 	const handleStageChange = (type = "next") => {
 		if (type === "next") {
 			if (postStates?.postStages[ps.CROP]) {
-				handleCrop(postStates?.postMedias);
+				if (postStates?.postMedias?.length !== 0) {
+					handleCrop(postStates?.postMedias);
+				}
 			} else if (postStates?.postStages[ps.EDIT]) {
 				dispatch(setPostStages({ type: ps.SHARE, value: true }));
 			} else return;
@@ -55,13 +65,15 @@ function CreateHeader() {
 		}
 	};
 
+	console.log(postStates?.postMedias?.length !== 0);
+
 	return (
 		<StyledHeader>
 			<ReactIcons.IoArrowBack
 				style={{ fontSize: "1.7rem", cursor: "pointer" }}
 				onClick={() => handleStageChange("prev")}
 			/>
-			<Typography variant="h4">
+			<Typography variant="h4" sx={{userSelect: "none"}}>
 				{postStates?.postStages[ps.CROP]
 					? "Crop"
 					: postStates?.postStages[ps.EDIT]
@@ -75,7 +87,8 @@ function CreateHeader() {
 			) : (
 				<Typography
 					variant="body"
-					sx={{
+						sx={{
+						userSelect: "none",
 						cursor: "pointer",
 						padding: "0 0.3rem",
 						fontWeight: 600,
@@ -86,6 +99,7 @@ function CreateHeader() {
 				>
 					{postStates?.postStages[ps.SHARE] ? "Share" : "Next"}
 				</Typography>
+				// <p>hello</p>
 			)}
 		</StyledHeader>
 	);
