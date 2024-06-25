@@ -43,6 +43,7 @@ function CreateHeader() {
 				return dispatch(cropPosts(result));
 			})
 			.catch((error) => {
+				console.log(error)
 				setLoading(false);
 			});
 	};

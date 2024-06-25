@@ -12,35 +12,35 @@ import { forwardRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function UserList({
-  data,
-  urlPrefix,
-  navigateId,
-  actionButton = false,
-  loading = false,
-  onClick,
-  onButtonClick,
-  buttonState,
-  primaryText,
-  secondaryText,
-  customButton: CustomButton,
-  sx = {},
+	data,
+	urlPrefix,
+	navigateId,
+	actionButton = false,
+	loading = false,
+	onClick,
+	onButtonClick,
+	buttonState,
+	primaryText,
+	secondaryText,
+	customButton: CustomButton,
+	sx = {},
 }) {
-  const theme = useTheme();
-  const navigate = useNavigate();
-  return (
-    <List
-      dense
-      sx={{
-        width: "100%",
-        maxWidth: 360,
-        bgcolor: theme.palette.background.default,
-        gap: "0.5rem",
-        ...sx,
-      }}
-    >
-      {data?.map((user, index) => {
-        const labelId = `checkbox-list-secondary-label-${index}`;
-        return (
+	const theme = useTheme();
+	const navigate = useNavigate();
+	return (
+		<List
+			dense
+			sx={{
+				width: "100%",
+				maxWidth: 360,
+				bgcolor: theme.palette.background.default,
+				gap: "0.5rem",
+				...sx,
+			}}
+		>
+			{data?.map((user, index) => {
+				const labelId = `checkbox-list-secondary-label-${index}`;
+				return (
 					<ListItem
 						key={index}
 						secondaryAction={
@@ -73,13 +73,15 @@ function UserList({
 								primaryTypographyProps={{
 									fontSize: 13,
 									noWrap: true,
-                  fontWeight: "bold",
-                  mr: 5
+									fontWeight: "bold",
+									mr: 5,
 								}}
 								secondaryTypographyProps={{
 									noWrap: true,
 									fontSize: 12,
-									mr: 5,
+									mr: {
+										xs: 9, sm: 6
+									},
 								}}
 								id={labelId}
 								primary={user[primaryText] ?? user?.name}
@@ -91,9 +93,9 @@ function UserList({
 						</ListItemButton>
 					</ListItem>
 				);
-      })}
-    </List>
-  );
+			})}
+		</List>
+	);
 }
 
 export default UserList;

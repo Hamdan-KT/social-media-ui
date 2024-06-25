@@ -68,6 +68,7 @@ function MediaFilters() {
 								src={filterDefaultImg}
 								draggable={false}
 								style={{
+									aspectRatio: 1/1,
 									display: "block",
 									borderRadius: "4px",
 									width: "100%",

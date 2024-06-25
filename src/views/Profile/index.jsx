@@ -232,8 +232,6 @@ function Profile() {
 									<Btn
 										sx={{
 											width: "100%",
-											padding: "0.2rem 1.2rem",
-											fontSize: "0.9rem",
 										}}
 									>
 										Follow
@@ -242,8 +240,6 @@ function Profile() {
 										variant="outlined"
 										sx={{
 											width: "100%",
-											padding: "0.2rem 1.2rem",
-											fontSize: "0.9rem",
 										}}
 									>
 										Message

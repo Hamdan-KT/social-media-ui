@@ -70,9 +70,18 @@ function BottomBar() {
 	const handleSelectPostFile = (e) => {
 		const files = e.target.files;
 		const selectedPosts = Object.keys(files).map((key) => {
+			const file = files[key];
+			let fileType = "";
+
+			if (file.type.startsWith("image/")) {
+				fileType = "image";
+			} else if (file.type.startsWith("video/")) {
+				fileType = "video";
+			}
 			return {
+				type: fileType,
 				uID: uuidv4(),
-				url: createURLfromImage(files[key]),
+				url: createURLfromImage(file),
 				croppedUrl: "",
 				croppedAreaPixels: {},
 				crop: { x: 0, y: 0 },
@@ -141,10 +150,7 @@ function BottomBar() {
 										}
 									>
 										<StyledPopoverBox>
-											<StyledTypography
-												component="label"
-												for="mobviewPostFile"
-											>
+											<StyledTypography component="label" for="mobviewPostFile">
 												{"Post"}
 												<ReactIcons.MdOutlineGridOn size={23} />
 											</StyledTypography>

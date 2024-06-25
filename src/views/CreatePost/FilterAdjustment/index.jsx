@@ -104,26 +104,49 @@ function PostEditMobile() {
 								justifyContent: "center",
 								position: "relative",
 								overflow: "hidden",
-								padding: "0 0.5rem"
+								padding: "0 0.5rem",
 							}}
 						>
-							<img
-								draggable={false}
-								src={media?.croppedUrl}
-								className={media.filterClassName}
-								style={{
-									borderRadius: "10px",
-									overflow: "hidden",
-									display: "block",
-									height: "auto",
-									width: "100%",
-									objectFit: "contain",
-									scale: `${media.flip?.x} ${media.flip?.y}`,
-									filter:
-										media.filterClassName === "" &&
-										`brightness(${media.customFilters?.Brightness}%) saturate(${media.customFilters?.Saturation}%)`,
-								}}
-							/>
+							{media?.type === "image" && (
+								<img
+									loading="lazy"
+									draggable={false}
+									src={media?.croppedUrl}
+									className={media.filterClassName}
+									style={{
+										borderRadius: "10px",
+										overflow: "hidden",
+										display: "block",
+										height: "auto",
+										width: "100%",
+										objectFit: "contain",
+										scale: `${media.flip?.x} ${media.flip?.y}`,
+										filter:
+											media.filterClassName === "" &&
+											`brightness(${media.customFilters?.Brightness}%) saturate(${media.customFilters?.Saturation}%)`,
+									}}
+								/>
+							)}
+							{media?.type === "video" && (
+								<video
+									loading="lazy"
+									draggable={false}
+									src={media?.croppedUrl}
+									className={media.filterClassName}
+									style={{
+										borderRadius: "10px",
+										overflow: "hidden",
+										display: "block",
+										height: "auto",
+										width: "100%",
+										objectFit: "contain",
+										scale: `${media.flip?.x} ${media.flip?.y}`,
+										filter:
+											media.filterClassName === "" &&
+											`brightness(${media.customFilters?.Brightness}%) saturate(${media.customFilters?.Saturation}%)`,
+									}}
+								/>
+							)}
 						</Slide>
 					))}
 			</Slider>

@@ -5,7 +5,6 @@ function Btn({ children, sx, variant = "contained", color, ...rest }) {
 
 	const StyledBtn = styled(Button)(({ theme }) => ({
 		display: "flex",
-		padding: "0.35rem 1.7rem",
 		fontSize: "0.75rem",
 		borderRadius: "8px",
 		fontWeight: "bold",
@@ -22,7 +21,17 @@ function Btn({ children, sx, variant = "contained", color, ...rest }) {
 	}));
 
 	return (
-		<StyledBtn sx={sx} variant={variant} {...rest}>
+		<StyledBtn
+			sx={{
+				padding: {
+					xs: "0.35rem 1.7rem",
+					sm: "0.35rem 0.4rem",
+				},
+				...sx
+			}}
+			variant={variant}
+			{...rest}
+		>
 			{children}
 		</StyledBtn>
 	);

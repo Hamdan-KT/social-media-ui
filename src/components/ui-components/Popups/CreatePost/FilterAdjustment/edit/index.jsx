@@ -3,6 +3,7 @@ import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editingSlidersConfig } from "utils/constants";
+import { setCustomFilter } from "app/slices/postSlice/postSlice";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -29,6 +30,11 @@ const SliderWrapper = styled(Box)(({ theme }) => ({
 
 function EditPanel() {
 	const postStates = useSelector((state) => state.post);
+	const dispatch = useDispatch();
+
+	const handleChange = (event, filterID, value) => {
+		dispatch(setCustomFilter({ filter: filterID, value }));
+	};
 
 	return (
 		<ContentBox>
@@ -38,8 +44,12 @@ function EditPanel() {
 						{slider.label}
 					</Typography>
 					<MuiIOSSlider
-						defaultValue={slider.defaultValue}
+						defaultValue={postStates?.activePost?.[slider?.id]}
+						value={postStates?.activePost?.[slider?.id]}
+						onChange={(e, value) => handleChange(e, slider?.id, value)}
 						valueLabelDisplay="on"
+						min={0}
+						max={200}
 					/>
 				</SliderWrapper>
 			))}

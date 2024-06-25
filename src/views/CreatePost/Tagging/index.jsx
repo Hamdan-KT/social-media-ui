@@ -47,8 +47,8 @@ function PostTaggingMobile() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
-    const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-    const [openTagSearch, setOpenTagSearch] = useState(false)
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const [openTagSearch, setOpenTagSearch] = useState(false);
 	const navigate = useNavigate();
 	// test useEffect
 	useEffect(() => {
@@ -59,57 +59,59 @@ function PostTaggingMobile() {
 	// handle post slide view change to get current item to manage values for each one
 	const onSlideChange = (activeIndex) =>
 		dispatch(setActivePost(postStates.postMedias[activeIndex]));
-    // handling crop
+	// handling crop
 
-    return (
-			<>
-				<MainBox>
-					{matchDownSm && (
-						<StyledToolBar>
-							<Typography variant="h4" ml="39%">
-								Tag People
-							</Typography>
-							<Typography
-								variant="body"
+	return (
+		<>
+			<MainBox>
+				{matchDownSm && (
+					<StyledToolBar>
+						<Typography variant="h4" ml="39%">
+							Tag People
+						</Typography>
+						<Typography
+							variant="body"
+							sx={{
+								cursor: "pointer",
+								padding: "0 0.3rem",
+								fontWeight: 600,
+								"&:hover": { color: theme.palette.text.primary },
+							}}
+							color={theme.palette.primary.main}
+							onClick={() => navigate(-1)}
+						>
+							Done
+						</Typography>
+					</StyledToolBar>
+				)}
+				<Slider
+					sx={{
+						width: "100%",
+						height: "auto",
+						marginTop: 6,
+					}}
+					onSlideChange={onSlideChange}
+				>
+					{Array.isArray(postStates.postMedias) &&
+						postStates.postMedias?.map((media, ind) => (
+							<Slide
+								key={media.uID}
 								sx={{
-									cursor: "pointer",
-									padding: "0 0.3rem",
-									fontWeight: 600,
-									"&:hover": { color: theme.palette.text.primary },
+									width: "100%",
+									height: "100%",
+									display: "flex",
+									gap: "0.5rem",
+									alignItems: "center",
+									justifyContent: "center",
+									position: "relative",
+									overflow: "hidden",
 								}}
-								color={theme.palette.primary.main}
-								onClick={() => navigate(-1)}
 							>
-								Done
-							</Typography>
-						</StyledToolBar>
-					)}
-					<Slider
-						sx={{
-							width: "100%",
-							height: "auto",
-							marginTop: 6,
-						}}
-						onSlideChange={onSlideChange}
-					>
-						{Array.isArray(postStates.postMedias) &&
-							postStates.postMedias?.map((media, ind) => (
-								<Slide
-									key={media.uID}
-									sx={{
-										width: "100%",
-										height: "100%",
-										display: "flex",
-										gap: "0.5rem",
-										alignItems: "center",
-										justifyContent: "center",
-										position: "relative",
-										overflow: "hidden",
-									}}
-								>
+								{media?.type === "image" && (
 									<img
-										draggable={false}
 										onClick={() => setOpenTagSearch(true)}
+										loading="lazy"
+										draggable={false}
 										src={media?.croppedUrl}
 										className={media.filterClassName}
 										style={{
@@ -123,16 +125,36 @@ function PostTaggingMobile() {
 												`brightness(${media.customFilters?.Brightness}%) saturate(${media.customFilters?.Saturation}%)`,
 										}}
 									/>
-								</Slide>
-							))}
-					</Slider>
-				</MainBox>
-				<SearchTagPeoples
-					open={openTagSearch}
-					handleClose={() => setOpenTagSearch(false)}
-				/>
-			</>
-		);
+								)}
+								{media?.type === "video" && (
+									<video
+										onClick={() => setOpenTagSearch(true)}
+										loading="lazy"
+										draggable={false}
+										src={media?.croppedUrl}
+										className={media.filterClassName}
+										style={{
+											display: "block",
+											height: "100%",
+											width: "100%",
+											objectFit: "contain",
+											scale: `${media.flip?.x} ${media.flip?.y}`,
+											filter:
+												media.filterClassName === "" &&
+												`brightness(${media.customFilters?.Brightness}%) saturate(${media.customFilters?.Saturation}%)`,
+										}}
+									/>
+								)}
+							</Slide>
+						))}
+				</Slider>
+			</MainBox>
+			<SearchTagPeoples
+				open={openTagSearch}
+				handleClose={() => setOpenTagSearch(false)}
+			/>
+		</>
+	);
 }
 
 export default PostTaggingMobile;

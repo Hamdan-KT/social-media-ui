@@ -25,6 +25,8 @@ import {
 	setZoomVal,
 } from "app/slices/postSlice/postSlice";
 import { postStages as ps } from "utils/constants";
+import EditView from "./EditView";
+import TagView from "./TagView";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "auto",
@@ -171,9 +173,10 @@ function PostView() {
 								background: "black",
 							}}
 						>
-							{postStates.postStages[ps.CROP] ? (
+							{postStates.postStages[ps.CROP] && (
 								<Cropper
-									image={media.url}
+									image={media.type === "image" ? media.url : ""}
+									video={media.type === "video" ? media.url : ""}
 									crop={postStates.activePost?.crop}
 									zoom={postStates.activePost?.zoom}
 									rotation={postStates.activePost?.rotation}
@@ -198,20 +201,9 @@ function PostView() {
 										},
 									}}
 								/>
-							) : (
-								<img
-									draggable={false}
-									src={media?.croppedUrl}
-									className={media.filterClassName}
-									style={{
-										display: "block",
-										height: "100%",
-										width: "100%",
-										objectFit: "contain",
-										scale: `${media.flip?.x} ${media.flip?.y}`,
-									}}
-								/>
 							)}
+							{postStates.postStages[ps.EDIT] && <EditView media={media} />}
+							{postStates.postStages[ps.SHARE] && <TagView media={media} />}
 						</Slide>
 					))}
 			</Slider>
