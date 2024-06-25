@@ -59,7 +59,11 @@ function NotificationList({
 												Following
 											</Btn>
 										) : (
-											<Btn onClick={() => onButtonClick(noti)}>Follow</Btn>
+											<Btn
+												onClick={() => onButtonClick(noti)}
+											>
+												Follow
+											</Btn>
 										)
 									) : noti?.type === "action" ? (
 										<ImgWrapper
@@ -105,13 +109,12 @@ function NotificationList({
 									whiteSpace: "wrap",
 									flexWrap: "wrap",
 									fontSize: 14,
-									mr: 6,
+									mr: 9,
 								}}
 								id={labelId}
 								primary={noti[primaryText] ?? noti?.name}
 								secondary={noti[secondaryText]}
-							>
-							</ListItemText>
+							></ListItemText>
 						</ListItemButton>
 					</ListItem>
 				);
