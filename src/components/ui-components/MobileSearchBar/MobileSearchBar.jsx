@@ -69,7 +69,7 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 	},
 }));
 
-function MobileSearchBar() {
+function MobileSearchBar({inputProps = {}}) {
 	const customization = useSelector((state) => state.customization);
 	const [value, setValue] = useState("");
 
@@ -85,6 +85,7 @@ function MobileSearchBar() {
 				type="search"
 				placeholder="Search…"
 				inputProps={{ "aria-label": "search" }}
+				{...inputProps}
 			/>
 
 			{/* search open */}

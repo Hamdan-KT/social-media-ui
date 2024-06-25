@@ -60,7 +60,7 @@ function UserList({
 					>
 						<ListItemButton
 							onClick={() => {
-								typeof onClick === "function" && onClick();
+								typeof onClick === "function" && onClick(user);
 								urlPrefix &&
 									navigateId &&
 									navigate(`${urlPrefix}/${user[navigateId]}`);

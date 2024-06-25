@@ -49,6 +49,9 @@ function PostTaggingMobile() {
 	const postStates = useSelector((state) => state.post);
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const [openTagSearch, setOpenTagSearch] = useState(false);
+	const [tagPosition, setTagPosition] = useState(null);
+	const [tags, setTags] = useState([]);
+
 	const navigate = useNavigate();
 	// test useEffect
 	useEffect(() => {
@@ -59,7 +62,22 @@ function PostTaggingMobile() {
 	// handle post slide view change to get current item to manage values for each one
 	const onSlideChange = (activeIndex) =>
 		dispatch(setActivePost(postStates.postMedias[activeIndex]));
-	// handling crop
+
+	// Capture click position
+	const handleImageClick = (e) => {
+		const rect = e.target.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+		setTagPosition({ x, y });
+		setOpenTagSearch(true);
+	};
+
+	// Handle tag selection
+	const handleTagSelection = (name) => {
+		setTags([...tags, { ...tagPosition, name }]);
+		setOpenTagSearch(false);
+		setTagPosition(null);
+	};
 
 	return (
 		<>
@@ -109,7 +127,7 @@ function PostTaggingMobile() {
 							>
 								{media?.type === "image" && (
 									<img
-										onClick={() => setOpenTagSearch(true)}
+										onClick={handleImageClick}
 										loading="lazy"
 										draggable={false}
 										src={media?.croppedUrl}
@@ -128,7 +146,7 @@ function PostTaggingMobile() {
 								)}
 								{media?.type === "video" && (
 									<video
-										onClick={() => setOpenTagSearch(true)}
+										onClick={() => handleImageClick}
 										loading="lazy"
 										draggable={false}
 										src={media?.croppedUrl}
