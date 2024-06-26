@@ -59,6 +59,7 @@ import {
 	BsVignette,
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
+import { IoIosAddCircle } from "react-icons/io";
 
 
 
@@ -116,7 +117,8 @@ const ReactIcons = {
 	BsThermometerHalf,
 	BsVignette,
 	SiTicktick,
-	MdNavigateNext
+	MdNavigateNext,
+	IoIosAddCircle,
 };
 
 export default ReactIcons;
