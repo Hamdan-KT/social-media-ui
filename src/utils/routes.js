@@ -10,5 +10,6 @@ export const RoutePath = {
 	CROP: "crop",
 	EDIT: "edit",
 	SHARE: "share",
-	TAG: "tag"
+	TAG: "tag",
+	POST: "p"
 };

@@ -1,10 +1,8 @@
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ReactIcons from "utils/ReactIcons";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	display: "flex",
@@ -29,7 +27,7 @@ function NotificationHeader() {
 			{matchDownSm && (
 				<StyledToolBar>
 					<IconButton size="large" color="inherit" onClick={() => navigate(-1)}>
-						<ArrowBackIosNewIcon />
+						<ReactIcons.IoChevronBack />
 					</IconButton>
 					<Typography variant="h3">Notifications</Typography>
 				</StyledToolBar>

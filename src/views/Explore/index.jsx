@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Box,
   Grid,
@@ -7,14 +6,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import ChatIcon from "@mui/icons-material/Chat";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import MovieIcon from "@mui/icons-material/Movie";
-import BurstModeIcon from "@mui/icons-material/BurstMode";
 
 // user post
 import { explorePosts } from "src/data";
 import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
+import ReactIcons from "utils/ReactIcons";
 
 const StyledGallery = styled(Box)(({ theme }) => ({
   display: "grid",
@@ -62,18 +58,18 @@ const MediaDiv = styled(Box)(({ theme }) => ({
 }));
 
 const HoverDiv = styled(Box)(({ theme }) => ({
-  display: "none",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "100%",
-  height: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
-  position: "absolute",
-  gap: "1rem",
-  top: 0,
-  left: 0,
-  userSelect: "none",
-  zIndex: 5,
+	display: "none",
+	alignItems: "center",
+	justifyContent: "center",
+	width: "100%",
+	height: "100%",
+	backgroundColor: "rgba(0, 0, 0, 0.5)",
+	position: "absolute",
+	gap: "2rem",
+	top: 0,
+	left: 0,
+	userSelect: "none",
+	zIndex: 5,
 }));
 
 const StyledMediaTag = styled(Box)(({ theme }) => ({
@@ -90,12 +86,12 @@ const StyledMediaTag = styled(Box)(({ theme }) => ({
 }));
 
 const defaultStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  flexDirection: "column",
-  gap: "0.5rem",
-  userSelect: "none",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	flexDirection: "row",
+	gap: "0.4rem",
+	userSelect: "none",
 };
 
 function Explore() {
@@ -103,90 +99,98 @@ function Explore() {
   const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Grid container>
-      {matchDownSm && (
-        <Grid item xs={12} md={12} sm={12} lg={12}>
-          <MobileSearchBar />
-        </Grid>
-      )}
-      <Grid item xs={12} md={12} sm={12} lg={12}>
-        <StyledGallery>
-          {explorePosts.map((post, index) => (
-            <MediaDiv key={index}>
-              {post.media[0]?.type === "image" ? (
-                <img
-                  src={post.media[0]?.src}
-                  alt="Not Found!"
-                  style={{
-                    display: "block",
-                    height: "100%",
-                    objectPosition: "center",
-                    objectFit: "cover",
-                    width: "100%",
-                    userSelect: "none",
-                  }}
-                />
-              ) : (
-                <video
-                  src={post.media[0]?.src}
-                  alt="Not Found!"
-                  style={{
-                    display: "block",
-                    height: "100%",
-                    objectPosition: "center",
-                    objectFit: "cover",
-                    width: "100%",
-                    userSelect: "none",
-                  }}
-                />
-              )}
-              {!matchDownSm && (
-                <HoverDiv className="HoverDiv">
-                  <Box sx={defaultStyle}>
-                    <FavoriteIcon
-                      sx={{ color: theme.palette.background.paper }}
-                    />
-                    <Typography
-                      variant="p"
-                      color={theme.palette.background.paper}
-                    >
-                      {post?.likes}
-                    </Typography>
-                  </Box>
-                  <Box sx={defaultStyle}>
-                    <ChatIcon sx={{ color: theme.palette.background.paper }} />
-                    <Typography
-                      variant="p"
-                      color={theme.palette.background.paper}
-                    >
-                      {post?.comments}
-                    </Typography>
-                  </Box>
-                </HoverDiv>
-              )}
-              {post?.media?.length > 1 ? (
-                <StyledMediaTag>
-                  <BurstModeIcon
-                    sx={{
-                      color: theme.palette.background.paper,
-                    }}
-                  />
-                </StyledMediaTag>
-              ) : post?.media[0]?.type === "video" ? (
-                <StyledMediaTag>
-                  <MovieIcon
-                    sx={{
-                      color: theme.palette.background.paper,
-                    }}
-                  />
-                </StyledMediaTag>
-              ) : null}
-            </MediaDiv>
-          ))}
-        </StyledGallery>
-      </Grid>
-    </Grid>
-  );
+		<Grid container>
+			{matchDownSm && (
+				<Grid item xs={12} md={12} sm={12} lg={12}>
+					<MobileSearchBar />
+				</Grid>
+			)}
+			<Grid item xs={12} md={12} sm={12} lg={12}>
+				<StyledGallery>
+					{explorePosts.map((post, index) => (
+						<MediaDiv key={index}>
+							{post.media[0]?.type === "image" ? (
+								<img
+									src={post.media[0]?.src}
+									alt="Not Found!"
+									style={{
+										display: "block",
+										height: "100%",
+										objectPosition: "center",
+										objectFit: "cover",
+										width: "100%",
+										userSelect: "none",
+									}}
+								/>
+							) : (
+								<video
+									src={post.media[0]?.src}
+									alt="Not Found!"
+									style={{
+										display: "block",
+										height: "100%",
+										objectPosition: "center",
+										objectFit: "cover",
+										width: "100%",
+										userSelect: "none",
+									}}
+								/>
+							)}
+							{!matchDownSm && (
+								<HoverDiv className="HoverDiv">
+									<Box sx={defaultStyle}>
+										<ReactIcons.RiHeart3Fill
+											size={22}
+											style={{ color: theme.palette.background.paper }}
+										/>
+										<Typography
+											variant="h4"
+											sx={{ fontWeight: "bold" }}
+											color={theme.palette.background.paper}
+										>
+											{post?.likes}
+										</Typography>
+									</Box>
+									<Box sx={defaultStyle}>
+										<ReactIcons.RiChat1Fill
+											size={22}
+											style={{ color: theme.palette.background.paper }}
+										/>
+										<Typography
+											variant="h4"
+											sx={{ fontWeight: "bold" }}
+											color={theme.palette.background.paper}
+										>
+											{post?.comments}
+										</Typography>
+									</Box>
+								</HoverDiv>
+							)}
+							{post?.media?.length > 1 ? (
+								<StyledMediaTag>
+									<ReactIcons.FaImages
+										size={22}
+										style={{
+											color: theme.palette.background.paper,
+										}}
+									/>
+								</StyledMediaTag>
+							) : post?.media[0]?.type === "video" ? (
+								<StyledMediaTag>
+									<ReactIcons.BiSolidMoviePlay
+										size={22}
+										sx={{
+											color: theme.palette.background.paper,
+										}}
+									/>
+								</StyledMediaTag>
+							) : null}
+						</MediaDiv>
+					))}
+				</StyledGallery>
+			</Grid>
+		</Grid>
+	);
 }
 
 export default Explore;

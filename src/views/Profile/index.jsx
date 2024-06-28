@@ -15,13 +15,13 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PhotoGallery from "components/ui-components/PhotoGallery";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import GridOnIcon from "@mui/icons-material/GridOn";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import AvatarSet from "components/common/AvatarSet";
 import { useEffect } from "react";
 import ProfileHeader from "./ProfileHeader";
 import { defaultUser } from "../../data";
 import { defaultSpacing } from "utils/constants";
+import ReactIcons from "utils/ReactIcons";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -178,7 +178,7 @@ function Profile() {
 						>
 							{!matchDownSm && (
 								<>
-									<StyledBox sx={{gap: "0.7rem"}}>
+									<StyledBox sx={{ gap: "0.7rem" }}>
 										<Typography variant="h3">Jack Sparrow</Typography>
 										<Btn sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}>
 											Follow
@@ -268,19 +268,19 @@ function Profile() {
 						aria-label="full width"
 					>
 						<Tab
-							icon={<GridOnIcon />}
+							icon={<ReactIcons.MdOutlineGridOn size={23} />}
 							iconPosition="start"
 							label={!matchDownSm && "POSTS"}
 							{...a11yProps(0)}
 						/>
 						<Tab
-							icon={<BookmarkBorderIcon />}
+							icon={<ReactIcons.RiBookmarkLine size={22} />}
 							iconPosition="start"
 							label={!matchDownSm && "SAVED"}
 							{...a11yProps(1)}
 						/>
 						<Tab
-							icon={<PortraitIcon />}
+							icon={<ReactIcons.MdOutlineAccountBox size={25} />}
 							iconPosition="start"
 							label={!matchDownSm && "TAGGED"}
 							{...a11yProps(2)}

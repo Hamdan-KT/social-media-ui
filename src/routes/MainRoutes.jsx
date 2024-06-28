@@ -2,8 +2,6 @@ import { lazy } from "react";
 import Loadable from "components/common/Loadable";
 import MainLayout from "layouts/MainLayout";
 import { RoutePath } from "src/utils/routes";
-import { Box, Typography } from "@mui/material";
-import { IoChatbubblesOutline } from "react-icons/io5";
 
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));
@@ -15,6 +13,7 @@ const Messages = Loadable(lazy(() => import("views/Messages")));
 const Reels = Loadable(lazy(() => import("views/Reels")));
 const Profile = Loadable(lazy(() => import("views/Profile")));
 const Notifications = Loadable(lazy(() => import("views/Notifications")));
+const ViewPostMobile = Loadable(lazy(() => import("views/ViewPost")));
 // Sub windows
 const ChatLayout = Loadable(lazy(() => import("views/Messages/chatLayout")));
 
@@ -57,7 +56,10 @@ const MainRoutes = () => {
 				path: RoutePath.NOTIFICATIONS,
 				element: <Notifications />,
 			},
-			
+			{
+				path: `${RoutePath.POST}/:pId`,
+				element: <ViewPostMobile />,
+			},
 		],
 	};
 };

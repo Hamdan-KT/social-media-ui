@@ -9,7 +9,7 @@ function Notifications() {
 		<Box sx={{display: "flex", width: "100%", alignItems: "center", justifyContent: "center"}}>
 			<NotificationHeader />
 			<NotificationList
-				sx={{ maxWidth: "100%", marginTop: { xs: "2rem", sm: 0 } }}
+				sx={{ maxWidth: "100%", marginTop: { xs: "3rem", sm: 0 } }}
 				data={notifications}
 				actionButton
 				secondaryText="message"

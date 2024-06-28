@@ -77,7 +77,9 @@ function Post({ data }) {
 				}
 				action={
 					<IconButton aria-label="settings">
-						<MoreHorizIcon sx={{ color: `${theme.palette.text.dark}` }} />
+						<ReactIcons.MdMoreHoriz
+							style={{ color: `${theme.palette.text.dark}` }}
+						/>
 					</IconButton>
 				}
 				title={
