@@ -15,14 +15,14 @@ export const userPosts = [
 		media: [
 			{
 				type: "image",
-				src: "https://pbs.twimg.com/media/FbcYYEjWYAE0jny.jpg:large",
+				src: "https://pbs.twimg.com/media/FkRRmduX0AI_GnC.jpg:large",
 			},
 			{
 				type: "image",
-				src: "https://pbs.twimg.com/media/FkaZTMcWQAICYJO.jpg:large",
+				src: "https://pbs.twimg.com/media/FkR4jOMXgAAsrG6.jpg:large",
 			},
 		],
-		// location: "Calicut, India",
+		location: "Argentina",
 		time: "1d",
 		verified: false,
 		likes: 1600,
@@ -61,11 +61,11 @@ export const userPosts = [
 		media: [
 			{
 				type: "image",
-				src: "https://i.ebayimg.com/images/g/9fQAAOSw-6tjoCHq/s-l1200.webp",
+				src: "https://pbs.twimg.com/media/F6Zp55xW8AAQvBP.jpg:large",
 			},
 			{
 				type: "video",
-				src: "https://player.vimeo.com/external/463699817.sd.mp4?s=ec0a7dfed4e5c0d44e51eae37f750d4e7b915ad9&profile_id=164&oauth2_token_id=57447761",
+				src: "https://x.com/i/status/1084521748840755203",
 			},
 		],
 		location: "Argentina",
@@ -114,6 +114,208 @@ export const userPosts = [
 		verified: false,
 		likes: 950,
 		comments: 180,
+	},
+	{
+		id: 6,
+		name: "dqsalman",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu-okb7TQOGiNCFU7C6A8F7VZjtTZHUtN6xQ&s",
+		media: [
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/GKzPLUOW4AAftds?format=jpg&name=large",
+			},
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/GK4LgGWWcAAXee6?format=jpg&name=large",
+			},
+		],
+		location: "Kerala, India",
+		time: "1d",
+		verified: true,
+		likes: 2400,
+		comments: 400,
+	},
+	{
+		id: 7,
+		name: "motogp",
+		profile:
+			"https://ih1.redbubble.net/image.3075129489.6963/st,small,507x507-pad,600x600,f8f8f8.jpg",
+		media: [
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/GFznzmMWUAAJsUP?format=jpg&name=4096x4096",
+			},
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/E0NuG_tXEAAlyfj?format=jpg&name=4096x4096",
+			},
+		],
+		location: "Worldwide",
+		time: "2d",
+		verified: true,
+		likes: 3200,
+		comments: 510,
+	},
+	{
+		id: 8,
+		name: "iamsrk",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV3G-VcWUL3_ZJvmMnyzyzvl-EK_PCXB550Q&s",
+		media: [
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/GIY-QB0bsAAdHBa?format=jpg&name=large",
+			},
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/GI4ny3UW8AAMztw.jpg:large",
+			},
+		],
+		location: "Mumbai, India",
+		time: "3d",
+		verified: true,
+		likes: 5400,
+		comments: 820,
+	},
+	{
+		id: 9,
+		name: "anushkasharma",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-V58PZncBYPOAOXhVlWPHSC5xKB6kXnuRg&s",
+		media: [
+			{
+				type: "image",
+				src: "https://i.pinimg.com/736x/7f/3f/77/7f3f77cf8bd90da60d93119ccbe52128.jpg",
+			},
+			{
+				type: "image",
+				src: "https://i.redd.it/a3djhptyjnx81.jpg",
+			},
+		],
+		location: "Mumbai, India",
+		time: "4d",
+		verified: true,
+		likes: 3600,
+		comments: 610,
+	},
+	{
+		id: 10,
+		name: "virat.kohli",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVZouBU1I7OHPBSxBOkKuqAPvY1RdgqiGv9A&s",
+		media: [
+			{
+				type: "image",
+				src: "https://i.pinimg.com/736x/1f/ab/7e/1fab7e0ef41cfcb22e839d18c5a75f9b.jpg",
+			},
+			{
+				type: "image",
+				src: "https://www.jansatta.com/wp-content/uploads/2022/09/Virat-kohli-Shahrukh-Khan-farmhouse-1.jpg",
+			},
+		],
+		location: "Delhi, India",
+		time: "5d",
+		verified: true,
+		likes: 6700,
+		comments: 980,
+	},
+	{
+		id: 11,
+		name: "batman",
+		profile:
+			"https://pm1.aminoapps.com/5718/d2ab088b4bf8c55d4e9b9a7e582a4b5ede9b3897_00.jpg",
+		media: [
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/FPGctLSacAETCkw?format=jpg&name=large",
+			},
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/EQtjrrpU4AESiis.jpg",
+			},
+		],
+		location: "Gotham City",
+		time: "6d",
+		verified: false,
+		likes: 4800,
+		comments: 750,
+	},
+	{
+		id: 12,
+		name: "madonnasebastianofficial",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNSlf-Rv2x5aiARa_Sy74AsR2m5-VXnDk7vA&s",
+		media: [
+			{
+				type: "image",
+				src: "https://images.filmibeat.com/webp/ph-big/2023/11/madonna-sebastian_170004469210.jfif",
+			},
+			{
+				type: "image",
+				src: "https://images.filmibeat.com/webp/ph-big/2023/11/madonna-sebastian_170004469220.jfif",
+			},
+		],
+		location: "Kerala, India",
+		time: "7d",
+		verified: true,
+		likes: 2400,
+		comments: 400,
+	},
+	{
+		id: 13,
+		name: "trollmachans",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXP8wkpM2ale51RJdDpPE8KoRvttjxoPYxVQ&s",
+		media: [
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/GIinuMLXQAAvnt6.jpg:large",
+			},
+		],
+		location: "Tamil Nadu, India",
+		time: "8d",
+		verified: false,
+		likes: 3200,
+		comments: 510,
+	},
+	{
+		id: 14,
+		name: "433",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmk0H3GVuRcGfW3UiYbmRriE4w0oULQYUoFA&s",
+		media: [
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/Fm2qYZvXoAcbS0q.jpg:large",
+			},
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/media/Fm29iAqWACMwJAN.jpg:large",
+			},
+		],
+		location: "Worldwide",
+		time: "9d",
+		verified: true,
+		likes: 5400,
+		comments: 820,
+	},
+	{
+		id: 15,
+		name: "flipkart",
+		profile:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3oY1_YEH-eEAsLKyJ6ykGnNu3Nx-mQCCA3g&s",
+		media: [
+			{
+				type: "image",
+				src: "https://pbs.twimg.com/ad_img/1444375995033669635/QWwGzZ3d?format=jpg&name=900x900",
+			},
+		],
+		location: "India",
+		time: "10d",
+		verified: true,
+		likes: 2400,
+		comments: 400,
 	},
 ];
 

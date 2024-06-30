@@ -9,7 +9,6 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector } from "react-redux";
 import { Box, Checkbox } from "@mui/material";
 import verifiedBadge from "assets/images/verifiedBadge.png";
@@ -21,6 +20,7 @@ import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ReactIcons from "utils/ReactIcons";
 import Comments from "../Popups/Comments";
+import video from "public/videos/video4.mp4"
 
 // caption style
 const captionStyle = {
