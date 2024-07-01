@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editingSlidersConfig } from "utils/constants";
 import { setCustomFilter } from "app/slices/postSlice/postSlice";
 import ReactIcons from "utils/ReactIcons";
-import MuiIOSSlider from "@/components/common/formInputs/Slider";
+import MuiIOSSlider from "components/common/formInputs/Slider";
 
 const ScrollBox = styled(Box)(({ theme }) => ({
 	width: "100%",
