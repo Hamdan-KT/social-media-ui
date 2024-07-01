@@ -25,12 +25,12 @@ import { defaultUser } from "src/data";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarPopupOpen } from "app/slices/customizationSlice/customization";
-import SearchPopUp from "components/ui-components/Popups/search";
 import NotificationPopUp from "components/ui-components/popups/notification";
 import CreatePost from "components/ui-components/Popups/CreatePost";
 import { sideBarPopupClose } from "app/slices/customizationSlice/customization";
 import { sidebarpopUps } from "utils/constants";
 import SlideBarPopups from "components/ui-components/Wrappers/slideBarPopups";
+import SearchPopUp from "components/ui-components/Popups/Search";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
