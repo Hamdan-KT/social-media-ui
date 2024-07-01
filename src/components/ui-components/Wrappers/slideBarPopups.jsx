@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { drawerWidth } from "utils/constants";
-import { sideBarPopupClose } from "app/slices/customizationSlice/customization";
 import { useDispatch, useSelector } from "react-redux";
 
 const StyledPaper = styled(Paper)(({ theme, customization }) => ({
