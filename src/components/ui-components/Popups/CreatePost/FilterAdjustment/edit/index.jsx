@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editingSlidersConfig } from "utils/constants";
 import { setCustomFilter } from "app/slices/postSlice/postSlice";
-// import MuiIOSSlider from "components/common/FormInputs/Slider";
+import MuiIOSSlider from "components/common/FormInputs/Slider";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -43,14 +43,14 @@ function EditPanel() {
 					<Typography mb={3} fontWeight={600}>
 						{slider.label}
 					</Typography>
-					{/* <MuiIOSSlider
+					<MuiIOSSlider
 						defaultValue={postStates?.activePost?.[slider?.id]}
 						value={postStates?.activePost?.[slider?.id]}
 						onChange={(e, value) => handleChange(e, slider?.id, value)}
 						valueLabelDisplay="on"
 						min={0}
 						max={200}
-					/> */}
+					/>
 				</SliderWrapper>
 			))}
 		</ContentBox>
