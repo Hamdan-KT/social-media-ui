@@ -1,9 +1,9 @@
-import MuiIOSSlider from "components/common/FormInputs/Slider";
 import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editingSlidersConfig } from "utils/constants";
 import { setCustomFilter } from "app/slices/postSlice/postSlice";
+import MuiIOSSlider from "components/common/formInputs/Slider";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",

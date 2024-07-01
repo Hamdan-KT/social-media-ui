@@ -21,16 +21,16 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import PngLogo from "assets/images/logoText.png";
 import { forwardRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { defaultUser } from "../../../data";
-import SlideBarPopups from "components/ui-components/wrappers/slideBarPopups";
+import { defaultUser } from "src/data";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarPopupOpen } from "app/slices/customizationSlice/customization";
-import SearchPopUp from "components/ui-components/popups/search";
-import NotificationPopUp from "components/ui-components/popups/notification";
 import CreatePost from "components/ui-components/Popups/CreatePost";
 import { sideBarPopupClose } from "app/slices/customizationSlice/customization";
 import { sidebarpopUps } from "utils/constants";
+import SlideBarPopups from "components/ui-components/Wrappers/slideBarPopups";
+import SearchPopUp from "components/ui-components/Popups/Search";
+import NotificationPopUp from "components/ui-components/Popups/Notification";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
