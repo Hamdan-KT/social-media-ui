@@ -22,7 +22,7 @@ import PngLogo from "assets/images/logoText.png";
 import { forwardRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { defaultUser } from "src/data";
-import SlideBarPopups from "components/ui-components/Wrappers/SlideBarPopups";
+import SlideBarPopups from "components/ui-components/wrappers/slideBarPopups";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarPopupOpen } from "app/slices/customizationSlice/customization";
