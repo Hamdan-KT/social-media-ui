@@ -1,4 +1,5 @@
 import { Slider, styled } from "@mui/material";
+import React from "react";
 
 const IOSSlider = styled(Slider)(({ theme }) => ({
 	color: theme.palette.mode === "dark" ? "#0a84ff" : "#007bff",
@@ -46,8 +47,6 @@ const IOSSlider = styled(Slider)(({ theme }) => ({
 		backgroundColor: "#000",
 	},
 }));
-
-import React from 'react'
 
 function MuiIOSSlider(props) {
     return <IOSSlider aria-label="ios slider" {...props} />;

@@ -15,11 +15,11 @@ import NavigationScroll from "layouts/NavigationScroll";
 import { useSelector } from "react-redux";
 
 // TEST COMPONENTS
-import ViewPost from "./components/ui-components/Popups/ViewPost";
-import Comments from "./components/ui-components/Popups/Comments";
-import BottomSheet from "./components/common/BottomSheet";
-import ImageViewer from "./components/ui-components/ImageViewer";
-import CreatePost from "./components/ui-components/Popups/CreatePost";
+import ViewPost from "components/ui-components/Popups/ViewPost";
+import Comments from "components/ui-components/Popups/Comments";
+import BottomSheet from "components/common/BottomSheet";
+import ImageViewer from "components/ui-components/ImageViewer";
+import CreatePost from "components/ui-components/Popups/CreatePost";
 
 function App() {
 	const customization = useSelector((state) => state.customization);
