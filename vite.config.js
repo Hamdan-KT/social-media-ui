@@ -5,7 +5,6 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	// assetsInclude: ["**/*.manifest"],
 	plugins: [
 		react(),
 		VitePWA({
@@ -21,30 +20,6 @@ export default defineConfig({
 				description:
 					"It is clone application of Instagram application, not included all features",
 				icons: [
-					// {
-					// 	src: "/android-chrome-192x192.png",
-					// 	sizes: "192x192",
-					// 	type: "image/png",
-					// 	purpose: "favicon",
-					// },
-					// {
-					// 	src: "/android-chrome-512x512.png",
-					// 	sizes: "512x512",
-					// 	type: "image/png",
-					// 	purpose: "favicon",
-					// },
-					// {
-					// 	src: "/apple-touch-icon.png",
-					// 	sizes: "180x180",
-					// 	type: "image/png",
-					// 	purpose: "apple touch icon",
-					// },
-					// {
-					// 	src: "/maskable_icon.png",
-					// 	sizes: "512x512",
-					// 	type: "image/png",
-					// 	purpose: "any maskable",
-					// },
 					{
 						src: "/pwa-192x192.png",
 						sizes: "192x192",
