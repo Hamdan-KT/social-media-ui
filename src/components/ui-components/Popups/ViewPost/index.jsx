@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import PostSlider from "../../Post/PostSlider";
 import { commentList, userPosts } from "src/data";
-import CommentList from "../../CommentList";
+import CommentList from "components/ui-components/CommentList";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import Picker from "@emoji-mart/react";
 import CustomModal from "components/common/Modal";
