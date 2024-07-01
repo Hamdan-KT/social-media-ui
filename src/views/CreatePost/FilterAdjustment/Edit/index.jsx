@@ -3,9 +3,9 @@ import { Box, IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editingSlidersConfig } from "utils/constants";
-import MuiIOSSlider from "components/common/FormInputs/Slider";
 import { setCustomFilter } from "app/slices/postSlice/postSlice";
 import ReactIcons from "utils/ReactIcons";
+import MuiIOSSlider from "@/components/common/formInputs/Slider";
 
 const ScrollBox = styled(Box)(({ theme }) => ({
 	width: "100%",
