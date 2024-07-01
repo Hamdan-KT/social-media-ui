@@ -1,5 +1,4 @@
 // icons
-import MUIicons from "utils/muiIcons";
 import ReactIcons from "utils/ReactIcons";
 
 export const BottomBarMenuList = [
