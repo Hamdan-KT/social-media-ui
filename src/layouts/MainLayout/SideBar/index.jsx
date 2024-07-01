@@ -25,7 +25,7 @@ import { defaultUser } from "src/data";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarPopupOpen } from "app/slices/customizationSlice/customization";
-import SearchPopUp from "components/ui-components/popups/search";
+import SearchPopUp from "components/ui-components/Popups/search";
 import NotificationPopUp from "components/ui-components/popups/notification";
 import CreatePost from "components/ui-components/Popups/CreatePost";
 import { sideBarPopupClose } from "app/slices/customizationSlice/customization";
