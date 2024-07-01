@@ -1,5 +1,4 @@
 // icons
-import MUIicons from "utils/muiIcons";
 import { RoutePath } from "src/utils/routes";
 import ReactIcons from "utils/ReactIcons";
 import { sidebarpopUps } from "utils/constants";
