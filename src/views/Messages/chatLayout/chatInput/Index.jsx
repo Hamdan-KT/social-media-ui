@@ -37,7 +37,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 		width: `100%`,
 		bottom: 0,
 		left: 0,
-		padding: "0.5rem 0.3rem",
+		padding: "0.5rem 0.3rem 0.8rem 0.3rem",
 	},
 	zIndex: 7,
 }));
