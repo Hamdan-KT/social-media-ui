@@ -8,7 +8,7 @@ import Post from "components/ui-components/Post";
 // dummy data
 import { userPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -19,6 +19,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.default,
 	gap: "1rem",
 }));
+
+// memorize post component
+const MemoizedPost = memo(Post);
 
 function Home() {
 	const theme = useTheme();
@@ -34,7 +37,7 @@ function Home() {
 					<StorySlider />
 					{/* post rendering */}
 					{userPosts?.map((data) => (
-						<Post key={data?.id} data={data} />
+						<MemoizedPost key={data?.id} data={data} />
 					))}
 				</StyledBox>
 			</Grid>

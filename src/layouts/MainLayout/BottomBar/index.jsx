@@ -62,7 +62,7 @@ function BottomBar() {
 			// updating state
 			setValue(value);
 			// navigating to specific path
-			navigate(value);
+			if (pathname !== value) return navigate(value);
 		}
 	};
 
