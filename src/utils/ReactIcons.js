@@ -26,6 +26,9 @@ import {
 	MdNavigateBefore,
 	MdMoreHoriz,
 	MdOutlineAccountBox,
+	MdMenu,
+	MdMenuOpen,
+	MdFiberManualRecord,
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
 import {
@@ -44,7 +47,12 @@ import {
 	RiBookmarkLine,
 	RiBookmarkFill,
 } from "react-icons/ri";
-import { IoMdImages, IoIosArrowDown } from "react-icons/io";
+import {
+	IoMdImages,
+	IoIosArrowDown,
+	IoIosArrowUp,
+	IoIosAddCircle,
+} from "react-icons/io";
 import {
 	LuSend,
 	LuReply,
@@ -63,8 +71,6 @@ import {
 	BsVignette,
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
-import { IoIosAddCircle } from "react-icons/io";
-
 
 
 const ReactIcons = {
@@ -110,6 +116,7 @@ const ReactIcons = {
 	LiaPhotoVideoSolid,
 	IoLocationOutline,
 	IoIosArrowDown,
+	IoIosArrowUp,
 	IoClose,
 	MdOutlineGridOn,
 	MdOutlineAddCircleOutline,
@@ -128,6 +135,9 @@ const ReactIcons = {
 	MdMoreHoriz,
 	MdOutlineAccountBox,
 	FaImages,
+	MdMenu,
+	MdMenuOpen,
+	MdFiberManualRecord,
 };
 
 export default ReactIcons;
