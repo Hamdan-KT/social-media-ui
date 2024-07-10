@@ -35,7 +35,7 @@ function App() {
 					{/* routes */}
 					<Routes />
 					{/* test comps */}
-					{/* <ViewPost /> */}
+					<ViewPost />
 					{/* <Comments /> */}
 					{/* <CreatePost open={true} /> */}
 				</NavigationScroll>

@@ -47,12 +47,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function ViewPost() {
+function ViewPost({ open = false, onClose }) {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
 	const [anchorEl, setAnchorEl] = useState(null);
-	const open = Boolean(anchorEl);
+	const menuOpen = Boolean(anchorEl);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -62,7 +62,7 @@ function ViewPost() {
 	};
 
 	return (
-		<CustomModal open={true} closeIcon={true}>
+		<CustomModal open={open} onClose={onClose} closeIcon={true}>
 			<Box
 				sx={{
 					...commonStyle,
@@ -71,13 +71,14 @@ function ViewPost() {
 					width: "auto",
 					border: "5px solid black",
 					overflow: "hidden",
+					position: "relative",
 				}}
 			>
 				<PostSlider
 					medias={userPosts[0].media}
 					mediaStyles={{ height: "92vh", width: "auto" }}
 				/>
-				<Box sx={{ height: "100%", width: "33vw", background: "green" }}>
+				<Box sx={{ height: "100%", width: "43vw", background: theme.palette.background.paper }}>
 					{/* header */}
 					<Box
 						sx={{
@@ -209,7 +210,7 @@ function ViewPost() {
 										id="emoji-menu"
 										aria-labelledby="emoji-menu"
 										anchorEl={anchorEl}
-										open={open}
+										open={menuOpen}
 										onClose={handleClose}
 										anchorOrigin={{
 											vertical: "top",

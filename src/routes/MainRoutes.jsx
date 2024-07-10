@@ -2,6 +2,7 @@ import { lazy } from "react";
 import Loadable from "components/common/Loadable";
 import MainLayout from "layouts/MainLayout";
 import { RoutePath } from "src/utils/routes";
+import ViewPost from "components/ui-components/Popups/ViewPost";
 
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));
@@ -18,7 +19,7 @@ const ViewPostMobile = Loadable(lazy(() => import("views/ViewPost")));
 const ChatLayout = Loadable(lazy(() => import("views/Messages/chatLayout")));
 
 const MainRoutes = () => {
-  return {
+	return {
 		path: RoutePath.HOME,
 		element: <MainLayout />,
 		children: [
@@ -26,6 +27,13 @@ const MainRoutes = () => {
 				path: "test",
 				element: <Test />,
 			},
+			// {
+			// 	path: `${RoutePath.POST}/a/a`,
+			// 	// children: ({ match }) => {
+			// 	// 	return <ViewPost open={Boolean(match)} />;
+			// 	// },
+			// 	element: <ViewPost open={true} />
+			// },
 			{
 				path: RoutePath.HOME,
 				element: <Home />,
