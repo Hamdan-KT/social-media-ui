@@ -134,46 +134,45 @@ function Post({ data }) {
 			<CardMedia
 				sx={{ padding: 0 }}
 				alt="Not Found"
-				// component={() => (
-				// )}
-			>
-				<Slider>
-					{Array.isArray(data?.media) &&
-						data?.media?.map((media, ind) => (
-							<Slide key={ind} sx={{ background: "black", height: "100%" }}>
-								{media?.type === "image" && (
-									<img
-										style={{
-											display: "block",
-											objectFit: "cover",
-											width: "100%",
-										}}
-										alt="Not found!"
-										key={ind}
-										src={media?.src}
-										loading="lazy"
-										draggable={false}
-									/>
-								)}
-								{media?.type === "video" && (
-									<video
-										controls
-										key={ind}
-										src={media?.src}
-										alt="Not Found!"
-										style={{
-											display: "block",
-											objectFit: "cover",
-											width: "100%",
-										}}
-										loading="lazy"
-										draggable={false}
-									/>
-								)}
-							</Slide>
-						))}
-				</Slider>
-			</CardMedia>
+				component={() => (
+					<Slider>
+						{Array.isArray(data?.media) &&
+							data?.media?.map((media, ind) => (
+								<Slide key={ind} sx={{ background: "black", height: "100%" }}>
+									{media?.type === "image" && (
+										<img
+											style={{
+												display: "block",
+												objectFit: "cover",
+												width: "100%",
+											}}
+											alt="Not found!"
+											key={ind}
+											src={media?.src}
+											loading="lazy"
+											draggable={false}
+										/>
+									)}
+									{media?.type === "video" && (
+										<video
+											controls
+											key={ind}
+											src={media?.src}
+											alt="Not Found!"
+											style={{
+												display: "block",
+												objectFit: "cover",
+												width: "100%",
+											}}
+											loading="lazy"
+											draggable={false}
+										/>
+									)}
+								</Slide>
+							))}
+					</Slider>
+				)}
+			/>
 
 			{/* card actions */}
 			<CardActions disableSpacing sx={{ p: 0 }}>
