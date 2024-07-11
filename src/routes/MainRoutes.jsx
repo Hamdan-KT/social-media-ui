@@ -3,13 +3,12 @@ import Loadable from "components/common/Loadable";
 import MainLayout from "layouts/MainLayout";
 import { RoutePath } from "src/utils/routes";
 import ViewPost from "components/ui-components/Popups/ViewPost";
-import Home from "views/Home";
 
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));
 
 // MAIN ROUTES
-// const Home = Loadable(lazy(() => import("views/Home")));
+const Home = Loadable(lazy(() => import("views/Home")));
 const Explore = Loadable(lazy(() => import("views/Explore")));
 const Messages = Loadable(lazy(() => import("views/Messages")));
 const Reels = Loadable(lazy(() => import("views/Reels")));
