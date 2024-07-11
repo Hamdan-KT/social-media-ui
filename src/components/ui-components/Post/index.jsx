@@ -173,7 +173,6 @@ function Post({ data }) {
 					</Slider>
 				)}
 			/>
-
 			{/* card actions */}
 			<CardActions disableSpacing sx={{ p: 0 }}>
 				<Checkbox

@@ -16,7 +16,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // dummy data
 import { userStories } from "../../../data";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import ReactIcons from "utils/ReactIcons";
 
 const StyledPaper = styled(Paper)(({ theme, customization }) => ({
@@ -113,10 +113,10 @@ const StyledPlusIcon = styled(Box)(({ theme }) => ({
 	height: "auto",
 	display: "flex",
 	alignItems: "center",
-  justifyContent: "center",
-  width: "auto",
-  borderRadius: "50%",
-  background: theme.palette.background.paper
+	justifyContent: "center",
+	width: "auto",
+	borderRadius: "50%",
+	background: theme.palette.background.paper,
 }));
 
 function StorySlider(props) {

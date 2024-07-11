@@ -42,11 +42,6 @@ function Home() {
 						...userPosts,
 						...userPosts,
 						...userPosts,
-						...userPosts,
-						...userPosts,
-						...userPosts,
-						...userPosts,
-						...userPosts,
 					]?.map((data) => (
 						<MemoizedPost key={data?.id} data={data} />
 					))}
