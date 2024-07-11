@@ -20,7 +20,6 @@ import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ReactIcons from "utils/ReactIcons";
 import Comments from "../Popups/Comments";
-import { memo } from "react";
 
 // caption style
 const captionStyle = {
@@ -30,7 +29,7 @@ const captionStyle = {
 	display: "-webkit-box",
 };
 
-const Post = memo(function ({ data }) {
+function Post({ data }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [openComments, setOpenComments] = useState(false);
@@ -135,45 +134,46 @@ const Post = memo(function ({ data }) {
 			<CardMedia
 				sx={{ padding: 0 }}
 				alt="Not Found"
-				component={() => (
-					<Slider>
-						{Array.isArray(data?.media) &&
-							data?.media?.map((media, ind) => (
-								<Slide key={ind} sx={{ background: "black", height: "100%" }}>
-									{media?.type === "image" && (
-										<img
-											style={{
-												display: "block",
-												objectFit: "cover",
-												width: "100%",
-											}}
-											alt="Not found!"
-											key={ind}
-											src={media?.src}
-											loading="lazy"
-											draggable={false}
-										/>
-									)}
-									{media?.type === "video" && (
-										<video
-											controls
-											key={ind}
-											src={media?.src}
-											alt="Not Found!"
-											style={{
-												display: "block",
-												objectFit: "cover",
-												width: "100%",
-											}}
-											loading="lazy"
-											draggable={false}
-										/>
-									)}
-								</Slide>
-							))}
-					</Slider>
-				)}
-			/>
+				// component={() => (
+				// )}
+			>
+				<Slider>
+					{Array.isArray(data?.media) &&
+						data?.media?.map((media, ind) => (
+							<Slide key={ind} sx={{ background: "black", height: "100%" }}>
+								{media?.type === "image" && (
+									<img
+										style={{
+											display: "block",
+											objectFit: "cover",
+											width: "100%",
+										}}
+										alt="Not found!"
+										key={ind}
+										src={media?.src}
+										loading="lazy"
+										draggable={false}
+									/>
+								)}
+								{media?.type === "video" && (
+									<video
+										controls
+										key={ind}
+										src={media?.src}
+										alt="Not Found!"
+										style={{
+											display: "block",
+											objectFit: "cover",
+											width: "100%",
+										}}
+										loading="lazy"
+										draggable={false}
+									/>
+								)}
+							</Slide>
+						))}
+				</Slider>
+			</CardMedia>
 
 			{/* card actions */}
 			<CardActions disableSpacing sx={{ p: 0 }}>
@@ -281,6 +281,6 @@ const Post = memo(function ({ data }) {
 			/>
 		</Card>
 	);
-});
+}
 
 export default Post;
