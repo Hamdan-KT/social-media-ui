@@ -1,14 +1,5 @@
-import {
-	animate,
-	AnimatePresence,
-	motion,
-	useMotionTemplate,
-	useMotionValue,
-	useMotionValueEvent,
-	useTransform,
-} from "framer-motion";
-import { useEffect, forwardRef, useRef, useState } from "react";
-import Slide from "@mui/material/Slide";
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import {
 	Backdrop,
 	Box,
@@ -18,19 +9,6 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-
-const Transition = forwardRef(function Transition(props, ref) {
-	return <Slide direction="up" ref={ref} {...props} />;
-});
-
-const BottomSheetContent = styled(Box)(({ theme, open }) => ({
-	background: "white",
-	maxHeight: "100vh",
-	width: "100%",
-	borderRadius: "15px 15px 0 0",
-	transform: open ? "translateY(0%)" : "translateY(100%)",
-	transition: "0.2s ease",
-}));
 
 const BottomSheetHeader = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -75,7 +53,7 @@ function BottomSheet({
 	const startHeight = useRef(contentRef.current);
 
 	useEffect(() => {
-		if(open) updateSheetHeight(60);
+		if (open) updateSheetHeight(60);
 	}, [open]);
 
 	useEffect(() => {
@@ -117,16 +95,16 @@ function BottomSheet({
 
 		document.addEventListener("mousemove", dragging);
 		document.addEventListener("mouseup", dragEnd);
-		header.addEventListener("mousedown", dragStart);
-		header.addEventListener("touchstart", dragStart);
-		header.addEventListener("touchmove", dragging);
-		header.addEventListener("touchend", dragEnd);
+		header?.addEventListener("mousedown", dragStart);
+		header?.addEventListener("touchstart", dragStart);
+		header?.addEventListener("touchmove", dragging);
+		header?.addEventListener("touchend", dragEnd);
 
 		return () => {
-			header.removeEventListener("mousedown", dragStart);
-			header.removeEventListener("touchstart", dragStart);
-			header.removeEventListener("touchmove", dragging);
-			header.removeEventListener("touchend", dragEnd);
+			header?.removeEventListener("mousedown", dragStart);
+			header?.removeEventListener("touchstart", dragStart);
+			header?.removeEventListener("touchmove", dragging);
+			header?.removeEventListener("touchend", dragEnd);
 			document.removeEventListener("mousemove", dragging);
 			document.removeEventListener("mouseup", dragEnd);
 		};
@@ -143,9 +121,13 @@ function BottomSheet({
 				display: "flex",
 				height: "100%",
 				width: "100%",
+				position: "fixed",
+				top: 0,
+				left: 0,
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "end",
+				overflow: "hidden",
 				zIndex: (theme) => theme.zIndex.drawer + 1,
 			}}
 			open={open}
