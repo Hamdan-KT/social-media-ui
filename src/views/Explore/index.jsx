@@ -107,7 +107,13 @@ function Explore() {
 			)}
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				<StyledGallery>
-					{explorePosts.map((post, index) => (
+					{[
+						...explorePosts,
+						...explorePosts,
+						...explorePosts,
+						...explorePosts,
+						...explorePosts,
+					].map((post, index) => (
 						<MediaDiv key={index}>
 							{post.media[0]?.type === "image" ? (
 								<img
