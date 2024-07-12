@@ -96,6 +96,12 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 	"&:hover": {
 		backgroundColor: theme.palette.grey[200],
 	},
+	"&.Mui-selected": {
+		backgroundColor: theme.palette.grey[200],
+		"&:hover": {
+			backgroundColor: theme.palette.grey[200],
+		},
+	},
 	borderRadius: "10px",
 	minHeight: 48,
 }));
@@ -175,7 +181,6 @@ function SideBar({ open, handleToggle }) {
 									<ListItem
 										key={item?.id}
 										disablePadding
-
 										sx={{ display: "block" }}
 										onClick={() =>
 											dispatch(
@@ -196,12 +201,9 @@ function SideBar({ open, handleToggle }) {
 												mt: 1,
 												mb: 1,
 											}}
-											// selected={
-											//   pathname
-											//     .toString()
-											//     .split("/")
-											//     .findIndex((id) => id === item.id) > -1
-											// }
+											selected={
+												pathname.split("/")[1] === item?.url?.split("/")[0]
+											}
 										>
 											{item?.avatar ? (
 												<ListItemAvatar
@@ -227,13 +229,31 @@ function SideBar({ open, handleToggle }) {
 												>
 													{item?.badge ? (
 														<Badge badgeContent={4} color="error">
-															<OutlinedIcon
-																style={{
-																	fontSize: 28,
-																	color: `${theme.palette.text.dark}`,
-																}}
-															/>
+															{pathname.split("/")[1] ===
+															item?.url?.split("/")[0] ? (
+																<Icon
+																	style={{
+																		fontSize: 28,
+																		color: `${theme.palette.text.dark}`,
+																	}}
+																/>
+															) : (
+																<OutlinedIcon
+																	style={{
+																		fontSize: 28,
+																		color: `${theme.palette.text.dark}`,
+																	}}
+																/>
+															)}
 														</Badge>
+													) : pathname.split("/")[1] ===
+													  item?.url?.split("/")[0] ? (
+														<Icon
+															style={{
+																fontSize: 28,
+																color: `${theme.palette.text.dark}`,
+															}}
+														/>
 													) : (
 														<OutlinedIcon
 															style={{

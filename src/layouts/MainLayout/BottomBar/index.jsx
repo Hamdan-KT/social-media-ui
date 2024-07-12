@@ -11,7 +11,7 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createURLfromImage } from "utils/common";
 import { v4 as uuidv4 } from "uuid";
@@ -130,7 +130,8 @@ function BottomBar() {
 												value={menu?.url ?? null}
 												key={index}
 												icon={
-													value === menu?.url ? (
+													pathname.split("/")[1] ===
+													menu?.url?.split("/")[0] ? (
 														<FilledIcon
 															style={{
 																color: `${theme.palette.text.dark}`,
@@ -180,7 +181,7 @@ function BottomBar() {
 										value={menu?.url ?? null}
 										key={index}
 										icon={
-											value === menu?.url ? (
+											pathname.split("/")[1] === menu?.url?.split("/")[0] ? (
 												<FilledIcon
 													style={{
 														color: `${theme.palette.text.dark}`,

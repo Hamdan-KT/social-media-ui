@@ -36,13 +36,7 @@ function Home() {
 					{/* story Slider */}
 					<StorySlider />
 					{/* post rendering */}
-					{[
-						...userPosts,
-						...userPosts,
-						...userPosts,
-						...userPosts,
-						...userPosts,
-					]?.map((data) => (
+					{[...userPosts]?.map((data) => (
 						<MemoizedPost key={data?.id} data={data} />
 					))}
 				</StyledBox>

@@ -1,4 +1,5 @@
 // icons
+import { RoutePath } from "utils/routes";
 import ReactIcons from "utils/ReactIcons";
 
 export const BottomBarMenuList = [
@@ -7,14 +8,14 @@ export const BottomBarMenuList = [
 		title: "Home",
 		icon: ReactIcons.RiHome4Fill,
 		outLinedIcon: ReactIcons.RiHome4Line,
-		url: "/",
+		url: RoutePath.HOME,
 	},
 	{
 		id: "explore",
 		title: "Explore",
 		icon: ReactIcons.IoSearchSharp,
 		outLinedIcon: ReactIcons.IoSearchOutline,
-		url: "/explore",
+		url: RoutePath.EXPLORE,
 	},
 
 	{
@@ -29,13 +30,13 @@ export const BottomBarMenuList = [
 		title: "Reels",
 		icon: ReactIcons.BiSolidMoviePlay,
 		outLinedIcon: ReactIcons.BiMoviePlay,
-		url: "/reels",
+		url: RoutePath.REELS,
 	},
 	{
 		id: "profile",
 		title: "Profile",
 		icon: ReactIcons.RiAccountCircleFill,
 		outLinedIcon: ReactIcons.RiAccountCircleLine,
-		url: "/profile",
+		url: RoutePath.PROFILE,
 	},
 ];
