@@ -31,6 +31,7 @@ import { sidebarpopUps } from "utils/constants";
 import SlideBarPopups from "components/ui-components/Wrappers/slideBarPopups";
 import SearchPopUp from "components/ui-components/Popups/Search";
 import NotificationPopUp from "components/ui-components/Popups/Notification";
+import { memo } from "react";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -106,7 +107,7 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 	minHeight: 48,
 }));
 
-function SideBar({ open, handleToggle }) {
+const SideBar = memo(function ({ open, handleToggle }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const { pathname } = useLocation();
@@ -304,6 +305,6 @@ function SideBar({ open, handleToggle }) {
 			)}
 		</>
 	);
-}
+});
 
 export default SideBar;

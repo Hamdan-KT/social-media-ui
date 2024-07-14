@@ -21,6 +21,7 @@ import { RoutePath } from "utils/routes";
 import PopOver from "components/common/Popover";
 import ReactIcons from "utils/ReactIcons";
 import { loadPosts } from "app/slices/postSlice/postSlice";
+import { memo } from "react";
 
 const StyledPopoverBox = styled(Box)(({ theme }) => ({
 	width: "auto",
@@ -46,7 +47,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 	},
 }));
 
-function BottomBar() {
+const BottomBar = memo(function () {
 	const theme = useTheme();
 	const [value, setValue] = useState(0);
 	const navigate = useNavigate();
@@ -206,6 +207,6 @@ function BottomBar() {
 			)}
 		</>
 	);
-}
+});
 
 export default BottomBar;

@@ -27,13 +27,6 @@ const MainRoutes = () => {
 				path: "test",
 				element: <Test />,
 			},
-			// {
-			// 	path: `${RoutePath.POST}/a/a`,
-			// 	// children: ({ match }) => {
-			// 	// 	return <ViewPost open={Boolean(match)} />;
-			// 	// },
-			// 	element: <ViewPost open={true} />
-			// },
 			{
 				path: RoutePath.HOME,
 				element: <Home />,
