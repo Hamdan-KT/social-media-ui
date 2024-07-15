@@ -59,7 +59,12 @@ function NotificationList({
 												Following
 											</Btn>
 										) : (
-											<Btn onClick={() => onButtonClick(noti)}>Follow</Btn>
+											<Btn
+												onClick={() => onButtonClick(noti)}
+												// variant="outlined"
+											>
+												Follow
+											</Btn>
 										)
 									) : noti?.type === "action" ? (
 										<ImgWrapper

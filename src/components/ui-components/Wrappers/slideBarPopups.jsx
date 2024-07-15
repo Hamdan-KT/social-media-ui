@@ -61,21 +61,21 @@ function SlideBarPopups({ children, open = false }) {
   const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Slide
-      ref={containerRef}
-      direction="right"
-      timeout={400}
-      in={open}
-      mountOnEnter
-      unmountOnExit
-    >
-      <StyledBox>
-        <StyledPaper elevation={10}>
-          <BaseBox className="scrollbar-toggle-visible">{children}</BaseBox>
-        </StyledPaper>
-      </StyledBox>
-    </Slide>
-  );
+		<Slide
+			ref={containerRef}
+			direction="right"
+			timeout={400}
+			in={open}
+			mountOnEnter
+			unmountOnExit
+		>
+			<StyledBox>
+				<StyledPaper elevation={10}>
+					<BaseBox className="scrollbar-hide">{children}</BaseBox>
+				</StyledPaper>
+			</StyledBox>
+		</Slide>
+	);
 }
 
 export default SlideBarPopups;

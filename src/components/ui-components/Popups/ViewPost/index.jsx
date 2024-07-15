@@ -77,7 +77,7 @@ function ViewPost({ open = true, onClose }) {
 			>
 				<Grid container>
 					<Grid item sm={7} md={8}>
-						<PostSlider medias={userPosts[3].media} />
+						<PostSlider medias={userPosts[0].media} />
 					</Grid>
 					<Grid item sm={5} md={4}>
 						<Box

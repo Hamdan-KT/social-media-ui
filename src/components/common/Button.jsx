@@ -22,12 +22,13 @@ function Btn({ children, sx, variant = "contained", color, ...rest }) {
 
 	return (
 		<StyledBtn
+			disableElevation
 			sx={{
 				padding: {
-					xs: "0.35rem 1.7rem",
-					sm: "0.25rem 0.4rem",
+					xs: variant === "contained" ? "0.35rem 1.7rem" : "0.25rem 1.7rem",
+					sm: variant === "contained" ? "0.25rem 0.4rem" : "0.14rem 0.4rem",
 				},
-				...sx
+				...sx,
 			}}
 			variant={variant}
 			{...rest}
