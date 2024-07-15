@@ -81,6 +81,10 @@ export const userPosts = [
 		media: [
 			{
 				type: "image",
+				src: "https://images.pexels.com/photos/754444/pexels-photo-754444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+			},
+			{
+				type: "image",
 				src: "https://www.hindustantimes.com/ht-img/img/2023/08/11/550x309/SOCCER-INSTAGRAM-RONALDO-0_1691736410842_1691736433032.JPG",
 			},
 			{

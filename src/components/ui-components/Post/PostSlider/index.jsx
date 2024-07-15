@@ -1,13 +1,10 @@
 /* eslint-disable react/display-name */
-import { Box, IconButton, Zoom, styled } from "@mui/material";
 import { forwardRef } from "react";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 
 const PostSlider = forwardRef(
-	({ medias = [], onDoubleClick, mediaStyles = {} }, ref) => {
+	({ medias = [], mediaStyles = {} }, ref) => {
 		return (
 			<Slider
 				sx={{
@@ -29,13 +26,14 @@ const PostSlider = forwardRef(
 								justifyContent: "center",
 								position: "relative",
 								overflow: "hidden",
+								height: "100%",
 							}}
 						>
 							{media.type === "image" && (
 								<img
 									style={{
-										height: "92vh",
-										width: "auto",
+										maxHeight: "92vh",
+										width: "100%",
 										display: "block",
 										objectFit: "contain",
 										...mediaStyles,
@@ -54,8 +52,8 @@ const PostSlider = forwardRef(
 									src={media.src}
 									alt="Not Found!"
 									style={{
-										height: "92vh",
-										width: "auto",
+										maxHeight: "92vh",
+										width: "100%",
 										display: "block",
 										objectFit: "contain",
 										...mediaStyles,
