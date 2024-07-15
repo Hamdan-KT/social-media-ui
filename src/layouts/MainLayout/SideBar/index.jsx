@@ -202,15 +202,13 @@ const SideBar = memo(function ({ open, handleToggle }) {
 												mt: 1,
 												mb: 1,
 											}}
-											selected={
-												pathname.split("/")[1] === item?.url?.split("/")[0]
-											}
+											selected={pathname.split("/")[1] === item?.id}
 										>
 											{item?.avatar ? (
 												<ListItemAvatar
 													sx={{
 														minWidth: 0,
-														mr: open ? 3 : 0,
+														mr: open ? 2 : 0,
 														justifyContent: "center",
 													}}
 												>
@@ -224,7 +222,7 @@ const SideBar = memo(function ({ open, handleToggle }) {
 												<ListItemIcon
 													sx={{
 														minWidth: 0,
-														mr: open ? 3 : 0,
+														mr: open ? 2 : 0,
 														justifyContent: "center",
 													}}
 												>
@@ -247,8 +245,7 @@ const SideBar = memo(function ({ open, handleToggle }) {
 																/>
 															)}
 														</Badge>
-													) : pathname.split("/")[1] ===
-													  item?.url?.split("/")[0] ? (
+													) : pathname.split("/")[1] === item?.id ? (
 														<Icon
 															style={{
 																fontSize: 28,
@@ -268,7 +265,15 @@ const SideBar = memo(function ({ open, handleToggle }) {
 											{open && (
 												<ListItemText
 													primary={item?.title}
-													sx={{ opacity: open ? 1 : 0 }}
+													primaryTypographyProps={{
+														fontFamily: "poppins",
+														fontWeight:
+															pathname.split("/")[1] === item?.id ? "bold": "medium",
+														fontSize: "0.95rem",
+													}}
+													sx={{
+														opacity: open ? 1 : 0,
+													}}
 												/>
 											)}
 										</StyledListItemButton>
