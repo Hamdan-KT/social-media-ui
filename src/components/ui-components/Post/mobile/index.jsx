@@ -29,7 +29,7 @@ const captionStyle = {
 	display: "-webkit-box",
 };
 
-function PostMobile({ data }) {
+function PostMobile({data}) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [openComments, setOpenComments] = useState(false);

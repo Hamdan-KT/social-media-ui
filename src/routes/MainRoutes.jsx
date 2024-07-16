@@ -2,7 +2,6 @@ import { lazy } from "react";
 import Loadable from "components/common/Loadable";
 import MainLayout from "layouts/MainLayout";
 import { RoutePath } from "src/utils/routes";
-import ViewPost from "components/ui-components/Popups/ViewPost";
 
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));

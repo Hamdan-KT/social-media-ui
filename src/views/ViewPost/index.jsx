@@ -11,9 +11,9 @@ import {
 import React, { useEffect, useState } from "react";
 import ReactIcons from "utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import PostMobile from "components/ui-components/Post/mobile";
-import { userPosts } from "src/data";
+import { explorePosts } from "src/data";
 import PostLarge from "components/ui-components/Post/large";
 
 const MainBox = styled(Box)(({ theme }) => ({
@@ -60,6 +60,13 @@ function ViewPostMobile() {
 	const postStates = useSelector((state) => state.post);
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
+	const { pId } = useParams();
+	// temp post
+	const [tempPost, setTempPost] = useState({});
+	useEffect(() => {
+		const post = explorePosts.find((post) => post.id == pId);
+		setTempPost(post);
+	}, [pId]);
 
 	return (
 		<MainBox>
@@ -81,7 +88,11 @@ function ViewPostMobile() {
 				</StyledToolBar>
 			)}
 			<PostContainer>
-				{matchDownSm ? <PostMobile data={userPosts[0]} /> : <PostLarge />}
+				{matchDownSm ? (
+					<PostMobile data={tempPost} />
+				) : (
+					<PostLarge data={tempPost} />
+				)}
 			</PostContainer>
 		</MainBox>
 	);

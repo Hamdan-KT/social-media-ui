@@ -48,12 +48,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function PostLarge() {
+function PostLarge({data}) {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
 	const [anchorEl, setAnchorEl] = useState(null);
 	const menuOpen = Boolean(anchorEl);
+	
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -85,8 +86,8 @@ function PostLarge() {
 							justifyContent: "center",
 						}}
 					>
-						{Array.isArray(userPosts[0].media) &&
-							userPosts[0].media.map((media, ind) => (
+						{Array.isArray(data?.media) &&
+							data?.media.map((media, ind) => (
 								<Slide
 									key={media.uID}
 									sx={{
@@ -154,7 +155,7 @@ function PostLarge() {
 							}}
 						>
 							<Box sx={commonStyle}>
-								<Avatar src={userPosts[0]?.profile} />
+								<Avatar src={data?.profile} />
 							</Box>
 							<Box
 								sx={{
@@ -163,7 +164,7 @@ function PostLarge() {
 									flexDirection: "column",
 								}}
 							>
-								<Typography variant="userName">{userPosts[0]?.name}</Typography>
+								<Typography variant="userName">{data?.name}</Typography>
 								<Typography variant="caption">{"secondary text"}</Typography>
 							</Box>
 						</Box>

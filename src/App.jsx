@@ -5,7 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
 
 // routing
-import Routes from "routes";
+import AppRouting from "routes";
 
 // defaultTheme
 import themes from "themes";
@@ -33,9 +33,9 @@ function App() {
 				{/* navigation Scroll component */}
 				<NavigationScroll>
 					{/* routes */}
-					<Routes />
+					<AppRouting />
 					{/* test comps */}
-					<ViewPost />
+					{/* <ViewPost /> */}
 					{/* <Comments /> */}
 					{/* <CreatePost open={true} /> */}
 				</NavigationScroll>
