@@ -3,12 +3,12 @@ import { Box, Grid, styled, useMediaQuery } from "@mui/material";
 import { defaultSpacing } from "utils/constants";
 import StorySlider from "components/ui-components/StorySlider";
 import Suggessions from "components/ui-components/ProfileAndSuggession";
-import Post from "components/ui-components/Post";
+import PostMobile from "components/ui-components/Post/mobile";
 
 // dummy data
 import { userPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
-import { memo, useState } from "react";
+import { memo } from "react";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -21,7 +21,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 // memorize post component
-const MemoizedPost = memo(Post);
+const MemoizedPost = memo(PostMobile);
 
 function Home() {
 	const theme = useTheme();
