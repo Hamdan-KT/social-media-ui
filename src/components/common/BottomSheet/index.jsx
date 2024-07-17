@@ -32,7 +32,6 @@ const BottomSheetBody = styled(Box)(({ theme }) => ({
 	height: "calc(100% - 49.5px)",
 	maxHeight: "100%",
 	overflowY: "scroll",
-	padding: "0.5rem",
 	color: "inherit",
 }));
 
