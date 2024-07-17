@@ -64,7 +64,7 @@ function SlideBarPopups({ children, open = false }) {
 		<Slide
 			ref={containerRef}
 			direction="right"
-			timeout={400}
+			timeout={300}
 			in={open}
 			mountOnEnter
 			unmountOnExit

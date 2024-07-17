@@ -10,7 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import { Box, Checkbox } from "@mui/material";
+import { Box, Checkbox, useMediaQuery } from "@mui/material";
 import verifiedBadge from "assets/images/verifiedBadge.png";
 import ImgWrapper from "components/common/ImgWrapper";
 import { useRef } from "react";
@@ -20,6 +20,8 @@ import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ReactIcons from "utils/ReactIcons";
 import Comments from "components/ui-components/Popups/Comments";
+import { useLocation, useNavigate } from "react-router";
+import { RoutePath } from "utils/routes";
 
 // caption style
 const captionStyle = {
@@ -29,13 +31,16 @@ const captionStyle = {
 	display: "-webkit-box",
 };
 
-function PostMobile({data}) {
+function PostMobile({ data }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [openComments, setOpenComments] = useState(false);
 	const captionRef = useRef(null);
 	const customization = useSelector((state) => state.customization);
 	const theme = useTheme();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
 	// check expand option of caption
 	useEffect(() => {
@@ -188,7 +193,16 @@ function PostMobile({data}) {
 						/>
 					}
 				/>
-				<IconButton aria-label="comment" onClick={() => setOpenComments(true)}>
+				<IconButton
+					aria-label="comment"
+					onClick={() =>
+						matchDownSm
+							? setOpenComments(true)
+							: navigate(`/${RoutePath.POST}/${data.id}`, {
+									state: { previousLocation: location },
+							  })
+					}
+				>
 					<ReactIcons.RiChat1Line
 						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
 					/>
@@ -265,18 +279,26 @@ function PostMobile({data}) {
 				<Box mt={1}>
 					{/* view comment tag */}
 					<Typography
-						variant="greyTags" // onClick={handleExpandClick}
+						variant="greyTags"
 						sx={{ cursor: "pointer" }}
-						onClick={() => setOpenComments(true)}
+						onClick={() =>
+							matchDownSm
+								? setOpenComments(true)
+								: navigate(`/${RoutePath.POST}/${data.id}`, {
+										state: { previousLocation: location },
+								  })
+						}
 					>
 						View all {data?.comments} comments
 					</Typography>
 				</Box>
 			</CardContent>
-			<Comments
-				open={openComments}
-				handleClose={() => setOpenComments(false)}
-			/>
+			{matchDownSm && openComments && (
+				<Comments
+					open={openComments}
+					handleClose={() => setOpenComments(false)}
+				/>
+			)}
 		</Card>
 	);
 }
