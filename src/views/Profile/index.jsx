@@ -185,7 +185,7 @@ function Profile() {
 										</Btn>
 										<Btn
 											variant="outlined"
-											sx={{ padding: "0.2rem 1.2rem", fontSize: "0.9rem" }}
+											sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
 										>
 											Message
 										</Btn>
