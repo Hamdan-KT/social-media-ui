@@ -3,7 +3,6 @@ import {
 	Box,
     IconButton,
     InputBase,
-    Typography,
 	styled,
 	useTheme,
 } from "@mui/material";
@@ -36,7 +35,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Comments({ open = false, handleClose }) {
 	const [value, setValue] = useState("");
-	const theme = useTheme()
+	const theme = useTheme();
 	return (
 		<BottomSheet
 			title="Comments"
@@ -78,7 +77,7 @@ function Comments({ open = false, handleClose }) {
 					/>
 					{value && (
 						<IconButton sx={{ background: theme.palette.primary.main, color: theme.palette.background.paper }}>
-							<ReactIcons.IoArrowUp />
+							<ReactIcons.IoArrowUp size={20} />
 						</IconButton>
 					)}
 				</InputBox>

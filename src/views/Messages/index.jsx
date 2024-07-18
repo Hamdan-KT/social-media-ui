@@ -154,7 +154,7 @@ function Messages() {
 						<Box sx={{ width: "100%" }}>
 							<StyledScrollBox className="scrollbar-hide" sx={{ mt: 0.5 }}>
 								<MessageList
-									data={Users}
+									data={[...Users, ...Users, ...Users]}
 									sx={{ maxWidth: "100%" }}
 									actionButton
 									urlPrefix="/messages"

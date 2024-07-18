@@ -69,7 +69,7 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 	},
 }));
 
-function MobileSearchBar({inputProps = {}}) {
+function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
 	const customization = useSelector((state) => state.customization);
 	const [value, setValue] = useState("");
 
@@ -103,7 +103,11 @@ function MobileSearchBar({inputProps = {}}) {
 						zIndex: 10,
 					}}
 				>
-					<StyledPaper elevation={0} customization={customization}>
+					<StyledPaper
+						elevation={0}
+						customization={customization}
+						sx={listWrapperStyle}
+					>
 						<Box
 							sx={{
 								display: "flex",
@@ -113,15 +117,14 @@ function MobileSearchBar({inputProps = {}}) {
 								overflowY: "scroll",
 								scrollBehavior: "smooth",
 							}}
-							className="scrollbar-toggle-visible"
+							className="scrollbar-hide"
 						>
 							<UserList
 								sx={{ maxWidth: "100%" }}
-								data={Users?.filter((user) => {
-									return (
-										user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
-									);
-								})}
+								data={[...Users, ...Users, ...Users]?.map(
+									(user) => user
+									// user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
+								)}
 							/>
 						</Box>
 					</StyledPaper>

@@ -137,6 +137,7 @@ function TagView({ media }) {
 				>
 					<MobileSearchBar
 						inputProps={{ placeholder: "Search People to Tag..." }}
+						listWrapperStyle={{height: "19vh"}}
 					/>
 				</StyledContainer>
 			)}
