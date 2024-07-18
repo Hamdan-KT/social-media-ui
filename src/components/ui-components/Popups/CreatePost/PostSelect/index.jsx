@@ -23,6 +23,9 @@ const MainBox = styled(Box)(({ theme }) => ({
 	flexDirection: "column",
 	background: theme.palette.background.paper,
 	gap: "1.3rem",
+	[theme.breakpoints.down("md")]: {
+		height: "35vh",
+	},
 }));
 
 function PostSelect() {

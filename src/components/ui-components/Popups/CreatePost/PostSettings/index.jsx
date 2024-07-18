@@ -23,6 +23,9 @@ const ContentBox = styled(Box)(({ theme }) => ({
 	overflowY: "scroll",
 	padding: "0.8rem",
 	gap: "0.6rem",
+	[theme.breakpoints.down("md")]: {
+		height: "34.5vh",
+	},
 }));
 
 const ItemsWrapper = styled(Box)(({ theme, hoverEffect }) => ({

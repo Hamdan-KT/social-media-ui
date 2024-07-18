@@ -23,17 +23,21 @@ function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 
 	return (
-		<div
+		<Box
 			role="tabpanel"
 			className="scrollbar-hide"
-			style={{ width: "100%", maxHeight: "67.5vh", overflowY: "scroll" }}
+			sx={{
+				width: "100%",
+				maxHeight: { sm: "30.5vh", md: "67.5vh" },
+				overflowY: "scroll",
+			}}
 			hidden={value !== index}
 			id={`full-width-tabpanel-${index}`}
 			aria-labelledby={`full-width-tab-${index}`}
 			{...other}
 		>
 			{value === index && <Box sx={{ width: "100%" }}>{children}</Box>}
-		</div>
+		</Box>
 	);
 }
 

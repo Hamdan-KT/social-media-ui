@@ -38,6 +38,9 @@ const MainBox = styled(Box)(({ theme }) => ({
 	position: "relative",
 	flexDirection: "column",
 	background: theme.palette.background.paper,
+	[theme.breakpoints.down("md")]: {
+		height: "35vh",
+	},
 }));
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
