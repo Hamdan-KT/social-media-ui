@@ -62,6 +62,7 @@ import {
 	LuCrop,
 	LuFlipVertical2,
 	LuCloudy,
+	LuPlus,
 } from "react-icons/lu";
 import { FaRegImage, FaImages } from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
@@ -140,6 +141,7 @@ const ReactIcons = {
 	MdMenu,
 	MdMenuOpen,
 	MdFiberManualRecord,
+	LuPlus,
 };
 
 export default ReactIcons;

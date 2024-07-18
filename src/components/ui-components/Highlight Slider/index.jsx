@@ -14,8 +14,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // dummy data
-import { userStories } from "../../../data";
+import { userStories } from "src/data";
 import { useRef } from "react";
+import ReactIcons from "utils/ReactIcons";
 
 const StyledPaper = styled(Paper)(({ theme, customization }) => ({
   width: "100%",
@@ -123,65 +124,104 @@ function HighlightSlider(props) {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} md={12} sm={12} lg={12}>
-        <StyledPaper elevation={0} customization={customization}>
-          <StorySliderBox ref={sliderWindow} className="scrollbar-hide">
-            {userStories?.map((story, ind) => (
-              <Box
-                sx={{
-                  display: "flex",
-                  height: "100%",
-                  flexDirection: "column",
-                  widht: "100%",
-                  alignItems: "center",
-                  textAlign: "center",
-                  justifyContent: "center",
-                  maxWidth: { xs: "4.5rem", sm: "5rem" },
-                  minWidth: { xs: "4.5rem", sm: "5rem" },
-                }}
-                key={ind}
-              >
-                <StoryTag>
-                  <Avatar
-                    src={story.profile}
-                    sx={{
-                      width: { xs: 58, sm: 74 },
-                      height: { xs: 58, sm: 74 },
-                      border: "2px solid #ffff",
-                    }}
-                  />
-                </StoryTag>
-                <Typography
-                  noWrap
-                  variant="p"
-                  sx={{ fontSize: { xs: "11px" }, width: "5rem" }}
-                >
-                  {story.name}
-                </Typography>
-              </Box>
-            ))}
-          </StorySliderBox>
-          {!matchDownSm && (
-            <>
-              <SlideButton
-                direction="left"
-                onClick={(e) => handleStorySlide(e, "left")}
-              >
-                <ChevronLeftIcon />
-              </SlideButton>
-              <SlideButton
-                direction="right"
-                onClick={(e) => handleStorySlide(e, "right")}
-              >
-                <ChevronRightIcon />
-              </SlideButton>
-            </>
-          )}
-        </StyledPaper>
-      </Grid>
-    </Grid>
-  );
+		<Grid container>
+			<Grid item xs={12} md={12} sm={12} lg={12}>
+				<StyledPaper elevation={0} customization={customization}>
+					<StorySliderBox ref={sliderWindow} className="scrollbar-hide">
+						<Box
+							sx={{
+								display: "flex",
+								height: "100%",
+								flexDirection: "column",
+								widht: "100%",
+								alignItems: "center",
+								textAlign: "center",
+								justifyContent: "center",
+								maxWidth: { xs: "4.5rem", sm: "5rem" },
+								minWidth: { xs: "4.5rem", sm: "5rem" },
+							}}
+						>
+							<StoryTag sx={{ background: theme.palette.background.paper }}>
+								<Box
+									sx={{
+										borderRadius: "50%",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+										minWidth: { xs: 64, sm: 80 },
+										minHeight: { xs: 64, sm: 80 },
+										border: `1.5px solid ${theme.palette.grey[300]}`,
+									}}
+								>
+									<ReactIcons.LuPlus
+										size={50}
+                    style={{ color: theme.palette.grey[400] }}
+									/>
+								</Box>
+							</StoryTag>
+							<Typography
+								noWrap
+								variant="p"
+								sx={{ fontSize: { xs: "11px" }, width: "5rem" }}
+							>
+								New
+							</Typography>
+						</Box>
+						{userStories?.map((story, ind) => (
+							<Box
+								sx={{
+									display: "flex",
+									height: "100%",
+									flexDirection: "column",
+									widht: "100%",
+									alignItems: "center",
+									textAlign: "center",
+									justifyContent: "center",
+									maxWidth: { xs: "4.5rem", sm: "5rem" },
+									minWidth: { xs: "4.5rem", sm: "5rem" },
+								}}
+								key={ind}
+							>
+								<StoryTag>
+									<Avatar
+										src={story.profile}
+										sx={{
+											width: { xs: 59, sm: 75 },
+											height: { xs: 59, sm: 75 },
+											border: "1.5px solid #ffff",
+										}}
+									/>
+								</StoryTag>
+								<Typography
+									noWrap
+									variant="p"
+									sx={{ fontSize: { xs: "11px" }, width: "5rem" }}
+								>
+									{story.name}
+								</Typography>
+							</Box>
+						))}
+					</StorySliderBox>
+					{!matchDownSm && (
+						<>
+							<SlideButton
+								direction="left"
+								onClick={(e) => handleStorySlide(e, "left")}
+							>
+								<ChevronLeftIcon />
+							</SlideButton>
+							<SlideButton
+								direction="right"
+								onClick={(e) => handleStorySlide(e, "right")}
+							>
+								<ChevronRightIcon />
+							</SlideButton>
+						</>
+					)}
+				</StyledPaper>
+			</Grid>
+		</Grid>
+	);
 }
 
 export default HighlightSlider;

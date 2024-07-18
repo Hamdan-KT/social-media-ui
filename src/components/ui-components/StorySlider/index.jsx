@@ -86,7 +86,7 @@ const StoryTag = styled(Box)(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
-	padding: "3px",
+	padding: "2px",
 	borderRadius: "50%",
 	background:
 		"linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)",
@@ -167,9 +167,9 @@ function StorySlider(props) {
 										alt="Travis Howard"
 										src={userStories[9].profile}
 										sx={{
-											width: { xs: 74, sm: 58 },
-											height: { xs: 74, sm: 58 },
-											border: "2px solid #ffff",
+											width: { xs: 74, sm: 59 },
+											height: { xs: 74, sm: 59 },
+											border: "1.5px solid #ffff",
 										}}
 									/>
 								</Badge>
@@ -204,9 +204,9 @@ function StorySlider(props) {
 									<Avatar
 										src={story.profile}
 										sx={{
-											width: { xs: 74, sm: 58 },
-											height: { xs: 74, sm: 58 },
-											border: "2px solid #ffff",
+											width: { xs: 74, sm: 59 },
+											height: { xs: 74, sm: 59 },
+											border: "1.5px solid #ffff",
 										}}
 									/>
 								</StoryTag>
