@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import BottomSheet from "components/common/BottomSheet";
 import CommentList from "components/ui-components/CommentList";
-import { commentList } from "src/data";
+import { generateCommentList } from "src/data";
 import ReactIcons from "utils/ReactIcons";
 
 const InputBox = styled(Box)(({ theme }) => ({
@@ -51,7 +51,7 @@ function Comments({ open = false, handleClose }) {
 					height: "auto",
 				}}
 			>
-				<CommentList data={commentList} />
+				<CommentList data={[...generateCommentList()]} />
 			</Box>
 			<Box
 				sx={{
@@ -76,7 +76,12 @@ function Comments({ open = false, handleClose }) {
 						inputProps={{ "aria-label": "text" }}
 					/>
 					{value && (
-						<IconButton sx={{ background: theme.palette.primary.main, color: theme.palette.background.paper }}>
+						<IconButton
+							sx={{
+								background: theme.palette.primary.main,
+								color: theme.palette.background.paper,
+							}}
+						>
 							<ReactIcons.IoArrowUp size={20} />
 						</IconButton>
 					)}

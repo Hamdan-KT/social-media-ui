@@ -6,7 +6,7 @@ import Suggessions from "components/ui-components/ProfileAndSuggession";
 import PostMobile from "components/ui-components/Post/mobile";
 
 // dummy data
-import { userPosts } from "../../data";
+import { generateUserPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
 import { memo } from "react";
 
@@ -36,7 +36,7 @@ function Home() {
 					{/* story Slider */}
 					<StorySlider />
 					{/* post rendering */}
-					{[...userPosts]?.map((data) => (
+					{generateUserPosts()?.map((data) => (
 						<MemoizedPost key={data?.id} data={data} />
 					))}
 				</StyledBox>

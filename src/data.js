@@ -10,10 +10,6 @@ function getRandomImageRatio() {
 	return sizes[randomIndex];
 }
 
-function getRandomPostCount(maxCount) {
-	return Math.floor(Math.random() * maxCount);
-}
-
 export const defaultUser = {
 	id: faker.database.mongodbObjectId(),
 	userId: faker.person.fullName(),
@@ -21,9 +17,9 @@ export const defaultUser = {
 	profile: faker.image.avatarLegacy(),
 };
 
-export const userPosts = Array.from({ length: 42 }, () => {
+export const generateUserPosts = () => {
 	const imageRatio = getRandomImageRatio();
-	return {
+	return Array.from({ length: 42 }, () => ({
 		id: faker.database.mongodbObjectId(),
 		name: faker.person.fullName(),
 		profile: faker.image.avatarLegacy(),
@@ -42,29 +38,32 @@ export const userPosts = Array.from({ length: 42 }, () => {
 		verified: false,
 		likes: faker.number.int(20000),
 		comments: faker.number.int(5000),
-	};
-});
+	}));
+};
 
-export const userStories = Array.from({ length: 30 }, () => ({
-	id: faker.database.mongodbObjectId(),
-	name: faker.person.fullName(),
-	profile: faker.image.avatarLegacy(),
-	stories: [],
-	verified: false,
-}));
+export const generateUserStories = () => {
+	return Array.from({ length: 30 }, () => ({
+		id: faker.database.mongodbObjectId(),
+		name: faker.person.fullName(),
+		profile: faker.image.avatarLegacy(),
+		stories: [],
+		verified: false,
+	}));
+};
+export const generateUsers = () => {
+	return Array.from({ length: 40 }, () => ({
+		id: faker.database.mongodbObjectId(),
+		name: faker.person.fullName(),
+		profile: faker.image.avatarLegacy(),
+		time: "49m",
+		verified: false,
+		following: false,
+	}));
+};
 
-export const Users = Array.from({ length: 40 }, () => ({
-	id: faker.database.mongodbObjectId(),
-	name: faker.person.fullName(),
-	profile: faker.image.avatarLegacy(),
-	time: "49m",
-	verified: false,
-	following: false,
-}));
-
-export const explorePosts = Array.from({ length: 51 }, () => {
+export const generateExplorePosts = () => {
 	const imageRatio = getRandomImageRatio();
-	return {
+	return Array.from({ length: 51 }, () => ({
 		id: faker.database.mongodbObjectId(),
 		name: faker.person.fullName(),
 		profile: faker.image.avatarLegacy(),
@@ -83,49 +82,53 @@ export const explorePosts = Array.from({ length: 51 }, () => {
 		verified: false,
 		likes: faker.number.int(20000),
 		comments: faker.number.int(5000),
-	};
-});
+	}));
+};
 
-export const notifications = Array.from({ length: 10 }, () => ({
-	id: faker.database.mongodbObjectId(),
-	name: faker.person.fullName(),
-	profile: faker.image.avatarLegacy(),
-	time: "49m",
-	verified: false,
-	type: "normal",
-	media: faker.image.urlPicsumPhotos({ width: 1080, height: 1350 }),
-	message: `${faker.person.fullName()} liked your post`,
-}));
+export const generateNotifications = () => {
+	return Array.from({ length: 10 }, () => ({
+		id: faker.database.mongodbObjectId(),
+		name: faker.person.fullName(),
+		profile: faker.image.avatarLegacy(),
+		time: "49m",
+		verified: false,
+		type: "normal",
+		media: faker.image.urlPicsumPhotos({ width: 1080, height: 1350 }),
+		message: `${faker.person.fullName()} liked your post`,
+	}));
+};
 
-export const commentList = Array.from({ length: 40 }, () => ({
-	id: faker.database.mongodbObjectId(),
-	name: faker.person.fullName(),
-	profile: faker.image.avatarLegacy(),
-	time: "1h",
-	verified: true,
-	comment: faker.lorem.sentence(),
-	likes: faker.number.int(1300),
-	replies: [
-		{
-			id: faker.database.mongodbObjectId(),
-			name: faker.person.fullName(),
-			profile: faker.image.avatarLegacy(),
-			time: "1h",
-			verified: false,
-			comment: faker.lorem.sentence(),
-			likes: faker.number.int(1300),
-		},
-		{
-			id: faker.database.mongodbObjectId(),
-			name: faker.person.fullName(),
-			profile: faker.image.avatarLegacy(),
-			time: "1h",
-			verified: false,
-			comment: faker.lorem.sentence(),
-			likes: faker.number.int(1300),
-		},
-	],
-}));
+export const generateCommentList = () => {
+	return Array.from({ length: 40 }, () => ({
+		id: faker.database.mongodbObjectId(),
+		name: faker.person.fullName(),
+		profile: faker.image.avatarLegacy(),
+		time: "1h",
+		verified: true,
+		comment: faker.lorem.sentence(),
+		likes: faker.number.int(1300),
+		replies: [
+			{
+				id: faker.database.mongodbObjectId(),
+				name: faker.person.fullName(),
+				profile: faker.image.avatarLegacy(),
+				time: "1h",
+				verified: false,
+				comment: faker.lorem.sentence(),
+				likes: faker.number.int(1300),
+			},
+			{
+				id: faker.database.mongodbObjectId(),
+				name: faker.person.fullName(),
+				profile: faker.image.avatarLegacy(),
+				time: "1h",
+				verified: false,
+				comment: faker.lorem.sentence(),
+				likes: faker.number.int(1300),
+			},
+		],
+	}));
+};
 
 export const chatData = [
 	{

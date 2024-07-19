@@ -3,7 +3,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Paper } from "@mui/material";
 import UserList from "components/ui-components/UserList";
-import { Users } from "src/data";
+import { generateUsers } from "src/data";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import _ from "lodash";
@@ -121,7 +121,7 @@ function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
 						>
 							<UserList
 								sx={{ maxWidth: "100%" }}
-								data={[...Users, ...Users, ...Users]?.map(
+								data={[...generateUsers()]?.map(
 									(user) => user
 									// user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
 								)}

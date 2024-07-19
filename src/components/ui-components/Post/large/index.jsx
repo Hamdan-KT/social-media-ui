@@ -12,7 +12,7 @@ import {
 	Grid,
 } from "@mui/material";
 import React, { useState } from "react";
-import { commentList, userPosts } from "src/data";
+import { generateCommentList } from "src/data";
 import CommentList from "components/ui-components/CommentList";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import Picker from "@emoji-mart/react";
@@ -184,7 +184,7 @@ function PostLarge({data}) {
 								alignItems: "start",
 							}}
 						>
-							<CommentList data={commentList} />
+							<CommentList data={[...generateCommentList()]} />
 						</Box>
 						{/* post info */}
 						<Box
