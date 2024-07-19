@@ -13,7 +13,7 @@ import ReactIcons from "utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import PostMobile from "components/ui-components/Post/mobile";
-import { userPosts } from "src/data";
+import { userPosts, explorePosts } from "src/data";
 import PostLarge from "components/ui-components/Post/large";
 
 const MainBox = styled(Box)(({ theme }) => ({
@@ -64,7 +64,7 @@ function ViewPostMobile() {
 	// temp post
 	const [tempPost, setTempPost] = useState({});
 	useEffect(() => {
-		const post = userPosts?.find((post) => post.id == pId);
+		const post = [...userPosts, ...explorePosts]?.find((post) => post.id == pId);
 		setTempPost(post);
 	}, [pId]);
 
