@@ -10,7 +10,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 
 // user post
-import { explorePosts } from "src/data";
+import { userPosts } from "src/data";
 import ReactIcons from "utils/ReactIcons";
 
 const StyledGallery = styled(Box)(({ theme }) => ({
@@ -32,7 +32,7 @@ const MediaDiv = styled(Box)(({ theme }) => ({
 	position: "relative",
 	width: "100%",
 	overflow: "hidden",
-	maxHeight: "40vh",
+	height: "40vh",
 	[theme.breakpoints.down("lg")]: {
 		height: "15rem",
 	},
@@ -94,7 +94,7 @@ function PhotoGallery() {
 		<Grid container>
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				<StyledGallery>
-					{explorePosts.map((post, index) => (
+					{userPosts?.map((post, index) => (
 						<Link
 							to={`/${RoutePath.POST}/${post.id}`}
 							state={{ previousLocation: !matchDownSm ? location : null }}

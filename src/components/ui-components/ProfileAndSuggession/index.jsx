@@ -126,7 +126,7 @@ function Suggessions() {
 							overflowY: "scroll",
 							scrollBehavior: "smooth",
 						}}
-						className="scrollbar-toggle-visible"
+						className="scrollbar-hide"
 					>
 						<UserList
 							data={Users}
