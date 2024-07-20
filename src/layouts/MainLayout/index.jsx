@@ -1,11 +1,8 @@
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import SideBar from "layouts/MainLayout/SideBar";
-import { useMediaQuery } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { handleSideBarOpen } from "app/slices/customizationSlice/customization";
 import { Outlet, useLocation } from "react-router";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import BottomBar from "./BottomBar";
 import { AnimatePresence } from "framer-motion";
 import { RoutePath } from "src/utils/routes";
@@ -42,8 +39,8 @@ export default function MainLayout() {
 		<Box sx={{ display: "flex", position: "relative" }}>
 			<CssBaseline />
 			{/* side bar for sm -> lg windows */}
-      <SideBar />
-      {/* main section */}
+			<SideBar />
+			{/* main section */}
 			<MainSection>
 				<AnimatePresence>
 					<Box
