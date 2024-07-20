@@ -32,6 +32,7 @@ import SlideBarPopups from "components/ui-components/Wrappers/slideBarPopups";
 import SearchPopUp from "components/ui-components/Popups/Search";
 import NotificationPopUp from "components/ui-components/Popups/Notification";
 import { memo } from "react";
+import { handleSideBarOpen } from "app/slices/customizationSlice/customization";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -107,12 +108,19 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 	minHeight: 48,
 }));
 
-const SideBar = memo(function ({ open, handleToggle }) {
+const SideBar = memo(function () {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const matchDownMd = useMediaQuery(theme.breakpoints.down("lg"));
 	const { pathname } = useLocation();
 	const popupState = useSelector((state) => state.customization.sideBarPopup);
 	const dispatch = useDispatch();
+	const sideBarOpen = useSelector((state) => state.customization.sideBarOpen);
+	const handleSideBarToggle = () => {
+		dispatch(handleSideBarOpen({ open: !sideBarOpen }));
+	};
+
+	const open = !matchDownMd ? sideBarOpen : !sideBarOpen;
 
 	return (
 		<>
@@ -121,7 +129,7 @@ const SideBar = memo(function ({ open, handleToggle }) {
 					sx={{ position: "relative" }}
 					variant="permanent"
 					open={open}
-					onClose={handleToggle}
+					onClose={handleSideBarToggle}
 				>
 					<DrawerHeader sx={{ height: "10vh", mt: 3 }}>
 						{open ? (
@@ -268,7 +276,9 @@ const SideBar = memo(function ({ open, handleToggle }) {
 													primaryTypographyProps={{
 														fontFamily: "poppins",
 														fontWeight:
-															pathname.split("/")[1] === item?.id ? "bold": "medium",
+															pathname.split("/")[1] === item?.id
+																? "bold"
+																: "medium",
 														fontSize: "0.95rem",
 													}}
 													sx={{

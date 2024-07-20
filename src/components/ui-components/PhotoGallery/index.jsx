@@ -46,6 +46,7 @@ const MediaDiv = styled(Box)(({ theme }) => ({
 		display: "flex",
 	},
 	cursor: "pointer",
+	border: `1px solid ${theme.palette.grey[200]}`
 }));
 
 const HoverDiv = styled(Box)(({ theme }) => ({

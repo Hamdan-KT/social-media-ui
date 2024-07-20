@@ -10,6 +10,7 @@ import { generateUsers } from "src/data";
 import { defaultUser } from "../../../data";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
+import { useEffect, useState } from "react";
 
 const StyledProfile = styled(Paper)(({ theme, customization }) => ({
 	width: "100%",

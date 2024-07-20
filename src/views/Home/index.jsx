@@ -8,7 +8,7 @@ import PostMobile from "components/ui-components/Post/mobile";
 // dummy data
 import { generateUserPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -26,6 +26,10 @@ const MemoizedPost = memo(PostMobile);
 function Home() {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
+
+	useEffect(() => {
+		console.log("re-rendering-home")
+	}, [])
 
 	return (
 		<Grid container spacing={defaultSpacing}>
