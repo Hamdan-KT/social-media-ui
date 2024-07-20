@@ -31,14 +31,14 @@ function App() {
 				{/* mui css baseline */}
 				<CssBaseline />
 				{/* navigation Scroll component */}
-				<NavigationScroll>
-					{/* routes */}
-					<AppRouting />
-					{/* test comps */}
-					{/* <ViewPost /> */}
-					{/* <Comments /> */}
-					{/* <CreatePost open={true} /> */}
-				</NavigationScroll>
+				{/* <NavigationScroll> */}
+				{/* routes */}
+				<AppRouting />
+				{/* test comps */}
+				{/* <ViewPost /> */}
+				{/* <Comments /> */}
+				{/* <CreatePost open={true} /> */}
+				{/* </NavigationScroll> */}
 			</ThemeProvider>
 		</StyledEngineProvider>
 	);

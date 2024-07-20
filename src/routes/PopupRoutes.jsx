@@ -11,18 +11,16 @@ const ViewPost = Loadable(
 );
 
 const PopupRoutes = () => {
-	return [
-		{
-			path: `${RoutePath.HOME}`,
-			element: <ViewPost />,
-			children: [
-				{
-					path: `${RoutePath.POST}/:pId`,
-					element: <ViewPost />,
-				},
-			],
-		},
-	];
+	return {
+		path: `${RoutePath.HOME}`,
+		element: <ViewPost />,
+		children: [
+			{
+				path: `${RoutePath.POST}/:pId`,
+				element: <ViewPost />,
+			},
+		],
+	};
 };
 
 export default PopupRoutes;

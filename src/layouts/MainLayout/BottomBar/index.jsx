@@ -58,12 +58,13 @@ const BottomBar = memo(function () {
 	// refs
 	const createMenuRef = useRef();
 
-	const onChange = (event, value) => {
-		if (value) {
+	const onChange = (event, url) => {
+		if (url) {
+			const formattedURL = url === RoutePath.HOME ? url : `/${url}`;
 			// updating state
-			setValue(value);
+			setValue(formattedURL);
 			// navigating to specific path
-			if (pathname !== value) return navigate(value);
+			if (pathname !== formattedURL) return navigate(formattedURL);
 		}
 	};
 

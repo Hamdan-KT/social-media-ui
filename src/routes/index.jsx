@@ -15,7 +15,7 @@ export default function AppRouting() {
 		[MainRoutes(), HelperRoutes()],
 		previousLocation || location
 	);
-	const PopuRoutes = useRoutes(PopupRoutes(), location);
+	const PopuRoutes = useRoutes([PopupRoutes()], location);
 
 	return (
 		<>

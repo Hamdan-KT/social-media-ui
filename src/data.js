@@ -18,27 +18,29 @@ export const defaultUser = {
 };
 
 export const generateUserPosts = () => {
-	const imageRatio = getRandomImageRatio();
-	return Array.from({ length: 42 }, () => ({
-		id: faker.database.mongodbObjectId(),
-		name: faker.person.fullName(),
-		profile: faker.image.avatarLegacy(),
-		media: [
-			{
-				type: "image",
-				src: faker.image.urlPicsumPhotos(imageRatio),
-			},
-			{
-				type: "image",
-				src: faker.image.urlPicsumPhotos(imageRatio),
-			},
-		],
-		location: faker.location.country(),
-		time: "4d",
-		verified: false,
-		likes: faker.number.int(20000),
-		comments: faker.number.int(5000),
-	}));
+	return Array.from({ length: 42 }, () => {
+		const imageRatio = getRandomImageRatio();
+		return {
+			id: faker.database.mongodbObjectId(),
+			name: faker.person.fullName(),
+			profile: faker.image.avatarLegacy(),
+			media: [
+				{
+					type: "image",
+					src: faker.image.urlPicsumPhotos(imageRatio),
+				},
+				{
+					type: "image",
+					src: faker.image.urlPicsumPhotos(imageRatio),
+				},
+			],
+			location: faker.location.country(),
+			time: "4d",
+			verified: false,
+			likes: faker.number.int(20000),
+			comments: faker.number.int(5000),
+		};
+	});
 };
 
 export const generateUserStories = () => {
@@ -62,27 +64,29 @@ export const generateUsers = () => {
 };
 
 export const generateExplorePosts = () => {
-	const imageRatio = getRandomImageRatio();
-	return Array.from({ length: 51 }, () => ({
-		id: faker.database.mongodbObjectId(),
-		name: faker.person.fullName(),
-		profile: faker.image.avatarLegacy(),
-		media: [
-			{
-				type: "image",
-				src: faker.image.urlPicsumPhotos(imageRatio),
-			},
-			{
-				type: "image",
-				src: faker.image.urlPicsumPhotos(imageRatio),
-			},
-		],
-		location: faker.location.country(),
-		time: "49m",
-		verified: false,
-		likes: faker.number.int(20000),
-		comments: faker.number.int(5000),
-	}));
+	return Array.from({ length: 51 }, () => {
+		const imageRatio = getRandomImageRatio();
+		return {
+			id: faker.database.mongodbObjectId(),
+			name: faker.person.fullName(),
+			profile: faker.image.avatarLegacy(),
+			media: [
+				{
+					type: "image",
+					src: faker.image.urlPicsumPhotos(imageRatio),
+				},
+				{
+					type: "image",
+					src: faker.image.urlPicsumPhotos(imageRatio),
+				},
+			],
+			location: faker.location.country(),
+			time: "49m",
+			verified: false,
+			likes: faker.number.int(20000),
+			comments: faker.number.int(5000),
+		};
+	});
 };
 
 export const generateNotifications = () => {

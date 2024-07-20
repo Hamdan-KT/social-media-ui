@@ -15,7 +15,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // dummy data
 import { generateUserStories } from "src/data";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import ReactIcons from "utils/ReactIcons";
 
 const StyledPaper = styled(Paper)(({ theme, customization }) => ({
@@ -224,4 +224,4 @@ function HighlightSlider(props) {
 	);
 }
 
-export default HighlightSlider;
+export default memo(HighlightSlider);
