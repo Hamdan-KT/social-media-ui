@@ -10,7 +10,7 @@ import {
 	useTheme,
 } from "@mui/material";
 import { Outlet, useLocation } from "react-router";
-import { generateUsers } from "src/data";
+import { Users } from "src/data";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import MessageHeader from "./messageHeader";
@@ -154,7 +154,7 @@ function Messages() {
 						<Box sx={{ width: "100%" }}>
 							<StyledScrollBox className="scrollbar-hide" sx={{ mt: 0.5 }}>
 								<MessageList
-									data={[...generateUsers()]}
+									data={Users}
 									sx={{ maxWidth: "100%" }}
 									actionButton
 									urlPrefix="/messages"

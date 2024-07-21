@@ -3,7 +3,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Divider, Paper } from "@mui/material";
 import UserList from "components/ui-components/UserList";
-import { generateUsers } from "src/data";
+import { Users } from "src/data";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Typography } from "@mui/material";
@@ -125,7 +125,7 @@ function SearchPopUp() {
 						{!_.isEmpty(value) ? (
 							<UserList
 								sx={{ maxWidth: "100%" }}
-								data={[...generateUsers()]?.filter((user) => {
+								data={Users?.filter((user) => {
 									return (
 										user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
 									);

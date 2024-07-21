@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomModal from "components/common/Modal";
 import PostLarge from "../../Post/large";
 import { useNavigate, useParams } from "react-router";
-import { generateExplorePosts, generateUserPosts } from "src/data";
+import { explorePosts, userPosts } from "src/data";
 
 function ViewPost({ open = true }) {
 	const navigate = useNavigate();
@@ -10,7 +10,7 @@ function ViewPost({ open = true }) {
 	// temp post
 	const [tempPost, setTempPost] = useState({});
 	useEffect(() => {
-		const post = [...generateUserPosts(), ...generateExplorePosts()]?.find(
+		const post = [...userPosts, ...explorePosts]?.find(
 			(post) => post.id == pId
 		);
 		setTempPost(post);

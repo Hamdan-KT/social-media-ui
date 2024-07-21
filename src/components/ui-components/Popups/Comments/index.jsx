@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import BottomSheet from "components/common/BottomSheet";
 import CommentList from "components/ui-components/CommentList";
-import { generateCommentList } from "src/data";
+import { commentList } from "src/data";
 import ReactIcons from "utils/ReactIcons";
 
 const InputBox = styled(Box)(({ theme }) => ({
@@ -51,7 +51,7 @@ function Comments({ open = false, handleClose }) {
 					height: "auto",
 				}}
 			>
-				<CommentList data={[...generateCommentList()]} />
+				<CommentList data={commentList} />
 			</Box>
 			<Box
 				sx={{

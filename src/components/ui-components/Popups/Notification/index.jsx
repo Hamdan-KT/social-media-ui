@@ -1,6 +1,6 @@
 import React from "react";
 import NotificationList from "../../NotificationList";
-import { generateNotifications } from "src/data";
+import { notifications } from "src/data";
 import { Box, Typography } from "@mui/material";
 
 function NotificationPopUp() {
@@ -10,7 +10,7 @@ function NotificationPopUp() {
 				Notifications
 			</Typography>
 			<NotificationList
-				data={[...generateNotifications()]}
+				data={notifications}
 				actionButton
 				secondaryText="message"
 			/>

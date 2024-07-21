@@ -15,7 +15,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // dummy data
-import { generateUserStories } from "src/data";
+import { userStories } from "src/data";
 import { useRef, memo } from "react";
 import ReactIcons from "utils/ReactIcons";
 
@@ -165,7 +165,7 @@ function StorySlider(props) {
 								>
 									<Avatar
 										alt="Travis Howard"
-										src={generateUserStories()[9].profile}
+										src={userStories[9].profile}
 										sx={{
 											width: { xs: 74, sm: 59 },
 											height: { xs: 74, sm: 59 },
@@ -183,10 +183,10 @@ function StorySlider(props) {
 									width: "5rem",
 								}}
 							>
-								{generateUserStories()[9].name}
+								{userStories[9].name}
 							</Typography>
 						</Box>
-						{generateUserStories()?.map((story, ind) => (
+						{userStories?.map((story, ind) => (
 							<Box
 								sx={{
 									display: "flex",

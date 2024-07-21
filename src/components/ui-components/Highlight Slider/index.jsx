@@ -14,7 +14,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // dummy data
-import { generateUserStories } from "src/data";
+import { userStories } from "src/data";
 import { memo, useRef } from "react";
 import ReactIcons from "utils/ReactIcons";
 
@@ -167,7 +167,7 @@ function HighlightSlider(props) {
 								New
 							</Typography>
 						</Box>
-						{generateUserStories()?.map((story, ind) => (
+						{userStories?.map((story, ind) => (
 							<Box
 								sx={{
 									display: "flex",

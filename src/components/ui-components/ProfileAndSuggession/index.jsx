@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 // test import
 import Btn from "components/common/Button";
 import UserList from "../UserList";
-import { generateUsers } from "src/data";
+import { Users } from "src/data";
 import { defaultUser } from "../../../data";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
@@ -130,7 +130,7 @@ function Suggessions() {
 						className="scrollbar-hide"
 					>
 						<UserList
-							data={[...generateUsers()]}
+							data={Users}
 							buttonState="following"
 							actionButton={true}
 						/>
