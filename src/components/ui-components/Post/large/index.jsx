@@ -12,12 +12,12 @@ import {
 	Grid,
 } from "@mui/material";
 import React, { useState } from "react";
-import { commentList, generateCommentList } from "src/data";
+import { commentList } from "src/data";
 import CommentList from "components/ui-components/CommentList";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import Picker from "@emoji-mart/react";
 import ReactIcons from "utils/ReactIcons";
-import data from "@emoji-mart/data";
+import emojiData from "@emoji-mart/data";
 import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 
@@ -48,13 +48,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function PostLarge({data}) {
+function PostLarge({ data }) {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
 	const [anchorEl, setAnchorEl] = useState(null);
 	const menuOpen = Boolean(anchorEl);
-	
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -290,7 +289,7 @@ function PostLarge({data}) {
 											}}
 										>
 											<Picker
-												data={data}
+												data={emojiData}
 												theme="light"
 												onEmojiSelect={(e) =>
 													setValue((prev) => prev + e.native)
