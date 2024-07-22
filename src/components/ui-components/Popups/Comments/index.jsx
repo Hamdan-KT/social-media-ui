@@ -1,11 +1,5 @@
-import { useState } from "react";
-import {
-	Box,
-    IconButton,
-    InputBase,
-	styled,
-	useTheme,
-} from "@mui/material";
+import { forwardRef, useState } from "react";
+import { Box, IconButton, InputBase, styled, useTheme } from "@mui/material";
 import BottomSheet from "components/common/BottomSheet";
 import CommentList from "components/ui-components/CommentList";
 import { commentList } from "src/data";
@@ -21,7 +15,7 @@ const InputBox = styled(Box)(({ theme }) => ({
 	width: "100%",
 	padding: "0.2rem 0.2rem",
 	border: `1px solid ${theme.palette.grey[300]}`,
-	marginBottom: 4
+	marginBottom: 4,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -33,11 +27,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function Comments({ open = false, handleClose }) {
+const Comments = forwardRef(function ({ open = false, handleClose }, ref) {
 	const [value, setValue] = useState("");
 	const theme = useTheme();
 	return (
 		<BottomSheet
+			ref={ref}
 			title="Comments"
 			open={open}
 			onClose={handleClose}
@@ -89,6 +84,6 @@ function Comments({ open = false, handleClose }) {
 			</Box>
 		</BottomSheet>
 	);
-}
+});
 
 export default Comments;

@@ -1,5 +1,11 @@
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import {
+	useEffect,
+	useRef,
+	useState,
+	forwardRef,
+	useImperativeHandle,
+} from "react";
 import {
 	Backdrop,
 	Box,
@@ -35,26 +41,38 @@ const BottomSheetBody = styled(Box)(({ theme }) => ({
 	color: "inherit",
 }));
 
-function BottomSheet({
-	children,
-	title = "",
-	open = false,
-	onClose = () => {},
-	sheetBodyStyles = {},
-}) {
-	const theme = useTheme();
-	const machDownMd = useMediaQuery(theme.breakpoints.down("md"));
+const BottomSheet = forwardRef(function (
+	{ children, title = "", sheetBodyStyles = {} },
+	ref
+) {
 	const backdropRef = useRef();
 	const contentRef = useRef();
 	const headerRef = useRef();
 	const isDragging = useRef(false);
 	const startY = useRef();
 	const startHeight = useRef(contentRef.current);
+	const [open, setOpen] = useState(false);
+	const handleOpen = (open = false) => {
+		setOpen(open);
+	};
 
+	// passing handling function to parent element through forward ref
+	useImperativeHandle(
+		ref,
+		() => {
+			return {
+				handleOpen,
+			};
+		},
+		[]
+	);
+
+	// handling initial height of sheet on each open
 	useEffect(() => {
 		if (open) updateSheetHeight(60);
 	}, [open]);
 
+	// core js functions
 	useEffect(() => {
 		const header = headerRef.current;
 
@@ -82,7 +100,7 @@ function BottomSheet({
 			isDragging.current = false;
 			const sheetHeight = parseInt(contentRef.current?.style.height);
 			sheetHeight < 25
-				? onClose()
+				? handleOpen(false)
 				: sheetHeight > 75
 				? updateSheetHeight(100)
 				: updateSheetHeight(60);
@@ -113,6 +131,8 @@ function BottomSheet({
 		if (contentRef.current) contentRef.current.style.height = `${height}vh`;
 	}
 
+	// if (!open) return null;
+
 	return (
 		<Backdrop
 			ref={backdropRef}
@@ -133,7 +153,7 @@ function BottomSheet({
 			onClick={(e) => {
 				e.preventDefault();
 				e.stopPropagation();
-				onClose();
+				handleOpen(false);
 			}}
 		>
 			<motion.div
@@ -166,6 +186,6 @@ function BottomSheet({
 			</motion.div>
 		</Backdrop>
 	);
-}
+});
 
 export default BottomSheet;
