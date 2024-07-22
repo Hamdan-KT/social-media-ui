@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import { Paper, styled, Grid, Box, Avatar, Typography } from "@mui/material";
+import { Paper, styled, Grid, Box, Typography } from "@mui/material";
 import { defaultSpacing } from "utils/constants";
 import { useSelector } from "react-redux";
 
@@ -10,7 +10,7 @@ import { Users } from "src/data";
 import { defaultUser } from "../../../data";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
-import { useEffect, useState } from "react";
+import ProfileAvatar from "components/common/ProfileAvatar";
 
 const StyledProfile = styled(Paper)(({ theme, customization }) => ({
 	width: "100%",
@@ -94,9 +94,8 @@ function Suggessions() {
 								gap: "0.8rem",
 							}}
 						>
-							<Avatar
-								src={defaultUser.profile}
-								aria-label="profile-picture"
+							<ProfileAvatar
+								data={defaultUser}
 								sx={{ width: 60, height: 60 }}
 							/>
 							<Box
