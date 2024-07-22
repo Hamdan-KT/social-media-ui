@@ -1,96 +1,55 @@
 import {
-  Avatar,
-  Box,
-  Grid,
-  Typography,
-  styled,
-  useMediaQuery,
-  useTheme,
+	Avatar,
+	Box,
+	Grid,
+	Typography,
+	styled,
+	useMediaQuery,
+	useTheme,
 } from "@mui/material";
 import Btn from "components/common/Button";
 import HighlightSlider from "components/ui-components/Highlight Slider";
-import { useState } from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import PhotoGallery from "components/ui-components/PhotoGallery";
 import AvatarSet from "components/common/AvatarSet";
 import ProfileHeader from "./ProfileHeader";
 import { defaultUser } from "../../data";
 import { defaultSpacing } from "utils/constants";
-import ReactIcons from "utils/ReactIcons";
+import MediaTabs from "./MediaTabs";
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  width: "100%",
-  gap: "1rem",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
+	width: "100%",
+	gap: "1rem",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "flex-start",
 }));
 
 const StoryTag = styled(Box)(({ theme }) => ({
-  minWidth: 160,
-  minHeight: 160,
-  maxWidth: 160,
-  maxHeight: 160,
-  position: "relative",
-  [theme.breakpoints.down("sm")]: {
-    minWidth: 80,
-    minHeight: 80,
-    maxWidth: 80,
-    maxHeight: 80,
-  },
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "3px",
-  borderRadius: "50%",
-  background:
-    "linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)",
-  cursor: "pointer",
+	minWidth: 160,
+	minHeight: 160,
+	maxWidth: 160,
+	maxHeight: 160,
+	position: "relative",
+	[theme.breakpoints.down("sm")]: {
+		minWidth: 80,
+		minHeight: 80,
+		maxWidth: 80,
+		maxHeight: 80,
+	},
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	padding: "3px",
+	borderRadius: "50%",
+	background:
+		"linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)",
+	cursor: "pointer",
 }));
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: { xs: "0.5rem 0", sm: "1rem 0" } }}>{children}</Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
-
 function Profile() {
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
-  const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const theme = useTheme();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  return (
+	return (
 		<Grid
 			container
 			spacing={defaultSpacing}
@@ -255,46 +214,7 @@ function Profile() {
 			</Grid>
 			{/* post, tagged, reels */}
 			<Grid item xs={12} md={12} sm={12} lg={12}>
-				<Box sx={{ width: "100%", marginTop: "1rem" }}>
-					<Tabs
-						value={value}
-						onChange={handleChange}
-						indicatorColor="secondary"
-						textColor="inherit"
-						variant="fullWidth"
-						aria-label="full width"
-					>
-						<Tab
-							icon={<ReactIcons.MdOutlineGridOn size={23} />}
-							iconPosition="start"
-							label={!matchDownSm && "POSTS"}
-							{...a11yProps(0)}
-						/>
-						<Tab
-							icon={<ReactIcons.RiBookmarkLine size={22} />}
-							iconPosition="start"
-							label={!matchDownSm && "SAVED"}
-							{...a11yProps(1)}
-						/>
-						<Tab
-							icon={<ReactIcons.MdOutlineAccountBox size={25} />}
-							iconPosition="start"
-							label={!matchDownSm && "TAGGED"}
-							{...a11yProps(2)}
-						/>
-					</Tabs>
-					<Box sx={{ width: "100%" }}>
-						<TabPanel value={value} index={0} dir={theme.direction}>
-							<PhotoGallery />
-						</TabPanel>
-						<TabPanel value={value} index={1} dir={theme.direction}>
-							<PhotoGallery />
-						</TabPanel>
-						<TabPanel value={value} index={2} dir={theme.direction}>
-							<PhotoGallery />
-						</TabPanel>
-					</Box>
-				</Box>
+				<MediaTabs />
 			</Grid>
 		</Grid>
 	);

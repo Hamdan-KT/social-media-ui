@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 // user post
-import { explorePosts } from "src/data";
+import { explorePosts, userPosts } from "src/data";
 import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
 import ReactIcons from "utils/ReactIcons";
 import { RoutePath } from "utils/routes";
@@ -111,7 +111,7 @@ function Explore() {
 			)}
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				<StyledGallery>
-					{explorePosts?.map((post, index) => (
+					{userPosts?.map((post, index) => (
 						<Link
 							to={`/${RoutePath.POST}/${post.id}`}
 							state={{ previousLocation: !matchDownSm ? location : null }}

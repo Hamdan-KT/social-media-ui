@@ -28,8 +28,8 @@ function Home() {
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 
 	useEffect(() => {
-		console.log("re-rendering-home")
-	}, [])
+		console.log("re-rendering-home");
+	}, []);
 
 	return (
 		<Grid container spacing={defaultSpacing}>
@@ -40,9 +40,11 @@ function Home() {
 					{/* story Slider */}
 					<StorySlider />
 					{/* post rendering */}
-					{userPosts?.map((data) => (
-						<MemoizedPost key={data?.id} data={data} />
-					))}
+					{userPosts?.map(
+						(data) => (
+							<MemoizedPost key={data?.id} data={data} />
+						)
+					)}
 				</StyledBox>
 			</Grid>
 			{!matchDownMd && (
