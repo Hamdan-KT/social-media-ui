@@ -5,9 +5,7 @@ import {
 	Grid,
 	IconButton,
 	useMediaQuery,
-	Avatar,
-	Typography,
-	Badge,
+	Typography
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
@@ -17,7 +15,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // dummy data
 import { userStories } from "src/data";
 import { useRef, memo } from "react";
-import ReactIcons from "utils/ReactIcons";
+import ProfileAvatar from "components/common/ProfileAvatar";
 
 const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 	width: "100%",
@@ -72,27 +70,6 @@ const StorySliderBox = styled(Box)(({ theme }) => ({
 	},
 }));
 
-const StoryTag = styled(Box)(({ theme }) => ({
-	minWidth: "4rem",
-	minHeight: "4rem",
-	maxWidth: "4rem",
-	maxHeight: "4rem",
-	[theme.breakpoints.down("sm")]: {
-		minWidth: "5rem",
-		minHeight: "5rem",
-		maxWidth: "5rem",
-		maxHeight: "5rem",
-	},
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-	padding: "2px",
-	borderRadius: "50%",
-	background:
-		"linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)",
-	cursor: "pointer",
-}));
-
 const SlideButton = styled(IconButton)(({ direction }) => ({
 	display: "flex",
 	padding: "0.1rem",
@@ -107,16 +84,6 @@ const SlideButton = styled(IconButton)(({ direction }) => ({
 		backgroundColor: "rgba(202, 202, 202, 0.719)",
 	},
 	zIndex: 7,
-}));
-
-const StyledPlusIcon = styled(Box)(({ theme }) => ({
-	height: "auto",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-	width: "auto",
-	borderRadius: "50%",
-	background: theme.palette.background.paper,
 }));
 
 function StorySlider(props) {
@@ -150,30 +117,7 @@ function StorySlider(props) {
 								minWidth: { xs: "5rem", sm: "4rem" },
 							}}
 						>
-							<StoryTag>
-								<Badge
-									overlap="circular"
-									anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-									badgeContent={
-										<StyledPlusIcon>
-											<ReactIcons.IoIosAddCircle
-												size={25}
-												style={{ color: theme.palette.primary.main }}
-											/>
-										</StyledPlusIcon>
-									}
-								>
-									<Avatar
-										alt="Travis Howard"
-										src={userStories[9].profile}
-										sx={{
-											width: { xs: 74, sm: 59 },
-											height: { xs: 74, sm: 59 },
-											border: "1.5px solid #ffff",
-										}}
-									/>
-								</Badge>
-							</StoryTag>
+							<ProfileAvatar data={userStories[9]} badge={true} />
 							<Typography
 								noWrap
 								variant="p"
@@ -200,16 +144,7 @@ function StorySlider(props) {
 								}}
 								key={ind}
 							>
-								<StoryTag key={ind}>
-									<Avatar
-										src={story.profile}
-										sx={{
-											width: { xs: 74, sm: 59 },
-											height: { xs: 74, sm: 59 },
-											border: "1.5px solid #ffff",
-										}}
-									/>
-								</StoryTag>
+								<ProfileAvatar data={story} />
 								<Typography
 									noWrap
 									variant="p"

@@ -14,6 +14,7 @@ import ProfileHeader from "./ProfileHeader";
 import { defaultUser } from "../../data";
 import { defaultSpacing } from "utils/constants";
 import MediaTabs from "./MediaTabs";
+import ProfileAvatar from "components/common/ProfileAvatar";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -21,28 +22,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "flex-start",
-}));
-
-const StoryTag = styled(Box)(({ theme }) => ({
-	minWidth: 160,
-	minHeight: 160,
-	maxWidth: 160,
-	maxHeight: 160,
-	position: "relative",
-	[theme.breakpoints.down("sm")]: {
-		minWidth: 80,
-		minHeight: 80,
-		maxWidth: 80,
-		maxHeight: 80,
-	},
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-	padding: "3px",
-	borderRadius: "50%",
-	background:
-		"linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)",
-	cursor: "pointer",
 }));
 
 function Profile() {
@@ -63,17 +42,14 @@ function Profile() {
 				<Grid container sx={{ marginTop: { xs: 4.5, sm: 0 } }}>
 					<Grid item xs={3} sm={4} md={4} lg={4}>
 						<StyledBox sx={{ padding: { xs: "1rem", md: "3rem 4rem" } }}>
-							<StoryTag>
-								<Avatar
-									src={defaultUser.profile}
-									alt={defaultUser.name}
-									sx={{
-										width: { xs: 74, sm: 154 },
-										height: { xs: 74, sm: 154 },
-										border: "2px solid #ffff",
-									}}
-								/>
-							</StoryTag>
+							<ProfileAvatar
+								data={defaultUser}
+								sx={{
+									width: { xs: 85, sm: 154 },
+									height: { xs: 85, sm: 154 },
+									border: "2px solid #ffff",
+								}}
+							/>
 						</StyledBox>
 					</Grid>
 					{matchDownSm && (

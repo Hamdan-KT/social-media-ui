@@ -5,7 +5,6 @@ import {
   Grid,
   IconButton,
   useMediaQuery,
-  Avatar,
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -17,6 +16,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { userStories } from "src/data";
 import { memo, useRef } from "react";
 import ReactIcons from "utils/ReactIcons";
+import ProfileAvatar from "components/common/ProfileAvatar";
 
 const StyledPaper = styled(Paper)(({ theme, customization }) => ({
   width: "100%",
@@ -155,7 +155,7 @@ function HighlightSlider(props) {
 								>
 									<ReactIcons.LuPlus
 										size={50}
-                    style={{ color: theme.palette.grey[400] }}
+										style={{ color: theme.palette.grey[400] }}
 									/>
 								</Box>
 							</StoryTag>
@@ -182,16 +182,14 @@ function HighlightSlider(props) {
 								}}
 								key={ind}
 							>
-								<StoryTag>
-									<Avatar
-										src={story.profile}
-										sx={{
-											width: { xs: 59, sm: 75 },
-											height: { xs: 59, sm: 75 },
-											border: "1.5px solid #ffff",
-										}}
-									/>
-								</StoryTag>
+								<ProfileAvatar
+									data={story}
+									sx={{
+										width: { xs: 59, sm: 75 },
+										height: { xs: 59, sm: 75 },
+									}}
+									containerSx={{padding: {xs: "2.7px"}}}
+								/>
 								<Typography
 									noWrap
 									variant="p"
