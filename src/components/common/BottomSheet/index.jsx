@@ -131,8 +131,6 @@ const BottomSheet = forwardRef(function (
 		if (contentRef.current) contentRef.current.style.height = `${height}vh`;
 	}
 
-	// if (!open) return null;
-
 	return (
 		<Backdrop
 			ref={backdropRef}
