@@ -2,7 +2,6 @@ import {
 	Box,
 	Typography,
 	useTheme,
-	Avatar,
 	IconButton,
 	Checkbox,
 	useMediaQuery,
@@ -20,6 +19,7 @@ import ReactIcons from "utils/ReactIcons";
 import emojiData from "@emoji-mart/data";
 import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
+import ProfileAvatar from "components/common/ProfileAvatar";
 
 const commonStyle = {
 	display: "flex",
@@ -155,7 +155,10 @@ function PostLarge({ data }) {
 							}}
 						>
 							<Box sx={commonStyle}>
-								<Avatar src={data?.profile} />
+								<ProfileAvatar
+									data={data}
+									sx={{ width: 36, height: 36 }}
+								/>
 							</Box>
 							<Box
 								sx={{
@@ -312,7 +315,11 @@ function PostLarge({ data }) {
 								{value && (
 									<Typography
 										variant="body"
-										sx={{ cursor: "pointer", padding: "0 0.3rem", fontWeight: 600 }}
+										sx={{
+											cursor: "pointer",
+											padding: "0 0.3rem",
+											fontWeight: 600,
+										}}
 										color={theme.palette.primary.main}
 									>
 										Post
