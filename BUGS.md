@@ -1,7 +1,5 @@
-# how to create popup with changing route
-<!-- # complete posting window in mobile too -->
 <!-- # post view complete in pc -->
-<!-- # individual post view window for explore or profiles -->
+# post component re-render when a comment bottom sheet is popup, especially image slider
 # reply in message section while swiping
 # bottom bar and model for each menu in small and large devices
 # touch and hold and normal menu in each chat..

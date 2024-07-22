@@ -306,13 +306,13 @@ function PostLarge({ data }) {
 									value={value}
 									onChange={(e) => setValue(e.target.value)}
 									type="text"
-									placeholder="Message..."
+									placeholder="Add a comment for ..."
 									inputProps={{ "aria-label": "text" }}
 								/>
 								{value && (
 									<Typography
 										variant="body"
-										sx={{ cursor: "pointer", padding: "0 0.3rem" }}
+										sx={{ cursor: "pointer", padding: "0 0.3rem", fontWeight: 600 }}
 										color={theme.palette.primary.main}
 									>
 										Post
