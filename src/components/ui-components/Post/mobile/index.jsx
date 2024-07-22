@@ -6,7 +6,6 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
@@ -22,6 +21,7 @@ import ReactIcons from "utils/ReactIcons";
 import Comments from "components/ui-components/Popups/Comments";
 import { useLocation, useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
+import ProfileAvatar from "components/common/ProfileAvatar";
 
 // caption style
 const captionStyle = {
@@ -73,10 +73,10 @@ function PostMobile({ data }) {
 					},
 				}}
 				avatar={
-					<Avatar
-						src={data?.profile}
-						aria-label="profile-picture"
-						sx={{ width: 30, height: 30 }}
+					<ProfileAvatar
+						data={data}
+						sx={{ width: 36, height: 36 }}
+						containerSx={{ padding: { xs: "2px" } }}
 					/>
 				}
 				action={
