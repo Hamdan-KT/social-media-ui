@@ -11,7 +11,7 @@ function UserList({
 	onClick,
 	data = [],
 	customButtonProps,
-	actionButton = true,
+	actionButton = false,
 }) {
 	const theme = useTheme();
 	return (

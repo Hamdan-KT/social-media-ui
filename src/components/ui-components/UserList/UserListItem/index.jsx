@@ -69,14 +69,14 @@ function UserListItem({
 						fontSize: 13,
 						noWrap: true,
 						fontWeight: "bold",
-						mr: 5,
+						mr: actionButton || customButton ? 5 : 0,
 					}}
 					secondaryTypographyProps={{
 						noWrap: true,
 						fontSize: 12,
 						mr: {
-							xs: 9,
-							sm: 6,
+							xs: actionButton || customButton ? 9 : 0,
+							sm: actionButton || customButton ? 6 : 0,
 						},
 					}}
 					primary={primaryText}
