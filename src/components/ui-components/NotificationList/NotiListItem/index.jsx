@@ -96,8 +96,8 @@ function NotiListItem({
 						flexWrap: "wrap",
 						fontSize: 14,
 						mr: {
-							xs: 9,
-							sm: 5,
+							xs:  actionButton || customButton ? 9 : 0,
+							sm:  actionButton || customButton ? 5 : 0,
 						},
 					}}
 					primary={primaryText}

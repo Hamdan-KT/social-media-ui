@@ -156,7 +156,7 @@ function Messages() {
 								<MessageList
 									data={Users}
 									sx={{ maxWidth: "100%" }}
-									actionButton
+									actionButton={matchDownMd || matchDownSm ? true : false}
 									customButton={
 										matchDownMd || matchDownSm ? <CustomButton /> : null
 									}

@@ -11,7 +11,7 @@ function MessageList({
 	onClick,
 	data = [],
 	customButtonProps,
-	actionButton = true,
+	actionButton = false,
 }) {
 	const theme = useTheme();
 	return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Btn from "components/common/Button";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import {
@@ -18,7 +18,7 @@ function MessageListItem({
 	navigateId,
 	primaryText,
 	secondaryText,
-	actionButton = true,
+	actionButton = false,
 	customButtonProps,
 }) {
 	const navigate = useNavigate();
@@ -55,14 +55,14 @@ function MessageListItem({
 						fontSize: 13,
 						noWrap: true,
 						fontWeight: "bold",
-						mr: 5,
+						mr:  actionButton || customButton ? 5 : 0,
 					}}
 					secondaryTypographyProps={{
 						noWrap: true,
 						fontSize: 12,
 						mr: {
-							xs: 9,
-							sm: 6,
+							xs:  actionButton || customButton ? 9 : 0,
+							sm:  actionButton || customButton ? 6 : 0,
 						},
 					}}
 					primary={primaryText}
@@ -76,4 +76,4 @@ function MessageListItem({
 	);
 }
 
-export default MessageListItem
+export default MessageListItem;
