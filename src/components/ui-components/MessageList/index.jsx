@@ -2,9 +2,9 @@
 import * as React from "react";
 import List from "@mui/material/List";
 import { useTheme } from "@mui/material/styles";
-import UserListItem from "./UserListItem";
+import MessageListItem from "./MessageListItem";
 
-function UserList({
+function MessageList({
 	customButton,
 	sx = {},
 	onButtonClick = () => {},
@@ -25,10 +25,12 @@ function UserList({
 				...sx,
 			}}
 		>
-			{data?.map((user, index) => (
-				<UserListItem
-					data={user}
-					primaryText={user?.name}
+			{data?.map((msgUser, index) => (
+				<MessageListItem
+					data={msgUser}
+					urlPrefix={"/messages"}
+					navigateId={msgUser?.id}
+					primaryText={msgUser?.name}
 					// secondaryText={secondaryText}
 					customButtonProps={customButtonProps}
 					actionButton={actionButton}
@@ -41,4 +43,4 @@ function UserList({
 	);
 }
 
-export default UserList;
+export default MessageList;

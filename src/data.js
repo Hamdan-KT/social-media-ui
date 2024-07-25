@@ -957,7 +957,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/432059/pexels-photo-432059.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "49m",
 		verified: false,
-		type: "action",
+		type: "normal",
 		media:
 			"https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&w=600",
 		message: "clara liked your post",
@@ -969,7 +969,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "35m",
 		verified: false,
-		type: "normal",
+		type: "action",
 		message: "jack strted following you",
 	},
 	{
@@ -979,7 +979,7 @@ export const notifications = [
 			"https://images.unsplash.com/photo-1626025437642-0b05076ca301?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVzc2l8ZW58MHx8MHx8fDA%3D",
 		time: "29m",
 		verified: true,
-		type: "normal",
+		type: "action",
 		message:
 			"williams who might know you in instagram check profile to see more details",
 	},
@@ -990,7 +990,7 @@ export const notifications = [
 			"https://images.unsplash.com/photo-1522778034537-20a2486be803?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y3Jpc3RpYW5vJTIwcm9uYWxkb3xlbnwwfHwwfHx8MA%3D%3D",
 		time: "1hr",
 		verified: true,
-		type: "action",
+		type: "normal",
 		media:
 			"https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&w=600",
 		message: "daniel liked your post",
@@ -1002,7 +1002,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "49m",
 		verified: false,
-		type: "action",
+		type: "normal",
 		media:
 			"https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&w=600",
 		message: "Jhone commended on your post",
@@ -1014,7 +1014,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "35m",
 		verified: false,
-		type: "action",
+		type: "normal",
 		media:
 			"https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&w=600",
 		message: "clara liked your post",
@@ -1026,7 +1026,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/678783/pexels-photo-678783.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "29m",
 		verified: true,
-		type: "normal",
+		type: "action",
 		message: "doe started following you",
 	},
 	{
@@ -1036,7 +1036,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "1hr",
 		verified: true,
-		type: "normal",
+		type: "action",
 		message: "peter started following you",
 	},
 	{
@@ -1046,7 +1046,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/3764119/pexels-photo-3764119.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "49m",
 		verified: false,
-		type: "normal",
+		type: "action",
 		message: "sarah started following you",
 	},
 	{
@@ -1056,7 +1056,7 @@ export const notifications = [
 			"https://images.pexels.com/photos/3779448/pexels-photo-3779448.jpeg?auto=compress&cs=tinysrgb&w=600",
 		time: "35m",
 		verified: false,
-		type: "action",
+		type: "normal",
 		media:
 			"https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&w=600",
 		message: "daniel liked your post",

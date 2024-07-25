@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 import MessageHeader from "./messageHeader";
 import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
-import MessageList from "./messageList";
+import MessageList from "components/ui-components/MessageList";
 import { RoutePath } from "src/utils/routes";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { messageSections } from "utils/constants";
@@ -157,8 +157,6 @@ function Messages() {
 									data={Users}
 									sx={{ maxWidth: "100%" }}
 									actionButton
-									urlPrefix="/messages"
-									navigateId="id"
 									customButton={
 										matchDownMd || matchDownSm ? <CustomButton /> : null
 									}
