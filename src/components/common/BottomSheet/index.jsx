@@ -42,7 +42,13 @@ const BottomSheetBody = styled(Box)(({ theme }) => ({
 }));
 
 const BottomSheet = forwardRef(function (
-	{ children, title = "", sheetBodyStyles = {} },
+	{
+		children,
+		title = "",
+		sheetBodyStyles = {},
+		// open = false,
+		// onClose = () => {},
+	},
 	ref
 ) {
 	const backdropRef = useRef();

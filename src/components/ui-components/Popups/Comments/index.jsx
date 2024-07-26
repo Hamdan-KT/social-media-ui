@@ -27,15 +27,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const Comments = forwardRef(function ({ open = false, handleClose }, ref) {
+const Comments = forwardRef(function (props, ref) {
 	const [value, setValue] = useState("");
 	const theme = useTheme();
 	return (
 		<BottomSheet
 			ref={ref}
 			title="Comments"
-			open={open}
-			onClose={handleClose}
 			sheetBodyStyles={{ position: "relative" }}
 		>
 			<Box

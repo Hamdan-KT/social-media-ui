@@ -121,10 +121,11 @@ function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
 						>
 							<UserList
 								sx={{ maxWidth: "100%" }}
-								data={Users?.map(
-									(user) => user
-									// user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
-								)}
+								data={Users?.filter((user) => {
+									return (
+										user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
+									);
+								})}
 							/>
 						</Box>
 					</StyledPaper>

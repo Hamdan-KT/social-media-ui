@@ -10,7 +10,7 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactIcons from "utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePost } from "app/slices/postSlice/postSlice";
@@ -48,7 +48,7 @@ function PostTaggingMobile() {
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const [openTagSearch, setOpenTagSearch] = useState(false);
+	const tagSearchRef = useRef();
 	const [tagPosition, setTagPosition] = useState(null);
 	const [tags, setTags] = useState([]);
 
@@ -69,13 +69,13 @@ function PostTaggingMobile() {
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
 		setTagPosition({ x, y });
-		setOpenTagSearch(true);
+		tagSearchRef.current.handleOpen(true);
 	};
 
 	// Handle tag selection
 	const handleTagSelection = (name) => {
 		setTags([...tags, { ...tagPosition, name }]);
-		setOpenTagSearch(false);
+		tagSearchRef.current.handleOpen(false);
 		setTagPosition(null);
 	};
 
@@ -167,10 +167,7 @@ function PostTaggingMobile() {
 						))}
 				</Slider>
 			</MainBox>
-			<SearchTagPeoples
-				open={openTagSearch}
-				handleClose={() => setOpenTagSearch(false)}
-			/>
+			<SearchTagPeoples ref={tagSearchRef} />
 		</>
 	);
 }

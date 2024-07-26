@@ -1,24 +1,33 @@
 import UserList from "components/ui-components/UserList";
 import BottomSheet from "components/common/BottomSheet";
-import React from "react";
+import React, { forwardRef } from "react";
 import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
-import { Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 
-function SearchTagPeoples({ open = false, handleClose }) {
+const SearchTagPeoples = forwardRef(function ({}, ref) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
-		<BottomSheet title="Search Peoples" open={open} onClose={handleClose}>
+		<BottomSheet title="Search Peoples" ref={ref}>
 			<Grid container>
-				{matchDownSm && (
-					<Grid item xs={12}>
-						<MobileSearchBar />
-					</Grid>
-				)}
+				<Box
+					sx={{
+						display: "flex",
+						padding: "0.3rem",
+						width: "100%",
+						height: "auto",
+					}}
+				>
+					{matchDownSm && (
+						<Grid item xs={12}>
+							<MobileSearchBar />
+						</Grid>
+					)}
+				</Box>
 			</Grid>
 		</BottomSheet>
 	);
-}
+});
 
 export default SearchTagPeoples;
