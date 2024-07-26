@@ -154,7 +154,7 @@ function Messages() {
 						<Box sx={{ width: "100%" }}>
 							<StyledScrollBox className="scrollbar-hide" sx={{ mt: 0.5 }}>
 								<MessageList
-									data={Users}
+									data={[...Users, ...Users]}
 									sx={{ maxWidth: "100%" }}
 									actionButton={matchDownMd || matchDownSm ? true : false}
 									customButton={
@@ -169,14 +169,13 @@ function Messages() {
 			<Grid item xs={12} sm={12} md={8} lg={8.5}>
 				<Box
 					sx={{
-						width: "100%",
 						ml: { md: 1 },
 						height: "100%",
 						border: { md: `1px solid ${theme.palette.grey[400]}` },
 						borderRadius: { md: 7 },
 						overflow: { md: "hidden" },
-						alignItems: { sm: "start", md: "center" },
-						justifyContent: { sm: "start", md: "center" },
+						alignItems: { sm: "center", md: "center" },
+						justifyContent: { sm: "center", md: "center" },
 						display: "flex",
 						minHeight: { xs: `100%`, md: `calc(100vh - 33px)` },
 					}}

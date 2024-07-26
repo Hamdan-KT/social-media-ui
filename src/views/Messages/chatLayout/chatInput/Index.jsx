@@ -24,13 +24,13 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	alignItems: "center",
 	justifyContent: "center",
 	backgroundColor: theme.palette.background.default,
-	padding: 0,
+	padding: "0.5rem 0.5rem",
 	[theme.breakpoints.down("md")]: {
 		position: "fixed",
-		width: `calc(100% - ${theme.spacing(14)})`,
 		bottom: 0,
-		left: `calc(${theme.spacing(12)} + 1px)`,
 		padding: "0.5rem 0.3rem",
+		width: `calc(100% - ${theme.spacing(10)})`,
+		left: `calc(${theme.spacing(10)} + 1px)`,
 	},
 	[theme.breakpoints.down("sm")]: {
 		position: "fixed",

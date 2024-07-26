@@ -17,8 +17,8 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	[theme.breakpoints.down("md")]: {
 		position: "fixed",
 		padding: "0rem 0.5rem",
-		width: `calc(100% - ${theme.spacing(14)})`,
-		marginLeft: `calc(${theme.spacing(12)} + 1px)`,
+		width: `calc(100% - ${theme.spacing(10)})`,
+		marginLeft: `calc(${theme.spacing(10)} + 1px)`,
 	},
 	[theme.breakpoints.down("sm")]: {
 		position: "fixed",

@@ -23,6 +23,7 @@ export default function MainLayout() {
 		},
 		[theme.breakpoints.down("md")]: {
 			width: `calc(100% - (${theme.spacing(10)} + 1px))`,
+			padding: "0.5rem",
 		},
 		[theme.breakpoints.down("sm")]: {
 			width: "100%",

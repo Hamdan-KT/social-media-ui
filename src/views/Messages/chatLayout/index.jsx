@@ -12,9 +12,10 @@ function ChatLayout() {
 
 	return (
 		<motion.div
-			initial={{ width: matchDownMd && 0 }}
-			animate={{ width: matchDownMd && "100%" }}
-			exit={{ x: matchDownMd && "100%" }}
+			// initial={{ width: 0 }}
+			// animate={{ width: "100%" }}
+			// exit={{ x: "100%" }}
+			style={{width: "100%"}}
 		>
 			<Grid container>
 				{matchDownMd && <ChatHeader />}
@@ -34,20 +35,22 @@ function ChatLayout() {
 					<Box
 						sx={{
 							overflowX: "hidden",
-							mt: { xs: 6, sm: 6, md: 8 },
+							mt: { xs: 6, sm: 7, md: 8 },
 							height: {
-								md: `calc(100vh - 165px)`,
+								md: `calc(100vh - 20vh)`,
 							},
-							maxHeight: { xs: `100%`, md: `calc(100vh - 165px)` },
+							maxHeight: { xs: `100%`, md: `calc(100vh - 20vh)` },
 							overflowY: { md: "scroll" },
-							p: { xs: 0.5, sm: 1 }, 
+							p: { xs: 0.5, sm: 1 },
+							mb: { xs: 1, sm: 7, md: 0 },
+							width: "100%"
 						}}
 					>
 						{/* chats will render heare */}
 						<Chat data={chatData} />
 					</Box>
 				</Grid>
-				<Grid item xs={12} p={{ xs: "0.2rem 0", md: 1 }}>
+				<Grid item xs={12} sx={{ xs: "0.2rem 0", md: 1 }}>
 					{!matchDownMd && <ChatInput />}
 				</Grid>
 				{matchDownMd && <ChatInput />}
