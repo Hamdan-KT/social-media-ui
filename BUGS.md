@@ -5,4 +5,4 @@
 # profile edit window
 # voice record
 # follow buttom individual for each list item
-# change story tag to each individual component
+# story window making

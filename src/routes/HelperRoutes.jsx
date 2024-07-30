@@ -6,9 +6,7 @@ import MinimalLayout from "../layouts/MinimalLayout";
 // testroute
 
 // MAIN ROUTES
-const StoryPopUp = Loadable(
-	lazy(() => import("components/ui-components/StoryPopUp"))
-);
+const Story = Loadable(lazy(() => import("views/Stories")));
 const CropPostMobile = Loadable(lazy(() => import("views/CreatePost/Crop")));
 const EditPostMobile = Loadable(
 	lazy(() => import("views/CreatePost/FilterAdjustment"))
@@ -25,7 +23,7 @@ const HelperRoutes = () => {
 		children: [
 			{
 				path: RoutePath.STORY,
-				element: <StoryPopUp />,
+				element: <Story />,
 			},
 			{
 				path: RoutePath.CREATE,
