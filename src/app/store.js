@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice/userSlice";
 import postReducer from "./slices/postSlice/postSlice";
 import customizationReducer from "./slices/customizationSlice/customization";
+import layoutReducer from "./slices/layoutSlice/layoutSlice";
 
 export const store = configureStore({
 	reducer: {
 		user: userReducer,
 		customization: customizationReducer,
 		post: postReducer,
+		layout: layoutReducer,
 	},
 });

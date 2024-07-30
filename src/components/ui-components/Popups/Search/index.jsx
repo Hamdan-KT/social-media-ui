@@ -41,7 +41,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const StyledPaper = styled(Paper)(({ theme, customization }) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
 	display: "flex",
 	padding: "1rem 0.5rem",
@@ -75,7 +75,6 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 }));
 
 function SearchPopUp() {
-	const customization = useSelector((state) => state.customization);
 	const [value, setValue] = useState("");
 
 	return (
@@ -109,7 +108,7 @@ function SearchPopUp() {
 					zIndex: 10,
 				}}
 			>
-				<StyledPaper elevation={0} customization={customization}>
+				<StyledPaper elevation={0}>
 					<Box
 						sx={{
 							display: "flex",

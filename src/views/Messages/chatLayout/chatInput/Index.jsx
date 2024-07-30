@@ -64,7 +64,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function ChatInput() {
-	const customization = useSelector((state) => state.customization);
 	const [value, setValue] = useState("");
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));

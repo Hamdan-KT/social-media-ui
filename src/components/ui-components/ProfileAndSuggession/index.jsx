@@ -12,7 +12,7 @@ import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import ProfileAvatar from "components/common/ProfileAvatar";
 
-const StyledProfile = styled(Paper)(({ theme, customization }) => ({
+const StyledProfile = styled(Paper)(({ theme }) => ({
 	width: "100%",
 	display: "flex",
 	alignItems: "center",
@@ -20,16 +20,16 @@ const StyledProfile = styled(Paper)(({ theme, customization }) => ({
 	background: theme.palette.background.default,
 	minHeight: "10vh",
 	padding: "0.8rem",
-	borderRadius: `${customization?.borderRadius}px`,
+	borderRadius: `${theme?.customization?.borderRadius}px`,
 }));
 
-const StyledPaper = styled(Paper)(({ theme, customization }) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
 	display: "flex",
 	padding: "1rem 0.5rem",
 	background: theme.palette.background.default,
 	height: "80vh",
-	borderRadius: `${customization?.borderRadius}px`,
+	borderRadius: `${theme?.customization?.borderRadius}px`,
 	position: "relative",
 	"&::before": {
 		content: `""`,
@@ -41,7 +41,7 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 		top: 2,
 		left: 0,
 		zIndex: 7,
-		borderRadius: `${customization?.borderRadius}px`,
+		borderRadius: `${theme?.customization?.borderRadius}px`,
 	},
 	"&::after": {
 		content: `""`,
@@ -52,7 +52,7 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 		padding: "1rem",
 		bottom: 2,
 		left: 0,
-		borderRadius: `${customization?.borderRadius}px`,
+		borderRadius: `${theme?.customization?.borderRadius}px`,
 	},
 }));
 
@@ -74,7 +74,6 @@ const ProfileBox = styled(Box)(({ theme }) => ({
 }));
 
 function Suggessions() {
-	const customization = useSelector((state) => state.customization);
 	const navigate = useNavigate();
 
 	return (
@@ -82,7 +81,6 @@ function Suggessions() {
 			<Grid item md={12} lg={12}>
 				<StyledProfile
 					elevation={2}
-					customization={customization}
 					onClick={() => navigate(RoutePath.PROFILE)}
 				>
 					<ProfileBox>
@@ -116,7 +114,7 @@ function Suggessions() {
 				<Typography mb={1} ml={1}>
 					Suggested For You
 				</Typography>
-				<StyledPaper elevation={2} customization={customization}>
+				<StyledPaper elevation={2}>
 					<Box
 						sx={{
 							display: "flex",

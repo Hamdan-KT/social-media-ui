@@ -40,11 +40,9 @@ function Home() {
 					{/* story Slider */}
 					<StorySlider />
 					{/* post rendering */}
-					{userPosts?.map(
-						(data) => (
-							<MemoizedPost key={data?.id} data={data} />
-						)
-					)}
+					{userPosts?.map((data) => (
+						<MemoizedPost key={data?.id} data={data} />
+					))}
 				</StyledBox>
 			</Grid>
 			{!matchDownMd && (

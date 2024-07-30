@@ -24,15 +24,15 @@ import { Link, useLocation } from "react-router-dom";
 import { defaultUser } from "src/data";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { sideBarPopupOpen } from "app/slices/customizationSlice/customization";
+import { sideBarPopupOpen } from "app/slices/layoutSlice/layoutSlice";
 import CreatePost from "components/ui-components/Popups/CreatePost";
-import { sideBarPopupClose } from "app/slices/customizationSlice/customization";
+import { sideBarPopupClose } from "app/slices/layoutSlice/layoutSlice";
 import { sidebarpopUps } from "utils/constants";
 import SlideBarPopups from "components/ui-components/Wrappers/slideBarPopups";
 import SearchPopUp from "components/ui-components/Popups/Search";
 import NotificationPopUp from "components/ui-components/Popups/Notification";
 import { memo } from "react";
-import { handleSideBarOpen } from "app/slices/customizationSlice/customization";
+import { handleSideBarOpen } from "app/slices/layoutSlice/layoutSlice";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -113,9 +113,9 @@ const SideBar = memo(function () {
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("lg"));
 	const { pathname } = useLocation();
-	const popupState = useSelector((state) => state.customization.sideBarPopup);
+	const popupState = useSelector((state) => state.layout.sideBarPopup);
 	const dispatch = useDispatch();
-	const sideBarOpen = useSelector((state) => state.customization.sideBarOpen);
+	const sideBarOpen = useSelector((state) => state.layout.sideBarOpen);
 	const handleSideBarToggle = () => {
 		dispatch(handleSideBarOpen({ open: !sideBarOpen }));
 	};

@@ -11,17 +11,17 @@ import { useEffect, useRef } from "react";
 import { drawerWidth } from "utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 
-const StyledPaper = styled(Paper)(({ theme, customization }) => ({
-  width: "100%",
-  height: "99vh",
-  maxHeight: "99vh",
-  display: "flex",
-  alignItems: "flex-start",
-  padding: "1.3rem 0.5rem",
-  justifyContent: "flex-start",
-  borderTopRightRadius: "20px",
-  borderBottomRightRadius: "20px",
-}));
+const StyledPaper = styled(Paper)({
+	width: "100%",
+	height: "99vh",
+	maxHeight: "99vh",
+	display: "flex",
+	alignItems: "flex-start",
+	padding: "1.3rem 0.5rem",
+	justifyContent: "flex-start",
+	borderTopRightRadius: "20px",
+	borderBottomRightRadius: "20px",
+});
 
 const StyledBox = styled(Box)(({ theme }) => ({
   position: "fixed",
@@ -44,15 +44,15 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const BaseBox = styled(Box)(({ theme, customization }) => ({
-  width: "100%",
-  height: "100%",
-  maxHeight: "100%",
-  overflowY: "scroll",
-  display: "flex",
-  alignItems: "flex-start",
-  justifyContent: "flex-start",
-}));
+const BaseBox = styled(Box)({
+	width: "100%",
+	height: "100%",
+	maxHeight: "100%",
+	overflowY: "scroll",
+	display: "flex",
+	alignItems: "flex-start",
+	justifyContent: "flex-start",
+});
 
 function SlideBarPopups({ children, open = false }) {
   const theme = useTheme();

@@ -18,45 +18,45 @@ import { memo, useRef } from "react";
 import ReactIcons from "utils/ReactIcons";
 import ProfileAvatar from "components/common/ProfileAvatar";
 
-const StyledPaper = styled(Paper)(({ theme, customization }) => ({
-  width: "100%",
-  height: "15vh",
-  [theme.breakpoints.down("sm")]: {
-    height: "auto",
-    marginTop: "-0.5rem",
-  },
-  display: "flex",
-  alignItems: "center",
-  background: theme.palette.background.default,
-  borderRadius: `${customization?.borderRadius}px`,
-  position: "relative",
-  [theme.breakpoints.not("xs")]: {
-    padding: "0rem 1rem",
-    "&::before": {
-      content: `""`,
-      position: "absolute",
-      display: "flex",
-      width: "20px",
-      height: "100%",
-      background: `linear-gradient(to left, rgba(255,0,0,0), ${theme.palette.background.paperLight}, ${theme.palette.background.default})`,
-      top: 0,
-      left: 3,
-      zIndex: 5,
-      borderRadius: `${customization?.borderRadius}px`,
-    },
-    "&::after": {
-      content: `""`,
-      position: "absolute",
-      display: "flex",
-      width: "20px",
-      height: "100%",
-      background: `linear-gradient(to right, rgba(255,0,0,0), ${theme.palette.background.paperLight}, ${theme.palette.background.default})`,
-      top: 0,
-      right: 3,
-      zIndex: 5,
-      borderRadius: `${customization?.borderRadius}px`,
-    },
-  },
+const StyledPaper = styled(Paper)(({ theme }) => ({
+	width: "100%",
+	height: "15vh",
+	[theme.breakpoints.down("sm")]: {
+		height: "auto",
+		marginTop: "-0.5rem",
+	},
+	display: "flex",
+	alignItems: "center",
+	background: theme.palette.background.default,
+	borderRadius: `${theme?.customization?.borderRadius}px`,
+	position: "relative",
+	[theme.breakpoints.not("xs")]: {
+		padding: "0rem 1rem",
+		"&::before": {
+			content: `""`,
+			position: "absolute",
+			display: "flex",
+			width: "20px",
+			height: "100%",
+			background: `linear-gradient(to left, rgba(255,0,0,0), ${theme.palette.background.paperLight}, ${theme.palette.background.default})`,
+			top: 0,
+			left: 3,
+			zIndex: 5,
+			borderRadius: `${theme?.customization?.borderRadius}px`,
+		},
+		"&::after": {
+			content: `""`,
+			position: "absolute",
+			display: "flex",
+			width: "20px",
+			height: "100%",
+			background: `linear-gradient(to right, rgba(255,0,0,0), ${theme.palette.background.paperLight}, ${theme.palette.background.default})`,
+			top: 0,
+			right: 3,
+			zIndex: 5,
+			borderRadius: `${theme?.customization?.borderRadius}px`,
+		},
+	},
 }));
 
 const StorySliderBox = styled(Box)(({ theme }) => ({

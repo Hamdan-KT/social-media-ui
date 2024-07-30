@@ -36,7 +36,6 @@ function PostMobile({ data }) {
 	const [expanded, setExpanded] = useState(false);
 	const captionRef = useRef(null);
 	const commentRef = useRef();
-	const customization = useSelector((state) => state.customization);
 	const theme = useTheme();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -61,7 +60,6 @@ function PostMobile({ data }) {
 			sx={{
 				maxWidth: 470,
 				width: "100%",
-				borderRadius: `${customization?.borderRadius}px`,
 			}}
 		>
 			<CardHeader

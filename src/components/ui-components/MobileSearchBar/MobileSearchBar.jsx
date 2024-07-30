@@ -39,7 +39,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const StyledPaper = styled(Paper)(({ theme, customization }) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
 	display: "flex",
 	padding: "1rem 0.5rem",
@@ -70,7 +70,6 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 }));
 
 function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
-	const customization = useSelector((state) => state.customization);
 	const [value, setValue] = useState("");
 
 	return (
@@ -105,7 +104,6 @@ function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
 				>
 					<StyledPaper
 						elevation={0}
-						customization={customization}
 						sx={listWrapperStyle}
 					>
 						<Box

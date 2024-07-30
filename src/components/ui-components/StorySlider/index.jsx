@@ -17,7 +17,7 @@ import { userStories } from "src/data";
 import { useRef, memo } from "react";
 import ProfileAvatar from "components/common/ProfileAvatar";
 
-const StyledPaper = styled(Paper)(({ theme, customization }) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
 	height: "16vh",
 	[theme.breakpoints.down("sm")]: {
@@ -27,7 +27,7 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 	display: "flex",
 	alignItems: "center",
 	background: theme.palette.background.default,
-	borderRadius: `${customization?.borderRadius}px`,
+	borderRadius: `${theme?.customization?.borderRadius}px`,
 	position: "relative",
 	[theme.breakpoints.not("xs")]: {
 		padding: "0rem 1rem",
@@ -41,7 +41,7 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 			top: 0,
 			left: 3,
 			zIndex: 5,
-			borderRadius: `${customization?.borderRadius}px`,
+			borderRadius: `${theme?.customization?.borderRadius}px`,
 		},
 		"&::after": {
 			content: `""`,
@@ -53,7 +53,7 @@ const StyledPaper = styled(Paper)(({ theme, customization }) => ({
 			top: 0,
 			right: 3,
 			zIndex: 5,
-			borderRadius: `${customization?.borderRadius}px`,
+			borderRadius: `${theme?.customization?.borderRadius}px`,
 		},
 	},
 }));
@@ -87,7 +87,6 @@ const SlideButton = styled(IconButton)(({ direction }) => ({
 }));
 
 function StorySlider(props) {
-	const customization = useSelector((state) => state.customization);
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const sliderWindow = useRef();
@@ -103,7 +102,7 @@ function StorySlider(props) {
 	return (
 		<Grid container>
 			<Grid item xs={12} md={12} sm={12} lg={12}>
-				<StyledPaper elevation={0} customization={customization}>
+				<StyledPaper elevation={0}>
 					<StorySliderBox ref={sliderWindow} className="scrollbar-hide">
 						<Box
 							sx={{

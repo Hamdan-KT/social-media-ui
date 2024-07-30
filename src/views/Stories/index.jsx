@@ -48,7 +48,7 @@ const StyledMain = styled(Box)(({ theme }) => ({
 	p: 4,
 }));
 
-function Story() {
+function Stories() {
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -121,4 +121,4 @@ function Story() {
   );
 }
 
-export default Story;
+export default Stories;
