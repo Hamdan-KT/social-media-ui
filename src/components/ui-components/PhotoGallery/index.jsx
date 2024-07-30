@@ -46,7 +46,7 @@ const MediaDiv = styled(Box)(({ theme }) => ({
 		display: "flex",
 	},
 	cursor: "pointer",
-	border: `1px solid ${theme.palette.grey[200]}`
+	border: `1px solid ${theme.palette.grey[200]}`,
 }));
 
 const HoverDiv = styled(Box)(({ theme }) => ({
@@ -86,16 +86,16 @@ const defaultStyle = {
 	userSelect: "none",
 };
 
-function PhotoGallery() {
+function PhotoGallery({sx}) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const location = useLocation()
+	const location = useLocation();
 
 	return (
 		<Grid container>
 			<Grid item xs={12} md={12} sm={12} lg={12}>
-				<StyledGallery>
-					{userPosts?.map((post, index) => (
+				<StyledGallery sx={sx}>
+					{[...userPosts, ...userPosts, ...userPosts]?.map((post, index) => (
 						<Link
 							to={`/${RoutePath.POST}/${post.id}`}
 							state={{ previousLocation: !matchDownSm ? location : null }}
