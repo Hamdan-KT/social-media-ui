@@ -42,7 +42,7 @@ const BottomSheetBody = styled(Box)(({ theme }) => ({
 }));
 
 const BottomSheet = forwardRef(function (
-	{ children, title = "", sheetBodyStyles = {} },
+	{ children, open, onClose, title = "", sheetBodyStyles = {} },
 	ref
 ) {
 	const backdropRef = useRef();
@@ -51,22 +51,22 @@ const BottomSheet = forwardRef(function (
 	const isDragging = useRef(false);
 	const startY = useRef();
 	const startHeight = useRef(contentRef.current);
-	const [open, setOpen] = useState(false);
-	const handleOpen = (open = false) => {
-		setOpen(open);
-	};
+	// const [open, setOpen] = useState(false);
+	// const handleOpen = (open = false) => {
+	// 	setOpen(open);
+	// };
 
 	// passing handling function to parent element through forward ref
-	useImperativeHandle(
-		ref,
-		() => {
-			return {
-				handleOpen,
-				open: () => open,
-			};
-		},
-		[open]
-	);
+	// useImperativeHandle(
+	// 	ref,
+	// 	() => {
+	// 		return {
+	// 			handleOpen,
+	// 			open: () => open,
+	// 		};
+	// 	},
+	// 	[open]
+	// );
 
 	// handling initial height of sheet on each open
 	useEffect(() => {
@@ -101,7 +101,7 @@ const BottomSheet = forwardRef(function (
 			isDragging.current = false;
 			const sheetHeight = parseInt(contentRef.current?.style.height);
 			sheetHeight < 25
-				? handleOpen(false)
+				? onClose()
 				: sheetHeight > 75
 				? updateSheetHeight(100)
 				: updateSheetHeight(60);
@@ -152,7 +152,7 @@ const BottomSheet = forwardRef(function (
 			onClick={(e) => {
 				e.preventDefault();
 				e.stopPropagation();
-				handleOpen(false);
+				onClose();
 			}}
 		>
 			<motion.div

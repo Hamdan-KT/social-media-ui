@@ -34,8 +34,8 @@ const captionStyle = {
 function PostMobile({ data }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
+	const [commentOpen, setCommentOpen] = useState(false);
 	const captionRef = useRef(null);
-	const commentRef = useRef();
 	const theme = useTheme();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -195,7 +195,7 @@ function PostMobile({ data }) {
 					aria-label="comment"
 					onClick={() =>
 						matchDownSm
-							? commentRef.current.handleOpen(true)
+							? setCommentOpen(true)
 							: navigate(`/${RoutePath.POST}/${data.id}`, {
 									state: { previousLocation: location },
 							  })
@@ -281,7 +281,7 @@ function PostMobile({ data }) {
 						sx={{ cursor: "pointer" }}
 						onClick={() =>
 							matchDownSm
-								? commentRef.current.handleOpen(true)
+								? commentOpen(true)
 								: navigate(`/${RoutePath.POST}/${data.id}`, {
 										state: { previousLocation: location },
 								  })
@@ -291,7 +291,7 @@ function PostMobile({ data }) {
 					</Typography>
 				</Box>
 			</CardContent>
-			{matchDownSm && <Comments ref={commentRef} />}
+			<Comments open={commentOpen} onClose={() => setCommentOpen(false)} />
 		</Card>
 	);
 }

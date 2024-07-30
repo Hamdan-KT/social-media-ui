@@ -4,12 +4,12 @@ import React, { forwardRef } from "react";
 import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
 import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 
-const SearchTagPeoples = forwardRef(function ({}, ref) {
+const SearchTagPeoples = forwardRef(function ({ open, onClose }, ref) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
-		<BottomSheet title="Search Peoples" ref={ref}>
+		<BottomSheet title="Search Peoples" open={open} onClose={onClose}>
 			<Grid container>
 				<Box
 					sx={{

@@ -48,7 +48,7 @@ function PostTaggingMobile() {
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const tagSearchRef = useRef();
+	const [tagSearchOpen, setTagSearchOpen] = useState(null);
 	const [tagPosition, setTagPosition] = useState(null);
 	const [tags, setTags] = useState([]);
 
@@ -69,13 +69,13 @@ function PostTaggingMobile() {
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
 		setTagPosition({ x, y });
-		tagSearchRef.current.handleOpen(true);
+		setTagSearchOpen(true);
 	};
 
 	// Handle tag selection
 	const handleTagSelection = (name) => {
 		setTags([...tags, { ...tagPosition, name }]);
-		tagSearchRef.current.handleOpen(false);
+		setTagSearchOpen(false);
 		setTagPosition(null);
 	};
 
@@ -167,7 +167,7 @@ function PostTaggingMobile() {
 						))}
 				</Slider>
 			</MainBox>
-			<SearchTagPeoples ref={tagSearchRef} />
+			<SearchTagPeoples open={tagSearchOpen} onClose={() => setTagSearchOpen(false)} />
 		</>
 	);
 }
