@@ -2,18 +2,13 @@ import { motion } from "framer-motion";
 import {
 	useEffect,
 	useRef,
-	useState,
 	forwardRef,
-	useImperativeHandle,
 } from "react";
 import {
 	Backdrop,
 	Box,
-	Modal,
 	Typography,
 	styled,
-	useMediaQuery,
-	useTheme,
 } from "@mui/material";
 
 const BottomSheetHeader = styled(Box)(({ theme }) => ({
@@ -51,22 +46,6 @@ const BottomSheet = forwardRef(function (
 	const isDragging = useRef(false);
 	const startY = useRef();
 	const startHeight = useRef(contentRef.current);
-	// const [open, setOpen] = useState(false);
-	// const handleOpen = (open = false) => {
-	// 	setOpen(open);
-	// };
-
-	// passing handling function to parent element through forward ref
-	// useImperativeHandle(
-	// 	ref,
-	// 	() => {
-	// 		return {
-	// 			handleOpen,
-	// 			open: () => open,
-	// 		};
-	// 	},
-	// 	[open]
-	// );
 
 	// handling initial height of sheet on each open
 	useEffect(() => {
