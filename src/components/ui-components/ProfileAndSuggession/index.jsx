@@ -129,7 +129,7 @@ function Suggessions() {
 						className="scrollbar-hide"
 					>
 						<UserList
-							data={Users}
+							data={[...Users, ...Users]}
 							buttonState="following"
 							actionButton={true}
 						/>

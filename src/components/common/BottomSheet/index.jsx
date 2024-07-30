@@ -42,13 +42,7 @@ const BottomSheetBody = styled(Box)(({ theme }) => ({
 }));
 
 const BottomSheet = forwardRef(function (
-	{
-		children,
-		title = "",
-		sheetBodyStyles = {},
-		// open = false,
-		// onClose = () => {},
-	},
+	{ children, title = "", sheetBodyStyles = {} },
 	ref
 ) {
 	const backdropRef = useRef();
@@ -68,9 +62,10 @@ const BottomSheet = forwardRef(function (
 		() => {
 			return {
 				handleOpen,
+				open: () => open,
 			};
 		},
-		[]
+		[open]
 	);
 
 	// handling initial height of sheet on each open

@@ -14,6 +14,11 @@ function MessageList({
 	actionButton = false,
 }) {
 	const theme = useTheme();
+
+	React.useEffect(() => {
+		console.log("re-rendering... list")
+	}, []);
+
 	return (
 		<List
 			dense
@@ -43,4 +48,4 @@ function MessageList({
 	);
 }
 
-export default MessageList;
+export default React.memo(MessageList);
