@@ -7,6 +7,8 @@ import VideoType from "./mediaTypes/VideoType";
 import ReplyChat from "./ReplyChat";
 import DragBox from "components/common/DragBox";
 import ImageViewer from "components/ui-components/ImageViewer";
+import { updateAttachment } from "app/slices/messageSlice/messageSlice";
+import { useDispatch } from "react-redux";
 
 const StyledMedia = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -34,6 +36,7 @@ const StyledOverlay = styled(Box)(({ theme }) => ({
 function MediaChat({ chat }) {
 	const theme = useTheme();
 	const [viewOpen, setViewOpen] = useState(false);
+	const dispatch = useDispatch();
 
 	return (
 		<StyledMedia>
@@ -89,7 +92,6 @@ function MediaChat({ chat }) {
 							<>
 								<Grid
 									onClick={(e) => {
-										console.log("grid clicked...");
 										e.preventDefault();
 										e.stopPropagation();
 										setViewOpen(true);
@@ -98,7 +100,19 @@ function MediaChat({ chat }) {
 									xs={12}
 									md={10}
 								>
-									<DragBox sx={{ maxWidth: "100%" }}>
+									<DragBox
+										sx={{ maxWidth: "100%" }}
+										onDragEnd={() =>
+											dispatch(
+												updateAttachment({
+													userId: 1,
+													messageId: chat?.id,
+													name: "Jhon",
+													message: chat?.caption ? chat?.caption : "Attachment",
+												})
+											)
+										}
+									>
 										{(() => {
 											switch (mediaItem?.type) {
 												case "image":
@@ -126,7 +140,6 @@ function MediaChat({ chat }) {
 										medias={mediaArr}
 										open={viewOpen}
 										onClose={() => {
-											console.log("close popup..");
 											setViewOpen(false);
 										}}
 									/>

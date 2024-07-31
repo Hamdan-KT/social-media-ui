@@ -6,35 +6,35 @@ import AudioType from "./mediaTypes/AudioType";
 import TextChat from "./TextChat";
 
 const ChatText = styled(Box)(({ theme, chat }) => ({
-  display: "flex",
-  maxWidth: "65%",
-  background: chat.incoming
-    ? theme.palette.grey[500]
-    : "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
-  padding: "0.5rem 0.8rem",
-  borderRadius: chat.incoming ? "20px 20px 20px 0px" : "20px 20px 0px 20px",
+	display: "flex",
+	maxWidth: "65%",
+	background: chat.incoming
+		? theme.palette.grey[500]
+		: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
+	padding: "0.5rem 0.8rem",
+	borderRadius: chat.incoming ? "20px 20px 20px 0px" : "20px 20px 0px 20px",
 }));
 
 const StyledReplyBox = styled(Box)(({ theme, chat }) => ({
-  display: "flex",
-  maxWidth: "50%",
-  borderRight: !chat?.incoming && `4px solid ${theme.palette.grey[300]}`,
-  borderLeft: chat?.incoming && `4px solid ${theme.palette.grey[300]}`,
-  paddingRight: !chat?.incoming && "0.3rem",
-  paddingLeft: chat?.incoming && "0.3rem",
-  [theme.breakpoints.down("sm")]: {
-    maxWidth: "65%",
-  },
+	display: "flex",
+	maxWidth: "50%",
+	borderRight: !chat?.incoming && `4px solid ${theme.palette.grey[300]}`,
+	borderLeft: chat?.incoming && `4px solid ${theme.palette.grey[300]}`,
+	paddingRight: !chat?.incoming && "0.3rem",
+	paddingLeft: chat?.incoming && "0.3rem",
+	[theme.breakpoints.down("sm")]: {
+		maxWidth: "65%",
+	},
 }));
 
 function ReplyChat({ chat }) {
-  const theme = useTheme();
-  return (
-    <>
-      {(() => {
-        switch (chat.ref.type) {
-          case "text":
-            return (
+	const theme = useTheme();
+	return (
+		<>
+			{(() => {
+				switch (chat.ref.type) {
+					case "text":
+						return (
 							<Box
 								sx={{
 									width: "100%",
@@ -70,8 +70,8 @@ function ReplyChat({ chat }) {
 								<TextChat chat={chat} />
 							</Box>
 						);
-          case "image":
-            return (
+					case "image":
+						return (
 							<Box
 								sx={{
 									width: "100%",
@@ -101,8 +101,8 @@ function ReplyChat({ chat }) {
 								<TextChat chat={chat} />
 							</Box>
 						);
-          case "video":
-            return (
+					case "video":
+						return (
 							<Box
 								sx={{
 									width: "100%",
@@ -132,8 +132,8 @@ function ReplyChat({ chat }) {
 								<TextChat chat={chat} />
 							</Box>
 						);
-          case "voice":
-            return (
+					case "voice":
+						return (
 							<Box
 								sx={{
 									width: "100%",
@@ -163,10 +163,10 @@ function ReplyChat({ chat }) {
 								<TextChat chat={chat} />
 							</Box>
 						);
-        }
-      })()}
-    </>
-  );
+				}
+			})()}
+		</>
+	);
 }
 
 export default ReplyChat;

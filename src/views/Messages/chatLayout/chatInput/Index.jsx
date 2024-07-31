@@ -1,13 +1,15 @@
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import {
+	Box,
 	IconButton,
 	Menu,
 	Toolbar,
+	Typography,
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import _ from "lodash";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -17,13 +19,16 @@ import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfi
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import ReactIcons from "utils/ReactIcons";
+import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 
-const StyledToolBar = styled(Toolbar)(({ theme }) => ({
+const StyledToolBar = styled(Toolbar)(({ theme, isAttachment }) => ({
 	display: "flex",
+	flexDirection: "column",
 	width: "100%",
 	alignItems: "center",
 	justifyContent: "center",
 	backgroundColor: theme.palette.background.default,
+	borderTop: isAttachment ? `1px solid ${theme.palette.grey[300]}` : "",
 	padding: "0.5rem 0.5rem",
 	[theme.breakpoints.down("md")]: {
 		position: "fixed",
@@ -63,12 +68,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
+const AttachmentView = styled("div")(({ theme }) => ({
+	display: "flex",
+	position: "relative",
+	flexDirection: "row",
+	alignItems: "center",
+	justifyContent: "space-between",
+	width: "100%",
+	padding: "0.2rem 0.5rem",
+}));
+
 function ChatInput() {
 	const [value, setValue] = useState("");
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
+	const dispatch = useDispatch();
+	const messageState = useSelector((state) => state.message);
 
 	// handling emoji window
 	const handleClick = (event) => {
@@ -79,7 +96,32 @@ function ChatInput() {
 	};
 
 	return (
-		<StyledToolBar disableGutters>
+		<StyledToolBar
+			disableGutters
+			isAttachment={Boolean(messageState?.attachment?.messageId)}
+		>
+			{messageState?.attachment?.messageId && (
+				<AttachmentView>
+					<Box sx={{ display: "flex", flexDirection: "column", width: "90%" }}>
+						<Typography variant="subtitle1">
+							Replying to
+							<Typography variant="userName">
+								{messageState?.attachment?.name}
+							</Typography>
+						</Typography>
+						<Typography variant="disabled" textOverflow="ellipsis" noWrap>
+							{messageState?.attachment?.message}
+						</Typography>
+					</Box>
+					<Box>
+						<ReactIcons.IoClose
+							style={{ cursor: "pointer" }}
+							size={20}
+							onClick={() => dispatch(updateAttachment({}))}
+						/>
+					</Box>
+				</AttachmentView>
+			)}
 			<Search>
 				{matchDownMd ? (
 					<IconButton

@@ -13,7 +13,6 @@ const StyledBox = styled(Box)(({ theme, chat }) => ({
   display: "flex",
   width: "100%",
   alignItems: "center",
-  // backgroundColor: "antiquewhite",
   justifyContent: chat.incoming ? "flex-start" : "flex-end",
   minHeight: "30px",
   marginBottom: 6,

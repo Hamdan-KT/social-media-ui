@@ -1,7 +1,8 @@
 import DragBox from "components/common/DragBox";
 import { Box, Typography, styled, useTheme } from "@mui/material";
 import React from "react";
-import ReactIcons from "utils/ReactIcons";
+import { useDispatch } from "react-redux";
+import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 
 const ChatText = styled(Box)(({ theme, chat }) => ({
 	display: "flex",
@@ -17,10 +18,28 @@ const ChatText = styled(Box)(({ theme, chat }) => ({
 
 function TextChat({ chat }) {
 	const theme = useTheme();
+	const dispatch = useDispatch();
+
 	return (
-		<DragBox sx={{ maxWidth: "60%" }}>
+		<DragBox
+			sx={{ maxWidth: "70%" }}
+			onDragEnd={() =>
+				dispatch(
+					updateAttachment({
+						userId: 1,
+						messageId: chat?.id,
+						name: "Jhon",
+						message: chat?.caption ? chat?.caption : "Attachment",
+					})
+				)
+			}
+		>
 			<ChatText chat={chat}>
-				<Typography variant="body2" sx={{userSelect: "none"}} color={theme.palette.background.paper}>
+				<Typography
+					variant="body2"
+					sx={{ userSelect: "none" }}
+					color={theme.palette.background.paper}
+				>
 					{chat.caption}
 				</Typography>
 			</ChatText>

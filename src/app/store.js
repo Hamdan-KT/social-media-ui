@@ -3,6 +3,7 @@ import userReducer from "./slices/userSlice/userSlice";
 import postReducer from "./slices/postSlice/postSlice";
 import customizationReducer from "./slices/customizationSlice/customization";
 import layoutReducer from "./slices/layoutSlice/layoutSlice";
+import messageReducer from "./slices/messageSlice/messageSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
 		customization: customizationReducer,
 		post: postReducer,
 		layout: layoutReducer,
+		message: messageReducer,
 	},
 });

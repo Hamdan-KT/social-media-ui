@@ -5,17 +5,19 @@ import ChatInput from "./chatInput/Index";
 import { motion } from "framer-motion";
 import { chatData } from "src/data";
 import Chat from "../chat";
+import { useSelector } from "react-redux";
 
 function ChatLayout() {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
+	const messageState = useSelector((state) => state.message);
 
 	return (
 		<motion.div
 			// initial={{ width: 0 }}
 			// animate={{ width: "100%" }}
 			// exit={{ x: "100%" }}
-			style={{width: "100%"}}
+			style={{ width: "100%" }}
 		>
 			<Grid container>
 				{matchDownMd && <ChatHeader />}
@@ -37,13 +39,24 @@ function ChatLayout() {
 							overflowX: "hidden",
 							mt: { xs: 6, sm: 7, md: 8 },
 							height: {
-								md: `calc(100vh - 20vh)`,
+								md: messageState?.attachment?.messageId
+									? `calc(100vh - 26.2vh)`
+									: `calc(100vh - 20vh)`,
 							},
-							maxHeight: { xs: `100%`, md: `calc(100vh - 20vh)` },
+							maxHeight: {
+								xs: `100%`,
+								md: messageState?.attachment?.messageId
+									? `calc(100vh - 26.2vh)`
+									: `calc(100vh - 20vh)`,
+							},
 							overflowY: { md: "scroll" },
 							p: { xs: 0.5, sm: 1 },
-							mb: { xs: 1, sm: 7, md: 0 },
-							width: "100%"
+							mb: {
+								xs: messageState?.attachment?.messageId ? 8 : 0.7,
+								sm: messageState?.attachment?.messageId ? 13.5 : 7,
+								md: 0,
+							},
+							width: "100%",
 						}}
 					>
 						{/* chats will render heare */}
