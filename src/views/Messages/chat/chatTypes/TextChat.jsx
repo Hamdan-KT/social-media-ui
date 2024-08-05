@@ -14,8 +14,7 @@ const ChatText = styled(Box)(({ theme, chat }) => ({
 		: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
 	padding: "0.5rem 0.8rem",
 	borderRadius: "20px",
-	// borderRadius: chat.incoming ? "20px 20px 20px 0px" : "20px 20px 0px 20px",
-	position: "relative"
+	position: "relative",
 }));
 
 const StyledDisableLayer = styled(Stack)(({ theme, chat }) => ({
@@ -34,13 +33,13 @@ const StyledDisableLayer = styled(Stack)(({ theme, chat }) => ({
 	pointerEvents: "none",
 }));
 
-function TextChat({ chat, disabled = false, disableDrag = false }) {
+function TextChat({ chat, disabled = false, dragBoxStyle = {}, disableDrag = false }) {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 
 	return (
 		<DragBox
-			sx={{ maxWidth: "70%" }}
+			sx={{ maxWidth: "70%", ...dragBoxStyle }}
 			onDragEnd={() =>
 				dispatch(
 					updateAttachment({

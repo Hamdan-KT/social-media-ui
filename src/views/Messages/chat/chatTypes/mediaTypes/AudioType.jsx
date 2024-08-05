@@ -20,10 +20,10 @@ const StyledStack = styled(Box)(({ theme, chat, disabled = false }) => ({
 	display: "flex",
 	width: "max-content",
 	maxWidth: "100%",
-	padding: "0.2rem",
+	padding: "0.2rem 0.5rem",
+	paddingRight: "1rem",
 	alignItems: "center",
 	flexDirection: "row",
-	paddingRight: "0.8rem",
 	justifyContent: "space-between",
 	gap: "0.3rem",
 	borderRadius: "20px",
@@ -33,9 +33,9 @@ const StyledStack = styled(Box)(({ theme, chat, disabled = false }) => ({
 			: theme.palette.grey[500]
 		: disabled
 		? theme.palette.grey[500]
-			: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
+		: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
 	pointerEvents: disabled && "none",
-	userSelect: disabled && "none"
+	userSelect: disabled && "none",
 }));
 
 const StyledDisableLayer = styled(Box)(({ theme, chat }) => ({
@@ -59,16 +59,16 @@ const StyledProgressContainer = styled(Box)(() => ({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
-	width: "calc(100% - 4rem)",
+	width: "calc(100% - 4.5rem)",
 	height: "100%",
 }));
 
 // wavesurfer options
 const formWaveSurferOptions = (ref) => ({
 	container: ref,
-	barWidth: 2,
-	barRadius: 10,
-	barGap: 2,
+	barWidth: 3,
+	barRadius: 50,
+	barGap: 3,
 	barMinHeight: 20,
 	cursorWidth: 1,
 	backend: "WebAudio",
@@ -81,6 +81,7 @@ const formWaveSurferOptions = (ref) => ({
 	hideScrollbar: true,
 	dragToSeek: true,
 	fillParent: false,
+	audioRate: 1,
 });
 
 function AudioType({ chat, disabled = false }) {
@@ -90,6 +91,17 @@ function AudioType({ chat, disabled = false }) {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [duration, setDuration] = useState(0);
 	const [currentTime, setCurrentTime] = useState(false);
+	const [playBackSpeed, setPlayBackSpeed] = useState(1);
+
+	const handlePlayBackSpeed = () => {
+		const currentPlayBackSpeed = waveSurferRef.current?.getPlaybackRate();
+		if (currentPlayBackSpeed === 2) {
+			setPlayBackSpeed((prev) => (prev = 1));
+			return waveSurferRef.current?.setPlaybackRate(1, false);
+		}
+		setPlayBackSpeed((prev) => (prev = prev + 0.5));
+		waveSurferRef.current?.setPlaybackRate(currentPlayBackSpeed + 0.5, false);
+	};
 
 	useEffect(() => {
 		// creating wavesurfer instance with options
@@ -99,18 +111,22 @@ function AudioType({ chat, disabled = false }) {
 		wavesurfer.load(sampleAudio);
 		// when wavesurfer is ready
 		wavesurfer.on("ready", () => {
+			// setting duration on start of wavesurfer loaded
 			setDuration(wavesurfer.getDuration());
 		});
 		// update current time while audio processing
 		wavesurfer.on("audioprocess", () => {
+			// setting current time while audio playing or processing
 			setCurrentTime(wavesurfer.getCurrentTime());
 		});
 		wavesurfer.on("seeking", () => {
+			// setting current time while seeking
 			setCurrentTime(wavesurfer.getCurrentTime());
 		});
 		// function to update when audio playing is finished
 		wavesurfer.on("finish", () => {
 			setIsPlaying(false);
+			waveSurferRef.current?.stop();
 		});
 
 		// assigning wavesurfer to ref
@@ -153,12 +169,29 @@ function AudioType({ chat, disabled = false }) {
 					ref={containerRef}
 				/>
 			</StyledProgressContainer>
-			<Typography
-				variant="caption"
-				color={theme.palette.background.paper}
+			<StyledProgressContainer
+				sx={{ width: "100%", flexDirection: "column", ml: 0.5 }}
 			>
-				{formatDuration(duration - currentTime)}
-			</Typography>
+				<Typography variant="caption" color={theme.palette.background.paper}>
+					{formatDuration(duration - currentTime)}
+				</Typography>
+				{isPlaying && (
+					<Typography
+						variant="caption"
+						sx={{
+							fontWeight: "bold",
+							cursor: "pointer",
+							padding: "0rem 0.4rem",
+							borderRadius: "10px",
+							color: theme.palette.background.paper,
+							background: theme.palette.common.black,
+						}}
+						onClick={handlePlayBackSpeed}
+					>
+						{`${playBackSpeed}x`}
+					</Typography>
+				)}
+			</StyledProgressContainer>
 			{disabled && <StyledDisableLayer chat={chat} />}
 		</StyledStack>
 	);

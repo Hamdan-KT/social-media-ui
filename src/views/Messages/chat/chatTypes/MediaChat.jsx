@@ -15,7 +15,7 @@ const StyledMedia = styled(Box)(({ theme }) => ({
 	maxWidth: "40%",
 	position: "relative",
 	[theme.breakpoints.down("sm")]: {
-		maxWidth: "65%",
+		maxWidth: "70%",
 	},
 }));
 

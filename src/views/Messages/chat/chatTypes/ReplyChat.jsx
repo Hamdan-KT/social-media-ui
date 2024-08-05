@@ -15,7 +15,7 @@ const StyledReplyBox = styled(Box)(({ theme, chat }) => ({
 	paddingRight: !chat?.incoming && "0.3rem",
 	paddingLeft: chat?.incoming && "0.3rem",
 	[theme.breakpoints.down("sm")]: {
-		maxWidth: "65%",
+		maxWidth: "70%",
 	},
 }));
 
@@ -45,6 +45,7 @@ function ReplyChat({ chat }) {
 								</Typography>
 								<StyledReplyBox chat={chat}>
 									<TextChat
+										dragBoxStyle={{ maxWidth: "100%" }}
 										chat={{ caption: chat.ref.caption }}
 										disabled={true}
 										disableDrag={true}
