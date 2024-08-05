@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 // import sampleAudio from "/audio/TujhMein.mp3";
-import sampleAudio from "/audio/sample.mp3";
-// import sampleAudio from "/audio/audio.mp3";
+// import sampleAudio from "/audio/sample.mp3";
+import sampleAudio from "/audio/audio.mp3";
 import WaveSurfer from "wavesurfer.js";
 import { formatDuration } from "utils/common";
 import ReactIcons from "utils/ReactIcons";
