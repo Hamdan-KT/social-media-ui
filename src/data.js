@@ -797,6 +797,28 @@ export const chatData = [
 		incoming: false,
 	},
 	{
+		id: 11,
+		type: "media",
+		media: [
+			{
+				type: "voice",
+				src: "https://images.pexels.com/photos/5192244/pexels-photo-5192244.jpeg?auto=compress&cs=tinysrgb&w=600",
+			},
+		],
+		incoming: true,
+	},
+	{
+		id: 12,
+		type: "media",
+		media: [
+			{
+				type: "voice",
+				src: "https://images.pexels.com/photos/5192244/pexels-photo-5192244.jpeg?auto=compress&cs=tinysrgb&w=600",
+			},
+		],
+		incoming: false,
+	},
+	{
 		id: 5,
 		type: "time",
 		time: "Today",
@@ -880,28 +902,6 @@ export const chatData = [
 		},
 		caption: "Fine 🤞",
 		incoming: true,
-	},
-	{
-		id: 11,
-		type: "media",
-		media: [
-			{
-				type: "voice",
-				src: "https://images.pexels.com/photos/5192244/pexels-photo-5192244.jpeg?auto=compress&cs=tinysrgb&w=600",
-			},
-		],
-		incoming: true,
-	},
-	{
-		id: 12,
-		type: "media",
-		media: [
-			{
-				type: "voice",
-				src: "https://images.pexels.com/photos/5192244/pexels-photo-5192244.jpeg?auto=compress&cs=tinysrgb&w=600",
-			},
-		],
-		incoming: false,
 	},
 	{
 		id: 13,
@@ -1274,4 +1274,3 @@ export const commentList = [
 		],
 	},
 ];
-

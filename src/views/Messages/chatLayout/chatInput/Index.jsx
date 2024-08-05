@@ -105,6 +105,7 @@ function ChatInput() {
 					<Box sx={{ display: "flex", flexDirection: "column", width: "90%" }}>
 						<Typography variant="subtitle1">
 							Replying to
+							{/* GrAttachment */}
 							<Typography variant="userName">
 								{messageState?.attachment?.name}
 							</Typography>

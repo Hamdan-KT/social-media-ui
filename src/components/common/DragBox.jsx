@@ -9,13 +9,18 @@ const SPRING_OPTIONS = {
 	// damping: 50,
 };
 
-function DragBox({ children, sx = {}, onDragEnd = () => {}, ...props }) {
+function DragBox({ children, sx = {}, direction = "x", onDragEnd = () => {}, disableDrag = false, ...props }) {
 	const dragX = useMotionValue(0);
 
 	return (
 		<motion.div
-			style={{ display: "flex", width: "max-content", x: dragX, ...sx }}
-			drag="x"
+			style={{
+				display: "flex",
+				width: "max-content",
+				x: !disableDrag && dragX,
+				...sx,
+			}}
+			drag= {!disableDrag && direction}
 			dragConstraints={{
 				left: 0,
 				right: 0,

@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 
 const StyledMedia = styled(Box)(({ theme }) => ({
 	display: "flex",
-	maxWidth: "50%",
+	maxWidth: "40%",
 	position: "relative",
 	[theme.breakpoints.down("sm")]: {
 		maxWidth: "65%",
@@ -31,6 +31,7 @@ const StyledOverlay = styled(Box)(({ theme }) => ({
 	left: 0,
 	backgroundColor: "rgba(0, 0, 0, 0.5)",
 	userSelect: "none",
+	pointerEvents: "none"
 }));
 
 function MediaChat({ chat }) {
@@ -53,7 +54,7 @@ function MediaChat({ chat }) {
 								<Grid
 									onClick={() => setViewOpen(true)}
 									item
-									xs={5}
+									xs={5.5}
 									sx={{ position: index === 3 && "relative" }}
 								>
 									{index <= 3 &&
@@ -92,13 +93,12 @@ function MediaChat({ chat }) {
 							<>
 								<Grid
 									onClick={(e) => {
-										e.preventDefault();
-										e.stopPropagation();
-										setViewOpen(true);
+										mediaItem?.type === ("image" || "video") &&
+											setViewOpen(true);
 									}}
 									item
 									xs={12}
-									md={10}
+									md={12}
 								>
 									<DragBox
 										sx={{ maxWidth: "100%" }}
@@ -135,7 +135,7 @@ function MediaChat({ chat }) {
 										})()}
 									</DragBox>
 								</Grid>
-								{mediaItem?.type === "image" && (
+								{mediaItem?.type === ("image" || "video") && (
 									<ImageViewer
 										medias={mediaArr}
 										open={viewOpen}

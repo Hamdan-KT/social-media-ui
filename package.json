@@ -31,7 +31,7 @@
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
     "uuid": "^10.0.0",
-    "wavesurfer.js": "^7.4.2"
+    "wavesurfer.js": "^7.8.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",

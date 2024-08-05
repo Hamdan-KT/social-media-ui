@@ -1,3 +1,4 @@
+// change file to dataurl
 export const fileToDataURL = (file) => {
 	return new Promise((resolve, reject) => {
 		let baseURL = "";
@@ -13,6 +14,7 @@ export const fileToDataURL = (file) => {
 	});
 };
 
+// create an image instance
 export const createImage = (url) =>
 	new Promise((resolve, reject) => {
 		const image = new Image();
@@ -21,6 +23,7 @@ export const createImage = (url) =>
 		image.src = url;
 	});
 
+// creating blob url form image or file
 export const createURLfromImage = (imgFile) => {
 	if (!imgFile) {
 		throw new Error("Select File To Create URL");
@@ -28,6 +31,7 @@ export const createURLfromImage = (imgFile) => {
 	return URL.createObjectURL(imgFile);
 };
 
+// getting croppend image from react-easy-crop lib
 export const getCroppedImg = (imageSrc, crop) => {
 	return new Promise((resolve, reject) => {
 		const image = new Image();
@@ -66,3 +70,11 @@ export const getCroppedImg = (imageSrc, crop) => {
 		};
 	});
 };
+
+// format media duration to wavesurfer lib
+export const formatDuration = (seconds) => {
+	const date = new Date(0)
+	date.setSeconds(seconds);
+	console.log(date.toISOString());
+	return date.toISOString().substring(14, 19);
+}

@@ -64,7 +64,7 @@ import {
 	LuCloudy,
 	LuPlus,
 } from "react-icons/lu";
-import { FaRegImage, FaImages } from "react-icons/fa6";
+import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
 import { LiaPhotoVideoSolid } from "react-icons/lia";
 import {
@@ -73,7 +73,7 @@ import {
 	BsVignette,
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
-
+import { GrAttachment } from "react-icons/gr";
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -142,6 +142,9 @@ const ReactIcons = {
 	MdMenuOpen,
 	MdFiberManualRecord,
 	LuPlus,
+	FaPlay,
+	FaPause,
+	GrAttachment,
 };
 
 export default ReactIcons;
