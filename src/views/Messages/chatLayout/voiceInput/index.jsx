@@ -34,7 +34,6 @@ const PreviewBox = styled(Box)(({ theme, preview }) => ({
 	alignItems: "center",
 	justifyContent: "center",
     width: preview ? "calc(100% - 12.2rem)" : "100%",
-    background: "black"
 }));
 
 const formWaveSurferOptions = (ref) => ({
@@ -199,7 +198,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 			)}
 			<PreviewBox preview={preview}>
 				{isRecording && !preview ? (
-					<Lottie animationData={waveAnimation} style={{ height: "40px", width: "max-content", background: "red" }} />
+					<Lottie animationData={waveAnimation} style={{ height: "40px"}} />
 				) : (
 					<Box
 						sx={{
