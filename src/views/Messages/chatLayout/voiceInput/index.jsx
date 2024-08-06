@@ -11,7 +11,6 @@ import React, {
 	useState,
 } from "react";
 import WaveSurfer from "wavesurfer.js";
-import sampleAudio from "/audio/TujhMein.mp3";
 import Lottie from "lottie-react";
 import { formatDuration } from "utils/common";
 import useStopwatch from "hooks/useStopWatch";
