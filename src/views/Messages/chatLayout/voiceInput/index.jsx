@@ -33,7 +33,8 @@ const PreviewBox = styled(Box)(({ theme, preview }) => ({
 	flexDirection: "row",
 	alignItems: "center",
 	justifyContent: "center",
-	width: preview ? "calc(100% - 12.2rem)" : "100%",
+    width: preview ? "calc(100% - 12.2rem)" : "100%",
+    background: "black"
 }));
 
 const formWaveSurferOptions = (ref) => ({
@@ -78,8 +79,10 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 
 	useEffect(() => {
 		const options = formWaveSurferOptions(containerRef.current);
-		const wavesurfer = WaveSurfer.create(options);
-		wavesurfer.load(audioUrl);
+        const wavesurfer = WaveSurfer.create(options);
+        if (audioUrl) {
+            wavesurfer.load(audioUrl);
+        }
 
 		wavesurfer.on("ready", () => setDuration(wavesurfer.getDuration()));
 		wavesurfer.on("audioprocess", () =>
@@ -92,7 +95,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 
 		return () => {
 			wavesurfer.destroy();
-			stopRecording();
+            stopRecording();
 			reset();
 		};
 	}, [audioUrl, preview]);
