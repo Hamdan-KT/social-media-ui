@@ -66,9 +66,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 	// recording instance states
 	const recorderRef = useRef(null);
 	const gumStreamRef = useRef(null);
-	const { elapsedTime, start, stop, reset, getTimeInstance } = useStopwatch();
-	console.log(elapsedTime);
-	console.log(getTimeInstance());
+	const { elapsedTime, start, stop, reset } = useStopwatch();
 
 	// wavesurfer states
 	const containerRef = useRef();
@@ -201,7 +199,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 			)}
 			<PreviewBox preview={preview}>
 				{isRecording && !preview ? (
-					<Lottie animationData={waveAnimation} style={{ height: "40px" }} />
+					<Lottie animationData={waveAnimation} style={{ height: "40px", background: "red" }} />
 				) : (
 					<Box
 						sx={{
