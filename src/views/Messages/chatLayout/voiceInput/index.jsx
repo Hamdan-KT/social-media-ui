@@ -199,7 +199,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 			)}
 			<PreviewBox preview={preview}>
 				{isRecording && !preview ? (
-					<Lottie animationData={waveAnimation} style={{ height: "40px", background: "red" }} />
+					<Lottie animationData={waveAnimation} style={{ height: "40px", width: "max-content", background: "red" }} />
 				) : (
 					<Box
 						sx={{
