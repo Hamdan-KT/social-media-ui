@@ -82,8 +82,8 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 		wavesurfer.load(audioUrl);
 
 		wavesurfer.on("ready", () => setDuration(wavesurfer.getDuration()));
-        wavesurfer.on("audioprocess", () =>
-            setCurrentTime(wavesurfer.getCurrentTime())
+		wavesurfer.on("audioprocess", () =>
+			setCurrentTime(wavesurfer.getCurrentTime())
 		);
 		wavesurfer.on("seeking", () => setCurrentTime(wavesurfer.getCurrentTime()));
 		wavesurfer.on("finish", () => setIsPlaying(false));
@@ -113,28 +113,46 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 	};
 
 	const startRecording = () => {
-		setIsRecording(true);
-		navigator.mediaDevices
-			.getUserMedia({ audio: true })
-			.then((stream) => {
-				gumStreamRef.current = stream;
-				const recorder = new MediaRecorder(stream);
-				recorder.ondataavailable = (e) => {
-					const blobUrl = URL.createObjectURL(e.data);
-					setAudioUrl(blobUrl);
-					setPreview(true);
-				};
-				recorder.start();
-				reset();
-				start();
-				recorderRef.current = recorder;
-			})
-			.catch((error) => {
-				reset();
-				setIsRecording(false);
-				setPreview(false);
-				console.log(error);
+		navigator.permissions
+			.query({ name: "microphone" })
+			.then(function (permissionStatus) {
+				console.log("Microphone permission status is ", permissionStatus.state);
+				if (permissionStatus.state !== "granted") {
+					alert("Microphone access is required for recording.");
+					setRecording(false);
+					setIsRecording(false);
+					setPreview(false);
+				}
 			});
+
+		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices
+				.getUserMedia({ audio: true })
+				.then((stream) => {
+					gumStreamRef.current = stream;
+					const recorder = new MediaRecorder(stream);
+					recorder.ondataavailable = (e) => {
+						const blobUrl = URL.createObjectURL(e.data);
+						setAudioUrl(blobUrl);
+						setPreview(true);
+					};
+					setIsRecording(true);
+					recorder.start();
+					reset();
+					start();
+					recorderRef.current = recorder;
+				})
+				.catch((error) => {
+					console.error("Error accessing audio stream:", error);
+					reset();
+					setIsRecording(false);
+					setPreview(false);
+				});
+		} else {
+			alert("navigator not found!");
+			setIsRecording(false);
+			setPreview(false);
+		}
 	};
 
 	// recording controller function expose to parent
