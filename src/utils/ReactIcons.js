@@ -53,6 +53,8 @@ import {
 	IoIosArrowDown,
 	IoIosArrowUp,
 	IoIosAddCircle,
+	IoMdTrash,
+	IoIosSquare,
 } from "react-icons/io";
 import {
 	LuSend,
@@ -74,6 +76,8 @@ import {
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
 import { GrAttachment } from "react-icons/gr";
+
+
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -145,6 +149,8 @@ const ReactIcons = {
 	FaPlay,
 	FaPause,
 	GrAttachment,
+	IoMdTrash,
+	IoIosSquare,
 };
 
 export default ReactIcons;

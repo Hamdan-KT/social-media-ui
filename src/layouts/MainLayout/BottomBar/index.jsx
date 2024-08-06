@@ -132,8 +132,7 @@ const BottomBar = memo(function () {
 												value={menu?.url ?? null}
 												key={index}
 												icon={
-													pathname.split("/")[1] ===
-													menu?.url?.split("/")[0] ? (
+													pathname.split("/")[1] === menu?.id ? (
 														<FilledIcon
 															style={{
 																color: `${theme.palette.text.dark}`,
@@ -183,7 +182,7 @@ const BottomBar = memo(function () {
 										value={menu?.url ?? null}
 										key={index}
 										icon={
-											pathname.split("/")[1] === menu?.url?.split("/")[0] ? (
+											pathname.split("/")[1] === menu?.id ? (
 												<FilledIcon
 													style={{
 														color: `${theme.palette.text.dark}`,

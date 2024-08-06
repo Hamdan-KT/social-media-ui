@@ -75,6 +75,5 @@ export const getCroppedImg = (imageSrc, crop) => {
 export const formatDuration = (seconds) => {
 	const date = new Date(0)
 	date.setSeconds(seconds);
-	console.log(date.toISOString());
 	return date.toISOString().substring(14, 19);
 }

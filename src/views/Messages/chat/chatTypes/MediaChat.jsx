@@ -112,6 +112,7 @@ function MediaChat({ chat }) {
 												})
 											)
 										}
+										dragLockDir={chat.incoming ? "left" : "right"}
 									>
 										{(() => {
 											switch (mediaItem?.type) {

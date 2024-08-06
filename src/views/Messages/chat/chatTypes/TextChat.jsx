@@ -51,6 +51,7 @@ function TextChat({ chat, disabled = false, dragBoxStyle = {}, disableDrag = fal
 				)
 			}
 			disableDrag={disableDrag}
+			dragLockDir={chat.incoming ? "left" : "right"}
 		>
 			<ChatText chat={chat}>
 				<Typography

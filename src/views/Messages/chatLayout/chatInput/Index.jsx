@@ -10,16 +10,17 @@ import {
 	useTheme,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import _ from "lodash";
+import { useEffect, useRef, useState } from "react";
+import _, { isElement } from "lodash";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import SendIcon from "@mui/icons-material/Send";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
-// imoji picker import
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import ReactIcons from "utils/ReactIcons";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
+import PopOver from "components/common/Popover";
+import VoiceInput from "../voiceInput";
 
 const StyledToolBar = styled(Toolbar)(({ theme, isAttachment }) => ({
 	display: "flex",
@@ -47,7 +48,7 @@ const StyledToolBar = styled(Toolbar)(({ theme, isAttachment }) => ({
 	zIndex: 7,
 }));
 
-const Search = styled("div")(({ theme }) => ({
+const Search = styled("div")(({ theme, recording }) => ({
 	display: "flex",
 	position: "relative",
 	flexDirection: "row",
@@ -56,6 +57,7 @@ const Search = styled("div")(({ theme }) => ({
 	borderRadius: "55px",
 	width: "100%",
 	padding: "0.2rem 0.2rem",
+	background: recording ? theme.palette.primary.main : "transparent",
 	border: `1px solid ${theme.palette.grey[300]}`,
 }));
 
@@ -80,20 +82,18 @@ const AttachmentView = styled("div")(({ theme }) => ({
 
 function ChatInput() {
 	const [value, setValue] = useState("");
+	const [recording, setRecording] = useState(false);
+	const recordingRef = useRef();
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
-	const [anchorEl, setAnchorEl] = useState(null);
-	const open = Boolean(anchorEl);
+	const emojPopRef = useRef();
 	const dispatch = useDispatch();
 	const messageState = useSelector((state) => state.message);
 
-	// handling emoji window
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+	useEffect(() => {
+		if (recording && recordingRef.current)
+			return recordingRef.current?.startRecording();
+	}, [recording]);
 
 	return (
 		<StyledToolBar
@@ -123,72 +123,74 @@ function ChatInput() {
 					</Box>
 				</AttachmentView>
 			)}
-			<Search>
-				{matchDownMd ? (
-					<IconButton
-						sx={{ background: "#673ab7", "&:hover": { background: "#673ab7" } }}
-					>
-						<CameraAltIcon sx={{ color: "#ffff" }} />
-					</IconButton>
+			<Search recording={recording}>
+				{recording ? (
+					<VoiceInput setRecording={setRecording} ref={recordingRef} />
 				) : (
 					<>
-						<Menu
-							id="emoji-menu"
-							aria-labelledby="emoji-menu"
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleClose}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "bottom",
-							}}
-							transformOrigin={{
-								vertical: "bottom",
-								horizontal: "top",
-							}}
-						>
-							<Picker
-								data={data}
-								theme="light"
-								onEmojiSelect={(e) => setValue((prev) => prev + e.native)}
-							/>
-						</Menu>
-						<IconButton color="inherit" onClick={handleClick}>
-							<SentimentSatisfiedOutlinedIcon />
-						</IconButton>
-					</>
-				)}
-				<StyledInputBase
-					fullWidth
-					value={value}
-					onChange={(e) => setValue(e.target.value)}
-					type="text"
-					placeholder="Message..."
-					inputProps={{ "aria-label": "text" }}
-				/>
-				{value ? (
-					<IconButton
-						color="inherit"
-						sx={{
-							width: 70,
-							borderRadius: 50,
-							background: "#673ab7",
-							"&:hover": { background: "#673ab7" },
-						}}
-					>
-						<SendIcon sx={{ color: "#ffff" }} />
-					</IconButton>
-				) : (
-					<>
-						<IconButton color="inherit">
-							<ReactIcons.RiHeart3Line />
-						</IconButton>
-						<IconButton color="inherit">
-							<ReactIcons.LuMic />
-						</IconButton>
-						<IconButton color="inherit">
-							<ReactIcons.IoMdImages />
-						</IconButton>
+						{matchDownMd ? (
+							<IconButton
+								sx={{
+									background: "#673ab7",
+									"&:hover": { background: "#673ab7" },
+								}}
+							>
+								<CameraAltIcon sx={{ color: "#ffff" }} />
+							</IconButton>
+						) : (
+							<PopOver
+								ref={emojPopRef}
+								Button={
+									<IconButton color="inherit">
+										<SentimentSatisfiedOutlinedIcon />
+									</IconButton>
+								}
+							>
+								<Picker
+									data={data}
+									theme="light"
+									onEmojiSelect={(e) => setValue((prev) => prev + e.native)}
+								/>
+							</PopOver>
+						)}
+						<StyledInputBase
+							fullWidth
+							value={value}
+							onChange={(e) => setValue(e.target.value)}
+							type="text"
+							placeholder="Message..."
+							inputProps={{ "aria-label": "text" }}
+						/>
+						{value ? (
+							<IconButton
+								color="inherit"
+								sx={{
+									width: 70,
+									borderRadius: 50,
+									background: "#673ab7",
+									"&:hover": { background: "#673ab7" },
+								}}
+							>
+								<SendIcon sx={{ color: "#ffff" }} />
+							</IconButton>
+						) : (
+							<>
+								<IconButton color="inherit">
+									<ReactIcons.RiHeart3Line />
+								</IconButton>
+								<IconButton
+									color="inherit"
+									onClick={() => {
+										setRecording(true);
+									}}
+								>
+									<ReactIcons.LuMic />
+								</IconButton>
+								<IconButton color="inherit">
+									<ReactIcons.IoMdImages />
+								</IconButton>
+							</>
+						)}
 					</>
 				)}
 			</Search>
