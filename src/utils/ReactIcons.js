@@ -77,8 +77,6 @@ import {
 import { SiTicktick } from "react-icons/si";
 import { GrAttachment } from "react-icons/gr";
 
-
-
 const ReactIcons = {
 	IoSearchOutline,
 	IoSearchSharp,

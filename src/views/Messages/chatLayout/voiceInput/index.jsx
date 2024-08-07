@@ -33,7 +33,7 @@ const PreviewBox = styled(Box)(({ theme, preview }) => ({
 	flexDirection: "row",
 	alignItems: "center",
 	justifyContent: "center",
-    width: preview ? "calc(100% - 12.2rem)" : "100%",
+	width: preview ? "calc(100% - 12.2rem)" : "100%",
 }));
 
 const formWaveSurferOptions = (ref) => ({
@@ -66,6 +66,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 	const recorderRef = useRef(null);
 	const gumStreamRef = useRef(null);
 	const { elapsedTime, start, stop, reset } = useStopwatch();
+	const mimeType = "audio/webm";
 
 	// wavesurfer states
 	const containerRef = useRef();
@@ -76,10 +77,10 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 
 	useEffect(() => {
 		const options = formWaveSurferOptions(containerRef.current);
-        const wavesurfer = WaveSurfer.create(options);
-        if (audioUrl) {
-            wavesurfer.load(audioUrl);
-        }
+		const wavesurfer = WaveSurfer.create(options);
+		if (audioUrl) {
+			wavesurfer.load(audioUrl);
+		}
 
 		wavesurfer.on("ready", () => setDuration(wavesurfer.getDuration()));
 		wavesurfer.on("audioprocess", () =>
@@ -92,7 +93,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 
 		return () => {
 			wavesurfer.destroy();
-            stopRecording();
+			stopRecording();
 			reset();
 		};
 	}, [audioUrl, preview]);
@@ -102,7 +103,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 		waveSurferRef.current.playPause();
 	};
 
-    const stopRecording = () => {
+	const stopRecording = () => {
 		if (recorderRef.current && recorderRef.current.state === "recording") {
 			setIsRecording(false);
 			setPreview(false);
@@ -130,15 +131,22 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 				.then((stream) => {
 					gumStreamRef.current = stream;
 					const recorder = new MediaRecorder(stream);
+
 					recorder.ondataavailable = (e) => {
-						const blobUrl = URL.createObjectURL(e.data);
-						setAudioUrl(blobUrl);
+						if (typeof e.data === "undefined") return;
+						if (e.data.size === 0) return;
+						// creates a playable URL from the blob file.
+						const audioUrl = URL.createObjectURL(e.data);
+						//creates a blob file from the audiochunks data
+						// const audioBlob = new Blob(e.data, { type: mimeType });
+						setAudioUrl(audioUrl);
 						setPreview(true);
 					};
+					// start recording
 					setIsRecording(true);
 					recorder.start();
 					reset();
-                    start();
+					start();
 					recorderRef.current = recorder;
 				})
 				.catch((error) => {
@@ -197,7 +205,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 			)}
 			<PreviewBox preview={preview}>
 				{isRecording && !preview ? (
-					<Lottie animationData={waveAnimation} style={{ height: "40px"}} />
+					<Lottie animationData={waveAnimation} style={{ height: "40px" }} />
 				) : (
 					<Box
 						sx={{

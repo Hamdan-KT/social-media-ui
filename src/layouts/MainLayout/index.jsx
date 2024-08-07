@@ -32,10 +32,6 @@ export default function MainLayout() {
 		},
 	}));
 
-	useEffect(() => {
-		console.log("layout re-rendering...");
-	}, []);
-
 	return (
 		<Box sx={{ display: "flex", position: "relative" }}>
 			<CssBaseline />
