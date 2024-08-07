@@ -102,7 +102,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 		waveSurferRef.current.playPause();
 	};
 
-	const stopRecording = () => {
+    const stopRecording = () => {
 		if (recorderRef.current && recorderRef.current.state === "recording") {
 			setIsRecording(false);
 			setPreview(false);
@@ -116,7 +116,6 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 		navigator.permissions
 			.query({ name: "microphone" })
 			.then(function (permissionStatus) {
-				console.log("Microphone permission status is ", permissionStatus.state);
 				if (permissionStatus.state !== "granted") {
 					alert("Microphone access is required for recording.");
 					setRecording(false);
@@ -139,7 +138,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 					setIsRecording(true);
 					recorder.start();
 					reset();
-					start();
+                    start();
 					recorderRef.current = recorder;
 				})
 				.catch((error) => {
