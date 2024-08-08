@@ -26,6 +26,7 @@ import {
 	MdNavigateNext,
 	MdNavigateBefore,
 	MdMoreHoriz,
+	MdMoreVert,
 	MdOutlineAccountBox,
 	MdMenu,
 	MdMenuOpen,
@@ -149,6 +150,7 @@ const ReactIcons = {
 	GrAttachment,
 	IoMdTrash,
 	IoIosSquare,
+	MdMoreVert,
 };
 
 export default ReactIcons;

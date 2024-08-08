@@ -6,4 +6,4 @@ function ChatOptions() {
   )
 }
 
-export default index
+export default ChatOptions;

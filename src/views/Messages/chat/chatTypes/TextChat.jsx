@@ -1,8 +1,9 @@
 import DragBox from "components/common/DragBox";
 import { Box, Stack, Typography, styled, useTheme } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
+import ReactIcons from "utils/ReactIcons";
 
 const ChatText = styled(Box)(({ theme, chat }) => ({
 	display: "flex",
@@ -33,25 +34,67 @@ const StyledDisableLayer = styled(Stack)(({ theme, chat }) => ({
 	pointerEvents: "none",
 }));
 
-function TextChat({ chat, disabled = false, dragBoxStyle = {}, disableDrag = false }) {
+const StyledOptionsBox = styled(Box)(({ theme, chat }) => ({
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	gap: "0.3rem",
+	flexDirection: "row",
+	padding: "0.2rem 0.3rem",
+	position: "absolute",
+	...(chat?.incoming ? { right: -49 } : { left: -49 }),
+	flexDirection: chat?.incoming ? "row" : "row-reverse",
+	top: "50%",
+	transform: "translateY(-50%)",
+}));
+
+function TextChat({
+	chat,
+	disabled = false,
+	dragBoxStyle = {},
+	disableDrag = false,
+	options = true,
+}) {
 	const theme = useTheme();
 	const dispatch = useDispatch();
+	const [showOptions, setShowOptions] = useState(false);
+
+	// handling reply attachment
+	const handleUpdateReplyAttachment = () => {
+		dispatch(
+			updateAttachment({
+				userId: 1,
+				messageId: chat?.id,
+				name: "Jhon",
+				message: chat?.caption,
+			})
+		);
+	};
+
+	// showing options menu if hover on chat item element
+	const handleMouseEnter = () => {
+		setShowOptions(true);
+	};
+
+	// hiding options menu on mouse leave
+	const handleMouseLeave = () => {
+		setShowOptions(false);
+	};
 
 	return (
 		<DragBox
-			sx={{ maxWidth: "70%", ...dragBoxStyle }}
-			onDragEnd={() =>
-				dispatch(
-					updateAttachment({
-						userId: 1,
-						messageId: chat?.id,
-						name: "Jhon",
-						message: chat?.caption ? chat?.caption : "Attachment",
-					})
-				)
-			}
+			sx={{
+				maxWidth: "70%",
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
+				...dragBoxStyle,
+			}}
+			onDragEnd={handleUpdateReplyAttachment}
 			disableDrag={disableDrag}
 			dragLockDir={chat.incoming ? "left" : "right"}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 		>
 			<ChatText chat={chat}>
 				<Typography
@@ -63,6 +106,20 @@ function TextChat({ chat, disabled = false, dragBoxStyle = {}, disableDrag = fal
 				</Typography>
 				{disabled && <StyledDisableLayer />}
 			</ChatText>
+			{options && showOptions && (
+				<StyledOptionsBox
+					chat={chat}
+					onMouseEnter={handleMouseEnter}
+					onMouseLeave={handleMouseLeave}
+				>
+					<ReactIcons.LuReply
+						style={{ cursor: "pointer" }}
+						size={18}
+						onClick={handleUpdateReplyAttachment}
+					/>
+					<ReactIcons.MdMoreVert style={{ cursor: "pointer" }} size={17} />
+				</StyledOptionsBox>
+			)}
 		</DragBox>
 	);
 }

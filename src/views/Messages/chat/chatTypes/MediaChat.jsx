@@ -9,6 +9,7 @@ import DragBox from "components/common/DragBox";
 import ImageViewer from "components/ui-components/ImageViewer";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import { useDispatch } from "react-redux";
+import ReactIcons from "utils/ReactIcons";
 
 const StyledMedia = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -31,13 +32,55 @@ const StyledOverlay = styled(Box)(({ theme }) => ({
 	left: 0,
 	backgroundColor: "rgba(0, 0, 0, 0.5)",
 	userSelect: "none",
-	pointerEvents: "none"
+	pointerEvents: "none",
 }));
 
-function MediaChat({ chat }) {
+const StyledOptionsBox = styled(Box)(({ theme, chat }) => ({
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	gap: "0.3rem",
+	flexDirection: "row",
+	padding: "0.2rem 0.3rem",
+	position: "absolute",
+	...(chat?.incoming ? { right: -49 } : { left: -49 }),
+	flexDirection: chat?.incoming ? "row" : "row-reverse",
+	top: "50%",
+	transform: "translateY(-50%)",
+}));
+
+function MediaChat({ chat, options = true }) {
 	const theme = useTheme();
 	const [viewOpen, setViewOpen] = useState(false);
+	const [showOptions, setShowOptions] = useState(false);
 	const dispatch = useDispatch();
+
+	// handling reply attachment
+	const handleUpdateReplyAttachment = () => {
+		dispatch(
+			updateAttachment({
+				userId: 1,
+				messageId: chat?.id,
+				name: "Jhon",
+				message: "Attachment",
+			})
+		);
+	};
+
+	// handleMedia open on photos or videos
+	const openMedia = (mediaItem) => {
+		if (mediaItem?.type === ("image" || "video")) setViewOpen(true);
+	};
+
+	// showing options menu if hover on chat item element
+	const handleMouseEnter = () => {
+		setShowOptions(true);
+	};
+
+	// hiding options menu on mouse leave
+	const handleMouseLeave = () => {
+		setShowOptions(false);
+	};
 
 	return (
 		<StyledMedia>
@@ -91,34 +134,23 @@ function MediaChat({ chat }) {
 							</>
 						) : (
 							<>
-								<Grid
-									onClick={(e) => {
-										mediaItem?.type === ("image" || "video") &&
-											setViewOpen(true);
-									}}
-									item
-									xs={12}
-									md={12}
-								>
+								<Grid item xs={12} md={12}>
 									<DragBox
 										sx={{ maxWidth: "100%" }}
-										onDragEnd={() =>
-											dispatch(
-												updateAttachment({
-													userId: 1,
-													messageId: chat?.id,
-													name: "Jhon",
-													message: chat?.caption ? chat?.caption : "Attachment",
-												})
-											)
-										}
+										onDragEnd={handleUpdateReplyAttachment}
 										dragLockDir={chat.incoming ? "left" : "right"}
+										onMouseEnter={handleMouseEnter}
+										onMouseLeave={handleMouseLeave}
 									>
 										{(() => {
 											switch (mediaItem?.type) {
 												case "image":
 													return (
-														<PhotoType mediaItem={mediaItem} chat={chat} />
+														<PhotoType
+															mediaItem={mediaItem}
+															chat={chat}
+															onClick={() => openMedia(mediaItem)}
+														/>
 													);
 												case "voice":
 													return (
@@ -126,7 +158,12 @@ function MediaChat({ chat }) {
 													);
 												case "video":
 													return (
-														<VideoType mediaItem={mediaItem} chat={chat} />
+														<VideoType
+															mediaItem={mediaItem}
+															chat={chat}
+															onClick={() => openMedia(mediaItem)}
+															sx={{ width: "80%" }}
+														/>
 													);
 												case "reply":
 													return (
@@ -134,6 +171,23 @@ function MediaChat({ chat }) {
 													);
 											}
 										})()}
+										{options && showOptions && (
+											<StyledOptionsBox
+												chat={chat}
+												onMouseEnter={handleMouseEnter}
+												onMouseLeave={handleMouseLeave}
+											>
+												<ReactIcons.LuReply
+													style={{ cursor: "pointer" }}
+													size={18}
+													onClick={handleUpdateReplyAttachment}
+												/>
+												<ReactIcons.MdMoreVert
+													style={{ cursor: "pointer" }}
+													size={17}
+												/>
+											</StyledOptionsBox>
+										)}
 									</DragBox>
 								</Grid>
 								{mediaItem?.type === ("image" || "video") && (

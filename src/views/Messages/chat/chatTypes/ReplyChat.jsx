@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, styled, useTheme } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import PhotoType from "./mediaTypes/PhotoType";
 import VideoType from "./mediaTypes/VideoType";
 import AudioType from "./mediaTypes/AudioType";
@@ -21,6 +21,7 @@ const StyledReplyBox = styled(Box)(({ theme, chat }) => ({
 
 function ReplyChat({ chat }) {
 	const theme = useTheme();
+
 	return (
 		<>
 			{(() => {
@@ -49,6 +50,7 @@ function ReplyChat({ chat }) {
 										chat={{ caption: chat.ref.caption }}
 										disabled={true}
 										disableDrag={true}
+										options={false}
 									/>
 								</StyledReplyBox>
 								<TextChat chat={chat} />
