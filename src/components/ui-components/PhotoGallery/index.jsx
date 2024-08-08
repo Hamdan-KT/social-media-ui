@@ -16,13 +16,16 @@ import ReactIcons from "utils/ReactIcons";
 const StyledGallery = styled(Box)(({ theme }) => ({
 	display: "grid",
 	gridTemplateColumns: "1fr 1fr 1fr",
-	gap: "0.2rem",
+	gap: "0.1rem",
 	width: "100%",
 	height: "100%",
 	alignItems: "center",
 	justifyContent: "center",
 	backgroundColor: theme.palette.background.default,
 	padding: "0",
+	[theme.breakpoints.down("sm")]: {
+		gap: 0
+	}
 }));
 
 const MediaDiv = styled(Box)(({ theme }) => ({

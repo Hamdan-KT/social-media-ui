@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { Box, Grid, Typography, styled, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import AudioType from "./mediaTypes/AudioType";
 import PhotoType from "./mediaTypes/PhotoType";
 import VideoType from "./mediaTypes/VideoType";
@@ -10,6 +10,8 @@ import ImageViewer from "components/ui-components/ImageViewer";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import { useDispatch } from "react-redux";
 import ReactIcons from "utils/ReactIcons";
+import PopOver from "components/common/Popover";
+import ChatOptions from "../chatOptions";
 
 const StyledMedia = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -53,6 +55,7 @@ function MediaChat({ chat, options = true }) {
 	const theme = useTheme();
 	const [viewOpen, setViewOpen] = useState(false);
 	const [showOptions, setShowOptions] = useState(false);
+	const optionsRef = useRef();
 	const dispatch = useDispatch();
 
 	// handling reply attachment
@@ -182,10 +185,30 @@ function MediaChat({ chat, options = true }) {
 													size={18}
 													onClick={handleUpdateReplyAttachment}
 												/>
-												<ReactIcons.MdMoreVert
-													style={{ cursor: "pointer" }}
-													size={17}
-												/>
+												<PopOver
+													ref={optionsRef}
+													Button={
+														<ReactIcons.MdMoreVert
+															style={{ cursor: "pointer" }}
+															size={17}
+														/>
+													}
+													anchorOrigin={{
+														vertical: "top",
+														horizontal: "left",
+													}}
+													transformOrigin={{
+														vertical: "bottom",
+														horizontal: chat?.incoming ? "left" : "right",
+													}}
+													sx={{
+														"& .MuiPopover-paper": {
+															borderRadius: 4,
+														},
+													}}
+												>
+													<ChatOptions />
+												</PopOver>
 											</StyledOptionsBox>
 										)}
 									</DragBox>

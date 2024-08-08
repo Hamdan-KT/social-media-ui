@@ -66,6 +66,7 @@ import {
 	LuFlipVertical2,
 	LuCloudy,
 	LuPlus,
+	LuTrash,
 } from "react-icons/lu";
 import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
@@ -77,6 +78,7 @@ import {
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
 import { GrAttachment } from "react-icons/gr";
+import { FaRegCopy } from "react-icons/fa";
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -151,6 +153,8 @@ const ReactIcons = {
 	IoMdTrash,
 	IoIosSquare,
 	MdMoreVert,
+	FaRegCopy,
+	LuTrash,
 };
 
 export default ReactIcons;

@@ -18,7 +18,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	width: "100%",
 	alignItems: "center",
 	justifyContent: "space-between",
-	padding: "0.5rem",
+	padding: "0.4rem 0.4rem",
 	backgroundColor: theme.palette.background.default,
 	position: "absolute",
 	borderBottom: `1px solid ${theme.palette.grey[400]}`,
@@ -48,23 +48,34 @@ function ChatHeader() {
 		<StyledToolBar disableGutters>
 			<Box sx={{ display: "flex", gap: 0.5, alignItems: "center" }}>
 				{matchDownMd && (
-					<IconButton size="large" color="inherit" onClick={() => navigate(-1)}>
+					<IconButton size="small" color="inherit" onClick={() => navigate(-1)}>
 						<ArrowBackIosNewIcon />
 					</IconButton>
 				)}
 				<Avatar alt={defaultUser.name} src={defaultUser.profile} />
-				<Typography variant="h5" sx={{ fontWeight: "bold" }}>
-					Jack Sparrow
-				</Typography>
+				<Box
+					sx={{
+						display: "flex",
+						alignItems: "start",
+						justifyContent: "center",
+						flexDirection: "column",
+						ml: 0.5
+					}}
+				>
+					<Typography variant="h5" sx={{ fontWeight: "bold" }}>
+						Jack Sparrow
+					</Typography>
+					<Typography variant="greyTagsXs">Active 18 ago</Typography>
+				</Box>
 			</Box>
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				<IconButton size="medium" color="inherit">
 					<ReactIcons.IoCallOutline />
 				</IconButton>
-				<IconButton size="large" color="inherit">
+				<IconButton size="medium" color="inherit">
 					<ReactIcons.IoVideocamOutline />
 				</IconButton>
-				<IconButton size="large" color="inherit">
+				<IconButton size="medium" color="inherit">
 					<ReactIcons.IoInformationCircleOutline />
 				</IconButton>
 			</Box>

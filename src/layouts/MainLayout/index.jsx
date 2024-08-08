@@ -27,7 +27,7 @@ export default function MainLayout() {
 		},
 		[theme.breakpoints.down("sm")]: {
 			width: "100%",
-			padding: "0.5rem",
+			padding: "0.3rem",
 			marginBottom: "3.5rem",
 		},
 	}));

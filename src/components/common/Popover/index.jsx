@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 
 const PopOver = React.forwardRef(
-	({ children, Button, PopOverProps, ButtonProps, onClose }, ref) => {
+	({ children, Button, ButtonProps, onClose, sx, ...Others }, ref) => {
 		const [anchorEl, setAnchorEl] = React.useState(null);
 
 		const handleClick = (event) => {
@@ -49,8 +49,15 @@ const PopOver = React.forwardRef(
 						vertical: "bottom",
 						horizontal: "left",
 					}}
-                    {...PopOverProps}
-                    sx={{overflow: "auto"}}
+					{...Others}
+					sx={{
+						overflow: "auto",
+						"& .MuiPopover-paper": {
+							padding: 0,
+							borderRadius: 2,
+						},
+						...sx
+					}}
 				>
 					{children}
 				</Popover>

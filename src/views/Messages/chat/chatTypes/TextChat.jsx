@@ -1,9 +1,11 @@
 import DragBox from "components/common/DragBox";
 import { Box, Stack, Typography, styled, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import ReactIcons from "utils/ReactIcons";
+import ChatOptions from "../chatOptions";
+import PopOver from "components/common/Popover";
 
 const ChatText = styled(Box)(({ theme, chat }) => ({
 	display: "flex",
@@ -58,6 +60,7 @@ function TextChat({
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const [showOptions, setShowOptions] = useState(false);
+	const optionsRef = useRef();
 
 	// handling reply attachment
 	const handleUpdateReplyAttachment = () => {
@@ -117,7 +120,27 @@ function TextChat({
 						size={18}
 						onClick={handleUpdateReplyAttachment}
 					/>
-					<ReactIcons.MdMoreVert style={{ cursor: "pointer" }} size={17} />
+					<PopOver
+						ref={optionsRef}
+						Button={
+							<ReactIcons.MdMoreVert style={{ cursor: "pointer" }} size={17} />
+						}
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "left",
+						}}
+						transformOrigin={{
+							vertical: "bottom",
+							horizontal: chat?.incoming ? "left" : "right",
+						}}
+						sx={{
+							"& .MuiPopover-paper": {
+								borderRadius: 4,
+							},
+						}}
+					>
+						<ChatOptions />
+					</PopOver>
 				</StyledOptionsBox>
 			)}
 		</DragBox>

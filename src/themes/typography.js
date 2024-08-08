@@ -66,6 +66,11 @@ export default function themeTypography(theme) {
 			color: theme.darkTextSecondary,
 			fontWeight: 400,
 		},
+		greyTagsXs: {
+			fontSize: "0.70rem",
+			color: theme.darkTextSecondary,
+			fontWeight: 400,
+		},
 		disabled: {
 			fontSize: "0.80rem",
 			color: theme.colors.grey400,
