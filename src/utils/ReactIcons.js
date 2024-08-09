@@ -67,6 +67,7 @@ import {
 	LuCloudy,
 	LuPlus,
 	LuTrash,
+	LuSmile,
 } from "react-icons/lu";
 import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
@@ -155,6 +156,7 @@ const ReactIcons = {
 	MdMoreVert,
 	FaRegCopy,
 	LuTrash,
+	LuSmile,
 };
 
 export default ReactIcons;

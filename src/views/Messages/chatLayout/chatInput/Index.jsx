@@ -142,7 +142,7 @@ function ChatInput() {
 								ref={emojPopRef}
 								Button={
 									<IconButton color="inherit">
-										<SentimentSatisfiedOutlinedIcon />
+										<ReactIcons.LuSmile />
 									</IconButton>
 								}
 							>

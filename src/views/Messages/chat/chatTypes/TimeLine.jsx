@@ -12,7 +12,7 @@ function TimeLine({ chat }) {
 				gap: "0.5rem",
 			}}
 		>
-			<Divider sx={{ width: "calc(100% / 2.2)" }} />
+			<Divider sx={{ width: "calc(100% / 2.5)" }} />
 			<Typography variant="caption">{chat.time}</Typography>
 			<Divider sx={{ width: "calc(100% / 2.5)" }} />
 		</Box>

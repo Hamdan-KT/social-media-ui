@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
-  Box,
-  styled,
-  useMediaQuery,
-  Slide,
-  useTheme,
-  Paper,
+	Box,
+	styled,
+	useMediaQuery,
+	Slide,
+	useTheme,
+	Paper,
 } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { drawerWidth } from "utils/constants";
@@ -24,24 +24,24 @@ const StyledPaper = styled(Paper)({
 });
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  position: "fixed",
-  top: 0,
-  left: drawerWidth + 5,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100vh",
-  maxHeight: "100vh",
-  width: "27vw",
-  zIndex: 10,
-  [theme.breakpoints.down("lg")]: {
-    width: "30vw",
-    left: `calc(${theme.spacing(10)} + 5px)`,
-  },
-  [theme.breakpoints.down("md")]: {
-    width: "50vw",
-    left: `calc(${theme.spacing(10)} + 5px)`,
-  },
+	position: "fixed",
+	top: 0,
+	left: drawerWidth + 5,
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	height: "100vh",
+	maxHeight: "100vh",
+	width: "27vw",
+	zIndex: 10,
+	[theme.breakpoints.down("lg")]: {
+		width: "30vw",
+		left: `calc(${theme.spacing(10)} + 5px)`,
+	},
+	[theme.breakpoints.down("md")]: {
+		width: "50vw",
+		left: `calc(${theme.spacing(10)} + 5px)`,
+	},
 }));
 
 const BaseBox = styled(Box)({
@@ -55,12 +55,12 @@ const BaseBox = styled(Box)({
 });
 
 function SlideBarPopups({ children, open = false }) {
-  const theme = useTheme();
-  const containerRef = useRef();
-  const dispatch = useDispatch();
-  const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const theme = useTheme();
+	const containerRef = useRef();
+	const dispatch = useDispatch();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
-  return (
+	return (
 		<Slide
 			ref={containerRef}
 			direction="right"

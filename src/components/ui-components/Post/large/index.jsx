@@ -10,7 +10,7 @@ import {
 	InputBase,
 	Grid,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { commentList } from "src/data";
 import CommentList from "components/ui-components/CommentList";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
@@ -20,6 +20,7 @@ import emojiData from "@emoji-mart/data";
 import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ProfileAvatar from "components/common/ProfileAvatar";
+import PopOver from "components/common/Popover";
 
 const commonStyle = {
 	display: "flex",
@@ -52,15 +53,7 @@ function PostLarge({ data }) {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
-	const [anchorEl, setAnchorEl] = useState(null);
-	const menuOpen = Boolean(anchorEl);
-
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+	const emojPopRef = useRef();
 
 	return (
 		<Box
@@ -155,10 +148,7 @@ function PostLarge({ data }) {
 							}}
 						>
 							<Box sx={commonStyle}>
-								<ProfileAvatar
-									data={data}
-									sx={{ width: 36, height: 36 }}
-								/>
+								<ProfileAvatar data={data} sx={{ width: 36, height: 36 }} />
 							</Box>
 							<Box
 								sx={{
@@ -275,34 +265,20 @@ function PostLarge({ data }) {
 						<Box sx={{ ...commonStyle, width: "100%", p: "0.4rem" }}>
 							<InputBox>
 								{matchDownMd ? null : (
-									<>
-										<Menu
-											id="emoji-menu"
-											aria-labelledby="emoji-menu"
-											anchorEl={anchorEl}
-											open={menuOpen}
-											onClose={handleClose}
-											anchorOrigin={{
-												vertical: "top",
-												horizontal: "bottom",
-											}}
-											transformOrigin={{
-												vertical: "bottom",
-												horizontal: "top",
-											}}
-										>
-											<Picker
-												data={emojiData}
-												theme="light"
-												onEmojiSelect={(e) =>
-													setValue((prev) => prev + e.native)
-												}
-											/>
-										</Menu>
-										<IconButton color="inherit" onClick={handleClick}>
-											<SentimentSatisfiedOutlinedIcon />
-										</IconButton>
-									</>
+									<PopOver
+										ref={emojPopRef}
+										Button={
+											<IconButton color="inherit">
+												<ReactIcons.LuSmile />
+											</IconButton>
+										}
+									>
+										<Picker
+											data={emojiData}
+											theme="light"
+											onEmojiSelect={(e) => setValue((prev) => prev + e.native)}
+										/>
+									</PopOver>
 								)}
 								<StyledInputBase
 									fullWidth
