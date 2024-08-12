@@ -107,7 +107,11 @@ function Messages() {
 							mt: 6,
 						}}
 					>
-						<MobileSearchBar />
+						<MobileSearchBar
+							listWrapperStyle={{
+								height: { xs: "89vh", sm: "86vh" },
+							}}
+						/>
 						<Box
 							sx={{
 								height: "max-content",

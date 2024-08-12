@@ -26,47 +26,98 @@ const StyledPlusIcon = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
 }));
 
-function ProfileAvatar({ data, badge = false, sx = {}, containerSx = {} }) {
+function ProfileAvatar({
+	data,
+	storyView = true,
+	badge = false,
+	sx = {},
+	containerSx = {},
+	badgeProps = {},
+}) {
 	const theme = useTheme();
 
 	return (
-		<StoryTag sx={containerSx}>
-			{badge ? (
-				<Badge
-					overlap="circular"
-					anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-					badgeContent={
-						<StyledPlusIcon>
-							<ReactIcons.IoIosAddCircle
-								size={25}
-								style={{ color: theme.palette.primary.main }}
+		<>
+			{storyView ? (
+				<StoryTag sx={containerSx}>
+					{badge ? (
+						<Badge
+							overlap="circular"
+							anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+							badgeContent={
+								<StyledPlusIcon>
+									<ReactIcons.IoIosAddCircle
+										size={25}
+										style={{ color: theme.palette.primary.main }}
+									/>
+								</StyledPlusIcon>
+							}
+							{...badgeProps}
+						>
+							<Avatar
+								src={data?.profile}
+								alt={data?.name}
+								sx={{
+									width: { xs: 74, sm: 59 },
+									height: { xs: 74, sm: 59 },
+									border: "1.5px solid #ffff",
+									...sx,
+								}}
 							/>
-						</StyledPlusIcon>
-					}
-				>
-					<Avatar
-						src={data?.profile}
-						alt={data?.name}
-						sx={{
-							width: { xs: 74, sm: 59 },
-							height: { xs: 74, sm: 59 },
-							border: "1.5px solid #ffff",
-							...sx,
-						}}
-					/>
-				</Badge>
+						</Badge>
+					) : (
+						<Avatar
+							src={data.profile}
+							sx={{
+								width: { xs: 74, sm: 59 },
+								height: { xs: 74, sm: 59 },
+								border: "1.5px solid #ffff",
+								...sx,
+							}}
+						/>
+					)}
+				</StoryTag>
 			) : (
-				<Avatar
-					src={data.profile}
-					sx={{
-						width: { xs: 74, sm: 59 },
-						height: { xs: 74, sm: 59 },
-						border: "1.5px solid #ffff",
-						...sx,
-					}}
-				/>
+				<>
+					{badge ? (
+						<Badge
+							overlap="circular"
+							anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+							badgeContent={
+								<StyledPlusIcon>
+									<ReactIcons.IoIosAddCircle
+										size={25}
+										style={{ color: theme.palette.primary.main }}
+									/>
+								</StyledPlusIcon>
+							}
+							{...badgeProps}
+						>
+							<Avatar
+								src={data?.profile}
+								alt={data?.name}
+								sx={{
+									width: { xs: 74, sm: 59 },
+									height: { xs: 74, sm: 59 },
+									border: "1.5px solid #ffff",
+									...sx,
+								}}
+							/>
+						</Badge>
+					) : (
+						<Avatar
+							src={data.profile}
+							sx={{
+								width: { xs: 74, sm: 59 },
+								height: { xs: 74, sm: 59 },
+								border: "1.5px solid #ffff",
+								...sx,
+							}}
+						/>
+					)}
+				</>
 			)}
-		</StoryTag>
+		</>
 	);
 }
 

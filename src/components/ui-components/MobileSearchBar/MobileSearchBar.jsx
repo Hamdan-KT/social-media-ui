@@ -42,9 +42,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
 	display: "flex",
-	padding: "1rem 0.5rem",
+	padding: "0.6rem 0rem",
+	alignItems: "center",
+	justifyContent: "center",
 	background: theme.palette.background.default,
-	height: "85vh",
+	height: "86vh",
 	position: "relative",
 	"&::before": {
 		content: `""`,
@@ -55,7 +57,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 		padding: "1rem",
 		top: 2,
 		left: 0,
-		zIndex: 7,
+		zIndex: 6,
 	},
 	"&::after": {
 		content: `""`,
@@ -66,7 +68,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 		padding: "1rem",
 		bottom: 2,
 		left: 0,
-	},
+	}
 }));
 
 function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
@@ -98,14 +100,11 @@ function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
 						justifyContent: "center",
 						position: "absolute",
 						left: 0,
-						top: "117%",
-						zIndex: 10,
+						top: "100%",
+						zIndex: 6,
 					}}
 				>
-					<StyledPaper
-						elevation={0}
-						sx={listWrapperStyle}
-					>
+					<StyledPaper elevation={0} sx={listWrapperStyle}>
 						<Box
 							sx={{
 								display: "flex",
@@ -114,12 +113,13 @@ function MobileSearchBar({ inputProps = {}, listWrapperStyle = {} }) {
 								alignItems: "flex-start",
 								overflowY: "scroll",
 								scrollBehavior: "smooth",
+								width: "100%",
 							}}
 							className="scrollbar-hide"
 						>
 							<UserList
 								sx={{ maxWidth: "100%" }}
-								data={Users?.filter((user) => {
+								data={[...Users, ...Users]?.filter((user) => {
 									return (
 										user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
 									);

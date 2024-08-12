@@ -2,11 +2,7 @@ import * as React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Fade, Zoom, styled, useTheme } from "@mui/material";
-import { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import { useRef } from "react";
-import { useEffect } from "react";
+import { Fade, styled, useTheme } from "@mui/material";
 import ReactIcons from "utils/ReactIcons";
 
 const MainBox = styled(Box)(({ theme }) => ({

@@ -48,6 +48,7 @@ import {
 	RiChat1Line,
 	RiBookmarkLine,
 	RiBookmarkFill,
+	RiLinkM,
 } from "react-icons/ri";
 import {
 	IoMdImages,
@@ -56,6 +57,7 @@ import {
 	IoIosAddCircle,
 	IoMdTrash,
 	IoIosSquare,
+	IoIosCheckmarkCircle,
 } from "react-icons/io";
 import {
 	LuSend,
@@ -79,7 +81,9 @@ import {
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
 import { GrAttachment } from "react-icons/gr";
-import { FaRegCopy } from "react-icons/fa";
+import { FaRegCopy, FaWhatsapp } from "react-icons/fa";
+import { HiDownload } from "react-icons/hi";
+import { FiShare } from "react-icons/fi";
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -157,6 +161,11 @@ const ReactIcons = {
 	FaRegCopy,
 	LuTrash,
 	LuSmile,
+	RiLinkM,
+	FaWhatsapp,
+	HiDownload,
+	FiShare,
+	IoIosCheckmarkCircle,
 };
 
 export default ReactIcons;

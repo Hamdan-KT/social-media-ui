@@ -9,35 +9,23 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router";
 
-function MessageListItem({
-	customButton,
-	onButtonClick = () => {},
+function SelectionListItem({
 	onClick,
 	data = {},
-	urlPrefix,
-	navigateId,
 	primaryText,
 	secondaryText,
-	actionButton = false,
-	customButtonProps,
 }) {
-	const navigate = useNavigate();
 
-	const ModifiedCustomBtn = React.Children.map(customButton, (child) =>
-		React.cloneElement(child, {
-			onClick: () => onButtonClick(data),
-			...customButtonProps,
-		})
-	);
 	return (
 		<ListItem
-			secondaryAction={actionButton ? ModifiedCustomBtn : null}
+			// secondaryAction={
+
+			// }
 			disablePadding
 		>
 			<ListItemButton
 				onClick={() => {
 					typeof onClick === "function" && onClick();
-					urlPrefix && navigateId && navigate(`${urlPrefix}/${navigateId}`);
 				}}
 			>
 				<ListItemAvatar>
@@ -55,15 +43,10 @@ function MessageListItem({
 						fontSize: 13,
 						noWrap: true,
 						fontWeight: "bold",
-						mr:  actionButton || customButton ? 5 : 0,
 					}}
 					secondaryTypographyProps={{
 						noWrap: true,
 						fontSize: 12,
-						mr: {
-							xs:  actionButton || customButton ? 3 : 0,
-							sm:  actionButton || customButton ? 3 : 0,
-						},
 					}}
 					primary={primaryText}
 					secondary={
@@ -76,4 +59,4 @@ function MessageListItem({
 	);
 }
 
-export default MessageListItem;
+export default SelectionListItem;

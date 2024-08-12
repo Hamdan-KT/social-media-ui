@@ -16,7 +16,11 @@ function Explore() {
 		<Grid container>
 			{matchDownSm && (
 				<Grid item xs={12} md={12} sm={12} lg={12}>
-					<MobileSearchBar />
+					<MobileSearchBar
+						listWrapperStyle={{
+							height: "88vh",
+						}}
+					/>
 				</Grid>
 			)}
 			<Grid item xs={12} md={12} sm={12} lg={12}>

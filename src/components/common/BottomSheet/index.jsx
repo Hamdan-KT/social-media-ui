@@ -1,15 +1,6 @@
 import { motion } from "framer-motion";
-import {
-	useEffect,
-	useRef,
-	forwardRef,
-} from "react";
-import {
-	Backdrop,
-	Box,
-	Typography,
-	styled,
-} from "@mui/material";
+import { useEffect, useRef, forwardRef } from "react";
+import { Backdrop, Box, Typography, styled } from "@mui/material";
 
 const BottomSheetHeader = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -28,9 +19,9 @@ const DragHandle = styled(Box)(({ theme }) => ({
 	backgroundColor: theme.palette.grey[300],
 }));
 
-const BottomSheetBody = styled(Box)(({ theme }) => ({
+const BottomSheetBody = styled(Box)(({ theme, title }) => ({
 	width: "100%",
-	height: "calc(100% - 49.5px)",
+	height: title ? "calc(100% - 49.5px)" : "calc(100% - 22px)",
 	maxHeight: "100%",
 	overflowY: "scroll",
 	color: "inherit",
@@ -49,7 +40,9 @@ const BottomSheet = forwardRef(function (
 
 	// handling initial height of sheet on each open
 	useEffect(() => {
-		if (open) updateSheetHeight(60);
+		if (open) {
+			updateSheetHeight(60);
+		}
 	}, [open]);
 
 	// core js functions
@@ -158,7 +151,11 @@ const BottomSheet = forwardRef(function (
 						</Typography>
 					)}
 				</BottomSheetHeader>
-				<BottomSheetBody className="scrollbar-hide" sx={{ ...sheetBodyStyles }}>
+				<BottomSheetBody
+					className="scrollbar-hide"
+					title={title}
+					sx={{ ...sheetBodyStyles }}
+				>
 					{children}
 				</BottomSheetBody>
 			</motion.div>

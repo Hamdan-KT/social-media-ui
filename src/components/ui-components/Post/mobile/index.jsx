@@ -231,7 +231,7 @@ function PostMobile({ data }) {
 				<Typography variant="body" fontWeight="bold">
 					213,034 likes
 				</Typography>
-				<Box mt={1}>
+				<Box mt={0.4}>
 					<p
 						style={
 							expanded
@@ -270,7 +270,7 @@ function PostMobile({ data }) {
 							more
 						</Typography>
 					) : null)}
-				<Box mt={1}>
+				<Box mt={0.4}>
 					{/* view comment tag */}
 					<Typography
 						variant="greyTags"
