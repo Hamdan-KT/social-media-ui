@@ -19,7 +19,7 @@ import { RoutePath } from "src/utils/routes";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { messageSections } from "utils/constants";
 import SearchInput from "components/common/SearchInput";
-import ScrollBox from "components/ui-components/Wrappers/scrollBox";
+import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
