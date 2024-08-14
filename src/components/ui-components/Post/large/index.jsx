@@ -21,6 +21,7 @@ import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import PopOver from "components/common/Popover";
+import ShareWindow from "../../Popups/ShareWindow";
 
 const commonStyle = {
 	display: "flex",
@@ -54,6 +55,7 @@ function PostLarge({ data }) {
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
 	const emojPopRef = useRef();
+	const [shareOpen, setShareOpen] = useState(false);
 
 	return (
 		<Box
@@ -223,7 +225,10 @@ function PostLarge({ data }) {
 										}}
 									/>
 								</IconButton>
-								<IconButton aria-label="share">
+								<IconButton
+									aria-label="share"
+									onClick={() => setShareOpen(true)}
+								>
 									<ReactIcons.LuSend
 										style={{
 											color: `${theme.palette.text.dark}`,
@@ -306,6 +311,7 @@ function PostLarge({ data }) {
 					</Box>
 				</Grid>
 			</Grid>
+			<ShareWindow open={shareOpen} onClose={() => setShareOpen(false)} />
 		</Box>
 	);
 }

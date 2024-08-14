@@ -22,6 +22,7 @@ import Comments from "components/ui-components/Popups/Comments";
 import { useLocation, useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import ProfileAvatar from "components/common/ProfileAvatar";
+import ShareWindow from "../../Popups/ShareWindow";
 
 // caption style
 const captionStyle = {
@@ -35,6 +36,7 @@ function PostMobile({ data }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [commentOpen, setCommentOpen] = useState(false);
+	const [shareOpen, setShareOpen] = useState(false)
 	const captionRef = useRef(null);
 	const theme = useTheme();
 	const location = useLocation();
@@ -201,7 +203,7 @@ function PostMobile({ data }) {
 						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
 					/>
 				</IconButton>
-				<IconButton aria-label="share">
+				<IconButton aria-label="share" onClick={() => setShareOpen(true)}>
 					<ReactIcons.LuSend
 						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
 					/>
@@ -287,7 +289,10 @@ function PostMobile({ data }) {
 					</Typography>
 				</Box>
 			</CardContent>
+			{/* comment modal */}
 			<Comments open={commentOpen} onClose={() => setCommentOpen(false)} />
+			{/* share modal */}
+			<ShareWindow open={shareOpen} onClose={() => setShareOpen(false)} />
 		</Card>
 	);
 }

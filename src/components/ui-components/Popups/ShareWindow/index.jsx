@@ -17,24 +17,27 @@ const Wrappper = styled("div")(({ theme }) => ({
 	overflow: "hidden",
 }));
 
-function ShareWindow() {
+function ShareWindow({open = false, onClose = () => {}}) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+
+	if(!open) return null
 
 	return (
 		<>
 			{matchDownSm ? (
 				<BottomSheet
-					open={true}
+					open={open}
+					onClose={onClose}
 					sheetBodyStyles={{ position: "relative" }}
 					title="Share"
 				>
-					<ListSection />
+					<ListSection onClose={onClose} />
 				</BottomSheet>
 			) : (
-				<CustomModal closeIcon={true} open={true}>
+				<CustomModal closeIcon={true} open={open} onClose={onClose}>
 					<Wrappper>
-						<ListSection />
+						<ListSection onClose={onClose} />
 					</Wrappper>
 				</CustomModal>
 			)}

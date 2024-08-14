@@ -6,11 +6,11 @@ import SelectionListItem from "./SelectionListItem";
 
 function SelectionList({
 	sx = {},
-	onClick,
+	onClick = () => {},
 	data = [],
 	selection,
 	setSelection,
-	dataTag = "",
+	dataTag = "id",
 }) {
 	const theme = useTheme();
 	return (

@@ -33,6 +33,7 @@ function ProfileAvatar({
 	sx = {},
 	containerSx = {},
 	badgeProps = {},
+	onClick = () => {},
 }) {
 	const theme = useTheme();
 
@@ -63,6 +64,7 @@ function ProfileAvatar({
 									border: "1.5px solid #ffff",
 									...sx,
 								}}
+								onClick={onClick}
 							/>
 						</Badge>
 					) : (
@@ -102,6 +104,7 @@ function ProfileAvatar({
 									border: "1.5px solid #ffff",
 									...sx,
 								}}
+								onClick={onClick}
 							/>
 						</Badge>
 					) : (
@@ -113,6 +116,7 @@ function ProfileAvatar({
 								border: "1.5px solid #ffff",
 								...sx,
 							}}
+							onClick={onClick}
 						/>
 					)}
 				</>

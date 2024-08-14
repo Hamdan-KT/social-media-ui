@@ -36,23 +36,25 @@ const StyledTickIcon = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
 }));
 
-function ListSection() {
+function ListSection({onClose = () => {}}) {
 	const [value, setValue] = useState("");
 	const [selectedUsers, setSelectedUsers] = useState({});
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
 	const handleSelection = (data) => {
-		let checked = !selectedUsers[data["id"]];
-		if (checked) {
-			setSelectedUsers({
-				...selectedUsers,
-				[data["id"]]: checked,
-			});
-		} else {
-			let updatedSelection = selectedUsers;
-			delete updatedSelection[data["id"]];
-			setSelectedUsers({ ...updatedSelection });
+		if (!_.isEmpty(data)) {
+			let checked = !selectedUsers[data["id"]];
+			if (checked) {
+				setSelectedUsers({
+					...selectedUsers,
+					[data["id"]]: checked,
+				});
+			} else {
+				let updatedSelection = selectedUsers;
+				delete updatedSelection[data["id"]];
+				setSelectedUsers({ ...updatedSelection });
+			}
 		}
 	};
 
@@ -62,14 +64,14 @@ function ListSection() {
 
 	return (
 		<>
-			<ShareHeader />
+			<ShareHeader onClose={onClose} />
 			<CommonBox sx={{ p: 1.5 }}>
 				<SearchInput value={value} setValue={setValue} />
 			</CommonBox>
 			<CommonBox
 				className="scrollbar-hide"
 				sx={{
-					height: matchDownSm ? "calc(100% - 10.6rem)" : "calc(100% - 13.2rem)",
+					height: matchDownSm ? "calc(100% - 10.8rem)" : "calc(100% - 13.2rem)",
 					overflowY: "scroll",
 					alignItems: "start",
 					justifyContent: "start",
@@ -113,6 +115,7 @@ function ListSection() {
 													</StyledTickIcon>
 												),
 											}}
+											onClick={() => handleSelection(user)}
 										/>
 										<Typography
 											noWrap

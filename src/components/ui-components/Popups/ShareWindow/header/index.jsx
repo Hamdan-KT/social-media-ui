@@ -1,10 +1,5 @@
 import ReactIcons from "utils/ReactIcons";
-import {
-	Typography,
-	styled,
-	useMediaQuery,
-	useTheme,
-} from "@mui/material";
+import { Typography, styled, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 
 const StyledHeader = styled("div")(({ theme }) => ({
@@ -18,7 +13,7 @@ const StyledHeader = styled("div")(({ theme }) => ({
 	borderBottom: `1px solid ${theme.palette.grey[300]}`,
 }));
 
-function ShareHeader() {
+function ShareHeader({ onClose = () => {} }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -34,7 +29,7 @@ function ShareHeader() {
 					</Typography>
 					<ReactIcons.IoClose
 						style={{ fontSize: "1.7rem", cursor: "pointer" }}
-						onClick={{}}
+						onClick={onClose}
 					/>
 				</StyledHeader>
 			)}

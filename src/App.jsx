@@ -39,7 +39,7 @@ function App() {
 					{/* <ViewPost /> */}
 					{/* <Comments /> */}
 					{/* <CreatePost open={true} /> */}
-					<ShareWindow />
+					{/* <ShareWindow /> */}
 				</NavigationScroll>
 			</ThemeProvider>
 		</StyledEngineProvider>

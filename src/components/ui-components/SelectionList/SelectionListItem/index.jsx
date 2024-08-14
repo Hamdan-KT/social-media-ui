@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Btn from "components/common/Button";
-import ProfileAvatar from "components/common/ProfileAvatar";
 import {
 	Checkbox,
 	ListItem,
@@ -8,17 +6,17 @@ import {
 	ListItemButton,
 	ListItemText,
 } from "@mui/material";
-import { useNavigate } from "react-router";
+import ProfileAvatar from "components/common/ProfileAvatar";
 import ReactIcons from "utils/ReactIcons";
 
 function SelectionListItem({
-	onClick,
+	onClick = () => {},
 	data = {},
 	primaryText,
 	secondaryText,
 	selection,
 	setSelection,
-	dataTag = "",
+	dataTag = "id",
 	index,
 }) {
 	// handling selection
@@ -26,12 +24,12 @@ function SelectionListItem({
 		if (checked) {
 			setSelection({
 				...selection,
-				[data[dataTag || index]]: checked,
+				[data[dataTag]]: checked,
 			});
 		} else {
-			let updatedSelection = selection;
-			delete updatedSelection[data[dataTag || index]];
-			setSelection({ ...updatedSelection });
+			const updatedSelection = { ...selection };
+			delete updatedSelection[data[dataTag]];
+			setSelection(updatedSelection);
 		}
 	};
 
@@ -44,7 +42,7 @@ function SelectionListItem({
 			secondaryAction={
 				<Checkbox
 					onChange={(e) => handleSelection(e.target.checked)}
-					checked={checked}
+					checked={!!selection[data[dataTag]]}
 					icon={<ReactIcons.FaRegCircle />}
 					checkedIcon={<ReactIcons.FaCheckCircle />}
 				/>

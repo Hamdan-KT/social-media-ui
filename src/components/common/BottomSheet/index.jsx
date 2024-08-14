@@ -28,7 +28,7 @@ const BottomSheetBody = styled(Box)(({ theme, title }) => ({
 }));
 
 const BottomSheet = forwardRef(function (
-	{ children, open, onClose, title = "", sheetBodyStyles = {} },
+	{ children, open, onClose = () => {}, title = "", sheetBodyStyles = {} },
 	ref
 ) {
 	const backdropRef = useRef();
@@ -42,7 +42,14 @@ const BottomSheet = forwardRef(function (
 	useEffect(() => {
 		if (open) {
 			updateSheetHeight(60);
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "unset";
 		}
+
+		return () => {
+			document.body.style.overflow = "unset";
+		};
 	}, [open]);
 
 	// core js functions
