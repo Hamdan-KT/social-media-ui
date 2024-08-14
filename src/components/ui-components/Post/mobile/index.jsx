@@ -279,7 +279,7 @@ function PostMobile({ data }) {
 						sx={{ cursor: "pointer" }}
 						onClick={() =>
 							matchDownSm
-								? commentOpen(true)
+								? setCommentOpen(true)
 								: navigate(`/${RoutePath.POST}/${data.id}`, {
 										state: { previousLocation: location },
 								  })
