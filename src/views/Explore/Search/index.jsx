@@ -3,7 +3,7 @@ import { Users } from "src/data";
 import { Box, Typography, styled } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import SearchInput from "components/common/SearchInput";
-import ScrollBox from "components/ui-components/Wrappers/scrollBox";
+import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
 import { useNavigate } from "react-router";
 
 const CommonBox = styled("div")(({ theme }) => ({

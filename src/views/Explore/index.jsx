@@ -4,7 +4,6 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
 import PhotoGallery from "components/ui-components/PhotoGallery";
 import { useNavigate } from "react-router";
 import SearchInput from "components/common/SearchInput";

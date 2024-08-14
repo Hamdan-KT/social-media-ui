@@ -1,5 +1,4 @@
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
+import { styled } from "@mui/material/styles";
 import { Box, Divider, Paper } from "@mui/material";
 import UserList from "components/ui-components/UserList";
 import { Users } from "src/data";
