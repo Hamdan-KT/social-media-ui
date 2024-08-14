@@ -36,15 +36,15 @@ function SelectionListItem({
 	};
 
 	useEffect(() => {
-		console.log(selection)
-	}, [selection])
-	
+		console.log(selection);
+	}, [selection]);
+
 	return (
 		<ListItem
 			secondaryAction={
 				<Checkbox
 					onChange={(e) => handleSelection(e.target.checked)}
-					checked={selection[dataTag || index]}
+					checked={checked}
 					icon={<ReactIcons.FaRegCircle />}
 					checkedIcon={<ReactIcons.FaCheckCircle />}
 				/>
