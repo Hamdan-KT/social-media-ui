@@ -42,7 +42,6 @@ const StyledOptionsBox = styled(Box)(({ theme, chat }) => ({
 	alignItems: "center",
 	justifyContent: "center",
 	gap: "0.3rem",
-	flexDirection: "row",
 	padding: "0.2rem 0.3rem",
 	position: "absolute",
 	...(chat?.incoming ? { right: -49 } : { left: -49 }),
