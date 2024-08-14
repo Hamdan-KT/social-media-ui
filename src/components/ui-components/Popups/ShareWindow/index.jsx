@@ -21,8 +21,6 @@ function ShareWindow({open = false, onClose = () => {}}) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
-	if(!open) return null
-
 	return (
 		<>
 			{matchDownSm ? (

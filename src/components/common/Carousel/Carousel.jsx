@@ -14,9 +14,9 @@ const DRAG_BUFFER = 30;
 
 const SPRING_OPTIONS = {
 	type: "tween",
-	// mass: 3,
-	// stiffness: 400,
-	// damping: 50,
+	mass: 10,
+	stiffness: 400,
+	damping: 50,
 };
 
 // Slider Button
