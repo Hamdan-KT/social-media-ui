@@ -58,10 +58,6 @@ function ListSection({onClose = () => {}}) {
 		}
 	};
 
-	useEffect(() => {
-		console.log(selectedUsers);
-	}, [selectedUsers]);
-
 	return (
 		<>
 			<ShareHeader onClose={onClose} />

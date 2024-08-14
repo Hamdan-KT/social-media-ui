@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, forwardRef } from "react";
 import { Backdrop, Box, Typography, styled } from "@mui/material";
+import useOutSlideClick from "hooks/useOutSlideClick";
 
 const BottomSheetHeader = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -37,6 +38,9 @@ const BottomSheet = forwardRef(function (
 	const isDragging = useRef(false);
 	const startY = useRef();
 	const startHeight = useRef(contentRef.current);
+
+	// out side click detect hook
+	useOutSlideClick(contentRef, onClose);
 
 	// handling initial height of sheet on each open
 	useEffect(() => {
@@ -128,19 +132,10 @@ const BottomSheet = forwardRef(function (
 				zIndex: (theme) => theme.zIndex.drawer + 1,
 			}}
 			open={open}
-			onClick={(e) => {
-				// e.preventDefault();
-				// e.stopPropagation();
-				onClose();
-			}}
 		>
 			<motion.div
 				ref={contentRef}
 				open={open}
-				onClick={(e) => {
-					// e.preventDefault();
-					// e.stopPropagation();
-				}}
 				style={{
 					background: "white",
 					maxHeight: "100vh",

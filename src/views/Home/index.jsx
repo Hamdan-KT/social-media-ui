@@ -27,10 +27,6 @@ function Home() {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 
-	useEffect(() => {
-		console.log("re-rendering-home");
-	}, []);
-
 	return (
 		<Grid container spacing={defaultSpacing}>
 			<Grid item md={8.5} sm={12} lg={8.5} xs={12}>
