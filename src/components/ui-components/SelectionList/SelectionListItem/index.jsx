@@ -1,31 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Btn from "components/common/Button";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import {
+	Checkbox,
 	ListItem,
 	ListItemAvatar,
 	ListItemButton,
 	ListItemText,
 } from "@mui/material";
 import { useNavigate } from "react-router";
+import ReactIcons from "utils/ReactIcons";
 
 function SelectionListItem({
 	onClick,
 	data = {},
 	primaryText,
 	secondaryText,
+	selection,
+	setSelection,
+	dataTag = "",
+	index,
 }) {
+	// handling selection
+	const handleSelection = (checked = false) => {
+		if (checked) {
+			setSelection({
+				...selection,
+				[data[dataTag || index]]: checked,
+			});
+		} else {
+			let updatedSelection = selection;
+			delete updatedSelection[data[dataTag || index]];
+			setSelection({ ...updatedSelection });
+		}
+	};
 
+	useEffect(() => {
+		console.log(selection)
+	}, [selection])
+	
 	return (
 		<ListItem
-			// secondaryAction={
-
-			// }
+			secondaryAction={
+				<Checkbox
+					onChange={(e) => handleSelection(e.target.checked)}
+					checked={selection[dataTag || index]}
+					icon={<ReactIcons.FaRegCircle />}
+					checkedIcon={<ReactIcons.FaCheckCircle />}
+				/>
+			}
 			disablePadding
 		>
 			<ListItemButton
 				onClick={() => {
-					typeof onClick === "function" && onClick();
+					typeof onClick === "function" && onClick(data);
 				}}
 			>
 				<ListItemAvatar>

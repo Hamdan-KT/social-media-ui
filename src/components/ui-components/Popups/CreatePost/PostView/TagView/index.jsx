@@ -1,13 +1,15 @@
-import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
 import {
 	Box,
-	Typography,
 	styled,
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import SearchInput from "components/common/SearchInput";
+import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
+import UserList from "components/ui-components/UserList";
+import { Users } from "src/data";
 
 const StyledContainer = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -21,6 +23,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
 	zIndex: 5,
 	borderRadius: "10px",
 	overflowY: "scroll",
+	flexDirection: "column"
 }));
 
 function TagView({ media }) {
@@ -28,6 +31,7 @@ function TagView({ media }) {
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const [value, setValue] = useState()
 	const [tagPosition, setTagPosition] = useState(null);
 	const [tags, setTags] = useState([]);
 	const [openTagSearch, setOpenTagSearch] = useState(false);
@@ -135,10 +139,25 @@ function TagView({ media }) {
 					sx={{ left: tagPosition?.x, top: tagPosition?.y }}
 					className="scrollbar-hide"
 				>
-					<MobileSearchBar
-						inputProps={{ placeholder: "Search People to Tag..." }}
-						listWrapperStyle={{height: "19vh"}}
-					/>
+					<Box
+						sx={{
+							width: "100%",
+							position: "sticky",
+							left: 0,
+							top: 0,
+							p: 0.5,
+							zIndex: 7,
+							background: theme.palette.background.paper,
+						}}
+					>
+						<SearchInput value={value} setValue={setValue} />
+					</Box>
+					<ScrollBox sx={{ mt: 0, height: "auto" }}>
+						<UserList
+							data={[...Users, ...Users, ...Users]}
+							sx={{ maxWidth: "100%" }}
+						/>
+					</ScrollBox>
 				</StyledContainer>
 			)}
 		</Box>

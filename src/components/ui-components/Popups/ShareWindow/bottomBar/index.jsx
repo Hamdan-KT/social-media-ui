@@ -29,7 +29,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function ShareBottomBar() {
+function ShareBottomBar({ selectedPeoples = false }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -45,68 +45,76 @@ function ShareBottomBar() {
 				background: theme.palette.background.paper,
 				borderTop: `1px solid ${theme.palette.grey[100]}`,
 				height: "7rem",
+				zIndex: 7,
 			}}
 		>
-			{/* <CommonBox
-				sx={{ gap: "2rem", overflowX: "scroll" }}
-				className="scrollbar-hide"
-			>
-				<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
-					<IconButton
-						sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
+			{selectedPeoples ? (
+				<CommonBox sx={{ flexDirection: "column", gap: 1 }}>
+					<StyledInputBase
+						fullWidth
+						// value={value}
+						// onChange={(e) => setValue(e.target.value)}
+						type="text"
+						placeholder="Write a message..."
+						inputProps={{ "aria-label": "text" }}
+					/>
+					<Button
+						variant="contained"
+						sx={{ fontWeight: "bold", borderRadius: 2 }}
+						fullWidth
+						disableElevation
 					>
-						<ReactIcons.RiLinkM style={{ color: theme.palette.text.primary }} />
-					</IconButton>
-					<Typography variant="greyTagsXs">Copy link</Typography>
+						Send
+					</Button>
 				</CommonBox>
-				<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
-					<IconButton
-						sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
-					>
-						<ReactIcons.FaWhatsapp
-							style={{ color: theme.palette.text.primary }}
-						/>
-					</IconButton>
-					<Typography variant="greyTagsXs">WhatsApp</Typography>
-				</CommonBox>
-				<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
-					<IconButton
-						sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
-					>
-						<ReactIcons.HiDownload
-							style={{ color: theme.palette.text.primary }}
-						/>
-					</IconButton>
-					<Typography variant="greyTagsXs">Download</Typography>
-				</CommonBox>
-
-				<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
-					<IconButton
-						sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
-					>
-						<ReactIcons.FiShare style={{ color: theme.palette.text.primary }} />
-					</IconButton>
-					<Typography variant="greyTagsXs">Share to</Typography>
-				</CommonBox>
-			</CommonBox> */}
-			<CommonBox sx={{ flexDirection: "column", gap: 1 }}>
-				<StyledInputBase
-					fullWidth
-					// value={value}
-					// onChange={(e) => setValue(e.target.value)}
-					type="text"
-					placeholder="Write a message..."
-					inputProps={{ "aria-label": "text" }}
-				/>
-				<Button
-					variant="contained"
-					sx={{ fontWeight: "bold", borderRadius: 2 }}
-					fullWidth
-					disableElevation
+			) : (
+				<CommonBox
+					sx={{ gap: "2rem", overflowX: "scroll" }}
+					className="scrollbar-hide"
 				>
-					Send
-				</Button>
-			</CommonBox>
+					<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
+						<IconButton
+							sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
+						>
+							<ReactIcons.RiLinkM
+								style={{ color: theme.palette.text.primary }}
+							/>
+						</IconButton>
+						<Typography variant="greyTagsXs">Copy link</Typography>
+					</CommonBox>
+					<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
+						<IconButton
+							sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
+						>
+							<ReactIcons.FaWhatsapp
+								style={{ color: theme.palette.text.primary }}
+							/>
+						</IconButton>
+						<Typography variant="greyTagsXs">WhatsApp</Typography>
+					</CommonBox>
+					<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
+						<IconButton
+							sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
+						>
+							<ReactIcons.HiDownload
+								style={{ color: theme.palette.text.primary }}
+							/>
+						</IconButton>
+						<Typography variant="greyTagsXs">Download</Typography>
+					</CommonBox>
+
+					<CommonBox sx={{ flexDirection: "column", width: "auto", gap: 0 }}>
+						<IconButton
+							sx={{ padding: "0.8rem", background: theme.palette.grey[300] }}
+						>
+							<ReactIcons.FiShare
+								style={{ color: theme.palette.text.primary }}
+							/>
+						</IconButton>
+						<Typography variant="greyTagsXs">Share to</Typography>
+					</CommonBox>
+				</CommonBox>
+			)}
 		</Box>
 	);
 }

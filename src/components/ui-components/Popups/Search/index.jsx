@@ -1,6 +1,5 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
 import { Box, Divider, Paper } from "@mui/material";
 import UserList from "components/ui-components/UserList";
 import { Users } from "src/data";
@@ -8,38 +7,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Typography } from "@mui/material";
 import _ from "lodash";
-
-const Search = styled("div")(({ theme }) => ({
-	position: "relative",
-	borderRadius: theme.shape.borderRadius,
-	backgroundColor: theme.palette.grey[200],
-	"&:hover": {
-		backgroundColor: theme.palette.grey[200],
-	},
-	width: "100%",
-	marginBottom: "0.5rem",
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-	padding: theme.spacing(0, 2),
-	height: "100%",
-	position: "absolute",
-	pointerEvents: "none",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-	color: "inherit",
-	"& .MuiInputBase-input": {
-		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
-		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-		transition: theme.transitions.create("width"),
-		width: "100%",
-	},
-}));
+import SearchInput from "components/common/SearchInput";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
@@ -48,7 +16,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 	background: theme.palette.background.default,
 	height: "86vh",
 	[theme.breakpoints.up("xs")]: {
-		height: "80vh",
+		height: "81vh",
 	},
 	position: "relative",
 	"&::before": {
@@ -82,21 +50,7 @@ function SearchPopUp() {
 			<Typography variant="h2" p="0.5rem">
 				Search
 			</Typography>
-			<Search>
-				<SearchIconWrapper>
-					<SearchIcon />
-				</SearchIconWrapper>
-				<StyledInputBase
-					fullWidth
-					value={value}
-					onChange={(e) => setValue(e.target.value)}
-					type="search"
-					placeholder="Search…"
-					inputProps={{ "aria-label": "search" }}
-				/>
-
-				{/* search open */}
-			</Search>
+			<SearchInput value={value} setValue={setValue} />
 			<Divider sx={{ mt: 3 }} />
 			<Box
 				sx={{
@@ -124,7 +78,7 @@ function SearchPopUp() {
 						{!_.isEmpty(value) ? (
 							<UserList
 								sx={{ maxWidth: "100%" }}
-								data={Users?.filter((user) => {
+								data={[...Users, ...Users, ...Users]?.filter((user) => {
 									return (
 										user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
 									);

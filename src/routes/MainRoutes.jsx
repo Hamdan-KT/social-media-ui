@@ -9,6 +9,7 @@ const Test = Loadable(lazy(() => import("views/Test")));
 // MAIN ROUTES
 const Home = Loadable(lazy(() => import("views/Home")));
 const Explore = Loadable(lazy(() => import("views/Explore")));
+const ExploreSearch = Loadable(lazy(() => import("views/Explore/Search")));
 const Messages = Loadable(lazy(() => import("views/Messages")));
 const Reels = Loadable(lazy(() => import("views/Reels")));
 const Profile = Loadable(lazy(() => import("views/Profile")));
@@ -33,6 +34,10 @@ const MainRoutes = () => {
 			{
 				path: RoutePath.EXPLORE,
 				element: <Explore />,
+			},
+			{
+				path: RoutePath.EXPLORE_SEARCH,
+				element: <ExploreSearch />,
 			},
 			{
 				path: RoutePath.MESSAGES,

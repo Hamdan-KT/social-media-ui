@@ -57,7 +57,6 @@ import {
 	IoIosAddCircle,
 	IoMdTrash,
 	IoIosSquare,
-	IoIosCheckmarkCircle,
 } from "react-icons/io";
 import {
 	LuSend,
@@ -81,7 +80,12 @@ import {
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
 import { GrAttachment } from "react-icons/gr";
-import { FaRegCopy, FaWhatsapp } from "react-icons/fa";
+import {
+	FaRegCopy,
+	FaWhatsapp,
+	FaCheckCircle,
+	FaRegCircle,
+} from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { FiShare } from "react-icons/fi";
 
@@ -165,7 +169,8 @@ const ReactIcons = {
 	FaWhatsapp,
 	HiDownload,
 	FiShare,
-	IoIosCheckmarkCircle,
+	FaCheckCircle,
+	FaRegCircle,
 };
 
 export default ReactIcons;

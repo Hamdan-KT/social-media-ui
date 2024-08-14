@@ -122,8 +122,8 @@ const BottomSheet = forwardRef(function (
 			}}
 			open={open}
 			onClick={(e) => {
-				e.preventDefault();
-				e.stopPropagation();
+				// e.preventDefault();
+				// e.stopPropagation();
 				onClose();
 			}}
 		>
@@ -131,8 +131,8 @@ const BottomSheet = forwardRef(function (
 				ref={contentRef}
 				open={open}
 				onClick={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
+					// e.preventDefault();
+					// e.stopPropagation();
 				}}
 				style={{
 					background: "white",

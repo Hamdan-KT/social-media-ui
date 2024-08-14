@@ -8,6 +8,9 @@ function SelectionList({
 	sx = {},
 	onClick,
 	data = [],
+	selection,
+	setSelection,
+	dataTag = "",
 }) {
 	const theme = useTheme();
 	return (
@@ -23,9 +26,14 @@ function SelectionList({
 		>
 			{data?.map((user, index) => (
 				<SelectionListItem
+					key={index}
 					data={user}
 					primaryText={user?.name}
 					onClick={onClick}
+					selection={selection}
+					setSelection={setSelection}
+					dataTag={dataTag}
+					index={index}
 				/>
 			))}
 		</List>

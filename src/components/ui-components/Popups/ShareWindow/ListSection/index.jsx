@@ -7,13 +7,15 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import React from "react";
-import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
+import React, { useEffect, useState } from "react";
 import ShareBottomBar from "../bottomBar";
-import UserList from "components/ui-components/UserList";
 import { Users, userStories } from "src/data";
 import ShareHeader from "../header";
 import ProfileAvatar from "components/common/ProfileAvatar";
+import SearchInput from "components/common/SearchInput";
+import _ from "lodash";
+import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
+import SelectionList from "components/ui-components/SelectionList";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -30,23 +32,39 @@ const StyledTickIcon = styled(Box)(({ theme }) => ({
 	justifyContent: "center",
 	width: "auto",
 	borderRadius: "50%",
+	padding: "0.1rem",
 	background: theme.palette.background.paper,
 }));
 
 function ListSection() {
+	const [value, setValue] = useState("");
+	const [selectedUsers, setSelectedUsers] = useState({});
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+
+	const handleSelection = (data) => {
+		let checked = !selectedUsers[data["id"]];
+		if (checked) {
+			setSelectedUsers({
+				...selectedUsers,
+				[data["id"]]: checked,
+			});
+		} else {
+			let updatedSelection = selectedUsers;
+			delete updatedSelection[data["id"]];
+			setSelectedUsers({ ...updatedSelection });
+		}
+	};
+
+	useEffect(() => {
+		console.log(selectedUsers);
+	}, [selectedUsers]);
+
 	return (
 		<>
 			<ShareHeader />
-			<CommonBox sx={{ p: 1.5, pb: 0 }}>
-				<MobileSearchBar
-					inputProps={{ placeholder: "Search" }}
-					listWrapperStyle={{
-						height: { xs: "73.4vh", sm: "calc(100vh - 27rem)"},
-						background: "red",
-					}}
-				/>
+			<CommonBox sx={{ p: 1.5 }}>
+				<SearchInput value={value} setValue={setValue} />
 			</CommonBox>
 			<CommonBox
 				className="scrollbar-hide"
@@ -58,60 +76,74 @@ function ListSection() {
 					p: 0.5,
 				}}
 			>
-				{/* <UserList data={[...Users, ...Users]} sx={{ maxWidth: "100%" }} /> */}
 				<Grid container>
-					{[...userStories, ...userStories]?.map((story, ind) => (
-						<Grid item xs={4} sm={3} key={ind}>
-							<CommonBox
-								sx={{
-									p: 0.5,
-									display: "flex",
-									height: "max-content",
-									flexDirection: "column",
-									alignItems: "center",
-									justifyContent: "center",
-									textAlign: "center",
-									width: "100%",
-								}}
-							>
-								<ProfileAvatar
-									data={story}
-									storyView={false}
-									sx={{
-										width: { xs: 73, sm: 75 },
-										height: { xs: 73, sm: 75 },
-										border: "none",
-										cursor: "pointer",
-									}}
-									badge={true}
-									badgeProps={{
-										badgeContent: (
-											<StyledTickIcon>
-												<ReactIcons.IoIosCheckmarkCircle
-													size={18}
-													style={{ color: theme.palette.primary.main }}
-												/>
-											</StyledTickIcon>
-										),
-									}}
-								/>
-								<Typography
-									noWrap
-									variant="p"
-									sx={{
-										fontSize: { xs: "11px" },
-										userSelect: "none",
-										width: "5rem",
-									}}
-								>
-									{story.name}
-								</Typography>
-							</CommonBox>
-						</Grid>
-					))}
+					{_.isEmpty(value) ? (
+						<>
+							{[...Users, ...Users]?.map((user, ind) => (
+								<Grid item xs={4} sm={3} key={ind}>
+									<CommonBox
+										sx={{
+											p: 0.5,
+											display: "flex",
+											height: "max-content",
+											flexDirection: "column",
+											alignItems: "center",
+											justifyContent: "center",
+											textAlign: "center",
+											width: "100%",
+										}}
+									>
+										<ProfileAvatar
+											data={user}
+											storyView={false}
+											sx={{
+												width: { xs: 73, sm: 75 },
+												height: { xs: 73, sm: 75 },
+												border: "none",
+												cursor: "pointer",
+											}}
+											badge={selectedUsers[user?.id]}
+											badgeProps={{
+												badgeContent: (
+													<StyledTickIcon>
+														<ReactIcons.FaCheckCircle
+															size={18}
+															style={{ color: theme.palette.primary.main }}
+														/>
+													</StyledTickIcon>
+												),
+											}}
+										/>
+										<Typography
+											noWrap
+											variant="p"
+											sx={{
+												fontSize: { xs: "11px" },
+												userSelect: "none",
+												width: "5rem",
+											}}
+										>
+											{user.name}
+										</Typography>
+									</CommonBox>
+								</Grid>
+							))}
+						</>
+					) : (
+						<ScrollBox sx={{ mt: 0, height: "auto" }}>
+							<SelectionList
+								data={[...Users, ...Users, ...Users]}
+								sx={{ maxWidth: "100%" }}
+								selection={selectedUsers}
+								setSelection={setSelectedUsers}
+								onClick={handleSelection}
+								dataTag="id"
+							/>
+						</ScrollBox>
+					)}
 				</Grid>
 			</CommonBox>
-			<ShareBottomBar />
+			<ShareBottomBar selectedPeoples={!_.isEmpty(selectedUsers)} />
 		</>
 	);
 }

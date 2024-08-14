@@ -5,7 +5,6 @@ import {
 	Tab,
 	Tabs,
 	Typography,
-	styled,
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
@@ -14,12 +13,13 @@ import { Users } from "src/data";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import MessageHeader from "./messageHeader";
-import MobileSearchBar from "components/ui-components/MobileSearchBar/MobileSearchBar";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import MessageList from "components/ui-components/MessageList";
 import { RoutePath } from "src/utils/routes";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { messageSections } from "utils/constants";
+import SearchInput from "components/common/SearchInput";
+import ScrollBox from "components/ui-components/Wrappers/scrollBox";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -49,18 +49,6 @@ function a11yProps(index) {
 		"aria-controls": `full-width-tabpanel-${index}`,
 	};
 }
-// scroll box
-const StyledScrollBox = styled(Box)(({ theme }) => ({
-	display: "flex",
-	justifyContent: "center",
-	height: "80vh",
-	alignItems: "flex-start",
-	overflowY: "scroll",
-	scrollBehavior: "smooth",
-	[theme.breakpoints.down("md")]: {
-		height: "100%",
-	},
-}));
 
 const CustomButton = (props) => (
 	<IconButton size="large" color="inherit" {...props}>
@@ -76,16 +64,12 @@ const MSGSECTIONS = [
 
 function Messages() {
 	const theme = useTheme();
-	const [value, setValue] = useState(0);
+	const [value, setValue] = useState("");
+	const [tab, setTab] = useState(0)
 	const { pathname } = useLocation();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [activeSection, setActiveSection] = useState(messageSections.PRIMARY);
-
-	// handling tabs
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
-	};
 
 	return (
 		<Grid container>
@@ -107,15 +91,12 @@ function Messages() {
 							mt: 6,
 						}}
 					>
-						<MobileSearchBar
-							listWrapperStyle={{
-								height: { xs: "89vh", sm: "86vh" },
-							}}
-						/>
+						<SearchInput value={value} setValue={setValue} />
 						<Box
 							sx={{
 								height: "max-content",
 								p: 0,
+								mt: 1,
 								gap: "0.5rem",
 								width: "100%",
 								maxWidth: "100%",
@@ -156,7 +137,7 @@ function Messages() {
 							))}
 						</Box>
 						<Box sx={{ width: "100%" }}>
-							<StyledScrollBox className="scrollbar-hide" sx={{ mt: 0.5 }}>
+							<ScrollBox sx={{ mt: 0.5, height: { xs: "100%", md: "80vh" } }}>
 								<MessageList
 									data={[...Users, ...Users]}
 									sx={{ maxWidth: "100%" }}
@@ -165,7 +146,7 @@ function Messages() {
 										matchDownMd || matchDownSm ? <CustomButton /> : null
 									}
 								/>
-							</StyledScrollBox>
+							</ScrollBox>
 						</Box>
 					</Box>
 				</Grid>
