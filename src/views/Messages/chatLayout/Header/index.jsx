@@ -18,7 +18,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	width: "100%",
 	alignItems: "center",
 	justifyContent: "space-between",
-	padding: "0.4rem 0.4rem",
+	padding: "0.5rem 0.4rem",
 	backgroundColor: theme.palette.background.default,
 	position: "absolute",
 	borderBottom: `1px solid ${theme.palette.grey[400]}`,
@@ -30,7 +30,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	},
 	[theme.breakpoints.down("sm")]: {
 		position: "fixed",
-		padding: "0rem 0.5rem",
+		padding: "0.4rem 0.5rem",
 		width: `100%`,
 		marginLeft: 0,
 	},

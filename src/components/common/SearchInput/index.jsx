@@ -10,7 +10,7 @@ const Search = styled("div")(({ theme }) => ({
 		backgroundColor: theme.palette.grey[200],
 	},
 	width: "100%",
-	zIndex: 7
+	zIndex: 5
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({

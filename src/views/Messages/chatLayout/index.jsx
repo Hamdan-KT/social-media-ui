@@ -37,7 +37,7 @@ function ChatLayout() {
 					<Box
 						sx={{
 							overflowX: "hidden",
-							mt: { xs: 6, sm: 7, md: 8 },
+							mt: { xs: 6, sm: 7, md: 7 },
 							height: {
 								md: messageState?.attachment?.messageId
 									? `calc(100vh - 26.2vh)`
