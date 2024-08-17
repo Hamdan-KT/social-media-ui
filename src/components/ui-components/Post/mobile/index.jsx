@@ -8,7 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Checkbox, useMediaQuery } from "@mui/material";
 import verifiedBadge from "assets/images/verifiedBadge.png";
 import ImgWrapper from "components/common/ImgWrapper";
@@ -22,7 +22,7 @@ import Comments from "components/ui-components/Popups/Comments";
 import { useLocation, useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import ProfileAvatar from "components/common/ProfileAvatar";
-import ShareWindow from "../../Popups/ShareWindow";
+import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
 
 // caption style
 const captionStyle = {
@@ -36,12 +36,14 @@ function PostMobile({ data }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [commentOpen, setCommentOpen] = useState(false);
-	const [shareOpen, setShareOpen] = useState(false)
 	const captionRef = useRef(null);
 	const theme = useTheme();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const shareWindowOpen = useSelector((state) => state.share.shareWindowOpen);
+	const dispatch = useDispatch();
+
 
 	// check expand option of caption
 	useEffect(() => {
@@ -203,7 +205,10 @@ function PostMobile({ data }) {
 						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
 					/>
 				</IconButton>
-				<IconButton aria-label="share" onClick={() => setShareOpen(true)}>
+				<IconButton
+					aria-label="share"
+					onClick={() => dispatch(handleShareWindowOpen(true))}
+				>
 					<ReactIcons.LuSend
 						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
 					/>
@@ -291,8 +296,6 @@ function PostMobile({ data }) {
 			</CardContent>
 			{/* comment modal */}
 			<Comments open={commentOpen} onClose={() => setCommentOpen(false)} />
-			{/* share modal */}
-			<ShareWindow open={shareOpen} onClose={() => setShareOpen(false)} />
 		</Card>
 	);
 }

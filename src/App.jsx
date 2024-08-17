@@ -12,7 +12,7 @@ import themes from "themes";
 
 // project imports
 import NavigationScroll from "layouts/NavigationScroll";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // TEST COMPONENTS
 import ViewPost from "components/ui-components/Popups/ViewPost";
@@ -38,8 +38,9 @@ function App() {
 					{/* test comps */}
 					{/* <ViewPost /> */}
 					{/* <Comments /> */}
-					{/* <CreatePost open={true} /> */}
-					{/* <ShareWindow /> */}
+
+					{/* common popup windows */}
+					<ShareWindow />
 				</NavigationScroll>
 			</ThemeProvider>
 		</StyledEngineProvider>

@@ -16,6 +16,8 @@ import SearchInput from "components/common/SearchInput";
 import _ from "lodash";
 import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
 import SelectionList from "components/ui-components/SelectionList";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedUsers } from "app/slices/shareSlice/shareSlice";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -36,24 +38,27 @@ const StyledTickIcon = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.paper,
 }));
 
-function ListSection({onClose = () => {}}) {
+function ListSection({ onClose = () => {} }) {
 	const [value, setValue] = useState("");
-	const [selectedUsers, setSelectedUsers] = useState({});
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const selectedUsers = useSelector((state) => state.share.selectedUsers);
+	const dispatch = useDispatch();
 
 	const handleSelection = (data) => {
 		if (!_.isEmpty(data)) {
 			let checked = !selectedUsers[data["id"]];
 			if (checked) {
-				setSelectedUsers({
-					...selectedUsers,
-					[data["id"]]: checked,
-				});
+				dispatch(
+					setSelectedUsers({
+						...selectedUsers,
+						[data["id"]]: checked,
+					})
+				);
 			} else {
-				let updatedSelection = selectedUsers;
+				let updatedSelection = { ...selectedUsers };
 				delete updatedSelection[data["id"]];
-				setSelectedUsers({ ...updatedSelection });
+				dispatch(setSelectedUsers({ ...updatedSelection }));
 			}
 		}
 	};

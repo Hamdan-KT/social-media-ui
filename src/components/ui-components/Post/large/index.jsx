@@ -13,7 +13,6 @@ import {
 import React, { useRef, useState } from "react";
 import { commentList } from "src/data";
 import CommentList from "components/ui-components/CommentList";
-import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import Picker from "@emoji-mart/react";
 import ReactIcons from "utils/ReactIcons";
 import emojiData from "@emoji-mart/data";
@@ -21,7 +20,8 @@ import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import PopOver from "components/common/Popover";
-import ShareWindow from "../../Popups/ShareWindow";
+import { useDispatch } from "react-redux";
+import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
 
 const commonStyle = {
 	display: "flex",
@@ -55,7 +55,8 @@ function PostLarge({ data }) {
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
 	const emojPopRef = useRef();
-	const [shareOpen, setShareOpen] = useState(false);
+	const dispatch = useDispatch();
+
 
 	return (
 		<Box
@@ -227,7 +228,7 @@ function PostLarge({ data }) {
 								</IconButton>
 								<IconButton
 									aria-label="share"
-									onClick={() => setShareOpen(true)}
+									onClick={() => dispatch(handleShareWindowOpen(true))}
 								>
 									<ReactIcons.LuSend
 										style={{
@@ -311,7 +312,6 @@ function PostLarge({ data }) {
 					</Box>
 				</Grid>
 			</Grid>
-			<ShareWindow open={shareOpen} onClose={() => setShareOpen(false)} />
 		</Box>
 	);
 }
