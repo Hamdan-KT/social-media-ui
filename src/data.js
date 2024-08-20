@@ -1274,3 +1274,85 @@ export const commentList = [
 		],
 	},
 ];
+
+// fetch profile
+// {
+//     "data": {
+//         "user": {
+//             "friendship_status": null,
+//             "full_name": "✹ حمدان",
+//             "gating": null,
+//             "is_checkpoint_memorialized": false,
+//             "is_private": false,
+//             "has_story_archive": true,
+//             "username": "_.hamdu_",
+//             "supervision_info": {
+//                 "is_guardian_of_viewer": false,
+//                 "is_supervised_by_viewer": false
+//             },
+//             "is_regulated_c18": false,
+//             "regulated_news_in_locations": [],
+//             "text_post_app_badge_label": null,
+//             "show_text_post_app_badge": null,
+//             "text_post_new_post_count": null,
+//             "pk": "6166741010",
+//             "live_broadcast_visibility": null,
+//             "live_broadcast_id": null,
+//             "profile_pic_url": "https://instagram.fccj6-1.fna.fbcdn.net/v/t51.2885-19/450919794_3772739569719648_8352441929016323900_n.jpg?stp=dst-jpg_s150x150\u0026_nc_ht=instagram.fccj6-1.fna.fbcdn.net\u0026_nc_cat=100\u0026_nc_ohc=864KbE3erhMQ7kNvgFC59zp\u0026edm=APHcPcMBAAAA\u0026ccb=7-5\u0026oh=00_AYD5T9QgnVq5BC10qEXhvgXTWqb7AQoer1h6teB8IW6xmg\u0026oe=66C9FA96\u0026_nc_sid=bef7bc",
+//             "hd_profile_pic_url_info": {
+//                 "url": "https://instagram.fccj6-1.fna.fbcdn.net/v/t51.2885-19/450919794_3772739569719648_8352441929016323900_n.jpg?_nc_ht=instagram.fccj6-1.fna.fbcdn.net\u0026_nc_cat=100\u0026_nc_ohc=864KbE3erhMQ7kNvgFC59zp\u0026edm=APHcPcMBAAAA\u0026ccb=7-5\u0026oh=00_AYBCLMdLinAbCaIi2SntWjENPfb1JoHYD9etV2pVYtdRnw\u0026oe=66C9FA96\u0026_nc_sid=bef7bc"
+//             },
+//             "is_unpublished": false,
+//             "latest_reel_media": 0,
+//             "has_profile_pic": true,
+//             "account_type": 3,
+//             "follower_count": 1299,
+//             "is_verified": false,
+//             "mutual_followers_count": null,
+//             "profile_context_links_with_user_ids": null,
+//             "address_street": "",
+//             "city_name": "",
+//             "is_business": false,
+//             "zip": "",
+//             "biography_with_entities": {
+//                 "entities": []
+//             },
+//             "category": "Personal blog",
+//             "should_show_category": true,
+//             "account_badges": [],
+//             "ai_agent_type": null,
+//             "bio_links": [],
+//             "fb_profile_bio_link_web": null,
+//             "external_lynx_url": null,
+//             "external_url": "",
+//             "pronouns": [],
+//             "biography": "",
+//             "transparency_label": null,
+//             "transparency_product": null,
+//             "has_chaining": true,
+//             "remove_message_entrypoint": null,
+//             "fbid_v2": "17841406150320842",
+//             "interop_messaging_user_fbid": "114648383264026",
+//             "show_account_transparency_details": true,
+//             "is_embeds_disabled": false,
+//             "is_professional_account": true,
+//             "following_count": 558,
+//             "media_count": 33,
+//             "total_clips_count": 0,
+//             "latest_besties_reel_media": 0,
+//             "reel_media_seen_timestamp": null,
+//             "id": "6166741010"
+//         },
+//         "viewer": {
+//             "user": {
+//                 "pk": "6166741010",
+//                 "id": "6166741010",
+//                 "can_see_organic_insights": true
+//             }
+//         }
+//     },
+//     "extensions": {
+//         "is_final": true
+//     },
+//     "status": "ok"
+// }

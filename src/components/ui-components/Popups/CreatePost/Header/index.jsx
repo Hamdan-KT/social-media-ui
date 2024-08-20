@@ -1,7 +1,6 @@
 import ReactIcons from "utils/ReactIcons";
 import {
 	Box,
-	CircularProgress,
 	Typography,
 	styled,
 	useTheme,
@@ -11,6 +10,7 @@ import { postStages as ps } from "utils/constants";
 import { setPostStages, cropPosts } from "app/slices/postSlice/postSlice";
 import { getCroppedImg } from "utils/common";
 import { useState } from "react";
+import DefaultLoader from "components/common/DefaultLoader";
 
 const StyledHeader = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -84,7 +84,7 @@ function CreateHeader() {
 					: ""}
 			</Typography>
 			{loading ? (
-				<CircularProgress thickness={6} size={20} />
+				<DefaultLoader size={23} />
 			) : (
 				<Typography
 					variant="body"

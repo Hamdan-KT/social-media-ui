@@ -20,7 +20,7 @@ import Comments from "components/ui-components/Popups/Comments";
 import BottomSheet from "components/common/BottomSheet";
 import ImageViewer from "components/ui-components/ImageViewer";
 import CreatePost from "components/ui-components/Popups/CreatePost";
-import ShareWindow from "./components/ui-components/Popups/ShareWindow";
+import ShareWindow from "components/ui-components/Popups/ShareWindow";
 
 function App() {
 	const customization = useSelector((state) => state.customization);

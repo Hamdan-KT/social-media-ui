@@ -1,5 +1,5 @@
 import { useTheme } from "@mui/material/styles";
-import { Box, Grid, styled, useMediaQuery } from "@mui/material";
+import { Box, Divider, Grid, styled, useMediaQuery } from "@mui/material";
 import { defaultSpacing } from "utils/constants";
 import StorySlider from "components/ui-components/StorySlider";
 import Suggessions from "components/ui-components/ProfileAndSuggession";
@@ -9,6 +9,7 @@ import PostMobile from "components/ui-components/Post/mobile";
 import { userPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
 import { memo, useEffect } from "react";
+import DefaultLoader from "components/common/DefaultLoader";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -36,14 +37,18 @@ function Home() {
 					{/* story Slider */}
 					<StorySlider />
 					{/* post rendering */}
-					{userPosts?.map((data) => (
-						<MemoizedPost key={data?.id} data={data} />
+					{userPosts?.map((data, index, arr) => (
+						<MemoizedPost
+							key={data?.id}
+							data={data}
+							divider={Boolean(index !== arr.length - 1)}
+						/>
 					))}
 				</StyledBox>
 			</Grid>
+			{/* suggession adn profile section */}
 			{!matchDownMd && (
 				<Grid item md={3.5} lg={3.5} xs={0} sm={0}>
-					{/* suggession adn profile section */}
 					<Suggessions />
 				</Grid>
 			)}

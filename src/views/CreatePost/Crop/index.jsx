@@ -3,7 +3,6 @@ import Slider from "components/common/Carousel/Carousel";
 import Slide from "components/common/Carousel/Slide";
 import {
 	Box,
-	CircularProgress,
 	IconButton,
 	Slider as MUISlider,
 	Toolbar,
@@ -32,6 +31,7 @@ import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import { getCroppedImg } from "utils/common";
 import { cropPosts } from "app/slices/postSlice/postSlice";
+import DefaultLoader from "components/common/DefaultLoader";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -206,7 +206,7 @@ function PostViewMobile() {
 					</IconButton>
 					<Typography variant="h4">New Post</Typography>
 					{loading ? (
-						<CircularProgress thickness={6} size={20} sx={{ mr: 1 }} />
+						<DefaultLoader size={23} sx={{ marginRight: 6 }} />
 					) : (
 						<Typography
 							variant="body"

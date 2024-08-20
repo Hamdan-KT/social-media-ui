@@ -9,7 +9,7 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Checkbox, useMediaQuery } from "@mui/material";
+import { Box, Checkbox, Divider, useMediaQuery } from "@mui/material";
 import verifiedBadge from "assets/images/verifiedBadge.png";
 import ImgWrapper from "components/common/ImgWrapper";
 import { useRef } from "react";
@@ -32,7 +32,7 @@ const captionStyle = {
 	display: "-webkit-box",
 };
 
-function PostMobile({ data }) {
+function PostMobile({ data, divider = false }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const [commentOpen, setCommentOpen] = useState(false);
@@ -65,6 +65,7 @@ function PostMobile({ data }) {
 				maxWidth: 470,
 				width: "100%",
 			}}
+			elevation={0}
 		>
 			<CardHeader
 				sx={{
@@ -296,6 +297,9 @@ function PostMobile({ data }) {
 			</CardContent>
 			{/* comment modal */}
 			<Comments open={commentOpen} onClose={() => setCommentOpen(false)} />
+
+			{/* if divider is true */}
+			{divider && !matchDownSm &&  <Divider />}
 		</Card>
 	);
 }
