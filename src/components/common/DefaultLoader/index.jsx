@@ -29,7 +29,7 @@ function DefaultLoader({ sx = {}, barCount = 12, size = 30 }) {
 	};
 
 	return (
-		<Box style={{...loaderStyle, ...sx}}>
+		<Box style={{ ...loaderStyle, ...sx }}>
 			{[...Array(barCount)].map((_, i) => (
 				<Box
 					key={i}
