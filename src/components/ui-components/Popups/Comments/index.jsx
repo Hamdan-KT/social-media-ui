@@ -71,6 +71,7 @@ const Comments = forwardRef(function ({ open, onClose }, ref) {
 					/>
 					{value && (
 						<IconButton
+							disableRipple
 							sx={{
 								background: theme.palette.primary.main,
 								color: theme.palette.background.paper,

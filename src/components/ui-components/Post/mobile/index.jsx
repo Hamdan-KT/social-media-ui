@@ -141,7 +141,7 @@ function PostMobile({ data, divider = false }) {
 			/>
 			{/* images sections */}
 			<CardMedia sx={{ padding: 0 }} alt="Not Found">
-				<Slider>
+				<Slider controllButtons={false}>
 					{Array.isArray(data?.media) &&
 						data?.media?.map((media, ind) => (
 							<Slide key={ind} sx={{ background: "black", height: "100%" }}>
