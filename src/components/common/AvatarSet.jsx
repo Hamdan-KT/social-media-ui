@@ -1,9 +1,9 @@
 import { Avatar, AvatarGroup } from "@mui/material";
 import React from "react";
 
-function AvatarSet({ max, size = 30 }) {
+function AvatarSet({ max = 3, size = 30 }) {
   return (
-    <AvatarGroup max={max}>
+    <AvatarGroup max={max} sx={{ display: "flex", alignItems: "center", justifyContent: "center", width: "max-content"}}>
       <Avatar
         sx={{
           width: size,

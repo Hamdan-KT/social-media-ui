@@ -23,6 +23,7 @@ import { useLocation, useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
+import AvatarSet from "components/common/AvatarSet";
 
 // caption style
 const captionStyle = {
@@ -180,6 +181,7 @@ function PostMobile({ data, divider = false }) {
 			{/* card actions */}
 			<CardActions disableSpacing sx={{ p: 0 }}>
 				<Checkbox
+					size="small"
 					aria-label="like"
 					icon={
 						<ReactIcons.RiHeart3Line
@@ -192,6 +194,7 @@ function PostMobile({ data, divider = false }) {
 						/>
 					}
 				/>
+				<Typography variant="userName">2,034</Typography>
 				<IconButton
 					aria-label="comment"
 					onClick={() =>
@@ -206,14 +209,16 @@ function PostMobile({ data, divider = false }) {
 						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
 					/>
 				</IconButton>
+				<Typography variant="userName">1,034</Typography>
 				<IconButton
 					aria-label="share"
 					onClick={() => dispatch(handleShareWindowOpen(true))}
 				>
 					<ReactIcons.LuSend
-						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
+						style={{ color: `${theme.palette.text.dark}`, fontSize: 23 }}
 					/>
 				</IconButton>
+				<Typography variant="userName">534</Typography>
 				<Checkbox
 					sx={{ ml: "auto" }}
 					aria-label="save"
@@ -232,13 +237,18 @@ function PostMobile({ data, divider = false }) {
 			{/* card content */}
 			<CardContent
 				sx={{
-					p: 1,
+					p: "0rem 0.5rem",
 					color: theme.palette.text.dark,
 				}}
 			>
-				<Typography variant="body" fontWeight="bold">
-					213,034 likes
-				</Typography>
+				{/* like by */}
+				<Box sx={{ display: "flex", alignItems: "center" }}>
+					<AvatarSet size={18} />
+					<Typography variant="body" ml={0.5}>
+						Liked by <Typography variant="userName">Hamdan</Typography> and{" "}
+						<Typography variant="userName">Others</Typography>
+					</Typography>
+				</Box>
 				<Box mt={0.4}>
 					<p
 						style={
@@ -278,7 +288,7 @@ function PostMobile({ data, divider = false }) {
 							more
 						</Typography>
 					) : null)}
-				<Box mt={0.4}>
+				<Box mt={0.4} mb={1}>
 					{/* view comment tag */}
 					<Typography
 						variant="greyTags"
@@ -299,7 +309,7 @@ function PostMobile({ data, divider = false }) {
 			<Comments open={commentOpen} onClose={() => setCommentOpen(false)} />
 
 			{/* if divider is true */}
-			{divider && !matchDownSm &&  <Divider />}
+			{divider && !matchDownSm && <Divider />}
 		</Card>
 	);
 }

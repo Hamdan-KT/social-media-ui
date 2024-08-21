@@ -22,6 +22,7 @@ import ProfileAvatar from "components/common/ProfileAvatar";
 import PopOver from "components/common/Popover";
 import { useDispatch } from "react-redux";
 import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
+import AvatarSet from "components/common/AvatarSet";
 
 const commonStyle = {
 	display: "flex",
@@ -171,7 +172,7 @@ function PostLarge({ data }) {
 								...commonStyle,
 								maxHeight: {
 									sm: "calc(50vh)",
-									md: "calc(100vh - 16.4rem)",
+									md: "calc(100vh - 18rem)",
 								},
 								width: "100%",
 								overflowY: "scroll",
@@ -195,7 +196,7 @@ function PostLarge({ data }) {
 								sx={{
 									...commonStyle,
 									justifyContent: "start",
-									alignItems: "start",
+									alignItems: "center",
 									width: "100%",
 								}}
 							>
@@ -218,6 +219,7 @@ function PostLarge({ data }) {
 										/>
 									}
 								/>
+								<Typography variant="userName">2,034</Typography>
 								<IconButton aria-label="comment">
 									<ReactIcons.RiChat1Line
 										style={{
@@ -226,6 +228,7 @@ function PostLarge({ data }) {
 										}}
 									/>
 								</IconButton>
+								<Typography variant="userName">1,034</Typography>
 								<IconButton
 									aria-label="share"
 									onClick={() => dispatch(handleShareWindowOpen(true))}
@@ -233,10 +236,11 @@ function PostLarge({ data }) {
 									<ReactIcons.LuSend
 										style={{
 											color: `${theme.palette.text.dark}`,
-											fontSize: 25,
+											fontSize: 23,
 										}}
 									/>
 								</IconButton>
+								<Typography variant="userName">534</Typography>
 								<Checkbox
 									sx={{ ml: "auto" }}
 									aria-label="save"
@@ -261,10 +265,19 @@ function PostLarge({ data }) {
 							<Box
 								sx={{
 									...commonStyle,
+									alignItems: "start",
 									padding: "0.2rem 0.8rem",
 									flexDirection: "column",
+									width: "100%",
 								}}
 							>
+								<Box sx={{ display: "flex", alignItems: "center" }}>
+									<AvatarSet size={18} />
+									<Typography variant="body" ml={0.5}>
+										Liked by <Typography variant="userName">Hamdan</Typography>{" "}
+										and <Typography variant="userName">Others</Typography>
+									</Typography>
+								</Box>
 								<Typography variant="caption">4 days ago</Typography>
 							</Box>
 						</Box>

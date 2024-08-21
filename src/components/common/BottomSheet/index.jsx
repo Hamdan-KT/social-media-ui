@@ -89,7 +89,7 @@ const BottomSheet = forwardRef(function (
 				? updateSheetHeight(100)
 				: updateSheetHeight(60);
 			headerRef.current.style.cursor = "grab";
-			contentRef.current.style.transition = "0.2s ease-in";
+			contentRef.current.style.transition = "0.2s ease-in-out";
 			e.preventDefault();
 			e.stopPropagation();
 		};
