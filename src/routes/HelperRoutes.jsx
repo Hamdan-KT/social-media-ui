@@ -14,6 +14,7 @@ const SharePostMobile = Loadable(lazy(() => import("views/CreatePost/Share")));
 const PostTaggingMobile = Loadable(
 	lazy(() => import("views/CreatePost/Tagging"))
 );
+const AuthLayout = Loadable(lazy(() => import("views/Auth")));
 const Login = Loadable(lazy(() => import("views/Auth/Login")));
 const Register = Loadable(lazy(() => import("views/Auth/Register")));
 
@@ -49,12 +50,18 @@ const HelperRoutes = () => {
 			},
 			// auth routes
 			{
-				path: RoutePath.LOGIN,
-				element: <Login />,
-			},
-			{
-				path: RoutePath.REGISTER,
-				element: <Register />,
+				path: RoutePath.AUTH,
+				element: <AuthLayout />,
+				children: [
+					{
+						path: RoutePath.LOGIN,
+						element: <Login />,
+					},
+					{
+						path: RoutePath.REGISTER,
+						element: <Register />,
+					},
+				],
 			},
 		],
 	};

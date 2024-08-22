@@ -37,7 +37,11 @@ function ShareWindow({ open = false, onClose = () => {} }) {
 					<ListSection onClose={() => dispatch(handleShareWindowOpen(false))} />
 				</BottomSheet>
 			) : (
-				<CustomModal closeIcon={true} open={shareWindowOpen} onClose={onClose}>
+				<CustomModal
+					closeIcon={true}
+					open={shareWindowOpen}
+					onClose={() => dispatch(handleShareWindowOpen(false))}
+				>
 					<Wrappper>
 						<ListSection
 							onClose={() => dispatch(handleShareWindowOpen(false))}
