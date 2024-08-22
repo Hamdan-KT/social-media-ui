@@ -17,6 +17,8 @@ import ScreenChat from "assets/images/screenChat.png";
 import ScreenEdit from "assets/images/screenEdit.png";
 import ScreenHome from "assets/images/screenHome.png";
 import ScreenProfile from "assets/images/screenProfile.png";
+import { useNavigate } from "react-router";
+import { RoutePath } from "utils/routes";
 
 const CommonBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -75,14 +77,15 @@ const imgs = [ScreenHome, ScreenProfile, ScreenChat, ScreenEdit];
 function Login() {
 	const theme = useTheme();
 	const [currentImgIndex, setCurrentImgIndex] = useState(0);
+	const navigate = useNavigate();
 
-    // handling auto changing image 
+	// handling auto changing image
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentImgIndex((prevIndex) => (prevIndex + 1) % imgs.length);
 		}, 3000);
 
-        // clean up function
+		// clean up function
 		return () => {
 			clearInterval(interval);
 		};
@@ -106,8 +109,8 @@ function Login() {
 						style={{ display: "block", height: "100%", objectFit: "cover" }}
 					/>
 					<AnimatePresence>
-                        <motion.img
-                            draggable={false}
+						<motion.img
+							draggable={false}
 							key={currentImgIndex}
 							src={imgs[currentImgIndex]}
 							style={{
@@ -143,13 +146,24 @@ function Login() {
 								marginBottom: "2rem",
 							}}
 						/>
-						<StyledTextField size="small" fullWidth placeholder="Username" />
-						<StyledTextField size="small" fullWidth placeholder="Password" />
+						<StyledTextField
+							size="small"
+							type="text"
+							fullWidth
+							placeholder="Username"
+						/>
+						<StyledTextField
+							size="small"
+							type="password"
+							fullWidth
+							placeholder="Password"
+						/>
 						<Button
 							variant="contained"
 							sx={{ fontWeight: "bold", borderRadius: 2, mt: 1 }}
 							disableElevation
 							fullWidth
+							onClick={() => navigate(`${RoutePath.HOME}`)}
 						>
 							Log in
 						</Button>
