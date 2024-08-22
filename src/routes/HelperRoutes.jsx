@@ -2,7 +2,6 @@ import { lazy } from "react";
 import Loadable from "components/common/Loadable";
 import { RoutePath } from "src/utils/routes";
 import MinimalLayout from "../layouts/MinimalLayout";
-
 // testroute
 
 // MAIN ROUTES
@@ -15,6 +14,8 @@ const SharePostMobile = Loadable(lazy(() => import("views/CreatePost/Share")));
 const PostTaggingMobile = Loadable(
 	lazy(() => import("views/CreatePost/Tagging"))
 );
+const Login = Loadable(lazy(() => import("views/Auth/Login")));
+const Register = Loadable(lazy(() => import("views/Auth/Register")));
 
 const HelperRoutes = () => {
 	return {
@@ -45,6 +46,15 @@ const HelperRoutes = () => {
 						element: <PostTaggingMobile />,
 					},
 				],
+			},
+			// auth routes
+			{
+				path: RoutePath.LOGIN,
+				element: <Login />,
+			},
+			{
+				path: RoutePath.REGISTER,
+				element: <Register />,
 			},
 		],
 	};
