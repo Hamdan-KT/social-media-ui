@@ -26,7 +26,7 @@ import {
 	setCropVal,
 	setZoomVal,
 } from "app/slices/postSlice/postSlice";
-import { postStages as ps } from "utils/constants";
+import { postStages as ps, postRatios } from "utils/constants";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import { getCroppedImg } from "utils/common";
@@ -93,17 +93,17 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 const aspectRatios = [
 	{
 		Icon: <ReactIcons.MdCropDin size={23} />,
-		value: 1 / 1,
+		value: postRatios.SQUARE,
 		label: "1:1",
 	},
 	{
 		Icon: <ReactIcons.MdCropPortrait size={23} />,
-		value: 4 / 5,
+		value: postRatios.PORTRAIT,
 		label: "4:5",
 	},
 	{
 		Icon: <ReactIcons.MdCrop32 size={23} />,
-		value: 16 / 9,
+		value: postRatios.LANDSCAPE,
 		label: "16:9",
 	},
 ];
@@ -250,7 +250,8 @@ function PostViewMobile() {
 							}}
 						>
 							<Cropper
-								image={media.url}
+								image={media.type === "image" ? media.url : ""}
+								video={media.type === "video" ? media.url : ""}
 								crop={postStates.activePost?.crop}
 								zoom={postStates.activePost?.zoom}
 								rotation={postStates.activePost?.rotation}

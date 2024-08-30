@@ -24,7 +24,7 @@ import {
 	setCropVal,
 	setZoomVal,
 } from "app/slices/postSlice/postSlice";
-import { postStages as ps } from "utils/constants";
+import { postStages as ps, postRatios } from "utils/constants";
 import EditView from "./EditView";
 import TagView from "./TagView";
 
@@ -78,17 +78,17 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 const aspectRatios = [
 	{
 		Icon: <ReactIcons.MdCropDin size={23} />,
-		value: 1 / 1,
+		value: postRatios.SQUARE,
 		label: "1:1",
 	},
 	{
 		Icon: <ReactIcons.MdCropPortrait size={23} />,
-		value: 4 / 5,
+		value: postRatios.PORTRAIT,
 		label: "4:5",
 	},
 	{
 		Icon: <ReactIcons.MdCrop32 size={23} />,
-		value: 16 / 9,
+		value: postRatios.LANDSCAPE,
 		label: "16:9",
 	},
 ];

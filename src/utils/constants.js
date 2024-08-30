@@ -21,6 +21,14 @@ export const postStages = {
 	SHARE: "share",
 };
 
+export const postRatios = {
+	PORTRAIT: 4 / 5,
+	SQUARE: 1 / 1,
+	LANDSCAPE: 16 / 9,
+	REELS: 9 / 16,
+	STORY: 9 / 16,
+};
+
 export const editingSlidersConfig = [
 	{
 		id: "Brightness",

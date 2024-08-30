@@ -23,7 +23,7 @@ export default function CommentListItem({
 	const [showReply, setShowReply] = useState(false);
 
 	const handleViewReply = () => {
-		setShowReply(true);
+		setShowReply(!showReply);
 	};
 
 	return (
@@ -87,7 +87,7 @@ export default function CommentListItem({
 					}}
 				>
 					<Box>
-						<Box sx={{display:"flex", flexDirection: "column"}}>
+						<Box sx={{ display: "flex", flexDirection: "column" }}>
 							<Typography variant="userName">
 								{comment[primaryText] ?? comment?.name}
 							</Typography>
@@ -125,10 +125,12 @@ export default function CommentListItem({
 								>
 									<Typography
 										onClick={handleViewReply}
-										variant="subtitle2"
-										sx={{ cursor: "pointer", mt: 0.5 }}
+										variant="caption"
+										sx={{ cursor: "pointer", mt: 0.5, fontWeight: "bold" }}
 									>
-										--- View replies({comment?.replies?.length})
+										{showReply
+											? `--- Hide replies`
+											: `--- View replies(${comment?.replies?.length})`}
 									</Typography>
 									{/* <DefaultLoader /> */}
 								</Box>
