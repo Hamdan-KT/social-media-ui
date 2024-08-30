@@ -42,7 +42,6 @@ function PostMobile({ data, divider = false }) {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const shareWindowOpen = useSelector((state) => state.share.shareWindowOpen);
 	const dispatch = useDispatch();
 
 

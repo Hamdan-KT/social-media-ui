@@ -35,19 +35,38 @@ export default function CommentListItem({
 				sx={{ p: "0.2rem 2rem 0.2rem 0.7rem", userSelect: "none" }}
 				alignItems="flex-start"
 				secondaryAction={
-					<Checkbox
-					aria-label="like"
-					icon={
-						<ReactIcons.RiHeart3Line
-							style={{ color: `${theme.palette.text.dark}`, fontSize: "0.9rem" }}
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+					>
+						<Checkbox
+							size="small"
+							aria-label="like"
+							icon={
+								<ReactIcons.RiHeart3Line
+									style={{
+										color: `${theme.palette.text.dark}`,
+										fontSize: "0.9rem",
+									}}
+								/>
+							}
+							checkedIcon={
+								<ReactIcons.RiHeart3Fill
+									style={{
+										color: `${theme.palette.error.main}`,
+										fontSize: "0.9rem",
+									}}
+								/>
+							}
 						/>
-					}
-					checkedIcon={
-						<ReactIcons.RiHeart3Fill
-							style={{ color: `${theme.palette.error.main}`, fontSize: "0.9rem" }}
-						/>
-					}
-				/>
+						<Typography variant="caption" sx={{ fontWeight: "bold" }}>
+							325
+						</Typography>
+					</Box>
 				}
 			>
 				<ListItemAvatar>
@@ -68,12 +87,14 @@ export default function CommentListItem({
 					}}
 				>
 					<Box>
-						<Typography variant="userName">
-							{comment[primaryText] ?? comment?.name}
-							<Typography variant="commonText" sx={{ ml: 1 }}>
+						<Box sx={{display:"flex", flexDirection: "column"}}>
+							<Typography variant="userName">
+								{comment[primaryText] ?? comment?.name}
+							</Typography>
+							<Typography variant="commonText">
 								{comment[secondaryText] ?? comment?.comment}
 							</Typography>
-						</Typography>
+						</Box>
 						<Box
 							sx={{
 								display: "flex",

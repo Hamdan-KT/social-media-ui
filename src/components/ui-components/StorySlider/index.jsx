@@ -66,7 +66,7 @@ const StorySliderBox = styled(Box)(({ theme }) => ({
 	scrollBehavior: "smooth",
 	gap: "1rem",
 	[theme.breakpoints.down("sm")]: {
-		gap: "0.9rem",
+		gap: "0.5rem",
 	},
 }));
 
@@ -112,8 +112,8 @@ function StorySlider(props) {
 								alignItems: "center",
 								justifyContent: "center",
 								textAlign: "center",
-								maxWidth: "5rem",
-								minWidth: { xs: "5rem", sm: "4rem" },
+								maxWidth: "5.5rem",
+								minWidth: { xs: "5.5rem", sm: "4rem" },
 							}}
 						>
 							<ProfileAvatar data={userStories[9]} badge={true} />
@@ -123,7 +123,7 @@ function StorySlider(props) {
 								sx={{
 									fontSize: { xs: "11px" },
 									userSelect: "none",
-									width: "5rem",
+									width: "5.5rem",
 								}}
 							>
 								{userStories[9].name}
@@ -138,8 +138,8 @@ function StorySlider(props) {
 									alignItems: "center",
 									justifyContent: "center",
 									textAlign: "center",
-									maxWidth: "5rem",
-									minWidth: { xs: "5rem", sm: "4rem" },
+									maxWidth: "5.5rem",
+									minWidth: { xs: "5.5rem", sm: "4rem" },
 								}}
 								key={ind}
 							>
@@ -150,7 +150,7 @@ function StorySlider(props) {
 									sx={{
 										fontSize: { xs: "11px" },
 										userSelect: "none",
-										width: "5rem",
+										width: "5.5rem",
 									}}
 								>
 									{story.name}

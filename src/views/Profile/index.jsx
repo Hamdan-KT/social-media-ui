@@ -103,7 +103,7 @@ function Profile() {
 					<Grid item xs={12} sm={8} md={8} lg={8}>
 						<StyledBox
 							sx={{
-								padding: { xs: "1rem", md: "3rem 0rem" },
+								padding: { xs: "0rem 0.5rem", md: "3rem 0rem" },
 								flexDirection: "column",
 								gap: { xs: "0.3rem", sm: "1rem" },
 							}}
@@ -154,8 +154,8 @@ function Profile() {
 								</Typography>
 							</StyledBox>
 							<StyledBox>
-								<AvatarSet max={3} />
-								<Typography variant="p">
+								<AvatarSet max={3} size={27} />
+								<Typography variant="body">
 									Followed By William, Clara and 30 others
 								</Typography>
 							</StyledBox>

@@ -46,6 +46,7 @@ function PostSelect() {
 			} else if (file.type.startsWith("video/")) {
 				fileType = "video";
 			}
+			
 			return {
 				type: fileType,
 				uID: uuidv4(),

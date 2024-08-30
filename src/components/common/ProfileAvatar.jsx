@@ -59,8 +59,8 @@ function ProfileAvatar({
 								src={data?.profile}
 								alt={data?.name}
 								sx={{
-									width: { xs: 74, sm: 59 },
-									height: { xs: 74, sm: 59 },
+									width: { xs: 79, sm: 59 },
+									height: { xs: 79, sm: 59 },
 									border: "1.5px solid #ffff",
 									...sx,
 								}}
@@ -71,8 +71,8 @@ function ProfileAvatar({
 						<Avatar
 							src={data.profile}
 							sx={{
-								width: { xs: 74, sm: 59 },
-								height: { xs: 74, sm: 59 },
+								width: { xs: 79, sm: 59 },
+								height: { xs: 79, sm: 59 },
 								border: "1.5px solid #ffff",
 								...sx,
 							}}
@@ -99,8 +99,8 @@ function ProfileAvatar({
 								src={data?.profile}
 								alt={data?.name}
 								sx={{
-									width: { xs: 74, sm: 59 },
-									height: { xs: 74, sm: 59 },
+									width: { xs: 79, sm: 59 },
+									height: { xs: 79, sm: 59 },
 									border: "1.5px solid #ffff",
 									...sx,
 								}}
@@ -111,8 +111,8 @@ function ProfileAvatar({
 						<Avatar
 							src={data.profile}
 							sx={{
-								width: { xs: 74, sm: 59 },
-								height: { xs: 74, sm: 59 },
+								width: { xs: 79, sm: 59 },
+								height: { xs: 79, sm: 59 },
 								border: "1.5px solid #ffff",
 								...sx,
 							}}
