@@ -2,6 +2,7 @@ import {
 	Avatar,
 	Box,
 	Grid,
+	IconButton,
 	Typography,
 	styled,
 	useMediaQuery,
@@ -15,6 +16,9 @@ import { defaultUser } from "../../data";
 import { defaultSpacing } from "utils/constants";
 import MediaTabs from "./MediaTabs";
 import ProfileAvatar from "components/common/ProfileAvatar";
+import { RoutePath } from "utils/routes";
+import ReactIcons from "utils/ReactIcons";
+import { useNavigate } from "react-router";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -27,6 +31,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 function Profile() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const navigate = useNavigate();
 
 	return (
 		<Grid
@@ -40,20 +45,25 @@ function Profile() {
 				<ProfileHeader />
 				{/* profile bio */}
 				<Grid container sx={{ marginTop: { xs: 4.5, sm: 0 } }}>
-					<Grid item xs={3} sm={4} md={4} lg={4}>
-						<StyledBox sx={{ padding: { xs: "1rem", md: "3rem 4rem" } }}>
+					<Grid item xs={4} sm={3} md={4} lg={4}>
+						<StyledBox
+							sx={{
+								justifyContent: "center",
+								padding: { xs: "1rem", sm: "3rem 0rem" },
+							}}
+						>
 							<ProfileAvatar
 								data={defaultUser}
 								sx={{
-									width: { xs: 85, sm: 154 },
-									height: { xs: 85, sm: 154 },
+									width: { xs: 85, sm: 110, md: 154 },
+									height: { xs: 85, sm: 110, md: 154 },
 									border: "2px solid #ffff",
 								}}
 							/>
 						</StyledBox>
 					</Grid>
 					{matchDownSm && (
-						<Grid item xs={9} sm={8} md={8} lg={8}>
+						<Grid item xs={8} sm={9} md={8} lg={8}>
 							<StyledBox sx={{ minHeight: "15vh", justifyContent: "center" }}>
 								<Box
 									display="flex"
@@ -103,7 +113,7 @@ function Profile() {
 					<Grid item xs={12} sm={8} md={8} lg={8}>
 						<StyledBox
 							sx={{
-								padding: { xs: "0rem 0.5rem", md: "3rem 0rem" },
+								padding: { xs: "0rem 0.5rem", sm: "3rem 0rem" },
 								flexDirection: "column",
 								gap: { xs: "0.3rem", sm: "1rem" },
 							}}
@@ -111,8 +121,10 @@ function Profile() {
 							{!matchDownSm && (
 								<>
 									<StyledBox sx={{ gap: "0.7rem" }}>
-										<Typography variant="h3">Jack Sparrow</Typography>
-										<Btn sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}>
+										<Typography variant="userName" sx={{ fontSize: "1rem" }}>
+											Jack Sparrow
+										</Typography>
+										{/* <Btn sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}>
 											Follow
 										</Btn>
 										<Btn
@@ -120,7 +132,28 @@ function Profile() {
 											sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
 										>
 											Message
+										</Btn> */}
+										<Btn
+											variant="outlined"
+											sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}
+										>
+											Edit Profile
 										</Btn>
+										<Btn
+											variant="outlined"
+											sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
+										>
+											Share Profile
+										</Btn>
+										<IconButton
+											size="small"
+											color="inherit"
+											onClick={() =>
+												navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
+											}
+										>
+											<ReactIcons.IoIosSettings size={27} />
+										</IconButton>
 									</StyledBox>
 									<StyledBox>
 										<Box display="flex" gap="0.5rem">
@@ -139,7 +172,9 @@ function Profile() {
 								</>
 							)}
 							<StyledBox>
-								<Typography variant="h4">Jack Sparrow</Typography>
+								<Typography variant="userName" sx={{ fontSize: "0.85rem" }}>
+									Jack Sparrow
+								</Typography>
 							</StyledBox>
 							<StyledBox>
 								<Typography variant="p" color={theme.palette.grey[500]}>
@@ -161,7 +196,7 @@ function Profile() {
 							</StyledBox>
 							{matchDownSm && (
 								<StyledBox sx={{ padding: "0.5rem 0" }}>
-									<Btn
+									{/* <Btn
 										sx={{
 											width: "100%",
 										}}
@@ -175,6 +210,22 @@ function Profile() {
 										}}
 									>
 										Message
+									</Btn> */}
+									<Btn
+										variant="outlined"
+										sx={{
+											width: "100%",
+										}}
+									>
+										Edit Profile
+									</Btn>
+									<Btn
+										variant="outlined"
+										sx={{
+											width: "100%",
+										}}
+									>
+										Share Profile
 									</Btn>
 								</StyledBox>
 							)}

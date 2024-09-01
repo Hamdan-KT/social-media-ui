@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
 import ReactIcons from "utils/ReactIcons";
+import { RoutePath } from "utils/routes";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -27,18 +28,29 @@ function ProfileHeader() {
 		<>
 			{matchDownSm && (
 				<StyledToolBar>
-					<IconButton size="large" color="inherit" onClick={() => navigate(-1)}>
+					<IconButton
+						size="medium"
+						color="inherit"
+						onClick={() => navigate(-1)}
+					>
 						<ReactIcons.IoChevronBack />
 					</IconButton>
 					<Box>
 						<Typography variant="h4">Jack Sparrow</Typography>
 					</Box>
-					<IconButton
-						size="large"
+					{/* <IconButton
+						size="medium"
 						color="inherit"
 						onClick={() => console.log("more buttom clicked")}
 					>
 						<ReactIcons.MdMoreHoriz />
+					</IconButton> */}
+					<IconButton
+						size="medium"
+						color="inherit"
+						onClick={() => navigate(`/${RoutePath.SETTINGS}`)}
+					>
+						<ReactIcons.MdMenu />
 					</IconButton>
 				</StyledToolBar>
 			)}

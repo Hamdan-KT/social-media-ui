@@ -15,5 +15,15 @@ export const RoutePath = {
 	EDIT: "edit",
 	SHARE: "share",
 	TAG: "tag",
-	POST: "p"
+	POST: "p",
+	ACCOUNT: "account",
+	SETTINGS: "account/settings",
+	SETTINGS_EDIT_PROFILE: "account/edit",
+	SETTINGS_NOTIFICATIONS: "account/notifications",
+	SETTINGS_SAVED_POSTS: "account/saved",
+	SETTINGS_ACCOUNT_PRIVACY: "account/account_privacy",
+	SETTINGS_BLOCKED_ACCOUNTS: "account/blocked_accounts",
+	SETTINGS_MESSAGES_AND_STORY_REPLY: "account/messages_and_story_replies",
+	SETTINGS_COMMENTS: "account/comments",
+	SETTINGS_LIKE_AND_SHARE_COUNT: "account/like_count",
 };

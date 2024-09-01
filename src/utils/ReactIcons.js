@@ -12,6 +12,7 @@ import {
 	IoClose,
 	IoContrast,
 	IoChevronBack,
+	IoNotificationsOutline,
 } from "react-icons/io5";
 import {
 	MdOutlineExplore,
@@ -31,6 +32,7 @@ import {
 	MdMenu,
 	MdMenuOpen,
 	MdFiberManualRecord,
+	MdBlockFlipped,
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
 import {
@@ -49,6 +51,7 @@ import {
 	RiBookmarkLine,
 	RiBookmarkFill,
 	RiLinkM,
+	RiDislikeLine,
 } from "react-icons/ri";
 import {
 	IoMdImages,
@@ -57,6 +60,7 @@ import {
 	IoIosAddCircle,
 	IoMdTrash,
 	IoIosSquare,
+	IoIosSettings,
 } from "react-icons/io";
 import {
 	LuSend,
@@ -87,7 +91,7 @@ import {
 	FaRegCircle,
 } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
-import { FiShare } from "react-icons/fi";
+import { FiShare, FiLock } from "react-icons/fi";
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -171,6 +175,11 @@ const ReactIcons = {
 	FiShare,
 	FaCheckCircle,
 	FaRegCircle,
+	IoIosSettings,
+	IoNotificationsOutline,
+	FiLock,
+	MdBlockFlipped,
+	RiDislikeLine,
 };
 
 export default ReactIcons;
