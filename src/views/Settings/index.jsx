@@ -76,7 +76,6 @@ function Settings() {
 					<SettingsMenu />
 				</Box>
 			) : null}
-
 			{pathname !== `/${RoutePath.SETTINGS}` && (
 				<StyledBox className="scrollbar-hide">
 					<Box sx={{ p: { xs: 1, sm: 1.5 }, mt: -4 }}>
