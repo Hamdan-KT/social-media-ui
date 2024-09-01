@@ -1,4 +1,4 @@
-import MUISwitch from "components/common/FormInputs/Switch";
+import MUISwitch from "components/common/formInputs/Switch";
 import { Box, Typography, styled, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import SettingsHeader from "../SettingsHeader";

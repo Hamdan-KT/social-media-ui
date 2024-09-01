@@ -1,4 +1,4 @@
-import MUISwitch from "components/common/FormInputs/Switch";
+import MUISwitch from "components/common/formInputs/Switch";
 import {
 	Box,
 	FormControlLabel,
