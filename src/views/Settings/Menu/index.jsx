@@ -68,7 +68,7 @@ const SettingsMenu = memo(function () {
 	const { pathname } = useLocation();
 
 	return (
-		<Box sx={{ position: "relative" }}>
+		<Box sx={{ position: "relative", mt: {xs: 5, sm: 0} }}>
 			<List>
 				{menuList.map((item, index) => {
 					let listItemProps = {};

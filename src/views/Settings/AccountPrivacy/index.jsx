@@ -1,5 +1,11 @@
 import MUISwitch from "components/common/formInputs/Switch";
-import { Box, Typography, styled, useMediaQuery, useTheme } from "@mui/material";
+import {
+	Box,
+	Typography,
+	styled,
+	useMediaQuery,
+	useTheme,
+} from "@mui/material";
 import React from "react";
 import SettingsHeader from "../SettingsHeader";
 
@@ -13,12 +19,15 @@ const CommonBox = styled("div")(({ theme }) => ({
 
 function AccountPrivacy() {
 	const theme = useTheme();
-	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"))
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	return (
 		<>
 			<SettingsHeader title="Account Privacy" />
 			<Box
-				sx={{ p: { sm: "1rem", md: "0 2rem", lg: "0 6rem" }, mt: { xs: 10, sm: 0 } }}
+				sx={{
+					p: { sm: "1rem", md: "0 2rem", lg: "0 6rem" },
+					mt: { xs: 10, sm: 0 },
+				}}
 			>
 				{!matchDownSm && (
 					<Box sx={{ p: "0rem", mt: 2.5 }}>

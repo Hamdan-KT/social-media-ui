@@ -1,4 +1,10 @@
-import { Box, Typography, styled, useMediaQuery, useTheme } from "@mui/material";
+import {
+	Box,
+	Typography,
+	styled,
+	useMediaQuery,
+	useTheme,
+} from "@mui/material";
 import React from "react";
 import SettingsHeader from "../SettingsHeader";
 

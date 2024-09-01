@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Outlet, useLocation } from "react-router";
 import { RoutePath } from "src/utils/routes";
+import SettingsHeader from "./SettingsHeader";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	background: theme.palette.background.default,
@@ -67,12 +68,17 @@ function Settings() {
 						height: "100%",
 						overflowY: "scroll",
 						borderRight: `1px solid ${theme.palette.grey[300]}`,
+						position: "relative",
 					}}
 					className="scrollbar-hide"
 				>
-					<Box sx={{ p: "0rem 2rem", mt: 4 }}>
-						<Typography variant="h3">Settings</Typography>
-					</Box>
+					{!matchDownSm ? (
+						<Box sx={{ p: "0rem 2rem", mt: 4 }}>
+							<Typography variant="h3">Settings</Typography>
+						</Box>
+					) : (
+						<SettingsHeader title="Settings"/>
+					)}
 					<SettingsMenu />
 				</Box>
 			) : null}

@@ -24,7 +24,10 @@ function SavedPosts() {
 		<>
 			<SettingsHeader title="Saved Posts" />
 			<Box
-				sx={{ p: { sm: "1rem", md: "0 2rem", lg: "0 6rem" }, mt: { xs: 10, sm: 0 } }}
+				sx={{
+					p: { sm: "1rem", md: "0 2rem", lg: "0 6rem" },
+					mt: { xs: 10, sm: 0 },
+				}}
 			>
 				{!matchDownSm && (
 					<Box sx={{ p: "0rem", mt: 2.5 }}>
