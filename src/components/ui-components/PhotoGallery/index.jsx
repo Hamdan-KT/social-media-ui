@@ -12,6 +12,7 @@ import { Link, useLocation } from "react-router-dom";
 // user post
 import { userPosts } from "src/data";
 import ReactIcons from "utils/ReactIcons";
+import Image from "components/common/Image";
 
 const StyledGallery = styled(Box)(({ theme }) => ({
 	display: "grid",
@@ -105,7 +106,7 @@ function PhotoGallery({sx}) {
 						>
 							<MediaDiv key={index}>
 								{post.media[0]?.type === "image" ? (
-									<img
+									<Image
 										src={post.media[0]?.src}
 										alt="Not Found!"
 										style={{

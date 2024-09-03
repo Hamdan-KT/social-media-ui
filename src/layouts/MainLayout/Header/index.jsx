@@ -8,6 +8,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import PngLogo from "assets/images/logoText.png";
 import { useNavigate } from "react-router";
 import ReactIcons from "utils/ReactIcons";
+import Image from "components/common/Image";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -36,7 +37,7 @@ function MobileHeader() {
 							height: "2rem",
 						}}
 					>
-						<img
+						<Image
 							src={PngLogo}
 							style={{ widht: "100%", userSelect: "none", display: "block" }}
 							alt="not found"

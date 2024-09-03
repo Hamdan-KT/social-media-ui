@@ -5,6 +5,7 @@ import { InstagramFilters } from "utils/filters";
 import { setFilterClassName } from "app/slices/postSlice/postSlice";
 import filterDefaultImg from "assets/images/filtersDefault.jpeg";
 import { useDispatch, useSelector } from "react-redux";
+import Image from "components/common/Image";
 
 const ScrollBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -68,7 +69,7 @@ function PostFiltersMobile() {
 					>
 						{filter?.name}
 					</FilterText>
-					<img
+					<Image
 						src={filterDefaultImg}
 						draggable={false}
 						style={{

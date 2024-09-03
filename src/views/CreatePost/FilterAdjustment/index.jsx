@@ -19,6 +19,8 @@ import { useNavigate } from "react-router";
 import PostFiltersMobile from "./Fiter";
 import PostEditorMobile from "./Edit";
 import { RoutePath } from "utils/routes";
+import Image from "components/common/Image";
+import Video from "components/common/Video";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -108,7 +110,7 @@ function PostEditMobile() {
 							}}
 						>
 							{media?.type === "image" && (
-								<img
+								<Image
 									loading="lazy"
 									draggable={false}
 									src={media?.croppedUrl}
@@ -128,7 +130,7 @@ function PostEditMobile() {
 								/>
 							)}
 							{media?.type === "video" && (
-								<video
+								<Video
 									loading="lazy"
 									draggable={false}
 									src={media?.croppedUrl}

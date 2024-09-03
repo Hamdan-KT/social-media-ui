@@ -12,6 +12,7 @@ import {
 	IoClose,
 	IoContrast,
 	IoChevronBack,
+	IoChevronForward,
 	IoNotificationsOutline,
 } from "react-icons/io5";
 import {
@@ -180,6 +181,7 @@ const ReactIcons = {
 	FiLock,
 	MdBlockFlipped,
 	RiDislikeLine,
+	IoChevronForward,
 };
 
 export default ReactIcons;

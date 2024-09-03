@@ -10,6 +10,8 @@ import { useRef } from "react";
 import { useState } from "react";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Image from "components/common/Image";
+import Video from "components/common/Video";
 
 // Slide main Component
 const Slider = styled(Box)({
@@ -100,7 +102,7 @@ function DefaultImageView({ medias = [] }) {
 									}}
 								>
 									{media?.type === "image" && (
-										<img
+										<Image
 											src={media?.src}
 											alt="Not Found"
 											style={{
@@ -115,7 +117,7 @@ function DefaultImageView({ medias = [] }) {
 										/>
 									)}
 									{media?.type === "video" && (
-										<video
+										<Video
 											controls
 											src={media?.src}
 											alt="Not Found"
@@ -183,7 +185,7 @@ function DefaultImageView({ medias = [] }) {
 										handleSlideBtnClick(ind);
 									}}
 								>
-									<img
+									<Image
 										style={{
 											display: "block",
 											width: "100%",

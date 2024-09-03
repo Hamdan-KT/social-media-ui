@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
+import Image from "components/common/Image";
 
 function NotiListItem({
 	type = "action",
@@ -54,7 +55,7 @@ function NotiListItem({
 									height: "2.5rem",
 								}}
 							>
-								<img
+								<Image
 									style={{
 										display: "block",
 										width: "100%",

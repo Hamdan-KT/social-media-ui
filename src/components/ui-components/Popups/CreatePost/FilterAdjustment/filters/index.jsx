@@ -13,6 +13,7 @@ import MuiIOSSlider from "components/common/formInputs/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { InstagramFilters } from "src/utils/filters";
 import { setFilterClassName } from "app/slices/postSlice/postSlice";
+import Image from "components/common/Image";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -64,7 +65,7 @@ function MediaFilters() {
 								dispatch(setFilterClassName({ className: filter.class }));
 							}}
 						>
-							<img
+							<Image
 								src={filterDefaultImg}
 								draggable={false}
 								style={{

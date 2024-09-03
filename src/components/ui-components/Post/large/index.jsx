@@ -23,6 +23,8 @@ import PopOver from "components/common/Popover";
 import { useDispatch } from "react-redux";
 import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
 import AvatarSet from "components/common/AvatarSet";
+import Video from "components/common/Video";
+import Image from "components/common/Image";
 
 const commonStyle = {
 	display: "flex",
@@ -98,7 +100,7 @@ function PostLarge({ data }) {
 									}}
 								>
 									{media.type === "image" && (
-										<img
+										<Image
 											style={{
 												maxHeight: "92vh",
 												width: "100%",
@@ -113,7 +115,7 @@ function PostLarge({ data }) {
 										/>
 									)}
 									{media.type === "video" && (
-										<video
+										<Video
 											controls
 											key={ind}
 											src={media.src}

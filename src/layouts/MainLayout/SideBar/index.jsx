@@ -33,6 +33,7 @@ import SearchPopUp from "components/ui-components/Popups/Search";
 import NotificationPopUp from "components/ui-components/Popups/Notification";
 import { memo } from "react";
 import { handleSideBarOpen } from "app/slices/layoutSlice/layoutSlice";
+import Image from "components/common/Image";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -141,7 +142,7 @@ const SideBar = memo(function () {
 									ml: 1,
 								}}
 							>
-								<img src={PngLogo} style={{ display: "block", width: "50%" }} />
+								<Image src={PngLogo} style={{ display: "block", width: "50%" }} />
 							</Box>
 						) : (
 							<Box

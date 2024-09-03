@@ -10,6 +10,8 @@ import SearchInput from "components/common/SearchInput";
 import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
 import UserList from "components/ui-components/UserList";
 import { Users } from "src/data";
+import Video from "components/common/Video";
+import Image from "components/common/Image";
 
 const StyledContainer = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -96,7 +98,7 @@ function TagView({ media }) {
 			ref={containerRef}
 		>
 			{media?.type === "image" && (
-				<img
+				<Image
 					onClick={handleImageClick}
 					loading="lazy"
 					draggable={false}
@@ -115,7 +117,7 @@ function TagView({ media }) {
 				/>
 			)}
 			{media?.type === "video" && (
-				<video
+				<Video
 					onClick={handleImageClick}
 					loading="lazy"
 					draggable={false}

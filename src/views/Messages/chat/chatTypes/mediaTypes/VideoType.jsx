@@ -1,3 +1,4 @@
+import Video from "components/common/Video";
 import { Box, styled } from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme, chat }) => ({
@@ -14,7 +15,7 @@ function VideoType({ mediaItem, chat, onClick, sx = {} }) {
 	return (
 		<>
 			<StyledBox chat={chat} onClick={onClick} sx={sx}>
-				<video
+				<Video
 					style={{
 						display: "block",
 						width: "100%",

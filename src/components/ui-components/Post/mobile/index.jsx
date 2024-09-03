@@ -24,6 +24,8 @@ import { RoutePath } from "utils/routes";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
 import AvatarSet from "components/common/AvatarSet";
+import Image from "components/common/Image";
+import Video from "components/common/Video";
 
 // caption style
 const captionStyle = {
@@ -43,7 +45,6 @@ function PostMobile({ data, divider = false }) {
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const dispatch = useDispatch();
-
 
 	// check expand option of caption
 	useEffect(() => {
@@ -109,7 +110,7 @@ function PostMobile({ data, divider = false }) {
 						>
 							<Typography variant="body">{data?.name}</Typography>
 							<ImgWrapper sx={{ width: "0.8rem", height: "0.8rem" }}>
-								<img
+								<Image
 									src={verifiedBadge}
 									style={{
 										display: "block",
@@ -139,13 +140,19 @@ function PostMobile({ data, divider = false }) {
 				subheader={data?.location ? data?.location : null}
 			/>
 			{/* images sections */}
-			<CardMedia sx={{ padding: 0 }} alt="Not Found">
+			<CardMedia
+				sx={{ padding: 0 }}
+				alt="Not Found"
+				// sx={{ aspectRatio: "4/5" }}
+			>
 				<Slider controllButtons={false}>
 					{Array.isArray(data?.media) &&
 						data?.media?.map((media, ind) => (
-							<Slide key={ind} sx={{ background: "black", height: "100%" }}>
+							<Slide
+								key={ind}
+							>
 								{media?.type === "image" && (
-									<img
+									<Image
 										style={{
 											display: "block",
 											objectFit: "cover",
@@ -159,8 +166,9 @@ function PostMobile({ data, divider = false }) {
 									/>
 								)}
 								{media?.type === "video" && (
-									<video
+									<Video
 										controls
+										loop
 										key={ind}
 										src={media?.src}
 										alt="Not Found!"

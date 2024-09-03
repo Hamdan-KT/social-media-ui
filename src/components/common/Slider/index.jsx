@@ -6,6 +6,8 @@ import { forwardRef, useEffect, useState } from "react";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Favorite } from "@mui/icons-material";
+import Image from '../Image';
+import Video from '../Video';
 
 // Slide main Component
 const Slider = styled(Box)({
@@ -83,7 +85,7 @@ const SliderComp = forwardRef(({ medias = [], onDoubleClick }, ref) => {
 				medias?.map((media, ind) => (
 					<>
 						{media?.type === "image" && (
-							<img
+							<Image
 								key={ind}
 								src={media?.src}
 								alt="Not Found"
@@ -100,7 +102,7 @@ const SliderComp = forwardRef(({ medias = [], onDoubleClick }, ref) => {
 							/>
 						)}
 						{media?.type === "video" && (
-							<video
+							<Video
 								key={ind}
 								src={media?.src}
 								alt="Not Found"

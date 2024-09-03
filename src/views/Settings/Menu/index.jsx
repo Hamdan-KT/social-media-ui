@@ -9,16 +9,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { drawerWidth } from "utils/constants";
-import {
-	Box,
-	Typography,
-	useMediaQuery,
-} from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { menuList } from "./MenuList";
 import { forwardRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import _ from "lodash";
 import { memo } from "react";
+import ReactIcons from "utils/ReactIcons";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -68,7 +65,7 @@ const SettingsMenu = memo(function () {
 	const { pathname } = useLocation();
 
 	return (
-		<Box sx={{ position: "relative", mt: {xs: 5, sm: 0} }}>
+		<Box sx={{ position: "relative", mt: { xs: 5, sm: 0 } }}>
 			<List>
 				{menuList.map((item, index) => {
 					let listItemProps = {};
@@ -93,7 +90,14 @@ const SettingsMenu = memo(function () {
 					const OutlinedIcon = item?.outLinedIcon;
 					return (
 						<>
-							<ListItem key={item?.id} disablePadding sx={{ display: "block" }}>
+							<ListItem
+								key={item?.id}
+								disablePadding
+								sx={{ display: "block" }}
+								secondaryAction={
+									matchDownSm && <ReactIcons.IoChevronForward size={21} />
+								}
+							>
 								<StyledListItemButton
 									{...listItemProps}
 									sx={{

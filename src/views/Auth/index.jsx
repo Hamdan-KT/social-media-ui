@@ -13,6 +13,7 @@ import ScreenEdit from "assets/images/screenEdit.png";
 import ScreenHome from "assets/images/screenHome.png";
 import ScreenProfile from "assets/images/screenProfile.png";
 import { Outlet, useNavigate } from "react-router";
+import Image from "components/common/Image";
 
 const CommonBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -97,7 +98,7 @@ function AuthLayout() {
 		>
 			<MainBox sx={{ mt: 1 }}>
 				<ImageSection sx={{ position: "relative" }}>
-					<img
+					<Image
 						draggable={false}
 						src={Mobiles}
 						style={{ display: "block", height: "100%", objectFit: "cover" }}

@@ -13,6 +13,7 @@ import AppStore from "assets/images/appstore.png";
 import PlayStore from "assets/images/playstore.png";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
+import Image from "components/common/Image";
 
 const CommonBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -56,7 +57,7 @@ function Register() {
 					gap: 1,
 				}}
 			>
-				<img
+				<Image
 					src={PngLogo}
 					style={{
 						display: "block",
@@ -135,12 +136,12 @@ function Register() {
 					padding: "0 2.5rem",
 				}}
 			>
-				<img
+				<Image
 					draggable={false}
 					src={AppStore}
 					style={{ display: "block", width: "50%", objectFit: "cover" }}
 				/>
-				<img
+				<Image
 					draggable={false}
 					src={PlayStore}
 					style={{ display: "block", width: "50%", objectFit: "cover" }}

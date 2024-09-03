@@ -1,10 +1,12 @@
+import Image from "components/common/Image";
+import Video from "components/common/Video";
 import React from "react";
 
 function EditView({ media }) {
 	return (
 		<>
 			{media?.type === "image" && (
-				<img
+				<Image
 					loading="lazy"
 					draggable={false}
 					src={media?.croppedUrl}
@@ -22,7 +24,7 @@ function EditView({ media }) {
 				/>
 			)}
 			{media?.type === "video" && (
-				<video
+				<Video
 					loading="lazy"
 					draggable={false}
 					src={media?.croppedUrl}

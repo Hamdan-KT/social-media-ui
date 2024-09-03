@@ -160,6 +160,10 @@ export const userPosts = [
 				type: "image",
 				src: "https://pbs.twimg.com/media/E0NuG_tXEAAlyfj?format=jpg&name=4096x4096",
 			},
+			// {
+			// 	type: "video",
+			// 	src: "https://videos.pexels.com/video-files/5198954/5198954-uhd_1440_2732_25fps.mp4",
+			// },
 		],
 		location: "Worldwide",
 		time: "2d",

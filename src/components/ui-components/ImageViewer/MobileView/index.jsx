@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useRef } from "react";
 import Slider from "components/common/Carousel/Carousel";
 import Slide from "components/common/Carousel/Slide";
+import Image from "components/common/Image";
+import Video from "components/common/Video";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -61,7 +63,7 @@ function MobileImageView({ medias = [] }) {
 										}}
 									>
 										{media?.type === "image" && (
-											<img
+											<Image
 												src={media?.src}
 												alt="Not Found"
 												style={{
@@ -76,7 +78,7 @@ function MobileImageView({ medias = [] }) {
 											/>
 										)}
 										{media?.type === "video" && (
-											<video
+											<Video
 												src={media?.src}
 												alt="Not Found"
 												style={{
@@ -115,7 +117,7 @@ function MobileImageView({ medias = [] }) {
 										medias?.map((media, ind) => (
 											<Slide key={ind} sx={{ padding: "0.4rem" }}>
 												{media?.type === "image" && (
-													<img
+													<Image
 														style={{
 															display: "block",
 															objectFit: "cover",
@@ -130,7 +132,7 @@ function MobileImageView({ medias = [] }) {
 													/>
 												)}
 												{media?.type === "video" && (
-													<video
+													<Video
 														controls
 														key={ind}
 														src={media?.src}

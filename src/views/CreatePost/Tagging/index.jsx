@@ -17,6 +17,8 @@ import { setActivePost } from "app/slices/postSlice/postSlice";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import SearchTagPeoples from "./SearchTag";
+import Image from "components/common/Image";
+import Video from "components/common/Video";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -126,7 +128,7 @@ function PostTaggingMobile() {
 								}}
 							>
 								{media?.type === "image" && (
-									<img
+									<Image
 										onClick={handleImageClick}
 										loading="lazy"
 										draggable={false}
@@ -145,7 +147,7 @@ function PostTaggingMobile() {
 									/>
 								)}
 								{media?.type === "video" && (
-									<video
+									<Video
 										onClick={() => handleImageClick}
 										loading="lazy"
 										draggable={false}
