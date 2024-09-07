@@ -148,9 +148,7 @@ function PostMobile({ data, divider = false }) {
 				<Slider controllButtons={false}>
 					{Array.isArray(data?.media) &&
 						data?.media?.map((media, ind) => (
-							<Slide
-								key={ind}
-							>
+							<Slide key={ind}>
 								{media?.type === "image" && (
 									<Image
 										style={{
@@ -191,13 +189,13 @@ function PostMobile({ data, divider = false }) {
 					size="small"
 					aria-label="like"
 					icon={
-						<ReactIcons.RiHeart3Line
-							style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
+						<ReactIcons.AiOutlineHeart
+							style={{ color: `${theme.palette.text.dark}`, fontSize: 28 }}
 						/>
 					}
 					checkedIcon={
-						<ReactIcons.RiHeart3Fill
-							style={{ color: `${theme.palette.error.main}`, fontSize: 25 }}
+						<ReactIcons.AiFillHeart
+							style={{ color: `${theme.palette.error.main}`, fontSize: 28 }}
 						/>
 					}
 				/>
@@ -212,8 +210,12 @@ function PostMobile({ data, divider = false }) {
 							  })
 					}
 				>
-					<ReactIcons.RiChat1Line
-						style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}
+					<ReactIcons.RiChat3Line
+						style={{
+							color: `${theme.palette.text.dark}`,
+							fontSize: 25,
+							transform: "scaleX(-1)",
+						}}
 					/>
 				</IconButton>
 				<Typography variant="userName">1,034</Typography>
@@ -222,7 +224,11 @@ function PostMobile({ data, divider = false }) {
 					onClick={() => dispatch(handleShareWindowOpen(true))}
 				>
 					<ReactIcons.LuSend
-						style={{ color: `${theme.palette.text.dark}`, fontSize: 23 }}
+						style={{
+							color: `${theme.palette.text.dark}`,
+							fontSize: 24,
+							transform: "rotate(20deg)",
+						}}
 					/>
 				</IconButton>
 				<Typography variant="userName">534</Typography>

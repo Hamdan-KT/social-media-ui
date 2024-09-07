@@ -137,7 +137,7 @@ function PhotoGallery({sx}) {
 								{!matchDownSm && (
 									<HoverDiv className="HoverDiv">
 										<Box sx={defaultStyle}>
-											<ReactIcons.RiHeart3Fill
+											<ReactIcons.AiFillHeart
 												size={22}
 												style={{ color: theme.palette.background.paper }}
 											/>

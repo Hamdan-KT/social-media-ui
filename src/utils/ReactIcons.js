@@ -45,8 +45,6 @@ import {
 	RiHome4Line,
 	RiChat3Fill,
 	RiChat3Line,
-	RiHeart3Line,
-	RiHeart3Fill,
 	RiChat1Fill,
 	RiChat1Line,
 	RiBookmarkLine,
@@ -75,7 +73,12 @@ import {
 	LuTrash,
 	LuSmile,
 } from "react-icons/lu";
-import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
+import {
+	FaRegImage,
+	FaImages,
+	FaPlay,
+	FaPause,
+} from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
 import { LiaPhotoVideoSolid } from "react-icons/lia";
 import {
@@ -93,6 +96,8 @@ import {
 } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
 import { FiShare, FiLock } from "react-icons/fi";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -109,8 +114,8 @@ const ReactIcons = {
 	RiAccountCircleFill,
 	RiHome4Fill,
 	RiHome4Line,
-	RiHeart3Line,
-	RiHeart3Fill,
+	AiOutlineHeart,
+	AiFillHeart,
 	RiChat1Fill,
 	RiChat1Line,
 	LuSend,
@@ -182,6 +187,8 @@ const ReactIcons = {
 	MdBlockFlipped,
 	RiDislikeLine,
 	IoChevronForward,
+	AiOutlineHeart,
+	AiFillHeart,
 };
 
 export default ReactIcons;

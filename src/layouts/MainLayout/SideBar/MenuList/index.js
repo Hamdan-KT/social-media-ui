@@ -44,8 +44,8 @@ export const menuList = [
 	{
 		id: "notifications",
 		title: "Notifications",
-		icon: ReactIcons.RiHeart3Fill,
-		outLinedIcon: ReactIcons.RiHeart3Line,
+		icon: ReactIcons.AiFillHeart,
+		outLinedIcon: ReactIcons.AiOutlineHeart,
 		popup: true,
 		popupType: sidebarpopUps.NOTIFICATION,
 	},

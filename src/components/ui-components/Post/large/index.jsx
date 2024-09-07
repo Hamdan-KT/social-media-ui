@@ -203,30 +203,32 @@ function PostLarge({ data }) {
 								}}
 							>
 								<Checkbox
+									size="small"
 									aria-label="like"
 									icon={
-										<ReactIcons.RiHeart3Line
+										<ReactIcons.AiOutlineHeart
 											style={{
 												color: `${theme.palette.text.dark}`,
-												fontSize: 25,
+												fontSize: 28,
 											}}
 										/>
 									}
 									checkedIcon={
-										<ReactIcons.RiHeart3Fill
+										<ReactIcons.AiFillHeart
 											style={{
 												color: `${theme.palette.error.main}`,
-												fontSize: 25,
+												fontSize: 28,
 											}}
 										/>
 									}
 								/>
 								<Typography variant="userName">2,034</Typography>
 								<IconButton aria-label="comment">
-									<ReactIcons.RiChat1Line
+									<ReactIcons.RiChat3Line
 										style={{
 											color: `${theme.palette.text.dark}`,
 											fontSize: 25,
+											transform: "scaleX(-1)",
 										}}
 									/>
 								</IconButton>
@@ -238,7 +240,8 @@ function PostLarge({ data }) {
 									<ReactIcons.LuSend
 										style={{
 											color: `${theme.palette.text.dark}`,
-											fontSize: 23,
+											fontSize: 24,
+											transform: "rotate(20deg)",
 										}}
 									/>
 								</IconButton>

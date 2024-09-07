@@ -4,13 +4,16 @@ import React, { forwardRef } from "react";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
-	borderRadius: theme.shape.borderRadius,
+	borderRadius: "10px",
 	backgroundColor: theme.palette.grey[200],
 	"&:hover": {
 		backgroundColor: theme.palette.grey[200],
 	},
 	width: "100%",
-	zIndex: 5
+	zIndex: 5,
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "start"
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -26,7 +29,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	color: "inherit",
 	"& .MuiInputBase-input": {
-		padding: theme.spacing(1, 1, 1, 0),
+		padding: theme.spacing(1),
 		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
 		transition: theme.transitions.create("width"),
 		width: "100%",

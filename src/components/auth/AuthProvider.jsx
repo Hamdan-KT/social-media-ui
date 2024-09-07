@@ -31,8 +31,7 @@ function AuthProvider({ children }) {
 		return () => {
 			axios.interceptors.request.eject(authInterceptor);
 		};
-    }, [token]);
-    
+	}, [token]);
 
 	// add response interceptors to refresh token
 	useLayoutEffect(() => {
@@ -46,8 +45,8 @@ function AuthProvider({ children }) {
 				) {
 					try {
 						const response = await axios.get("/refresh");
-						setToken(response?.data?.accessToken);
-						originalRequest.headers.Authorization = `Bearer ${response?.data?.accessToken}`;
+						setToken(response.data.accessToken);
+						originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
 						originalRequest._retry = true;
 						axios(originalRequest);
 					} catch (error) {
@@ -61,7 +60,7 @@ function AuthProvider({ children }) {
 		return () => {
 			axios.interceptors.response.eject(refreshInterceptor);
 		};
-	}, []);
+	}, [token]);
 
 	return <>{children}</>;
 }

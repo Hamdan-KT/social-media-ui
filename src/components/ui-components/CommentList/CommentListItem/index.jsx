@@ -32,7 +32,7 @@ export default function CommentListItem({
 				dense
 				disableGutters
 				disablePadding
-				sx={{ p: "0.2rem 2rem 0.2rem 0.7rem", userSelect: "none" }}
+				sx={{ p: "0.9rem 2rem 0.2rem 0.5rem", userSelect: "none" }}
 				alignItems="flex-start"
 				secondaryAction={
 					<Box
@@ -44,21 +44,22 @@ export default function CommentListItem({
 						}}
 					>
 						<Checkbox
+							sx={{padding: "0.2rem 0.5rem"}}
 							size="small"
 							aria-label="like"
 							icon={
-								<ReactIcons.RiHeart3Line
+								<ReactIcons.AiOutlineHeart
+								size={17}
 									style={{
-										color: `${theme.palette.text.dark}`,
-										fontSize: "0.9rem",
+										color: `${theme.palette.grey[500]}`,
 									}}
 								/>
 							}
 							checkedIcon={
-								<ReactIcons.RiHeart3Fill
+								<ReactIcons.AiFillHeart
+								size={17}
 									style={{
 										color: `${theme.palette.error.main}`,
-										fontSize: "0.9rem",
 									}}
 								/>
 							}

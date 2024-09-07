@@ -5,6 +5,7 @@ import {
 	ListItemAvatar,
 	ListItemButton,
 	ListItemText,
+	useTheme,
 } from "@mui/material";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import ReactIcons from "utils/ReactIcons";
@@ -19,6 +20,7 @@ function SelectionListItem({
 	dataTag = "id",
 	index,
 }) {
+	const theme = useTheme();
 	// handling selection
 	const handleSelection = (checked = false) => {
 		if (checked) {
@@ -43,10 +45,12 @@ function SelectionListItem({
 				<Checkbox
 					onChange={(e) => handleSelection(e.target.checked)}
 					checked={!!selection[data[dataTag]]}
-					icon={<ReactIcons.FaRegCircle />}
-					checkedIcon={<ReactIcons.FaCheckCircle />}
+					icon={<ReactIcons.FaRegCircle size={23} style={{color: theme.palette.grey[400]}} />}
+					checkedIcon={<ReactIcons.FaCheckCircle size={23} />}
 				/>
 			}
+			dense
+			disableGutters
 			disablePadding
 		>
 			<ListItemButton

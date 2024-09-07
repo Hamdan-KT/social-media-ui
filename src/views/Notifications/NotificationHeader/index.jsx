@@ -29,7 +29,7 @@ function NotificationHeader() {
 					<IconButton size="large" color="inherit" onClick={() => navigate(-1)}>
 						<ReactIcons.IoChevronBack />
 					</IconButton>
-					<Typography variant="h3">Notifications</Typography>
+					<Typography variant="h3" sx={{fontSize: "1.5rem"}}>Notifications</Typography>
 				</StyledToolBar>
 			)}
 		</>

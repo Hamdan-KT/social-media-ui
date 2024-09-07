@@ -176,7 +176,7 @@ function ChatInput() {
 						) : (
 							<>
 								<IconButton color="inherit">
-									<ReactIcons.RiHeart3Line />
+									<ReactIcons.AiOutlineHeart />
 								</IconButton>
 								<IconButton
 									color="inherit"

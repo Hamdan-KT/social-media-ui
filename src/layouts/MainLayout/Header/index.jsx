@@ -50,7 +50,7 @@ function MobileHeader() {
 							onClick={() => navigate("/notifications")}
 						>
 							<Badge badgeContent={4} color="error">
-								<ReactIcons.RiHeart3Line />
+								<ReactIcons.AiOutlineHeart />
 							</Badge>
 						</IconButton>
 						<IconButton

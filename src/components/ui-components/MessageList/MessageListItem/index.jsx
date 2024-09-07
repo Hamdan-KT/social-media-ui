@@ -33,6 +33,7 @@ function MessageListItem({
 		<ListItem
 			secondaryAction={actionButton ? ModifiedCustomBtn : null}
 			disablePadding
+			disableGutters
 		>
 			<ListItemButton
 				onClick={() => {
@@ -44,8 +45,8 @@ function MessageListItem({
 					<ProfileAvatar
 						data={data}
 						sx={{
-							width: { xs: 43, sm: 46 },
-							height: { xs: 43, sm: 46 },
+							width: { xs: 50, sm: 46 },
+							height: { xs: 50, sm: 46 },
 						}}
 						containerSx={{ padding: { xs: "2px", sm: "2px" }, mr: 1 }}
 					/>
