@@ -60,6 +60,7 @@ import {
 	IoMdTrash,
 	IoIosSquare,
 	IoIosSettings,
+	IoMdLogOut,
 } from "react-icons/io";
 import {
 	LuSend,
@@ -189,6 +190,7 @@ const ReactIcons = {
 	IoChevronForward,
 	AiOutlineHeart,
 	AiFillHeart,
+	IoMdLogOut,
 };
 
 export default ReactIcons;

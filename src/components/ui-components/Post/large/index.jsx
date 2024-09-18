@@ -176,6 +176,7 @@ function PostLarge({ data }) {
 									sm: "calc(50vh)",
 									md: "calc(100vh - 18rem)",
 								},
+								padding: "0 0.2rem",
 								width: "100%",
 								overflowY: "scroll",
 								justifyContent: "start",

@@ -2,13 +2,11 @@
 /* eslint-disable react/display-name */
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { drawerWidth } from "utils/constants";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { menuList } from "./MenuList";
 import { forwardRef } from "react";
@@ -16,33 +14,7 @@ import { Link, useLocation } from "react-router-dom";
 import _ from "lodash";
 import { memo } from "react";
 import ReactIcons from "utils/ReactIcons";
-
-// third-party-libraries
-// import PerfectScrollbar from 'react-perfect-scrollbar';
-// import { BrowserView, MobileView } from 'react-device-detect';
-
-// open style
-const openedMixin = (theme) => ({
-	width: drawerWidth,
-	transition: theme.transitions.create("width", {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.enteringScreen,
-	}),
-	overflowX: "hidden",
-});
-
-// closing style
-const closedMixin = (theme) => ({
-	transition: theme.transitions.create("width", {
-		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen,
-	}),
-	overflowX: "hidden",
-	width: `calc(${theme.spacing(7)} + 1px)`,
-	[theme.breakpoints.up("sm")]: {
-		width: `calc(${theme.spacing(10)} + 1px)`,
-	},
-});
+import DefaultLoader from "components/common/DefaultLoader";
 
 // styled drawer header
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
@@ -138,6 +110,48 @@ const SettingsMenu = memo(function () {
 						</>
 					);
 				})}
+				<ListItem
+					disablePadding
+					sx={{ display: "block" }}
+					secondaryAction={
+						<DefaultLoader size={23} />
+					}
+				>
+					<StyledListItemButton
+						sx={{
+							justifyContent: "center",
+							px: 2.5,
+							ml: 1.2,
+							mr: 1.2,
+							mt: 1,
+							mb: 1,
+						}}
+					>
+						<ListItemIcon
+							sx={{
+								minWidth: 0,
+								mr: 1.5,
+								justifyContent: "center",
+							}}
+						>
+							<ReactIcons.IoMdLogOut
+								style={{
+									fontSize: 27,
+									color: `${theme.palette.error.main}`,
+								}}
+							/>
+						</ListItemIcon>
+						<ListItemText
+							primary="Log Out"
+							primaryTypographyProps={{
+								sx: { color: `${theme.palette.error.main}` },
+								fontFamily: "poppins",
+								fontWeight: "medium",
+								fontSize: "0.82rem",
+							}}
+						/>
+					</StyledListItemButton>
+				</ListItem>
 			</List>
 		</Box>
 	);

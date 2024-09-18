@@ -67,7 +67,7 @@ function Settings() {
 						width: 390,
 						height: "100%",
 						overflowY: "scroll",
-						borderRight: `1px solid ${theme.palette.grey[300]}`,
+						borderRight: {xs: "none", sm: `1px solid ${theme.palette.grey[300]}`},
 						position: "relative",
 					}}
 					className="scrollbar-hide"
