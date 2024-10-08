@@ -73,7 +73,13 @@ export const getCroppedImg = (imageSrc, crop) => {
 
 // format media duration to wavesurfer lib
 export const formatDuration = (seconds) => {
-	const date = new Date(0)
+	const date = new Date(0);
 	date.setSeconds(seconds);
 	return date.toISOString().substring(14, 19);
-}
+};
+
+export const handleApiCallError = (error) => {
+	if (error.name == "AxiosError") {
+		throw error.response.data;
+	} else throw error;
+};

@@ -6,7 +6,7 @@ import { postStages as ps } from "utils/constants";
 const initialState = {
 	postMedias: [],
 	activePost: {},
-	aspectRatio: 1 / 1, //default aspect ratio to all post medias
+	aspectRatio: 4 / 5, //default aspect ratio to all post medias
 	postStages: {
 		[postStages.CROP]: true,
 		[postStages.EDIT]: false,
