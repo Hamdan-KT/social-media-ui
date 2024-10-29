@@ -80,6 +80,6 @@ export const formatDuration = (seconds) => {
 
 export const handleApiCallError = (error) => {
 	if (error.name == "AxiosError") {
-		throw error.response.data;
+		throw error.response;
 	} else throw error;
 };

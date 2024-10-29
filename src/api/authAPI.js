@@ -1,55 +1,54 @@
-import { handleApiCallError } from "utils/common";
+import { handleApiCallError } from "src/utils/common";
 import { apiClient, authClient } from "./axios";
 
-export const signIn = async (formData) => {
+// Register a new user
+export const registerUser = async (userData) => {
 	try {
-		const res = await authClient.post("/users/signin", formData, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		return res.data;
+		const { data } = await authClient.post("/auth/register", userData);
+		return data;
 	} catch (error) {
-		return handleApiCallError(error);
+		handleApiCallError(error);
 	}
 };
 
-export const signUp = async (formData) => {
+// Log in an existing user
+export const loginUser = async (credentials) => {
 	try {
-		const res = await authClient.post("/users/signup", formData, {
-			headers: {
-				// "Content-Type": "multipart/form-data",
-				"Content-Type": "application/json",
-			},
-		});
-		return res.data;
+		const { data } = await authClient.post("/auth/login", credentials);
+		return data;
 	} catch (error) {
-		return handleApiCallError(error);
+		handleApiCallError(error);
 	}
 };
 
-export const logout = async () => {
+// Log out the currently authenticated user
+export const logoutUser = async () => {
 	try {
-		const res = await apiClient.post("/users/logout", {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		return res.data;
+		const { data } = await apiClient.post("/auth/logout");
+		return data;
 	} catch (error) {
-		return handleApiCallError(error);
+		handleApiCallError(error);
 	}
 };
 
-export const refreshToken = async () => {
+// Refresh the authentication token
+export const refreshAuthToken = async (refreshToken) => {
 	try {
-		const res = await apiClient.post("/users/refresh", {
-			headers: {
-				"Content-Type": "application/json",
-			},
+		const { data } = await apiClient.post("/auth/refresh-token", {
+			refreshToken,
 		});
-		return res.data;
+		return data;
 	} catch (error) {
-		return handleApiCallError(error);
+		handleApiCallError(error);
+	}
+};
+
+// Get the currently authenticated user's details
+export const getCurrentUser = async () => {
+	try {
+		const { data } = await apiClient.get("/auth/current-user");
+		return data;
+	} catch (error) {
+		handleApiCallError(error);
 	}
 };

@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export const apiClient = axios.create({
-	baseURL: process.env.API_URL,
+	baseURL: import.meta.env.VITE_API_URL,
 });
 
 export const authClient = axios.create({
-	baseURL: process.env.API_URL,
+	baseURL: import.meta.env.VITE_API_URL,
 });
 
 // To share cookies to cross site domain, change to true.

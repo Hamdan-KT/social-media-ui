@@ -1,3 +1,4 @@
+import { apiClient } from "src/api/axios";
 import axios from "axios";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 
@@ -7,7 +8,7 @@ function AuthProvider({ children }) {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const response = await axios.get("/me");
+				const response = await apiClient.get("/me");
 				setToken(response?.data?.token);
 			} catch (error) {
 				setToken(null);
@@ -19,7 +20,7 @@ function AuthProvider({ children }) {
 
 	// adding request interceptors to api
 	useLayoutEffect(() => {
-		const authInterceptor = axios.interceptors.request.use((config) => {
+		const authInterceptor = apiClient.interceptors.request.use((config) => {
 			config.headers.Authorization =
 				!config._retry && token
 					? `Bearer ${token}`
@@ -29,13 +30,13 @@ function AuthProvider({ children }) {
 
 		// clean up function
 		return () => {
-			axios.interceptors.request.eject(authInterceptor);
+			apiClient.interceptors.request.eject(authInterceptor);
 		};
 	}, [token]);
 
 	// add response interceptors to refresh token
 	useLayoutEffect(() => {
-		const refreshInterceptor = axios.interceptors.response.use(
+		const refreshInterceptor = apiClient.interceptors.response.use(
 			(response) => response,
 			async (error) => {
 				const originalRequest = error.config;
@@ -44,11 +45,11 @@ function AuthProvider({ children }) {
 					error.response.data.message === "Unauthorized"
 				) {
 					try {
-						const response = await axios.get("/refresh");
+						const response = await apiClient.get("/refresh");
 						setToken(response.data.accessToken);
 						originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
 						originalRequest._retry = true;
-						axios(originalRequest);
+						apiClient(originalRequest);
 					} catch (error) {
 						setToken(null);
 					}
@@ -58,7 +59,7 @@ function AuthProvider({ children }) {
 		);
 
 		return () => {
-			axios.interceptors.response.eject(refreshInterceptor);
+			apiClient.interceptors.response.eject(refreshInterceptor);
 		};
 	}, [token]);
 
