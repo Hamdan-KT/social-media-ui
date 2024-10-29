@@ -29,6 +29,11 @@ export const postRatios = {
 	STORY: 9 / 16,
 };
 
+export const commentTypes = {
+	GENERAL: "general",
+	REPLY: "reply",
+};
+
 export const editingSlidersConfig = [
 	{
 		id: "Brightness",
