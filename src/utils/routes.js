@@ -8,6 +8,8 @@ export const RoutePath = {
 	MESSAGES: "messages",
 	REELS: "reels",
 	PROFILE: "profile",
+	PROFILE_SAVED: "profile/saved",
+	PROFILE_TAGGED: "profile/tagged",
 	NOTIFICATIONS: "notifications",
 	STORY: "story",
 	CREATE: "create",

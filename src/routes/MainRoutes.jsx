@@ -13,6 +13,13 @@ const ExploreSearch = Loadable(lazy(() => import("views/Explore/Search")));
 const Messages = Loadable(lazy(() => import("views/Messages")));
 const Reels = Loadable(lazy(() => import("views/Reels")));
 const Profile = Loadable(lazy(() => import("views/Profile")));
+const ProfilePosts = Loadable(lazy(() => import("views/Profile/Posts")));
+const ProfileSavedPosts = Loadable(
+	lazy(() => import("views/Profile/SavedPosts"))
+);
+const ProfileTaggedPosts = Loadable(
+	lazy(() => import("views/Profile/TaggedPosts"))
+);
 const Notifications = Loadable(lazy(() => import("views/Notifications")));
 const ViewPostMobile = Loadable(lazy(() => import("views/ViewPost")));
 // Sub windows
@@ -78,6 +85,20 @@ const MainRoutes = () => {
 			{
 				path: RoutePath.PROFILE,
 				element: <Profile />,
+				children: [
+					{
+						path: `/${RoutePath.PROFILE}`,
+						element: <ProfilePosts />,
+					},
+					{
+						path: `/${RoutePath.PROFILE_SAVED}`,
+						element: <ProfileSavedPosts />,
+					},
+					{
+						path: `/${RoutePath.PROFILE_TAGGED}`,
+						element: <ProfileTaggedPosts />,
+					},
+				],
 			},
 			{
 				path: RoutePath.NOTIFICATIONS,

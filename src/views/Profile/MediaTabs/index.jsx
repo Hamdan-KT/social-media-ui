@@ -6,6 +6,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PhotoGallery from "components/ui-components/PhotoGallery";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { Outlet, useLocation, useNavigate } from "react-router";
+import { RoutePath } from "src/utils/routes";
+import { Link } from "react-router-dom";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -41,16 +44,29 @@ function a11yProps(index) {
 function MediaTabs() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const [value, setValue] = useState(0);
+	const navigate = useNavigate();
+	const location = useLocation();
 
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
+	const tabValue =
+		{
+			[`/${RoutePath.PROFILE}`]: 0,
+			[`/${RoutePath.PROFILE_SAVED}`]: 1,
+			[`/${RoutePath.PROFILE_TAGGED}`]: 2,
+		}[location.pathname] || 0;
+
+	const handleChange = (_, newValue) => {
+		const paths = [
+			`/${RoutePath.PROFILE}`,
+			`/${RoutePath.PROFILE_SAVED}`,
+			`/${RoutePath.PROFILE_TAGGED}`,
+		];
+		navigate(paths[newValue]);
 	};
 
 	return (
 		<Box sx={{ width: "100%", marginTop: "1rem" }}>
 			<Tabs
-				value={value}
+				value={tabValue}
 				onChange={handleChange}
 				indicatorColor="secondary"
 				textColor="inherit"
@@ -77,14 +93,8 @@ function MediaTabs() {
 				/>
 			</Tabs>
 			<Box sx={{ width: "100%" }}>
-				<TabPanel value={value} index={0} dir={theme.direction}>
-					<PhotoGallery />
-				</TabPanel>
-				<TabPanel value={value} index={1} dir={theme.direction}>
-					<PhotoGallery />
-				</TabPanel>
-				<TabPanel value={value} index={2} dir={theme.direction}>
-					<PhotoGallery />
+				<TabPanel dir={theme.direction}>
+					<Outlet />
 				</TabPanel>
 			</Box>
 		</Box>
