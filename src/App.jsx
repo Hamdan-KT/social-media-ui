@@ -13,6 +13,8 @@ import themes from "themes";
 // project imports
 import NavigationScroll from "layouts/NavigationScroll";
 import { useDispatch, useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
+
 
 // TEST COMPONENTS
 import ViewPost from "components/ui-components/Popups/ViewPost";
@@ -35,6 +37,8 @@ function App() {
 				<NavigationScroll>
 					{/* routes */}
 					<AppRouting />
+					{/* toaster component */}
+					<Toaster />
 					{/* test comps */}
 					{/* <ViewPost /> */}
 					{/* <Comments /> */}

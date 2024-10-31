@@ -34,6 +34,8 @@ import {
 	MdMenuOpen,
 	MdFiberManualRecord,
 	MdBlockFlipped,
+	MdVisibility,
+	MdVisibilityOff
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
 import {
@@ -188,9 +190,9 @@ const ReactIcons = {
 	MdBlockFlipped,
 	RiDislikeLine,
 	IoChevronForward,
-	AiOutlineHeart,
-	AiFillHeart,
 	IoMdLogOut,
+	MdVisibility,
+	MdVisibilityOff
 };
 
 export default ReactIcons;
