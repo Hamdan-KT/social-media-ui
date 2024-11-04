@@ -121,6 +121,7 @@ function PostView() {
 	}, []);
 	// handling media Rotation
 	const onRotationChange = (rotation) => {
+		console.log({rotationChange: rotation});
 		dispatch(
 			setRotationVal({
 				uID: postStates.activePost?.uID,
@@ -190,6 +191,7 @@ function PostView() {
 											setCropVal({ uID: postStates.activePost?.uID, crop })
 										);
 									}}
+									onRotationChange={(rotation) => onRotationChange(rotation)}
 									onZoomChange={(zoom) => {
 										dispatch(
 											setZoomVal({ uID: postStates.activePost?.uID, zoom })

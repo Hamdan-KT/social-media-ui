@@ -95,7 +95,7 @@ const BottomBar = memo(function () {
 				filterClassName: "",
 				customFilters: {
 					Brightness: 100,
-					Contrast: 0,
+					Contrast: 100,
 					Saturation: 100,
 					Fade: 0,
 					Temperature: 0,

@@ -10,11 +10,17 @@ import ListItemText from "@mui/material/ListItemText";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { menuList } from "./MenuList";
 import { forwardRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { memo } from "react";
 import ReactIcons from "utils/ReactIcons";
 import DefaultLoader from "components/common/DefaultLoader";
+import { useMutation } from "@tanstack/react-query";
+import { logoutUser } from "src/api/authAPI";
+import { RoutePath } from "src/utils/routes";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { saveUser, setToken } from "src/app/slices/userSlice/userSlice";
 
 // styled drawer header
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
@@ -35,6 +41,22 @@ const SettingsMenu = memo(function () {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const { pathname } = useLocation();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const logOut = useMutation({
+		mutationKey: ["logout"],
+		mutationFn: (userData) => logoutUser(userData),
+		onSuccess: (data) => {
+			toast.success(data?.message);
+			dispatch(saveUser({}));
+			dispatch(setToken(null));
+			navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, { replace: true });
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	return (
 		<Box sx={{ position: "relative", mt: { xs: 5, sm: 0 } }}>
@@ -113,9 +135,8 @@ const SettingsMenu = memo(function () {
 				<ListItem
 					disablePadding
 					sx={{ display: "block" }}
-					secondaryAction={
-						<DefaultLoader size={23} />
-					}
+					secondaryAction={logOut.isPending && <DefaultLoader size={23} />}
+					onClick={logOut.mutate}
 				>
 					<StyledListItemButton
 						sx={{

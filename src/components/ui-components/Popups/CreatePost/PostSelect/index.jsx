@@ -5,6 +5,7 @@ import {
 	TextField,
 	Typography,
 	styled,
+	useMediaQuery,
 	useTheme,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +33,7 @@ function PostSelect() {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const aspectRatio = useSelector((state) => state.post.aspectRatio);
+	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	// const postStates = useSelector((state) => state.post);
 
 	// handle selection of post images
@@ -46,7 +48,7 @@ function PostSelect() {
 			} else if (file.type.startsWith("video/")) {
 				fileType = "video";
 			}
-			
+
 			return {
 				type: fileType,
 				uID: uuidv4(),
@@ -61,7 +63,7 @@ function PostSelect() {
 				filterClassName: "",
 				customFilters: {
 					Brightness: 100,
-					Contrast: 0,
+					Contrast: 100,
 					Saturation: 100,
 					Fade: 0,
 					Temperature: 0,
@@ -74,8 +76,11 @@ function PostSelect() {
 
 	return (
 		<MainBox>
-			<ReactIcons.LiaPhotoVideoSolid size={100} />
-			<Typography variant="body" style={{ fontSize: "1.1rem" }}>
+			<ReactIcons.LiaPhotoVideoSolid size={matchDownMd ? 60 : 100} />
+			<Typography
+				variant="body"
+				style={{ fontSize: matchDownMd ? "0.9em" : "1.1rem" }}
+			>
 				Drag photos and videos here
 			</Typography>
 			<Button

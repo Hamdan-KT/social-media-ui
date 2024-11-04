@@ -1,16 +1,15 @@
 import ReactIcons from "utils/ReactIcons";
-import {
-	Box,
-	Typography,
-	styled,
-	useTheme,
-} from "@mui/material";
+import { Box, Typography, styled, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
 import { setPostStages, cropPosts } from "app/slices/postSlice/postSlice";
-import { getCroppedImg } from "utils/common";
+import { getCroppedImg, getEditedImage } from "src/utils/common";
 import { useState } from "react";
 import DefaultLoader from "components/common/DefaultLoader";
+import { useMutation } from "@tanstack/react-query";
+import { createPost } from "src/api/postAPI";
+import toast from "react-hot-toast";
+import { clearPosts } from "src/app/slices/postSlice/postSlice";
 
 const StyledHeader = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -23,7 +22,7 @@ const StyledHeader = styled(Box)(({ theme }) => ({
 	borderBottom: `1px solid ${theme.palette.grey[300]}`,
 }));
 
-function CreateHeader() {
+function CreateHeader({ onClose }) {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
@@ -35,7 +34,12 @@ function CreateHeader() {
 		await Promise.all(
 			postMedias?.map(async (media) => ({
 				...media,
-				croppedUrl: await getCroppedImg(media?.url, media.croppedAreaPixels),
+				croppedUrl: await getCroppedImg(
+					media?.url,
+					media.croppedAreaPixels,
+					media?.rotation,
+					media?.flip
+				),
 			}))
 		)
 			.then((result) => {
@@ -43,10 +47,55 @@ function CreateHeader() {
 				return dispatch(cropPosts(result));
 			})
 			.catch((error) => {
-				console.log(error)
+				console.log(error);
 				setLoading(false);
 			});
 	};
+
+	const formattedPostData = async (postMedias) => {
+		const formData = new FormData();
+		let postData = {};
+		setLoading(true);
+		await Promise.all(
+			postMedias?.map(async (media) => {
+				formData.append(
+					[media?.uID],
+					await getEditedImage(media.croppedUrl, media?.customFilters)
+				);
+				postData[media?.uID] = media?.tags ?? [];
+			})
+		)
+			.then((result) => {
+				console.log({ submit: result });
+				for (const key in postStates?.postDetails) {
+					formData.append(key, postStates?.postDetails[key]);
+				}
+				formData.append("postData", JSON.stringify(postData));
+				// Convert FormData to an object
+				const formDataObject = Object.fromEntries(formData.entries());
+				console.log({ formDataObject });
+				setLoading(false);
+				return uploadPost.mutate(formData);
+			})
+			.catch((error) => {
+				console.log(error);
+				setLoading(false);
+			});
+	};
+
+	const uploadPost = useMutation({
+		mutationKey: ["createPost"],
+		mutationFn: (userData) => createPost(userData),
+		onSuccess: (data) => {
+			onClose();
+			dispatch(clearPosts());
+			toast.success(data?.message);
+			// navigate(RoutePath.HOME, { replace: true });
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	const handleStageChange = (type = "next") => {
 		if (type === "next") {
@@ -56,17 +105,19 @@ function CreateHeader() {
 				}
 			} else if (postStates?.postStages[ps.EDIT]) {
 				dispatch(setPostStages({ type: ps.SHARE, value: true }));
-			} else return;
+			} else {
+				return formattedPostData(postStates?.postMedias);
+			}
 		} else {
 			if (postStates?.postStages[ps.SHARE]) {
 				dispatch(setPostStages({ type: ps.EDIT, value: true }));
 			} else if (postStates?.postStages[ps.EDIT]) {
 				dispatch(setPostStages({ type: ps.CROP, value: true }));
-			} else return;
+			} else {
+				return;
+			}
 		}
 	};
-
-	console.log(postStates?.postMedias?.length !== 0);
 
 	return (
 		<StyledHeader>
@@ -74,7 +125,7 @@ function CreateHeader() {
 				style={{ fontSize: "1.7rem", cursor: "pointer" }}
 				onClick={() => handleStageChange("prev")}
 			/>
-			<Typography variant="h4" sx={{userSelect: "none"}}>
+			<Typography variant="h4" sx={{ userSelect: "none" }}>
 				{postStates?.postStages[ps.CROP]
 					? "Crop"
 					: postStates?.postStages[ps.EDIT]
@@ -83,12 +134,12 @@ function CreateHeader() {
 					? "Share"
 					: ""}
 			</Typography>
-			{loading ? (
+			{loading || uploadPost.isPending ? (
 				<DefaultLoader size={23} />
 			) : (
 				<Typography
 					variant="body"
-						sx={{
+					sx={{
 						userSelect: "none",
 						cursor: "pointer",
 						padding: "0 0.3rem",

@@ -29,7 +29,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
 	overflow: "hidden",
 }));
 
-function CreatePost({ open = false, onClose }) {
+function CreatePost({ open = false, onClose = () => {} }) {
 	const theme = useTheme();
 	const dispatch = useDispatch()
 	const postMedias = useSelector((state) => state.post.postMedias);
@@ -47,7 +47,7 @@ function CreatePost({ open = false, onClose }) {
 			}}
 		>
 			<MainBox>
-				<CreateHeader />
+				<CreateHeader onClose={onClose}/>
 				<ContentBox>
 					{postMedias?.length !== 0 ? <PostView /> : <PostSelect />}
 					<FilterAdjustment />

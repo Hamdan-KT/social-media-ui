@@ -2,11 +2,17 @@ import {
 	Box,
 	Button,
 	Divider,
+	FormControl,
+	FormHelperText,
+	IconButton,
+	InputAdornment,
+	OutlinedInput,
 	TextField,
 	Typography,
 	styled,
 	useTheme,
 } from "@mui/material";
+import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import PngLogo from "assets/images/logoText.png";
 import AppStore from "assets/images/appstore.png";
@@ -14,6 +20,12 @@ import PlayStore from "assets/images/playstore.png";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import Image from "components/common/Image";
+import { useFormik } from "formik";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { loginUser } from "src/api/authAPI";
+import DefaultLoader from "src/components/common/DefaultLoader";
+import ReactIcons from "src/utils/ReactIcons";
 
 const CommonBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -44,7 +56,7 @@ const LoginBox = styled(Box)(({ theme }) => ({
 	padding: "1rem 2.5rem",
 }));
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
+const StyledTextField = styled(OutlinedInput)(({ theme }) => ({
 	".MuiInputBase-root": {
 		background: "#F5F7F880",
 	},
@@ -54,9 +66,40 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 	},
 }));
 
+const initialValues = {
+	userName: "",
+	password: "",
+};
+
 function Login() {
 	const theme = useTheme();
 	const navigate = useNavigate();
+
+	const [showPassword, setShowPassword] = useState(false);
+
+	const formik = useFormik({
+		initialValues: initialValues,
+		validationSchema: Yup.object({
+			userName: Yup.string().required("username is required"),
+			password: Yup.string().required("password is required"),
+		}),
+		onSubmit: (values, actions) => {
+			console.log({ values });
+			return login.mutate(values);
+		},
+	});
+
+	const login = useMutation({
+		mutationKey: ["login"],
+		mutationFn: (userData) => loginUser(userData),
+		onSuccess: (data) => {
+			toast.success(data?.message);
+			navigate(RoutePath.HOME, { replace: true });
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	return (
 		<CommonBox sx={{ flexDirection: "column", gap: "0.5rem" }}>
@@ -77,27 +120,80 @@ function Login() {
 						marginBottom: "2rem",
 					}}
 				/>
-				<StyledTextField
-					size="small"
-					type="text"
-					fullWidth
-					placeholder="Username"
-				/>
-				<StyledTextField
-					size="small"
-					type="password"
-					fullWidth
-					placeholder="Password"
-				/>
-				<Button
-					variant="contained"
-					sx={{ fontWeight: "bold", borderRadius: 2, mt: 1 }}
-					disableElevation
-					fullWidth
-					onClick={() => navigate(`${RoutePath.HOME}`)}
-				>
-					Log in
-				</Button>
+				<form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
+					<CommonBox sx={{ flexDirection: "column", gap: 1 }}>
+						<FormControl fullWidth variant="outlined">
+							<StyledTextField
+								size="small"
+								type="text"
+								name="userName"
+								fullWidth
+								placeholder="Username"
+								value={formik.values.userName}
+								onChange={formik.handleChange}
+								error={
+									formik.touched.userName && Boolean(formik.errors.userName)
+								}
+							/>
+							<FormHelperText
+								sx={{ color: "red" }}
+								id="outlined-weight-helper-text"
+							>
+								{formik.touched.userName && formik.errors.userName}
+							</FormHelperText>
+						</FormControl>
+
+						<FormControl fullWidth variant="outlined">
+							<StyledTextField
+								size="small"
+								name="password"
+								fullWidth
+								placeholder="Password"
+								value={formik.values.password}
+								onChange={formik.handleChange}
+								error={
+									formik.touched.password && Boolean(formik.errors.password)
+								}
+								type={showPassword ? "text" : "password"}
+								endAdornment={
+									<InputAdornment position="end">
+										<IconButton
+											aria-label={
+												showPassword
+													? "hide the password"
+													: "display the password"
+											}
+											onClick={() => setShowPassword((prev) => !prev)}
+											edge="end"
+										>
+											{showPassword ? (
+												<ReactIcons.MdVisibilityOff />
+											) : (
+												<ReactIcons.MdVisibility />
+											)}
+										</IconButton>
+									</InputAdornment>
+								}
+							/>
+							<FormHelperText
+								sx={{ color: "red" }}
+								id="outlined-weight-helper-text"
+							>
+								{formik.touched.password && formik.errors.password}
+							</FormHelperText>
+						</FormControl>
+
+						<Button
+							type="submit"
+							variant="contained"
+							sx={{ fontWeight: "bold", borderRadius: 2, mt: 1 }}
+							disableElevation
+							fullWidth
+						>
+							{login.isPending ? <DefaultLoader size={23} /> : "Log in"}
+						</Button>
+					</CommonBox>
+				</form>
 				<Divider sx={{ background: "red" }} />
 				<Typography component="a" variant="caption">
 					Forgot Password ?
@@ -117,8 +213,8 @@ function Login() {
 					sx={{
 						fontSize: "0.8rem",
 						color: theme.palette.primary.main,
-                        cursor: "pointer",
-                        userSelect: "none"
+						cursor: "pointer",
+						userSelect: "none",
 					}}
 					onClick={() => navigate(`/${RoutePath.AUTH}/${RoutePath.REGISTER}`)}
 				>

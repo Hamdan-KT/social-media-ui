@@ -1,22 +1,36 @@
 import { apiClient } from "src/api/axios";
 import axios from "axios";
 import React, { useEffect, useLayoutEffect, useState } from "react";
+import { getCurrentUser, refreshAuthToken } from "src/api/authAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { saveUser, setToken } from "src/app/slices/userSlice/userSlice";
+import { useNavigate } from "react-router";
+import { RoutePath } from "src/utils/routes";
 
 function AuthProvider({ children }) {
-	const [token, setToken] = useState(null);
+	const token = useSelector((state) => state.user?.accessToken);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const response = await apiClient.get("/me");
-				setToken(response?.data?.token);
+				const response = await getCurrentUser();
+				console.log({ currentUser: response });
+				const { accessToken, ...rest } = response.data;
+				dispatch(saveUser(rest));
+				dispatch(setToken(accessToken));
 			} catch (error) {
-				setToken(null);
+				console.log({ currentUserError: error });
+				if (error === "Unauthorized") {
+					dispatch(saveUser({}));
+					dispatch(setToken(null));
+					navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, { replace: true });
+				}
 			}
 		};
-
 		fetchUser();
-	}, []);
+	}, [dispatch, navigate]);
 
 	// adding request interceptors to api
 	useLayoutEffect(() => {
@@ -40,18 +54,27 @@ function AuthProvider({ children }) {
 			(response) => response,
 			async (error) => {
 				const originalRequest = error.config;
+				console.log({ responseError: error });
 				if (
-					error.response.status === 403 &&
-					error.response.data.message === "Unauthorized"
+					error.response.status === 401 &&
+					error.response.data === "Unauthorized"
 				) {
 					try {
-						const response = await apiClient.get("/refresh");
-						setToken(response.data.accessToken);
-						originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+						const response = await refreshAuthToken();
+						//setting new access token
+						dispatch(setToken(response.data));
+						originalRequest.headers.Authorization = `Bearer ${response.data}`;
 						originalRequest._retry = true;
-						apiClient(originalRequest);
+						return apiClient(originalRequest);
 					} catch (error) {
-						setToken(null);
+						console.log({ refreshResponse: error });
+						if (error.status === 403) {
+							dispatch(saveUser({}));
+							dispatch(setToken(null));
+							navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, {
+								replace: true,
+							});
+						}
 					}
 				}
 				return Promise.reject(error);
@@ -61,7 +84,7 @@ function AuthProvider({ children }) {
 		return () => {
 			apiClient.interceptors.response.eject(refreshInterceptor);
 		};
-	}, [token]);
+	}, [token, dispatch, navigate]);
 
 	return <>{children}</>;
 }

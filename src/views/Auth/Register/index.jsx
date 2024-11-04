@@ -2,6 +2,8 @@ import {
 	Box,
 	Button,
 	Divider,
+	FormControl,
+	FormHelperText,
 	IconButton,
 	InputAdornment,
 	OutlinedInput,
@@ -85,6 +87,7 @@ function Register() {
 		mutationFn: (userData) => registerUser(userData),
 		onSuccess: (data) => {
 			toast.success(data?.message);
+			navigate(`/${RoutePath.AUTH}/${RoutePath.REGISTER}`);
 		},
 		onError: (error) => {
 			toast.error(error.message);
@@ -112,69 +115,104 @@ function Register() {
 				/>
 				<form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
 					<CommonBox sx={{ flexDirection: "column", gap: 1 }}>
-						<StyledTextField
-							size="small"
-							type="text"
-							name="userName"
-							fullWidth
-							placeholder="Username"
-							value={formik.values.userName}
-							onChange={formik.handleChange}
-							error={formik.touched.userName && Boolean(formik.errors.userName)}
-							helperText={formik.touched.userName && formik.errors.userName}
-						/>
-						<StyledTextField
-							size="small"
-							name="name"
-							type="text"
-							fullWidth
-							placeholder="Full name"
-							value={formik.values.name}
-							onChange={formik.handleChange}
-							error={formik.touched.name && Boolean(formik.errors.name)}
-							helperText={formik.touched.name && formik.errors.name}
-						/>
-						<StyledTextField
-							size="small"
-							type="text"
-							name="email"
-							fullWidth
-							placeholder="Email"
-							value={formik.values.email}
-							onChange={formik.handleChange}
-							error={formik.touched.email && Boolean(formik.errors.email)}
-							helperText={formik.touched.email && formik.errors.email}
-						/>
-						<StyledTextField
-							size="small"
-							name="password"
-							fullWidth
-							placeholder="Password"
-							value={formik.values.password}
-							onChange={formik.handleChange}
-							error={formik.touched.password && Boolean(formik.errors.password)}
-							helperText={formik.touched.password && formik.errors.password}
-							type={showPassword ? "text" : "password"}
-							endAdornment={
-								<InputAdornment position="end">
-									<IconButton
-										aria-label={
-											showPassword
-												? "hide the password"
-												: "display the password"
-										}
-										onClick={() => setShowPassword((prev) => !prev)}
-										edge="end"
-									>
-										{showPassword ? (
-											<ReactIcons.MdVisibilityOff />
-										) : (
-											<ReactIcons.MdVisibility />
-										)}
-									</IconButton>
-								</InputAdornment>
-							}
-						/>
+						<FormControl fullWidth variant="outlined">
+							<StyledTextField
+								size="small"
+								type="text"
+								name="userName"
+								fullWidth
+								placeholder="Username"
+								value={formik.values.userName}
+								onChange={formik.handleChange}
+								error={
+									formik.touched.userName && Boolean(formik.errors.userName)
+								}
+							/>
+							<FormHelperText
+								sx={{ color: "red" }}
+								id="outlined-weight-helper-text"
+							>
+								{formik.touched.userName && formik.errors.userName}
+							</FormHelperText>
+						</FormControl>
+						<FormControl fullWidth variant="outlined">
+							<StyledTextField
+								size="small"
+								name="name"
+								type="text"
+								fullWidth
+								placeholder="Full name"
+								value={formik.values.name}
+								onChange={formik.handleChange}
+								error={formik.touched.name && Boolean(formik.errors.name)}
+								helperText={formik.touched.name && formik.errors.name}
+							/>
+							<FormHelperText
+								sx={{ color: "red" }}
+								id="outlined-weight-helper-text"
+							>
+								{formik.touched.name && formik.errors.name}
+							</FormHelperText>
+						</FormControl>
+						<FormControl fullWidth variant="outlined">
+							<StyledTextField
+								size="small"
+								type="text"
+								name="email"
+								fullWidth
+								placeholder="Email"
+								value={formik.values.email}
+								onChange={formik.handleChange}
+								error={formik.touched.email && Boolean(formik.errors.email)}
+								helperText={formik.touched.email && formik.errors.email}
+							/>
+							<FormHelperText
+								sx={{ color: "red" }}
+								id="outlined-weight-helper-text"
+							>
+								{formik.touched.email && formik.errors.email}
+							</FormHelperText>
+						</FormControl>
+						<FormControl fullWidth variant="outlined">
+							<StyledTextField
+								size="small"
+								name="password"
+								fullWidth
+								placeholder="Password"
+								value={formik.values.password}
+								onChange={formik.handleChange}
+								error={
+									formik.touched.password && Boolean(formik.errors.password)
+								}
+								helperText={formik.touched.password && formik.errors.password}
+								type={showPassword ? "text" : "password"}
+								endAdornment={
+									<InputAdornment position="end">
+										<IconButton
+											aria-label={
+												showPassword
+													? "hide the password"
+													: "display the password"
+											}
+											onClick={() => setShowPassword((prev) => !prev)}
+											edge="end"
+										>
+											{showPassword ? (
+												<ReactIcons.MdVisibilityOff />
+											) : (
+												<ReactIcons.MdVisibility />
+											)}
+										</IconButton>
+									</InputAdornment>
+								}
+							/>
+							<FormHelperText
+								sx={{ color: "red" }}
+								id="outlined-weight-helper-text"
+							>
+								{formik.touched.password && formik.errors.password}
+							</FormHelperText>
+						</FormControl>
 						<Button
 							type="submit"
 							variant="contained"

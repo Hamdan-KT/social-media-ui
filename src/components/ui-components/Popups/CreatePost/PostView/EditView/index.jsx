@@ -16,10 +16,13 @@ function EditView({ media }) {
 						height: "100%",
 						width: "100%",
 						objectFit: "contain",
-						scale: `${media.flip?.x} ${media.flip?.y}`,
 						filter:
 							media.filterClassName === "" &&
-							`brightness(${media.customFilters?.Brightness}%) saturate(${media.customFilters?.Saturation}%)`,
+							`brightness(${
+								media?.customFilters?.Brightness ?? 100
+							}%) contrast(${
+								media?.customFilters?.Contrast ?? 100
+							}%) saturate(${media?.customFilters?.Saturation ?? 100}%)`,
 					}}
 				/>
 			)}
@@ -34,10 +37,13 @@ function EditView({ media }) {
 						height: "100%",
 						width: "100%",
 						objectFit: "contain",
-						scale: `${media.flip?.x} ${media.flip?.y}`,
 						filter:
 							media.filterClassName === "" &&
-							`brightness(${media.customFilters?.Brightness}%) saturate(${media.customFilters?.Saturation}%)`,
+							`brightness(${
+								media?.customFilters?.Brightness ?? 100
+							}%) contrast(${
+								media?.customFilters?.Contrast ?? 100
+							}%) saturate(${media?.customFilters?.Saturation ?? 100}%)`,
 					}}
 				/>
 			)}

@@ -31,8 +31,17 @@ export const createURLfromImage = (imgFile) => {
 	return URL.createObjectURL(imgFile);
 };
 
+export function getRadianAngle(degreeValue) {
+	return (degreeValue * Math.PI) / 180;
+}
+
 // getting croppend image from react-easy-crop lib
-export const getCroppedImg = (imageSrc, crop) => {
+export const getCroppedImg = (
+	imageSrc,
+	crop,
+	rotation = 0,
+	flip = { x: 1, y: 1 }
+) => {
 	return new Promise((resolve, reject) => {
 		const image = new Image();
 		image.src = imageSrc;
@@ -41,9 +50,26 @@ export const getCroppedImg = (imageSrc, crop) => {
 			const canvas = document.createElement("canvas");
 			const ctx = canvas.getContext("2d");
 
+			if (!ctx) {
+				return null;
+			}
+
+			const rotRad = getRadianAngle(rotation);
+
+			// set canvas size to match the bounding box
 			canvas.width = crop.width;
 			canvas.height = crop.height;
 
+			// translate canvas context to a central location to allow rotating and flipping around the center
+			ctx.translate(crop.width / 2, crop.height / 2);
+			ctx.rotate(rotRad);
+			ctx.scale(flip.x, flip.y);
+			ctx.translate(-crop.width / 2, -crop.height / 2);
+
+			console.log({ rotation });
+			console.log({ flip });
+
+			// Draw the cropped image onto the new canvas
 			ctx.drawImage(
 				image,
 				crop.x,
@@ -56,13 +82,59 @@ export const getCroppedImg = (imageSrc, crop) => {
 				crop.height
 			);
 
+			// As Base64 string
+			// return croppedCanvas.toDataURL('image/jpeg');
 			canvas.toBlob((blob) => {
 				if (!blob) {
 					reject(new Error("Canvas is empty"));
 					return;
 				}
 				resolve(URL.createObjectURL(blob));
-			}, "image/png");
+			}, "image/jpeg");
+		};
+
+		image.onerror = (error) => {
+			reject(error);
+		};
+	});
+};
+
+export const getEditedImage = (imageSrc, filter = {}) => {
+	return new Promise((resolve, reject) => {
+		const image = new Image();
+		image.src = imageSrc;
+
+		image.onload = () => {
+			// Create a canvas element
+			const canvas = document.createElement("canvas");
+			const ctx = canvas.getContext("2d");
+
+			// Set canvas dimensions to the image dimensions
+			canvas.width = image.width;
+			canvas.height = image.height;
+
+			ctx.filter = `brightness(${filter?.Brightness ?? 100}%) contrast(${
+				filter?.Contrast ?? 100
+			}%) saturate(${filter?.Saturation ?? 100}%)`;
+			// Draw the full image on the canvas
+			ctx.drawImage(image, 0, 0);
+
+			// Convert the canvas to a Blob and create an object URL
+			canvas.toBlob((blob) => {
+				if (!blob) {
+					reject(new Error("Canvas is empty"));
+					return;
+				}
+
+				// // Create an object URL from the Blob
+				// const url = URL.createObjectURL(blob);
+				// resolve(url);
+				// Create a File object from the Blob with a .jpg extension
+				const file = new File([blob], "edited-image.jpg", {
+					type: "image/jpeg",
+				});
+				resolve(file);
+			}, "image/jpeg");
 		};
 
 		image.onerror = (error) => {

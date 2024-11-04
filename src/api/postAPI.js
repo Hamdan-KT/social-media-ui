@@ -4,11 +4,7 @@ import { apiClient } from "./axios";
 // Create a new post (uploading content like images or videos, then saving the post)
 export const createPost = async (postData) => {
 	try {
-		const formData = new FormData();
-		for (const key in postData) {
-			formData.append(key, postData[key]);
-		}
-		const { data } = await apiClient.post("/post", formData, {
+		const { data } = await apiClient.post("/post", postData, {
 			headers: { "Content-Type": "multipart/form-data" },
 		});
 		return data;

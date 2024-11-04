@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import MUISwitch from "components/common/formInputs/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
+import { setPostDetails } from "src/app/slices/postSlice/postSlice";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: 340,
@@ -44,6 +45,7 @@ const ItemsWrapper = styled(Box)(({ theme, hoverEffect }) => ({
 
 function PostSettings() {
 	const postStates = useSelector((state) => state.post);
+	const dispatch = useDispatch();
 	const [openADVsettings, setOpenADVsettings] = useState(false);
 
 	return (
@@ -73,6 +75,13 @@ function PostSettings() {
 						multiline
 						rows={6}
 						placeholder="Write a caption"
+						name="caption"
+						value={postStates?.postDetails?.caption}
+						onChange={(e) =>
+							dispatch(
+								setPostDetails({ key: e.target.name, value: e.target.value })
+							)
+						}
 					/>
 					<ItemsWrapper hoverEffect={true}>
 						<Typography variant="body" sx={{ fontWeight: "medium" }}>
@@ -99,7 +108,18 @@ function PostSettings() {
 							<Typography variant="userName">Like and view counts</Typography>
 							<ItemsWrapper sx={{ padding: "1rem 0rem" }}>
 								<Typography>Hide like and view counts on this post</Typography>
-								<MUISwitch />
+								<MUISwitch
+									name="isHideLikes"
+									checked={postStates?.postDetails?.isHideLikes}
+									onChange={(e) =>
+										dispatch(
+											setPostDetails({
+												key: e.target.name,
+												value: e.target.checked,
+											})
+										)
+									}
+								/>
 							</ItemsWrapper>
 							<Typography variant="caption">
 								Only you will see the total number of likes and views on this
@@ -117,7 +137,18 @@ function PostSettings() {
 							<Typography variant="userName">Comments</Typography>
 							<ItemsWrapper sx={{ padding: "1rem 0rem" }}>
 								<Typography>Turn off commenting</Typography>
-								<MUISwitch />
+								<MUISwitch
+									name="isDisableComment"
+									checked={postStates?.postDetails?.isDisableComment}
+									onChange={(e) =>
+										dispatch(
+											setPostDetails({
+												key: e.target.name,
+												value: e.target.checked,
+											})
+										)
+									}
+								/>
 							</ItemsWrapper>
 							<Typography variant="caption">
 								You can change this later by going to the ... menu at the top of

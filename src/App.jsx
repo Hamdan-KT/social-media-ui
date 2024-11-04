@@ -23,6 +23,7 @@ import BottomSheet from "components/common/BottomSheet";
 import ImageViewer from "components/ui-components/ImageViewer";
 import CreatePost from "components/ui-components/Popups/CreatePost";
 import ShareWindow from "components/ui-components/Popups/ShareWindow";
+import AuthProvider from "./components/auth/AuthProvider";
 
 function App() {
 	const customization = useSelector((state) => state.customization);
@@ -33,19 +34,22 @@ function App() {
 			<ThemeProvider theme={themes(customization)}>
 				{/* mui css baseline */}
 				<CssBaseline />
-				{/* navigation Scroll component */}
-				<NavigationScroll>
-					{/* routes */}
-					<AppRouting />
-					{/* toaster component */}
-					<Toaster />
-					{/* test comps */}
-					{/* <ViewPost /> */}
-					{/* <Comments /> */}
+				{/* auth provider */}
+				<AuthProvider>
+					{/* navigation Scroll component */}
+					<NavigationScroll>
+						{/* routes */}
+						<AppRouting />
+						{/* toaster component */}
+						<Toaster />
+						{/* test comps */}
+						{/* <ViewPost /> */}
+						{/* <Comments /> */}
 
-					{/* common popup windows */}
-					<ShareWindow />
-				</NavigationScroll>
+						{/* common popup windows */}
+						<ShareWindow />
+					</NavigationScroll>
+				</AuthProvider>
 			</ThemeProvider>
 		</StyledEngineProvider>
 	);

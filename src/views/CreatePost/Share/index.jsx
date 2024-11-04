@@ -17,6 +17,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
+import { clearPosts, setPostDetails } from "src/app/slices/postSlice/postSlice";
+import { getEditedImage } from "src/utils/common";
+import { useMutation } from "@tanstack/react-query";
+import { createPost } from "src/api/postAPI";
+import toast from "react-hot-toast";
+import DefaultLoader from "src/components/common/DefaultLoader";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -60,9 +66,55 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 
 function PostSettingsMobile() {
 	const postStates = useSelector((state) => state.post);
+	const [loading, setLoading] = useState(false);
 	const [openADVsettings, setOpenADVsettings] = useState(false);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const theme = useTheme();
+
+	const formattedPostData = async (postMedias) => {
+		const formData = new FormData();
+		let postData = {};
+		setLoading(true);
+		await Promise.all(
+			postMedias?.map(async (media) => {
+				formData.append(
+					[media?.uID],
+					await getEditedImage(media.croppedUrl, media?.customFilters)
+				);
+				postData[media?.uID] = media?.tags ?? [];
+			})
+		)
+			.then((result) => {
+				console.log({ submit: result });
+				for (const key in postStates?.postDetails) {
+					formData.append(key, postStates?.postDetails[key]);
+				}
+				formData.append("postData", JSON.stringify(postData));
+				// Convert FormData to an object
+				const formDataObject = Object.fromEntries(formData.entries());
+				console.log({ formDataObject });
+				setLoading(false);
+				return uploadPost.mutate(formData);
+			})
+			.catch((error) => {
+				console.log(error);
+				setLoading(false);
+			});
+	};
+
+	const uploadPost = useMutation({
+		mutationKey: ["createPost-mob"],
+		mutationFn: (userData) => createPost(userData),
+		onSuccess: (data) => {
+			dispatch(clearPosts());
+			toast.success(data?.message);
+			navigate(RoutePath.HOME, { replace: true });
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
 
 	return (
 		<ContentBox className="scrollbar-hide">
@@ -77,18 +129,23 @@ function PostSettingsMobile() {
 					<ReactIcons.IoClose style={{ fontSize: "2rem", cursor: "pointer" }} />
 				</IconButton>
 				<Typography variant="h4">New post</Typography>
-				<Typography
-					variant="body"
-					sx={{
-						cursor: "pointer",
-						padding: "0 0.3rem",
-						fontWeight: 600,
-						"&:hover": { color: theme.palette.text.primary },
-					}}
-					color={theme.palette.primary.main}
-				>
-					Share
-				</Typography>
+				{loading || uploadPost.isPending ? (
+					<DefaultLoader size={23} />
+				) : (
+					<Typography
+						variant="body"
+						sx={{
+							cursor: "pointer",
+							padding: "0 0.3rem",
+							fontWeight: 600,
+							"&:hover": { color: theme.palette.text.primary },
+						}}
+						color={theme.palette.primary.main}
+						onClick={() => formattedPostData(postStates?.postMedias)}
+					>
+						Share
+					</Typography>
+				)}
 			</StyledToolBar>
 			{/* contents */}
 			<Box
@@ -115,6 +172,13 @@ function PostSettingsMobile() {
 				multiline
 				rows={6}
 				placeholder="Write a caption"
+				name="caption"
+				value={postStates?.postDetails?.caption}
+				onChange={(e) =>
+					dispatch(
+						setPostDetails({ key: e.target.name, value: e.target.value })
+					)
+				}
 			/>
 			<ItemsWrapper hoverEffect={true}>
 				<Typography variant="body" sx={{ fontWeight: "medium" }}>
@@ -150,7 +214,18 @@ function PostSettingsMobile() {
 					<Typography variant="userName">Like and view counts</Typography>
 					<ItemsWrapper sx={{ padding: "1rem 0rem" }}>
 						<Typography>Hide like and view counts on this post</Typography>
-						<MUISwitch />
+						<MUISwitch
+							name="isHideLikes"
+							checked={postStates?.postDetails?.isHideLikes}
+							onChange={(e) =>
+								dispatch(
+									setPostDetails({
+										key: e.target.name,
+										value: e.target.checked,
+									})
+								)
+							}
+						/>
 					</ItemsWrapper>
 					<Typography variant="caption">
 						Only you will see the total number of likes and views on this post.
@@ -168,7 +243,18 @@ function PostSettingsMobile() {
 					<Typography variant="userName">Comments</Typography>
 					<ItemsWrapper sx={{ padding: "1rem 0rem" }}>
 						<Typography>Turn off commenting</Typography>
-						<MUISwitch />
+						<MUISwitch
+							name="isDisableComment"
+							checked={postStates?.postDetails?.isDisableComment}
+							onChange={(e) =>
+								dispatch(
+									setPostDetails({
+										key: e.target.name,
+										value: e.target.checked,
+									})
+								)
+							}
+						/>
 					</ItemsWrapper>
 					<Typography variant="caption">
 						You can change this later by going to the ... menu at the top of

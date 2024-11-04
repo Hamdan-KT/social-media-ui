@@ -12,6 +12,12 @@ const initialState = {
 		[postStages.EDIT]: false,
 		[postStages.SHARE]: false,
 	},
+	postDetails: {
+		caption: "",
+		isDisableComment: false,
+		isHideLikes: false,
+		location: "",
+	},
 };
 
 export const postSlice = createSlice({
@@ -34,6 +40,12 @@ export const postSlice = createSlice({
 			state.postStages = _.mapValues(state.postStages, () => false);
 			// set post stage to next stage
 			state.postStages[ps.CROP] = true;
+		},
+		setPostDetails: (state, action) => {
+			state.postDetails = {
+				...state.postDetails,
+				[action.payload.key]: action.payload.value,
+			};
 		},
 		setActivePost: (state, action) => {
 			state.activePost = action.payload;
@@ -66,7 +78,7 @@ export const postSlice = createSlice({
 					...state.postMedias[index],
 					customFilters: {
 						Brightness: 100,
-						Contrast: 0,
+						Contrast: 100,
 						Saturation: 100,
 						Fade: 0,
 						Temperature: 0,
@@ -162,6 +174,19 @@ export const postSlice = createSlice({
 				state.activePost = state.postMedias[index];
 			}
 		},
+		setTags: (state, action) => {
+			// state.postMedias = action.payload;
+			const index = state.postMedias?.findIndex(
+				(item) => item.uID === state.activePost.uID
+			);
+			if (index !== -1) {
+				state.postMedias[index] = {
+					...state.postMedias[index],
+					tags: action.payload.tags,
+				};
+				state.activePost = state.postMedias[index];
+			}
+		},
 	},
 });
 
@@ -180,6 +205,8 @@ export const {
 	setActivePost,
 	setCroppedAreaPixels,
 	cropPosts,
+	setTags,
+	setPostDetails,
 } = postSlice.actions;
 
 export default postSlice.reducer;
