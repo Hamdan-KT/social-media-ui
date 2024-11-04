@@ -56,8 +56,8 @@ function AuthProvider({ children }) {
 				const originalRequest = error.config;
 				console.log({ responseError: error });
 				if (
-					error.response.status === 401 &&
-					error.response.data === "Unauthorized"
+					error?.response?.status === 401 &&
+					error?.response?.data === "Unauthorized"
 				) {
 					try {
 						const response = await refreshAuthToken();
@@ -68,7 +68,7 @@ function AuthProvider({ children }) {
 						return apiClient(originalRequest);
 					} catch (error) {
 						console.log({ refreshResponse: error });
-						if (error.status === 403) {
+						if (error?.status === 403) {
 							dispatch(saveUser({}));
 							dispatch(setToken(null));
 							navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, {
