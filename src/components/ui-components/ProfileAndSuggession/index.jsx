@@ -75,6 +75,8 @@ const ProfileBox = styled(Box)(({ theme }) => ({
 
 function Suggessions() {
 	const navigate = useNavigate();
+	const user = useSelector((state) => state.user?.user);
+	console.log({user})
 
 	return (
 		<StyledGid container spacing={defaultSpacing}>
@@ -93,7 +95,8 @@ function Suggessions() {
 							}}
 						>
 							<ProfileAvatar
-								data={defaultUser}
+								profile={user?.avatar}
+								userName={user?.userName}
 								sx={{ width: 60, height: 60 }}
 							/>
 							<Box
@@ -102,8 +105,12 @@ function Suggessions() {
 									flexDirection: "column",
 								}}
 							>
-								<Typography variant="userName">{defaultUser.userId}</Typography>
-								<Typography variant="caption">{defaultUser.name}</Typography>
+								<Typography variant="userName">
+									{user?.userName}
+								</Typography>
+								<Typography variant="caption">
+									{user?.name}
+								</Typography>
 							</Box>
 						</Box>
 						<Btn>Switch</Btn>

@@ -130,6 +130,26 @@ function PostLarge({ data }) {
 											draggable={false}
 										/>
 									)}
+									{/* {media?.isTagged && } */}
+									<Box
+										sx={{
+											position: "absolute",
+											padding: "5px",
+											display: "flex",
+											widht: "auto",
+											height: "auto",
+											left: "10px",
+											bottom: "10px",
+											borderRadius: "50%",
+											background: "black",
+											cursor: "pointer",
+										}}
+									>
+										<ReactIcons.IoPerson
+											size={14}
+											style={{ color: "white", margin: 0 }}
+										/>
+									</Box>
 								</Slide>
 							))}
 					</Slider>

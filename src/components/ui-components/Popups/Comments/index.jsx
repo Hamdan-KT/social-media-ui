@@ -4,6 +4,8 @@ import BottomSheet from "components/common/BottomSheet";
 import CommentList from "components/ui-components/CommentList";
 import { commentList } from "src/data";
 import ReactIcons from "utils/ReactIcons";
+import { useDispatch, useSelector } from "react-redux";
+import { handleCommentWindowOpen } from "src/app/slices/commentSlice/commentSlice";
 
 const InputBox = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -27,13 +29,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-const Comments = forwardRef(function ({ open, onClose }, ref) {
+const Comments = function () {
 	const [value, setValue] = useState("");
 	const theme = useTheme();
+	const commentWindowOpen = useSelector(
+		(state) => state.comment.commentWindowOpen
+	);
+	const dispatch = useDispatch();
+
 	return (
 		<BottomSheet
-			open={open}
-			onClose={onClose}
+			open={commentWindowOpen}
+			onClose={() => dispatch(handleCommentWindowOpen(false))}
 			title="Comments"
 			sheetBodyStyles={{ position: "relative" }}
 		>
@@ -84,6 +91,6 @@ const Comments = forwardRef(function ({ open, onClose }, ref) {
 			</Box>
 		</BottomSheet>
 	);
-});
+};
 
 export default Comments;

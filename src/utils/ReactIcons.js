@@ -14,6 +14,7 @@ import {
 	IoChevronBack,
 	IoChevronForward,
 	IoNotificationsOutline,
+	IoPerson,
 } from "react-icons/io5";
 import {
 	MdOutlineExplore,
@@ -192,7 +193,8 @@ const ReactIcons = {
 	IoChevronForward,
 	IoMdLogOut,
 	MdVisibility,
-	MdVisibilityOff
+	MdVisibilityOff,
+	IoPerson
 };
 
 export default ReactIcons;

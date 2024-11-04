@@ -48,6 +48,7 @@ function App() {
 
 						{/* common popup windows */}
 						<ShareWindow />
+						<Comments />
 					</NavigationScroll>
 				</AuthProvider>
 			</ThemeProvider>

@@ -26,6 +26,7 @@ import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
 import AvatarSet from "components/common/AvatarSet";
 import Image from "components/common/Image";
 import Video from "components/common/Video";
+import { handleCommentWindowOpen } from "app/slices/commentSlice/commentSlice";
 
 // caption style
 const captionStyle = {
@@ -38,7 +39,6 @@ const captionStyle = {
 function PostMobile({ data, divider = false }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
-	const [commentOpen, setCommentOpen] = useState(false);
 	const captionRef = useRef(null);
 	const theme = useTheme();
 	const location = useLocation();
@@ -60,6 +60,8 @@ function PostMobile({ data, divider = false }) {
 		setExpanded(!expanded);
 	};
 
+	console.log({ postData: data });
+
 	return (
 		<Card
 			sx={{
@@ -78,7 +80,8 @@ function PostMobile({ data, divider = false }) {
 				}}
 				avatar={
 					<ProfileAvatar
-						data={data}
+						profile={data?.user?.avatar}
+						userName={data?.user?.userName}
 						sx={{ width: 36, height: 36 }}
 						containerSx={{ padding: { xs: "2px" } }}
 					/>
@@ -108,7 +111,7 @@ function PostMobile({ data, divider = false }) {
 								justifyContent: "center",
 							}}
 						>
-							<Typography variant="body">{data?.name}</Typography>
+							<Typography variant="body">{data?.user?.userName}</Typography>
 							<ImgWrapper sx={{ width: "0.8rem", height: "0.8rem" }}>
 								<Image
 									src={verifiedBadge}
@@ -119,7 +122,7 @@ function PostMobile({ data, divider = false }) {
 									}}
 								/>
 							</ImgWrapper>
-							{data?.time && (
+							{data?.createdAt && (
 								<>
 									&#183;
 									<Typography
@@ -130,14 +133,14 @@ function PostMobile({ data, divider = false }) {
 											fontWeight: "normal",
 										}}
 									>
-										{data?.time}
+										{data?.createdAt}
 									</Typography>
 								</>
 							)}
 						</Box>
 					</Box>
 				}
-				subheader={data?.location ? data?.location : null}
+				subheader={data?.location ? data?.location : "kozhikode"}
 			/>
 			{/* images sections */}
 			<CardMedia
@@ -146,10 +149,10 @@ function PostMobile({ data, divider = false }) {
 				// sx={{ aspectRatio: "4/5" }}
 			>
 				<Slider controllButtons={false}>
-					{Array.isArray(data?.media) &&
-						data?.media?.map((media, ind) => (
+					{Array.isArray(data?.files) &&
+						data?.files?.map((file, ind) => (
 							<Slide key={ind}>
-								{media?.type === "image" && (
+								{file?.fileType === "image" && (
 									<Image
 										style={{
 											display: "block",
@@ -157,18 +160,18 @@ function PostMobile({ data, divider = false }) {
 											width: "100%",
 										}}
 										alt="Not found!"
-										key={ind}
-										src={media?.src}
+										key={file._id}
+										src={file?.fileUrl}
 										loading="lazy"
 										draggable={false}
 									/>
 								)}
-								{media?.type === "video" && (
+								{file?.fileType === "video" && (
 									<Video
 										controls
 										loop
-										key={ind}
-										src={media?.src}
+										key={file._id}
+										src={file?.fileUrl}
 										alt="Not Found!"
 										style={{
 											display: "block",
@@ -179,6 +182,26 @@ function PostMobile({ data, divider = false }) {
 										draggable={false}
 									/>
 								)}
+								{/* {media?.isTagged && } */}
+								<Box
+									sx={{
+										position: "absolute",
+										padding: "5px",
+										display: "flex",
+										widht: "auto",
+										height: "auto",
+										left: "10px",
+										bottom: "10px",
+										borderRadius: "50%",
+										background: "black",
+										cursor: "pointer",
+									}}
+								>
+									<ReactIcons.IoPerson
+										size={14}
+										style={{ color: "white", margin: 0 }}
+									/>
+								</Box>
 							</Slide>
 						))}
 				</Slider>
@@ -199,13 +222,13 @@ function PostMobile({ data, divider = false }) {
 						/>
 					}
 				/>
-				<Typography variant="userName">2,034</Typography>
+				<Typography variant="userName">{data?.likes}</Typography>
 				<IconButton
 					aria-label="comment"
 					onClick={() =>
 						matchDownSm
-							? setCommentOpen(true)
-							: navigate(`/${RoutePath.POST}/${data.id}`, {
+							? dispatch(handleCommentWindowOpen(true))
+							: navigate(`/${RoutePath.POST}/${data._id}`, {
 									state: { previousLocation: location },
 							  })
 					}
@@ -218,7 +241,7 @@ function PostMobile({ data, divider = false }) {
 						}}
 					/>
 				</IconButton>
-				<Typography variant="userName">1,034</Typography>
+				<Typography variant="userName">{data?.comments}</Typography>
 				<IconButton
 					aria-label="share"
 					onClick={() => dispatch(handleShareWindowOpen(true))}
@@ -231,7 +254,7 @@ function PostMobile({ data, divider = false }) {
 						}}
 					/>
 				</IconButton>
-				<Typography variant="userName">534</Typography>
+				<Typography variant="userName">4</Typography>
 				<Checkbox
 					sx={{ ml: "auto" }}
 					aria-label="save"
@@ -271,7 +294,7 @@ function PostMobile({ data, divider = false }) {
 						}
 						ref={captionRef}
 					>
-						<span
+						{/* <span
 							style={{
 								marginRight: "3px",
 								fontWeight: 700,
@@ -279,16 +302,8 @@ function PostMobile({ data, divider = false }) {
 							}}
 						>
 							{data?.name}
-						</span>
-						Lorem Ipsum is simply dummy text of the printing and typesetting
-						industry. Lorem Ipsum has been the industry's standard dummy text
-						ever since the 1500s, when an unknown printer took a galley of type
-						and scrambled it to make a type specimen book. It has survived not
-						only five centuries, but also the leap into electronic typesetting,
-						remaining essentially unchanged. It was popularised in the 1960s
-						with the release of Letraset sheets containing Lorem Ipsum passages,
-						and more recently with desktop publishing software like Aldus
-						PageMaker including versions of Lorem Ipsum
+						</span> */}
+						{data?.caption}
 					</p>
 				</Box>
 				{showExpand &&
@@ -301,25 +316,26 @@ function PostMobile({ data, divider = false }) {
 							more
 						</Typography>
 					) : null)}
-				<Box mt={0.4} mb={1}>
-					{/* view comment tag */}
-					<Typography
-						variant="greyTags"
-						sx={{ cursor: "pointer" }}
-						onClick={() =>
-							matchDownSm
-								? setCommentOpen(true)
-								: navigate(`/${RoutePath.POST}/${data.id}`, {
-										state: { previousLocation: location },
-								  })
-						}
-					>
-						View all {data?.comments} comments
-					</Typography>
-				</Box>
+
+				{data?.comments ? (
+					<Box mt={0.4} mb={1}>
+						{/* view comment tag */}
+						<Typography
+							variant="greyTags"
+							sx={{ cursor: "pointer" }}
+							onClick={() =>
+								matchDownSm
+									? dispatch(handleCommentWindowOpen(true))
+									: navigate(`/${RoutePath.POST}/${data._id}`, {
+											state: { previousLocation: location },
+									  })
+							}
+						>
+							View all {data?.comments} comments
+						</Typography>
+					</Box>
+				) : null}
 			</CardContent>
-			{/* comment modal */}
-			<Comments open={commentOpen} onClose={() => setCommentOpen(false)} />
 
 			{/* if divider is true */}
 			{divider && !matchDownSm && <Divider />}

@@ -27,7 +27,8 @@ const StyledPlusIcon = styled(Box)(({ theme }) => ({
 }));
 
 function ProfileAvatar({
-	data,
+	profile,
+	userName,
 	storyView = true,
 	badge = false,
 	sx = {},
@@ -56,8 +57,8 @@ function ProfileAvatar({
 							{...badgeProps}
 						>
 							<Avatar
-								src={data?.profile}
-								alt={data?.name}
+								src={profile}
+								alt={userName}
 								sx={{
 									width: { xs: 79, sm: 59 },
 									height: { xs: 79, sm: 59 },
@@ -69,7 +70,7 @@ function ProfileAvatar({
 						</Badge>
 					) : (
 						<Avatar
-							src={data.profile}
+							src={profile}
 							sx={{
 								width: { xs: 79, sm: 59 },
 								height: { xs: 79, sm: 59 },
@@ -96,8 +97,8 @@ function ProfileAvatar({
 							{...badgeProps}
 						>
 							<Avatar
-								src={data?.profile}
-								alt={data?.name}
+								src={profile}
+								alt={userName}
 								sx={{
 									width: { xs: 79, sm: 59 },
 									height: { xs: 79, sm: 59 },
@@ -109,7 +110,7 @@ function ProfileAvatar({
 						</Badge>
 					) : (
 						<Avatar
-							src={data.profile}
+							src={profile}
 							sx={{
 								width: { xs: 79, sm: 59 },
 								height: { xs: 79, sm: 59 },

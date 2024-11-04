@@ -5,6 +5,7 @@ import customizationReducer from "./slices/customizationSlice/customization";
 import layoutReducer from "./slices/layoutSlice/layoutSlice";
 import messageReducer from "./slices/messageSlice/messageSlice";
 import shareReducer from "./slices/shareSlice/shareSlice";
+import commentReducer from "./slices/commentSlice/commentSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
 		layout: layoutReducer,
 		message: messageReducer,
 		share: shareReducer,
+		comment: commentReducer,
 	},
 });

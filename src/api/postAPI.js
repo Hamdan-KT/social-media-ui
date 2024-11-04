@@ -33,6 +33,16 @@ export const getPost = async (id) => {
 	}
 };
 
+// Get all post based on latest updated
+export const getAllPosts = async () => {
+	try {
+		const { data } = await apiClient.get(`/post`);
+		return data;
+	} catch (error) {
+		handleApiCallError(error);
+	}
+};
+
 // Delete a specific post by its ID
 export const deletePost = async (id) => {
 	try {

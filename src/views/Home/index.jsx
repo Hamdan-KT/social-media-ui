@@ -10,6 +10,8 @@ import { userPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
 import { memo, useEffect } from "react";
 import DefaultLoader from "components/common/DefaultLoader";
+import { useQuery } from "@tanstack/react-query";
+import { getAllPosts } from "src/api/postAPI";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -28,6 +30,17 @@ function Home() {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 
+	const { data, isLoading, isSuccess } = useQuery({
+		queryKey: [""],
+		queryFn: () => getAllPosts(),
+	});
+
+	useEffect(() => {
+		if (isSuccess) {
+			console.log({ data });
+		}
+	}, [isSuccess]);
+
 	return (
 		<Grid container spacing={defaultSpacing}>
 			<Grid item md={8.5} sm={12} lg={8.5} xs={12}>
@@ -37,10 +50,10 @@ function Home() {
 					{/* story Slider */}
 					<StorySlider />
 					{/* post rendering */}
-					{userPosts?.map((data, index, arr) => (
+					{data?.data?.map((post, index, arr) => (
 						<MemoizedPost
-							key={data?.id}
-							data={data}
+							key={post?._id}
+							data={post}
 							divider={Boolean(index !== arr.length - 1)}
 						/>
 					))}
