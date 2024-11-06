@@ -151,7 +151,7 @@ function PostMobile({ data, divider = false }) {
 				<Slider controllButtons={false}>
 					{Array.isArray(data?.files) &&
 						data?.files?.map((file, ind) => (
-							<Slide key={ind}>
+							<Slide key={ind} sx={{ position: "relative" }}>
 								{file?.fileType === "image" && (
 									<Image
 										style={{
@@ -208,40 +208,48 @@ function PostMobile({ data, divider = false }) {
 			</CardMedia>
 			{/* card actions */}
 			<CardActions disableSpacing sx={{ p: 0 }}>
-				<Checkbox
-					size="small"
-					aria-label="like"
-					icon={
-						<ReactIcons.AiOutlineHeart
-							style={{ color: `${theme.palette.text.dark}`, fontSize: 28 }}
+				{!data?.isHideLikes && (
+					<>
+						<Checkbox
+							size="small"
+							aria-label="like"
+							icon={
+								<ReactIcons.AiOutlineHeart
+									style={{ color: `${theme.palette.text.dark}`, fontSize: 28 }}
+								/>
+							}
+							checkedIcon={
+								<ReactIcons.AiFillHeart
+									style={{ color: `${theme.palette.error.main}`, fontSize: 28 }}
+								/>
+							}
 						/>
-					}
-					checkedIcon={
-						<ReactIcons.AiFillHeart
-							style={{ color: `${theme.palette.error.main}`, fontSize: 28 }}
-						/>
-					}
-				/>
-				<Typography variant="userName">{data?.likes}</Typography>
-				<IconButton
-					aria-label="comment"
-					onClick={() =>
-						matchDownSm
-							? dispatch(handleCommentWindowOpen(true))
-							: navigate(`/${RoutePath.POST}/${data._id}`, {
-									state: { previousLocation: location },
-							  })
-					}
-				>
-					<ReactIcons.RiChat3Line
-						style={{
-							color: `${theme.palette.text.dark}`,
-							fontSize: 25,
-							transform: "scaleX(-1)",
-						}}
-					/>
-				</IconButton>
-				<Typography variant="userName">{data?.comments}</Typography>
+						<Typography variant="userName">{data?.likes}</Typography>
+					</>
+				)}
+				{!data?.isDisableComment && (
+					<>
+						<IconButton
+							aria-label="comment"
+							onClick={() =>
+								matchDownSm
+									? dispatch(handleCommentWindowOpen(true))
+									: navigate(`/${RoutePath.POST}/${data._id}`, {
+											state: { previousLocation: location },
+									  })
+							}
+						>
+							<ReactIcons.RiChat3Line
+								style={{
+									color: `${theme.palette.text.dark}`,
+									fontSize: 25,
+									transform: "scaleX(-1)",
+								}}
+							/>
+						</IconButton>
+						<Typography variant="userName">{data?.comments}</Typography>
+					</>
+				)}
 				<IconButton
 					aria-label="share"
 					onClick={() => dispatch(handleShareWindowOpen(true))}
@@ -294,15 +302,15 @@ function PostMobile({ data, divider = false }) {
 						}
 						ref={captionRef}
 					>
-						{/* <span
+						<span
 							style={{
 								marginRight: "3px",
 								fontWeight: 700,
 								fontSize: "0.75rem",
 							}}
 						>
-							{data?.name}
-						</span> */}
+							{data?.user?.userName}
+						</span>
 						{data?.caption}
 					</p>
 				</Box>
@@ -317,24 +325,22 @@ function PostMobile({ data, divider = false }) {
 						</Typography>
 					) : null)}
 
-				{data?.comments ? (
-					<Box mt={0.4} mb={1}>
-						{/* view comment tag */}
-						<Typography
-							variant="greyTags"
-							sx={{ cursor: "pointer" }}
-							onClick={() =>
-								matchDownSm
-									? dispatch(handleCommentWindowOpen(true))
-									: navigate(`/${RoutePath.POST}/${data._id}`, {
-											state: { previousLocation: location },
-									  })
-							}
-						>
-							View all {data?.comments} comments
-						</Typography>
-					</Box>
-				) : null}
+				<Box mt={0.4} mb={1}>
+					{/* view comment tag */}
+					<Typography
+						variant="greyTags"
+						sx={{ cursor: "pointer" }}
+						onClick={() =>
+							matchDownSm
+								? dispatch(handleCommentWindowOpen(true))
+								: navigate(`/${RoutePath.POST}/${data._id}`, {
+										state: { previousLocation: location },
+								  })
+						}
+					>
+						View all {data?.comments ? data?.comments : null} comments
+					</Typography>
+				</Box>
 			</CardContent>
 
 			{/* if divider is true */}

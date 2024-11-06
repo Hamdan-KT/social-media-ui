@@ -2,6 +2,7 @@ import { lazy } from "react";
 import Loadable from "components/common/Loadable";
 import MainLayout from "layouts/MainLayout";
 import { RoutePath } from "src/utils/routes";
+import AuthProvider from "src/components/auth/AuthProvider";
 
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));
@@ -30,12 +31,8 @@ const EditProfile = Loadable(lazy(() => import("views/Settings/EditProfile")));
 const AccountPrivacy = Loadable(
 	lazy(() => import("views/Settings/AccountPrivacy"))
 );
-const BlockedAccounts = Loadable(
-	lazy(() => import("views/Settings/Blocked"))
-);
-const CommentSettings = Loadable(
-	lazy(() => import("views/Settings/Comments"))
-);
+const BlockedAccounts = Loadable(lazy(() => import("views/Settings/Blocked")));
+const CommentSettings = Loadable(lazy(() => import("views/Settings/Comments")));
 const LikeAndShareCountSettings = Loadable(
 	lazy(() => import("views/Settings/LikeAndShareCount"))
 );
@@ -50,7 +47,11 @@ const SavedPosts = Loadable(lazy(() => import("views/Settings/Saved")));
 const MainRoutes = () => {
 	return {
 		path: RoutePath.HOME,
-		element: <MainLayout />,
+		element: (
+			// <AuthProvider>
+			<MainLayout />
+			// </AuthProvider>
+		),
 		children: [
 			{
 				path: "test",

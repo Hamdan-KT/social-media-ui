@@ -15,7 +15,6 @@ import NavigationScroll from "layouts/NavigationScroll";
 import { useDispatch, useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 
-
 // TEST COMPONENTS
 import ViewPost from "components/ui-components/Popups/ViewPost";
 import Comments from "components/ui-components/Popups/Comments";
@@ -34,23 +33,20 @@ function App() {
 			<ThemeProvider theme={themes(customization)}>
 				{/* mui css baseline */}
 				<CssBaseline />
-				{/* auth provider */}
-				<AuthProvider>
-					{/* navigation Scroll component */}
-					<NavigationScroll>
-						{/* routes */}
-						<AppRouting />
-						{/* toaster component */}
-						<Toaster />
-						{/* test comps */}
-						{/* <ViewPost /> */}
-						{/* <Comments /> */}
+				{/* navigation Scroll component */}
+				<NavigationScroll>
+					{/* routes */}
+					<AppRouting />
+					{/* toaster component */}
+					<Toaster />
+					{/* test comps */}
+					{/* <ViewPost /> */}
+					{/* <Comments /> */}
 
-						{/* common popup windows */}
-						<ShareWindow />
-						<Comments />
-					</NavigationScroll>
-				</AuthProvider>
+					{/* common popup windows */}
+					<ShareWindow />
+					<Comments />
+				</NavigationScroll>
 			</ThemeProvider>
 		</StyledEngineProvider>
 	);

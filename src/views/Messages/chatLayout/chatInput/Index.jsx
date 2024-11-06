@@ -11,10 +11,9 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import _, { isElement } from "lodash";
+import _ from "lodash";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import SendIcon from "@mui/icons-material/Send";
-import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import ReactIcons from "utils/ReactIcons";

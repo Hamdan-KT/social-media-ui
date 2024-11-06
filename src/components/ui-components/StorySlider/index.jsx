@@ -5,7 +5,7 @@ import {
 	Grid,
 	IconButton,
 	useMediaQuery,
-	Typography
+	Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
@@ -116,7 +116,11 @@ function StorySlider(props) {
 								minWidth: { xs: "5.5rem", sm: "4rem" },
 							}}
 						>
-							<ProfileAvatar data={userStories[9]} badge={true} />
+							<ProfileAvatar
+								profile={userStories[9]?.profile}
+								userName={userStories[9]?.name}
+								badge={true}
+							/>
 							<Typography
 								noWrap
 								variant="p"
@@ -143,7 +147,10 @@ function StorySlider(props) {
 								}}
 								key={ind}
 							>
-								<ProfileAvatar data={story} />
+								<ProfileAvatar
+									profile={story?.profile}
+									userName={story?.name}
+								/>
 								<Typography
 									noWrap
 									variant="p"

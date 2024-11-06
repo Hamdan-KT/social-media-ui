@@ -143,6 +143,73 @@ export const getEditedImage = (imageSrc, filter = {}) => {
 	});
 };
 
+export const getCroppedImgFile = (
+	imageSrc,
+	crop,
+	rotation = 0,
+	flip = { x: 1, y: 1 }
+) => {
+	return new Promise((resolve, reject) => {
+		const image = new Image();
+		image.src = imageSrc;
+
+		image.onload = () => {
+			const canvas = document.createElement("canvas");
+			const ctx = canvas.getContext("2d");
+
+			if (!ctx) {
+				return null;
+			}
+
+			const rotRad = getRadianAngle(rotation);
+
+			// set canvas size to match the bounding box
+			canvas.width = crop.width;
+			canvas.height = crop.height;
+
+			// translate canvas context to a central location to allow rotating and flipping around the center
+			ctx.translate(crop.width / 2, crop.height / 2);
+			ctx.rotate(rotRad);
+			ctx.scale(flip.x, flip.y);
+			ctx.translate(-crop.width / 2, -crop.height / 2);
+
+			console.log({ rotation });
+			console.log({ flip });
+
+			// Draw the cropped image onto the new canvas
+			ctx.drawImage(
+				image,
+				crop.x,
+				crop.y,
+				crop.width,
+				crop.height,
+				0,
+				0,
+				crop.width,
+				crop.height
+			);
+
+			// As Base64 string
+			// return croppedCanvas.toDataURL('image/jpeg');
+			canvas.toBlob((blob) => {
+				if (!blob) {
+					reject(new Error("Canvas is empty"));
+					return;
+				}
+				// Create a File object from the Blob with a .jpg extension
+				const file = new File([blob], "edited-image.jpg", {
+					type: "image/jpeg",
+				});
+				resolve(file);
+			}, "image/jpeg");
+		};
+
+		image.onerror = (error) => {
+			reject(error);
+		};
+	});
+};
+
 // format media duration to wavesurfer lib
 export const formatDuration = (seconds) => {
 	const date = new Date(0);

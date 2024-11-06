@@ -2,6 +2,7 @@ import { lazy } from "react";
 import Loadable from "components/common/Loadable";
 import { RoutePath } from "src/utils/routes";
 import MinimalLayout from "../layouts/MinimalLayout";
+import AuthProvider from "src/components/auth/AuthProvider";
 // testroute
 
 // MAIN ROUTES
@@ -14,14 +15,15 @@ const SharePostMobile = Loadable(lazy(() => import("views/CreatePost/Share")));
 const PostTaggingMobile = Loadable(
 	lazy(() => import("views/CreatePost/Tagging"))
 );
-const AuthLayout = Loadable(lazy(() => import("views/Auth")));
-const Login = Loadable(lazy(() => import("views/Auth/Login")));
-const Register = Loadable(lazy(() => import("views/Auth/Register")));
 
 const HelperRoutes = () => {
 	return {
 		path: RoutePath.HOME,
-		element: <MinimalLayout />,
+		element: (
+			// <AuthProvider>
+			<MinimalLayout />
+			// </AuthProvider>
+		),
 		children: [
 			{
 				path: RoutePath.STORY,
@@ -48,21 +50,21 @@ const HelperRoutes = () => {
 					},
 				],
 			},
-			// auth routes
-			{
-				path: RoutePath.AUTH,
-				element: <AuthLayout />,
-				children: [
-					{
-						path: RoutePath.LOGIN,
-						element: <Login />,
-					},
-					{
-						path: RoutePath.REGISTER,
-						element: <Register />,
-					},
-				],
-			},
+			// // auth routes
+			// {
+			// 	path: RoutePath.AUTH,
+			// 	element: <AuthLayout />,
+			// 	children: [
+			// 		{
+			// 			path: RoutePath.LOGIN,
+			// 			element: <Login />,
+			// 		},
+			// 		{
+			// 			path: RoutePath.REGISTER,
+			// 			element: <Register />,
+			// 		},
+			// 	],
+			// },
 		],
 	};
 };

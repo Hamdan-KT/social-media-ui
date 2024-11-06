@@ -72,6 +72,8 @@ function PostSettingsMobile() {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 
+	const user = useSelector((state) => state.user?.user)
+
 	const formattedPostData = async (postMedias) => {
 		const formData = new FormData();
 		let postData = {};
@@ -160,11 +162,11 @@ function PostSettingsMobile() {
 				}}
 			>
 				<Avatar
-					src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+					src={user?.avatar}
 					aria-label="profile-picture"
 					sx={{ width: 30, height: 30 }}
 				/>
-				<Typography variant="userName">Jack_Sparrow</Typography>
+				<Typography variant="userName">{user?.userName}</Typography>
 			</Box>
 			<TextField
 				id="outlined-basic"

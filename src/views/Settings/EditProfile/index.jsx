@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Avatar,
 	Box,
@@ -11,6 +11,13 @@ import {
 import { defaultUser } from "src/data";
 import Btn from "components/common/Button";
 import SettingsHeader from "../SettingsHeader";
+import { useFormik } from "formik";
+import { useMutation } from "@tanstack/react-query";
+import { updateUserAvatar } from "src/api/userAPI";
+import ChangeAvatar from "src/components/ui-components/Popups/ChangeAvatar";
+import { createURLfromImage } from "src/utils/common";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -23,6 +30,15 @@ const CommonBox = styled("div")(({ theme }) => ({
 function EditProfile() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const [popupOpen, setPopupOpen] = useState(false);
+	const [imgUrl, setImgUrl] = useState("");
+	const user = useSelector((state) => state.user?.user);
+
+	const onfileChange = (e) => {
+		const fileUrl = createURLfromImage(e.target.files[0]);
+		setImgUrl(fileUrl);
+		setPopupOpen(true);
+	};
 
 	return (
 		<>
@@ -48,10 +64,7 @@ function EditProfile() {
 						}}
 					>
 						<CommonBox sx={{ width: "auto" }}>
-							<Avatar
-								src={defaultUser.profile}
-								sx={{ width: 55, height: 55 }}
-							/>
+							<Avatar src={user?.avatar} sx={{ width: 55, height: 55 }} />
 							<CommonBox
 								sx={{
 									width: "auto",
@@ -60,14 +73,25 @@ function EditProfile() {
 									alignItems: "start",
 								}}
 							>
-								<Typography variant="userName">{defaultUser.userId}</Typography>
-								<Typography variant="greyTagsXs">{defaultUser.name}</Typography>
+								<Typography variant="userName">{user?.userName}</Typography>
+								<Typography variant="greyTagsXs">{user?.name}</Typography>
 							</CommonBox>
 						</CommonBox>
 						<CommonBox sx={{ width: "auto" }}>
-							<Btn variant="contained" sx={{ padding: "0.2rem 1rem" }}>
+							<Btn
+								component="label"
+								for="avatar-file"
+								variant="contained"
+								sx={{ padding: "0.2rem 1rem" }}
+							>
 								Change Photo
 							</Btn>
+							<TextField
+								sx={{ display: "none" }}
+								type="file"
+								id="avatar-file"
+								onChange={onfileChange}
+							/>
 						</CommonBox>
 					</CommonBox>
 					<CommonBox
@@ -128,6 +152,11 @@ function EditProfile() {
 					</CommonBox>
 				</CommonBox>
 			</Box>
+			<ChangeAvatar
+				open={popupOpen}
+				onClose={() => setPopupOpen(false)}
+				imgUrl={imgUrl}
+			/>
 		</>
 	);
 }

@@ -45,7 +45,12 @@ function SelectionListItem({
 				<Checkbox
 					onChange={(e) => handleSelection(e.target.checked)}
 					checked={!!selection[data[dataTag]]}
-					icon={<ReactIcons.FaRegCircle size={23} style={{color: theme.palette.grey[400]}} />}
+					icon={
+						<ReactIcons.FaRegCircle
+							size={23}
+							style={{ color: theme.palette.grey[400] }}
+						/>
+					}
 					checkedIcon={<ReactIcons.FaCheckCircle size={23} />}
 				/>
 			}
@@ -60,7 +65,8 @@ function SelectionListItem({
 			>
 				<ListItemAvatar>
 					<ProfileAvatar
-						data={data}
+						profile={data?.profile}
+						userName={data?.name}
 						sx={{
 							width: { xs: 43, sm: 46 },
 							height: { xs: 43, sm: 46 },

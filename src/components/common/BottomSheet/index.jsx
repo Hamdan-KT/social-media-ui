@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { useEffect, useRef, forwardRef } from "react";
+import React, { useEffect, useRef, forwardRef } from "react";
 import { Backdrop, Box, Typography, styled } from "@mui/material";
 import useOutSlideClick from "hooks/useOutSlideClick";
+import DefaultLoader from "../DefaultLoader";
 
 const BottomSheetHeader = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -11,6 +12,7 @@ const BottomSheetHeader = styled(Box)(({ theme }) => ({
 	borderBottom: `1px solid ${theme.palette.grey[300]}`,
 	flexDirection: "column",
 	cursor: "grab",
+	position: "relative",
 }));
 
 const DragHandle = styled(Box)(({ theme }) => ({
@@ -28,8 +30,25 @@ const BottomSheetBody = styled(Box)(({ theme, title }) => ({
 	color: "inherit",
 }));
 
+const CommonBox = styled("div")(({ theme }) => ({
+	height: "auto",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	width: "auto",
+	gap: "1rem",
+}));
+
 const BottomSheet = forwardRef(function (
-	{ children, open, onClose = () => {}, title = "", sheetBodyStyles = {} },
+	{
+		children,
+		open,
+		onClose = () => {},
+		title = "",
+		actionButton,
+		sheetBodyStyles = {},
+		actionLoading = false,
+	},
 	ref
 ) {
 	const backdropRef = useRef();
@@ -38,6 +57,12 @@ const BottomSheet = forwardRef(function (
 	const isDragging = useRef(false);
 	const startY = useRef();
 	const startHeight = useRef(contentRef.current);
+
+	const ModifiedActionBtn = React.Children.map(actionButton, (child) =>
+		React.cloneElement(child, {
+			...child.props,
+		})
+	);
 
 	// out side click detect hook
 	useOutSlideClick(contentRef, onClose);
@@ -151,6 +176,11 @@ const BottomSheet = forwardRef(function (
 						<Typography sx={{ mt: 1, userSelect: "none" }} variant="h4">
 							{title}
 						</Typography>
+					)}
+					{actionButton && (
+						<CommonBox sx={{ position: "absolute", right: "10px" }}>
+							{actionLoading ? <DefaultLoader size={23} /> : ModifiedActionBtn}
+						</CommonBox>
 					)}
 				</BottomSheetHeader>
 				<BottomSheetBody

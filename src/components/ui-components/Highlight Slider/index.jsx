@@ -1,11 +1,11 @@
 import {
-  Box,
-  styled,
-  Paper,
-  Grid,
-  IconButton,
-  useMediaQuery,
-  Typography,
+	Box,
+	styled,
+	Paper,
+	Grid,
+	IconButton,
+	useMediaQuery,
+	Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
@@ -60,70 +60,70 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const StorySliderBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  height: "100%",
-  alignItems: "center",
-  overflowX: "scroll",
-  scrollBehavior: "smooth",
-  gap: "2.5rem",
-  [theme.breakpoints.down("sm")]: {
-    gap: "0.5rem",
-  },
+	display: "flex",
+	height: "100%",
+	alignItems: "center",
+	overflowX: "scroll",
+	scrollBehavior: "smooth",
+	gap: "2.5rem",
+	[theme.breakpoints.down("sm")]: {
+		gap: "0.5rem",
+	},
 }));
 
 const StoryTag = styled(Box)(({ theme }) => ({
-  minWidth: "5rem",
-  minHeight: "5rem",
-  maxWidth: "5rem",
-  maxHeight: "5rem",
-  position: "relative",
-  [theme.breakpoints.down("sm")]: {
-    minWidth: "4rem",
-    minHeight: "4rem",
-    maxWidth: "4rem",
-    maxHeight: "4rem",
-  },
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "3px",
-  borderRadius: "50%",
-  background:
-    "linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)",
-  cursor: "pointer",
+	minWidth: "5rem",
+	minHeight: "5rem",
+	maxWidth: "5rem",
+	maxHeight: "5rem",
+	position: "relative",
+	[theme.breakpoints.down("sm")]: {
+		minWidth: "4rem",
+		minHeight: "4rem",
+		maxWidth: "4rem",
+		maxHeight: "4rem",
+	},
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	padding: "3px",
+	borderRadius: "50%",
+	background:
+		"linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5)",
+	cursor: "pointer",
 }));
 
 const SlideButton = styled(IconButton)(({ direction }) => ({
-  display: "flex",
-  padding: "0.1rem",
-  borderRadius: "50%",
-  backgroundColor: "rgba(202, 202, 202, 0.61)",
-  position: "absolute",
-  left: direction === "left" && 0,
-  right: direction === "right" && 0,
-  marginLeft: direction === "left" && "0.5rem",
-  marginRight: direction === "right" && "0.5rem",
-  "&:hover": {
-    backgroundColor: "rgba(202, 202, 202, 0.719)",
-  },
-  zIndex: 7,
+	display: "flex",
+	padding: "0.1rem",
+	borderRadius: "50%",
+	backgroundColor: "rgba(202, 202, 202, 0.61)",
+	position: "absolute",
+	left: direction === "left" && 0,
+	right: direction === "right" && 0,
+	marginLeft: direction === "left" && "0.5rem",
+	marginRight: direction === "right" && "0.5rem",
+	"&:hover": {
+		backgroundColor: "rgba(202, 202, 202, 0.719)",
+	},
+	zIndex: 7,
 }));
 
 function HighlightSlider(props) {
-  const customization = useSelector((state) => state.customization);
-  const theme = useTheme();
-  const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-  const sliderWindow = useRef();
+	const customization = useSelector((state) => state.customization);
+	const theme = useTheme();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const sliderWindow = useRef();
 
-  const handleStorySlide = (e, direction) => {
-    if (direction === "right") {
-      sliderWindow.current.scrollLeft += sliderWindow.current.clientWidth / 2;
-    } else {
-      sliderWindow.current.scrollLeft -= sliderWindow.current.clientWidth / 2;
-    }
-  };
+	const handleStorySlide = (e, direction) => {
+		if (direction === "right") {
+			sliderWindow.current.scrollLeft += sliderWindow.current.clientWidth / 2;
+		} else {
+			sliderWindow.current.scrollLeft -= sliderWindow.current.clientWidth / 2;
+		}
+	};
 
-  return (
+	return (
 		<Grid container>
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				<StyledPaper elevation={0} customization={customization}>
@@ -183,12 +183,13 @@ function HighlightSlider(props) {
 								key={ind}
 							>
 								<ProfileAvatar
-									data={story}
+									profile={story?.profile}
+									userName={story?.name}
 									sx={{
 										width: { xs: 59, sm: 75 },
 										height: { xs: 59, sm: 75 },
 									}}
-									containerSx={{padding: {xs: "2.7px"}}}
+									containerSx={{ padding: { xs: "2.7px" } }}
 								/>
 								<Typography
 									noWrap

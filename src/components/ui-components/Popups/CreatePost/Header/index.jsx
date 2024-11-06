@@ -6,7 +6,7 @@ import { setPostStages, cropPosts } from "app/slices/postSlice/postSlice";
 import { getCroppedImg, getEditedImage } from "src/utils/common";
 import { useState } from "react";
 import DefaultLoader from "components/common/DefaultLoader";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "src/api/postAPI";
 import toast from "react-hot-toast";
 import { clearPosts } from "src/app/slices/postSlice/postSlice";
@@ -27,6 +27,7 @@ function CreateHeader({ onClose }) {
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
 	const [loading, setLoading] = useState(false);
+	const queryClient = useQueryClient();
 
 	// set cropped media to redux
 	const handleCrop = async (postMedias) => {
@@ -62,7 +63,7 @@ function CreateHeader({ onClose }) {
 					[media?.uID],
 					await getEditedImage(media.croppedUrl, media?.customFilters)
 				);
-				postData[media?.uID] = media?.tags ?? [];
+				postData[media?.uID] = { tags: media?.tags ?? [] };
 			})
 		)
 			.then((result) => {
@@ -89,6 +90,7 @@ function CreateHeader({ onClose }) {
 		onSuccess: (data) => {
 			onClose();
 			dispatch(clearPosts());
+			queryClient.invalidateQueries({ queryKey: ["get-user-posts"] });
 			toast.success(data?.message);
 			// navigate(RoutePath.HOME, { replace: true });
 		},

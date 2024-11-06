@@ -31,7 +31,7 @@ function Home() {
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 
 	const { data, isLoading, isSuccess } = useQuery({
-		queryKey: [""],
+		queryKey: ["get-user-posts"],
 		queryFn: () => getAllPosts(),
 	});
 

@@ -4,6 +4,8 @@ import { useLocation, useRoutes } from "react-router-dom";
 import MainRoutes from "./MainRoutes";
 import HelperRoutes from "./HelperRoutes";
 import PopupRoutes from "./PopupRoutes";
+import AuthRoutes from "./AuthRoutes";
+import AuthProvider from "src/components/auth/AuthProvider";
 
 // ==============================|| ROUTING RENDER ||============================== //
 
@@ -15,12 +17,16 @@ export default function AppRouting() {
 		[MainRoutes(), HelperRoutes()],
 		previousLocation || location
 	);
+	const AuthenticationRoutes = useRoutes([AuthRoutes()]);
 	const PopuRoutes = useRoutes([PopupRoutes()], location);
 
 	return (
 		<>
-			{AppRoutes}
-			{previousLocation && PopuRoutes}
+			{AuthenticationRoutes}
+			<AuthProvider>
+				{AppRoutes}
+				{previousLocation && PopuRoutes}
+			</AuthProvider>
 		</>
 	);
 }

@@ -4,15 +4,19 @@ import {
 	Box,
 	Collapse,
 	Divider,
+	IconButton,
 	TextField,
 	Typography,
 	styled,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import MUISwitch from "components/common/formInputs/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
 import { setPostDetails } from "src/app/slices/postSlice/postSlice";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import PopOver from "src/components/common/Popover";
 
 const ContentBox = styled(Box)(({ theme }) => ({
 	width: 340,
@@ -45,6 +49,7 @@ const ItemsWrapper = styled(Box)(({ theme, hoverEffect }) => ({
 
 function PostSettings() {
 	const postStates = useSelector((state) => state.post);
+	const emojPopRef = useRef();
 	const dispatch = useDispatch();
 	const [openADVsettings, setOpenADVsettings] = useState(false);
 
@@ -69,20 +74,61 @@ function PostSettings() {
 						/>
 						<Typography variant="userName">Jack_Sparrow</Typography>
 					</Box>
-					<TextField
-						id="outlined-basic"
-						fullWidth
-						multiline
-						rows={6}
-						placeholder="Write a caption"
-						name="caption"
-						value={postStates?.postDetails?.caption}
-						onChange={(e) =>
-							dispatch(
-								setPostDetails({ key: e.target.name, value: e.target.value })
-							)
-						}
-					/>
+					<Box
+						sx={{
+							width: "100%",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							position: "relative",
+						}}
+					>
+						<PopOver
+							ref={emojPopRef}
+							Button={
+								<IconButton
+									size="small"
+									color="inherit"
+									sx={{
+										position: "absolute",
+										top: 0,
+										zIndex: 30,
+										right: 0,
+										cursor: "pointer",
+									}}
+								>
+									<ReactIcons.LuSmile />
+								</IconButton>
+							}
+						>
+							<Picker
+								data={data}
+								theme="light"
+								onEmojiSelect={(e) =>
+									dispatch(
+										setPostDetails({
+											key: "caption",
+											value: postStates?.postDetails?.caption + e.native,
+										})
+									)
+								}
+							/>
+						</PopOver>
+						<TextField
+							id="outlined-basic"
+							fullWidth
+							multiline
+							rows={6}
+							placeholder="Write a caption"
+							name="caption"
+							value={postStates?.postDetails?.caption}
+							onChange={(e) =>
+								dispatch(
+									setPostDetails({ key: e.target.name, value: e.target.value })
+								)
+							}
+						/>
+					</Box>
 					<ItemsWrapper hoverEffect={true}>
 						<Typography variant="body" sx={{ fontWeight: "medium" }}>
 							Add Location

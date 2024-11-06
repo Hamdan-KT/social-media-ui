@@ -56,7 +56,8 @@ function UserListItem({
 			>
 				<ListItemAvatar>
 					<ProfileAvatar
-						data={data}
+						profile={data?.profile}
+						userName={data?.name}
 						sx={{
 							width: { xs: 43, sm: 46 },
 							height: { xs: 43, sm: 46 },

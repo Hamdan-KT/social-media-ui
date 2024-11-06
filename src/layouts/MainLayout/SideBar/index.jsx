@@ -123,6 +123,9 @@ const SideBar = memo(function () {
 
 	const open = !matchDownMd ? sideBarOpen : !sideBarOpen;
 
+	//current user
+	const user = useSelector((state) => state.user?.user);
+
 	return (
 		<>
 			{!matchDownSm && (
@@ -142,7 +145,10 @@ const SideBar = memo(function () {
 									ml: 1,
 								}}
 							>
-								<Image src={PngLogo} style={{ display: "block", width: "50%" }} />
+								<Image
+									src={PngLogo}
+									style={{ display: "block", width: "50%" }}
+								/>
 							</Box>
 						) : (
 							<Box
@@ -222,8 +228,7 @@ const SideBar = memo(function () {
 													}}
 												>
 													<Avatar
-														alt={defaultUser.name}
-														src={defaultUser.profile}
+														src={user?.avatar}
 														sx={{ width: 30, height: 30 }}
 													/>
 												</ListItemAvatar>

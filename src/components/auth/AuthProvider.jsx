@@ -6,31 +6,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveUser, setToken } from "src/app/slices/userSlice/userSlice";
 import { useNavigate } from "react-router";
 import { RoutePath } from "src/utils/routes";
+import { useQuery } from "@tanstack/react-query";
 
 function AuthProvider({ children }) {
 	const token = useSelector((state) => state.user?.accessToken);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const { data, isLoading, isError, error, isSuccess } = useQuery({
+		queryKey: ["currentuser"],
+		queryFn: () => getCurrentUser(),
+		refetchOnWindowFocus: false,
+	});
+
 	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const response = await getCurrentUser();
-				console.log({ currentUser: response });
-				const { accessToken, ...rest } = response.data;
-				dispatch(saveUser(rest));
-				dispatch(setToken(accessToken));
-			} catch (error) {
-				console.log({ currentUserError: error });
-				if (error === "Unauthorized") {
-					dispatch(saveUser({}));
-					dispatch(setToken(null));
-					navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, { replace: true });
-				}
+		if (isSuccess) {
+			console.log({ currentUser: data });
+			const { accessToken, user } = data.data;
+			console.log(user);
+			console.log(accessToken);
+			dispatch(saveUser(user));
+			dispatch(setToken(accessToken));
+		}
+		if (isError) {
+			console.log({ currentUserError: error });
+			if (error === "Unauthorized") {
+				dispatch(saveUser({}));
+				dispatch(setToken(null));
+				navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, { replace: true });
 			}
-		};
-		fetchUser();
-	}, [dispatch, navigate]);
+		}
+	}, [isSuccess, isError, dispatch, navigate]);
 
 	// adding request interceptors to api
 	useLayoutEffect(() => {

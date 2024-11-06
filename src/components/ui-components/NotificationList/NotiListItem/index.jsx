@@ -79,7 +79,8 @@ function NotiListItem({
 			>
 				<ListItemAvatar sx={{ display: "flex" }}>
 					<ProfileAvatar
-						data={data}
+						profile={data?.profile}
+						userName={data?.name}
 						sx={{
 							width: { xs: 43, sm: 46 },
 							height: { xs: 43, sm: 46 },
@@ -97,8 +98,8 @@ function NotiListItem({
 						flexWrap: "wrap",
 						fontSize: 14,
 						mr: {
-							xs:  actionButton || customButton ? 9 : 0,
-							sm:  actionButton || customButton ? 5 : 0,
+							xs: actionButton || customButton ? 9 : 0,
+							sm: actionButton || customButton ? 5 : 0,
 						},
 					}}
 					primary={primaryText}

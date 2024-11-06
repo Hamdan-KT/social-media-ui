@@ -97,7 +97,8 @@ function ListSection({ onClose = () => {} }) {
 										}}
 									>
 										<ProfileAvatar
-											data={user}
+											profile={user?.profile}
+											userName={user?.name}
 											storyView={false}
 											sx={{
 												width: { xs: 73, sm: 75 },

@@ -43,7 +43,8 @@ function MessageListItem({
 			>
 				<ListItemAvatar>
 					<ProfileAvatar
-						data={data}
+						profile={data?.profile}
+						userName={data?.name}
 						sx={{
 							width: { xs: 50, sm: 46 },
 							height: { xs: 50, sm: 46 },
@@ -56,14 +57,14 @@ function MessageListItem({
 						fontSize: 13,
 						noWrap: true,
 						fontWeight: "bold",
-						mr:  actionButton || customButton ? 5 : 0,
+						mr: actionButton || customButton ? 5 : 0,
 					}}
 					secondaryTypographyProps={{
 						noWrap: true,
 						fontSize: 12,
 						mr: {
-							xs:  actionButton || customButton ? 3 : 0,
-							sm:  actionButton || customButton ? 3 : 0,
+							xs: actionButton || customButton ? 3 : 0,
+							sm: actionButton || customButton ? 3 : 0,
 						},
 					}}
 					primary={primaryText}
