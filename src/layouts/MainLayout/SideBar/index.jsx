@@ -34,6 +34,7 @@ import NotificationPopUp from "components/ui-components/Popups/Notification";
 import { memo } from "react";
 import { handleSideBarOpen } from "app/slices/layoutSlice/layoutSlice";
 import Image from "components/common/Image";
+import { RoutePath } from "src/utils/routes";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -177,7 +178,11 @@ const SideBar = memo(function () {
 										<Link
 											ref={ref}
 											{...props}
-											to={item.url}
+											to={
+												item?.avatar
+													? `${RoutePath.PROFILE}/${user?._id}`
+													: item?.url
+											}
 											target={itemTarget}
 										/>
 									)),

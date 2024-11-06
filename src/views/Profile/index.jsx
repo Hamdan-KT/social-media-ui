@@ -18,8 +18,11 @@ import MediaTabs from "./MediaTabs";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import { RoutePath } from "utils/routes";
 import ReactIcons from "utils/ReactIcons";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "src/api/userAPI";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -33,7 +36,19 @@ function Profile() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
-	const user = useSelector((state) => state.user?.user);
+	// const user = useSelector((state) => state.user?.user);
+	const { uid } = useParams();
+
+	const { data, isLoading, isSuccess } = useQuery({
+		queryKey: ["get-user"],
+		queryFn: () => getUser(uid),
+	});
+
+	useEffect(() => {
+		if (isSuccess) {
+			console.log({ data });
+		}
+	}, [isSuccess]);
 
 	return (
 		<Grid
@@ -55,8 +70,8 @@ function Profile() {
 							}}
 						>
 							<ProfileAvatar
-								profile={user?.avatar}
-								userName={user?.userName}
+								profile={data?.data?.avatar}
+								userName={data?.data?.userName}
 								sx={{
 									width: { xs: 85, sm: 110, md: 154 },
 									height: { xs: 85, sm: 110, md: 154 },
@@ -125,7 +140,7 @@ function Profile() {
 								<>
 									<StyledBox sx={{ gap: "0.7rem" }}>
 										<Typography variant="userName" sx={{ fontSize: "1rem" }}>
-											{user?.userName}
+											{data?.data?.userName}
 										</Typography>
 										{/* <Btn sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}>
 											Follow
@@ -139,7 +154,9 @@ function Profile() {
 										<Btn
 											variant="outlined"
 											sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}
-											onClick={() => navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)}
+											onClick={() =>
+												navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
+											}
 										>
 											Edit Profile
 										</Btn>
@@ -177,7 +194,7 @@ function Profile() {
 							)}
 							<StyledBox>
 								<Typography variant="userName" sx={{ fontSize: "0.85rem" }}>
-									{user?.userName}
+									{data?.data?.userName}
 								</Typography>
 							</StyledBox>
 							<StyledBox>

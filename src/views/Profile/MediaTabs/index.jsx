@@ -6,7 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PhotoGallery from "components/ui-components/PhotoGallery";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { Outlet, useLocation, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router";
 import { RoutePath } from "src/utils/routes";
 import { Link } from "react-router-dom";
 
@@ -46,19 +46,21 @@ function MediaTabs() {
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { uid } = useParams();
 
 	const tabValue =
 		{
-			[`/${RoutePath.PROFILE}`]: 0,
-			[`/${RoutePath.PROFILE_SAVED}`]: 1,
-			[`/${RoutePath.PROFILE_TAGGED}`]: 2,
+			[`/${RoutePath.PROFILE}/${uid}`]: 0,
+			[`/${RoutePath.PROFILE}/${uid}/${RoutePath.PROFILE_SAVED}`]: 1,
+			[`/${RoutePath.PROFILE}/${uid}/${RoutePath.PROFILE_TAGGED}`]: 2,
 		}[location.pathname] || 0;
 
 	const handleChange = (_, newValue) => {
+		console.log({ newValue });
 		const paths = [
-			`/${RoutePath.PROFILE}`,
-			`/${RoutePath.PROFILE_SAVED}`,
-			`/${RoutePath.PROFILE_TAGGED}`,
+			`/${RoutePath.PROFILE}/${uid}`,
+			`/${RoutePath.PROFILE}/${uid}/${RoutePath.PROFILE_SAVED}`,
+			`/${RoutePath.PROFILE}/${uid}/${RoutePath.PROFILE_TAGGED}`,
 		];
 		navigate(paths[newValue]);
 	};

@@ -35,11 +35,11 @@ function Home() {
 		queryFn: () => getAllPosts(),
 	});
 
-	useEffect(() => {
-		if (isSuccess) {
-			console.log({ data });
-		}
-	}, [isSuccess]);
+	// useEffect(() => {
+	// 	if (isSuccess) {
+	// 		console.log({ data });
+	// 	}
+	// }, [isSuccess]);
 
 	return (
 		<Grid container spacing={defaultSpacing}>

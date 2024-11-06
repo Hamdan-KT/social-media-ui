@@ -17,7 +17,10 @@ export default function AppRouting() {
 		[MainRoutes(), HelperRoutes()],
 		previousLocation || location
 	);
-	const AuthenticationRoutes = useRoutes([AuthRoutes()]);
+	const AuthenticationRoutes = useRoutes(
+		[AuthRoutes()],
+		previousLocation || location
+	);
 	const PopuRoutes = useRoutes([PopupRoutes()], location);
 
 	return (

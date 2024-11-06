@@ -84,19 +84,19 @@ const MainRoutes = () => {
 				element: <Reels />,
 			},
 			{
-				path: RoutePath.PROFILE,
+				path: `/${RoutePath.PROFILE}/:uid`,
 				element: <Profile />,
 				children: [
 					{
-						path: `/${RoutePath.PROFILE}`,
+						path: `/${RoutePath.PROFILE}/:uid`,
 						element: <ProfilePosts />,
 					},
 					{
-						path: `/${RoutePath.PROFILE_SAVED}`,
+						path: `/${RoutePath.PROFILE}/:uid/${RoutePath.PROFILE_SAVED}`,
 						element: <ProfileSavedPosts />,
 					},
 					{
-						path: `/${RoutePath.PROFILE_TAGGED}`,
+						path: `/${RoutePath.PROFILE}/:uid/${RoutePath.PROFILE_TAGGED}`,
 						element: <ProfileTaggedPosts />,
 					},
 				],
