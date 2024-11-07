@@ -36,7 +36,7 @@ const captionStyle = {
 	display: "-webkit-box",
 };
 
-function PostMobile({ data, divider = false }) {
+function PostMobile({ data = {}, divider = false }) {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const captionRef = useRef(null);

@@ -53,7 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function PostLarge({ data }) {
+function PostLarge({ data = {} }) {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
@@ -85,10 +85,10 @@ function PostLarge({ data }) {
 							justifyContent: "center",
 						}}
 					>
-						{Array.isArray(data?.media) &&
-							data?.media.map((media, ind) => (
+						{Array.isArray(data?.files) &&
+							data?.files.map((file, ind) => (
 								<Slide
-									key={media.uID}
+									key={ind}
 									sx={{
 										width: "100%",
 										display: "flex",
@@ -99,7 +99,7 @@ function PostLarge({ data }) {
 										height: "100%",
 									}}
 								>
-									{media.type === "image" && (
+									{file.fileType === "image" && (
 										<Image
 											style={{
 												maxHeight: "92vh",
@@ -108,17 +108,17 @@ function PostLarge({ data }) {
 												objectFit: "contain",
 											}}
 											alt="Not found!"
-											key={ind}
-											src={media.src}
+											key={file._id}
+											src={file?.fileUrl}
 											loading="lazy"
 											draggable={false}
 										/>
 									)}
-									{media.type === "video" && (
+									{file.fileType === "video" && (
 										<Video
 											controls
-											key={ind}
-											src={media.src}
+											key={file._id}
+											src={file?.fileUrl}
 											alt="Not Found!"
 											style={{
 												maxHeight: "92vh",
@@ -174,7 +174,11 @@ function PostLarge({ data }) {
 							}}
 						>
 							<Box sx={commonStyle}>
-								<ProfileAvatar data={data} sx={{ width: 36, height: 36 }} />
+								<ProfileAvatar
+									profile={data?.user?.avatar}
+									userName={data?.user?.userName}
+									sx={{ width: 36, height: 36 }}
+								/>
 							</Box>
 							<Box
 								sx={{
@@ -183,8 +187,10 @@ function PostLarge({ data }) {
 									flexDirection: "column",
 								}}
 							>
-								<Typography variant="userName">{data?.name}</Typography>
-								<Typography variant="caption">{"secondary text"}</Typography>
+								<Typography variant="userName">
+									{data?.user?.userName}
+								</Typography>
+								<Typography variant="caption">{"kozhikode"}</Typography>
 							</Box>
 						</Box>
 						{/* comments */}
@@ -223,37 +229,45 @@ function PostLarge({ data }) {
 									width: "100%",
 								}}
 							>
-								<Checkbox
-									size="small"
-									aria-label="like"
-									icon={
-										<ReactIcons.AiOutlineHeart
-											style={{
-												color: `${theme.palette.text.dark}`,
-												fontSize: 28,
-											}}
+								{!data?.isHideLikes && (
+									<>
+										<Checkbox
+											size="small"
+											aria-label="like"
+											icon={
+												<ReactIcons.AiOutlineHeart
+													style={{
+														color: `${theme.palette.text.dark}`,
+														fontSize: 28,
+													}}
+												/>
+											}
+											checkedIcon={
+												<ReactIcons.AiFillHeart
+													style={{
+														color: `${theme.palette.error.main}`,
+														fontSize: 28,
+													}}
+												/>
+											}
 										/>
-									}
-									checkedIcon={
-										<ReactIcons.AiFillHeart
-											style={{
-												color: `${theme.palette.error.main}`,
-												fontSize: 28,
-											}}
-										/>
-									}
-								/>
-								<Typography variant="userName">2,034</Typography>
-								<IconButton aria-label="comment">
-									<ReactIcons.RiChat3Line
-										style={{
-											color: `${theme.palette.text.dark}`,
-											fontSize: 25,
-											transform: "scaleX(-1)",
-										}}
-									/>
-								</IconButton>
-								<Typography variant="userName">1,034</Typography>
+										<Typography variant="userName">{data?.likes}</Typography>
+									</>
+								)}
+								{!data?.isDisableComment && (
+									<>
+										<IconButton aria-label="comment">
+											<ReactIcons.RiChat3Line
+												style={{
+													color: `${theme.palette.text.dark}`,
+													fontSize: 25,
+													transform: "scaleX(-1)",
+												}}
+											/>
+										</IconButton>
+										<Typography variant="userName">{data?.comments}</Typography>
+									</>
+								)}
 								<IconButton
 									aria-label="share"
 									onClick={() => dispatch(handleShareWindowOpen(true))}
@@ -266,7 +280,7 @@ function PostLarge({ data }) {
 										}}
 									/>
 								</IconButton>
-								<Typography variant="userName">534</Typography>
+								<Typography variant="userName">4</Typography>
 								<Checkbox
 									sx={{ ml: "auto" }}
 									aria-label="save"
@@ -304,7 +318,9 @@ function PostLarge({ data }) {
 										and <Typography variant="userName">Others</Typography>
 									</Typography>
 								</Box>
-								<Typography variant="caption">4 days ago</Typography>
+								{data?.createdAt && (
+									<Typography variant="caption">{data?.createdAt}</Typography>
+								)}
 							</Box>
 						</Box>
 						<Box sx={{ ...commonStyle, width: "100%", p: "0.4rem" }}>
