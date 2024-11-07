@@ -57,6 +57,7 @@ const BottomBar = memo(function () {
 	const aspectRatio = useSelector((state) => state.post.aspectRatio);
 	// refs
 	const createMenuRef = useRef();
+	const user = useSelector((state) => state.user?.user);
 
 	const onChange = (event, url) => {
 		if (url) {
@@ -180,7 +181,11 @@ const BottomBar = memo(function () {
 							} else {
 								return (
 									<BottomNavigationAction
-										value={menu?.url ?? null}
+										value={
+											menu?.avatar
+												? `${menu?.url}/${user?._id}`
+												: menu?.url ?? null
+										}
 										key={index}
 										icon={
 											pathname.split("/")[1] === menu?.id ? (

@@ -5,26 +5,28 @@ import { IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
 import ReactIcons from "utils/ReactIcons";
 import { RoutePath } from "utils/routes";
+import { useSelector } from "react-redux";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
-  display: "flex",
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "0em",
-  backgroundColor: theme.palette.background.default,
-  position: "fixed",
-  zIndex: 7,
-  top: 0,
-  left: 0,
+	display: "flex",
+	width: "100%",
+	alignItems: "center",
+	justifyContent: "space-between",
+	padding: "0em",
+	backgroundColor: theme.palette.background.default,
+	position: "fixed",
+	zIndex: 7,
+	top: 0,
+	left: 0,
 }));
 
-function ProfileHeader() {
-  const theme = useTheme();
-  const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-  const navigate = useNavigate();
+function ProfileHeader({ data = {} }) {
+	const theme = useTheme();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const navigate = useNavigate();
+	const user = useSelector((state) => state.user?.user);
 
-  return (
+	return (
 		<>
 			{matchDownSm && (
 				<StyledToolBar>
@@ -36,22 +38,17 @@ function ProfileHeader() {
 						<ReactIcons.IoChevronBack />
 					</IconButton>
 					<Box>
-						<Typography variant="h4">Jack Sparrow</Typography>
+						<Typography variant="h4">{data?.userName}</Typography>
 					</Box>
-					{/* <IconButton
-						size="medium"
-						color="inherit"
-						onClick={() => console.log("more buttom clicked")}
-					>
-						<ReactIcons.MdMoreHoriz />
-					</IconButton> */}
-					<IconButton
-						size="medium"
-						color="inherit"
-						onClick={() => navigate(`/${RoutePath.SETTINGS}`)}
-					>
-						<ReactIcons.MdMenu />
-					</IconButton>
+					{data?._id && data?._id === user?._id && (
+						<IconButton
+							size="medium"
+							color="inherit"
+							onClick={() => navigate(`/${RoutePath.SETTINGS}`)}
+						>
+							<ReactIcons.MdMenu />
+						</IconButton>
+					)}
 				</StyledToolBar>
 			)}
 		</>

@@ -38,5 +38,6 @@ export const BottomBarMenuList = [
 		icon: ReactIcons.RiAccountCircleFill,
 		outLinedIcon: ReactIcons.RiAccountCircleLine,
 		url: RoutePath.PROFILE,
+		avatar: true
 	},
 ];

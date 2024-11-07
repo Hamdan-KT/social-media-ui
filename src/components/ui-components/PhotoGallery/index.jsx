@@ -25,8 +25,8 @@ const StyledGallery = styled(Box)(({ theme }) => ({
 	backgroundColor: theme.palette.background.default,
 	padding: "0",
 	[theme.breakpoints.down("sm")]: {
-		gap: 0
-	}
+		gap: 0,
+	},
 }));
 
 const MediaDiv = styled(Box)(({ theme }) => ({
@@ -90,7 +90,7 @@ const defaultStyle = {
 	userSelect: "none",
 };
 
-function PhotoGallery({sx}) {
+function PhotoGallery({ sx, data = [] }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const location = useLocation();
@@ -99,15 +99,15 @@ function PhotoGallery({sx}) {
 		<Grid container>
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				<StyledGallery sx={sx}>
-					{[...userPosts, ...userPosts, ...userPosts]?.map((post, index) => (
+					{data?.map((post, index) => (
 						<Link
-							to={`/${RoutePath.POST}/${post.id}`}
+							to={`/${RoutePath.POST}/${post._id}`}
 							state={{ previousLocation: !matchDownSm ? location : null }}
 						>
 							<MediaDiv key={index}>
-								{post.media[0]?.type === "image" ? (
+								{post?.files[0]?.fileType === "image" ? (
 									<Image
-										src={post.media[0]?.src}
+										src={post.files[0]?.fileUrl}
 										alt="Not Found!"
 										style={{
 											display: "block",
@@ -121,7 +121,7 @@ function PhotoGallery({sx}) {
 									/>
 								) : (
 									<video
-										src={post.media[0]?.src}
+										src={post?.files[0]?.fileUrl}
 										alt="Not Found!"
 										style={{
 											display: "block",
@@ -164,7 +164,7 @@ function PhotoGallery({sx}) {
 										</Box>
 									</HoverDiv>
 								)}
-								{post?.media?.length > 1 ? (
+								{post?.files?.length > 1 ? (
 									<StyledMediaTag>
 										<ReactIcons.FaImages
 											size={22}
@@ -173,7 +173,7 @@ function PhotoGallery({sx}) {
 											}}
 										/>
 									</StyledMediaTag>
-								) : post?.media[0]?.type === "video" ? (
+								) : post?.files[0]?.fileType === "video" ? (
 									<StyledMediaTag>
 										<ReactIcons.BiSolidMoviePlay
 											size={22}

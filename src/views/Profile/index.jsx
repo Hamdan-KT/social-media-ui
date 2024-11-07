@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "src/api/userAPI";
+import FollowBtn from "src/components/common/FollowBtn";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -36,17 +37,17 @@ function Profile() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
-	// const user = useSelector((state) => state.user?.user);
+	const user = useSelector((state) => state.user?.user);
 	const { uid } = useParams();
 
 	const { data, isLoading, isSuccess } = useQuery({
-		queryKey: ["get-user"],
+		queryKey: ["get-user-profile"],
 		queryFn: () => getUser(uid),
 	});
 
 	useEffect(() => {
 		if (isSuccess) {
-			console.log({ data });
+			console.log({ profile: data });
 		}
 	}, [isSuccess]);
 
@@ -59,7 +60,7 @@ function Profile() {
 			{/* profile Info */}
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				{/* profile header */}
-				<ProfileHeader />
+				<ProfileHeader data={data?.data} />
 				{/* profile bio */}
 				<Grid container sx={{ marginTop: { xs: 4.5, sm: 0 } }}>
 					<Grid item xs={4} sm={3} md={4} lg={4}>
@@ -91,7 +92,7 @@ function Profile() {
 									gap="0.1rem"
 								>
 									<Typography variant="h4" fontSize="1.1rem">
-										1,123
+										{data?.data?.postsCount}
 									</Typography>
 									<Typography variant="p" fontSize="0.8rem">
 										Posts
@@ -105,7 +106,7 @@ function Profile() {
 									gap="0.1rem"
 								>
 									<Typography variant="h4" fontSize="1.1rem">
-										1.3 M
+										{data?.data?.followersCount}
 									</Typography>
 									<Typography variant="p" fontSize="0.8rem">
 										Followers
@@ -119,7 +120,7 @@ function Profile() {
 									gap="0.1rem"
 								>
 									<Typography variant="h4" fontSize="1.1rem">
-										256
+										{data?.data?.followingCount}
 									</Typography>
 									<Typography variant="p" fontSize="0.8rem">
 										Following
@@ -142,51 +143,69 @@ function Profile() {
 										<Typography variant="userName" sx={{ fontSize: "1rem" }}>
 											{data?.data?.userName}
 										</Typography>
-										{/* <Btn sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}>
-											Follow
-										</Btn>
-										<Btn
-											variant="outlined"
-											sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
-										>
-											Message
-										</Btn> */}
-										<Btn
-											variant="outlined"
-											sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}
-											onClick={() =>
-												navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
-											}
-										>
-											Edit Profile
-										</Btn>
-										<Btn
-											variant="outlined"
-											sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
-										>
-											Share Profile
-										</Btn>
-										<IconButton
-											size="small"
-											color="inherit"
-											onClick={() =>
-												navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
-											}
-										>
-											<ReactIcons.IoIosSettings size={27} />
-										</IconButton>
+										{data?.data?._id && data?.data?._id !== user?._id && (
+											<>
+												<FollowBtn
+													sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}
+												>
+													Follow
+												</FollowBtn>
+												<Btn
+													variant="outlined"
+													sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
+												>
+													Message
+												</Btn>
+											</>
+										)}
+										{data?.data?._id && data?.data?._id === user?._id && (
+											<>
+												<Btn
+													variant="outlined"
+													sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}
+													onClick={() =>
+														navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
+													}
+												>
+													Edit Profile
+												</Btn>
+												<Btn
+													variant="outlined"
+													sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
+												>
+													Share Profile
+												</Btn>
+											</>
+										)}
+										{data?.data?._id && data?.data?._id === user?._id && (
+											<IconButton
+												size="small"
+												color="inherit"
+												onClick={() =>
+													navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
+												}
+											>
+												<ReactIcons.IoIosSettings size={27} />
+											</IconButton>
+										)}
 									</StyledBox>
 									<StyledBox>
 										<Box display="flex" gap="0.5rem">
-											<Typography variant="h4">1,123</Typography>
+											<Typography variant="h4">
+												{data?.data?.postsCount}
+											</Typography>
 											<Typography variant="p">Posts</Typography>
 										</Box>
 										<Box display="flex" gap="0.5rem">
-											<Typography variant="h4">1.3 M</Typography>
+											<Typography variant="h4">
+												{data?.data?.followersCount}
+											</Typography>
 											<Typography variant="p">Followers</Typography>
 										</Box>
 										<Box display="flex" gap="0.5rem">
-											<Typography variant="h4">256</Typography>
+											<Typography variant="h4">
+												{data?.data?.followingCount}
+											</Typography>
 											<Typography variant="p">Following</Typography>
 										</Box>
 									</StyledBox>
@@ -199,55 +218,69 @@ function Profile() {
 							</StyledBox>
 							<StyledBox>
 								<Typography variant="p" color={theme.palette.grey[500]}>
-									Blogger
+									{data?.data?.role}
 								</Typography>
 							</StyledBox>
 							<StyledBox>
 								<Typography variant="p">
+									{/* {data?.data?.bio} */}
 									Lorem ipsum dolor sit amet consectetur adipisicing elit.
 									Laudantium totam sed praesentium dignissimos sapiente ducimus
 									quidem atque?
 								</Typography>
 							</StyledBox>
-							<StyledBox>
-								<AvatarSet max={3} size={27} />
-								<Typography variant="body">
-									Followed By William, Clara and 30 others
-								</Typography>
-							</StyledBox>
+							{data?.data?._id && data?.data?._id !== user?._id && (
+								<StyledBox>
+									<AvatarSet max={3} size={27} />
+									<Typography variant="body">
+										Followed By William, Clara and 30 others
+									</Typography>
+								</StyledBox>
+							)}
 							{matchDownSm && (
 								<StyledBox sx={{ padding: "0.5rem 0" }}>
-									{/* <Btn
-										sx={{
-											width: "100%",
-										}}
-									>
-										Follow
-									</Btn>
-									<Btn
-										variant="outlined"
-										sx={{
-											width: "100%",
-										}}
-									>
-										Message
-									</Btn> */}
-									<Btn
-										variant="outlined"
-										sx={{
-											width: "100%",
-										}}
-									>
-										Edit Profile
-									</Btn>
-									<Btn
-										variant="outlined"
-										sx={{
-											width: "100%",
-										}}
-									>
-										Share Profile
-									</Btn>
+									{data?.data?._id && data?.data?._id !== user?._id && (
+										<>
+											<FollowBtn
+												sx={{
+													width: "100%",
+												}}
+											>
+												Follow
+											</FollowBtn>
+											<Btn
+												variant="outlined"
+												sx={{
+													width: "100%",
+												}}
+											>
+												Message
+											</Btn>
+										</>
+									)}
+									{data?.data?._id && data?.data?._id === user?._id && (
+										<>
+											<Btn
+												variant="outlined"
+												sx={{
+													width: "100%",
+												}}
+												onClick={() =>
+													navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
+												}
+											>
+												Edit Profile
+											</Btn>
+											<Btn
+												variant="outlined"
+												sx={{
+													width: "100%",
+												}}
+											>
+												Share Profile
+											</Btn>
+										</>
+									)}
 								</StyledBox>
 							)}
 						</StyledBox>

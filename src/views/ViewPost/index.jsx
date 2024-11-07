@@ -15,6 +15,8 @@ import { useNavigate, useParams } from "react-router";
 import PostMobile from "components/ui-components/Post/mobile";
 import { userPosts, explorePosts } from "src/data";
 import PostLarge from "components/ui-components/Post/large";
+import { getPost } from "src/api/postAPI";
+import { useQuery } from "@tanstack/react-query";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -61,14 +63,17 @@ function ViewPostMobile() {
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
 	const { pId } = useParams();
-	// temp post
-	const [tempPost, setTempPost] = useState({});
+
+	const { data, isLoading, isSuccess } = useQuery({
+		queryKey: ["get-saved-posts"],
+		queryFn: () => getPost(pId),
+	});
+
 	useEffect(() => {
-		const post = [...userPosts, ...explorePosts]?.find(
-			(post) => post.id == pId
-		);
-		setTempPost(post);
-	}, [pId]);
+		if (isSuccess) {
+			console.log({ post: data });
+		}
+	}, [isSuccess]);
 
 	return (
 		<MainBox>
@@ -91,9 +96,9 @@ function ViewPostMobile() {
 			)}
 			<PostContainer>
 				{matchDownSm ? (
-					<PostMobile data={tempPost} />
+					<PostMobile data={data?.data} />
 				) : (
-					<PostLarge data={tempPost} />
+					<PostLarge data={data?.data} />
 				)}
 			</PostContainer>
 		</MainBox>
