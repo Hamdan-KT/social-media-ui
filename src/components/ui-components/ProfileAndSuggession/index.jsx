@@ -83,7 +83,7 @@ function Suggessions() {
 			<Grid item md={12} lg={12}>
 				<StyledProfile
 					elevation={2}
-					onClick={() => navigate(RoutePath.PROFILE)}
+					onClick={() => navigate(`/${RoutePath.PROFILE}/${user?._id}`)}
 				>
 					<ProfileBox>
 						<Box
@@ -105,12 +105,8 @@ function Suggessions() {
 									flexDirection: "column",
 								}}
 							>
-								<Typography variant="userName">
-									{user?.userName}
-								</Typography>
-								<Typography variant="caption">
-									{user?.name}
-								</Typography>
+								<Typography variant="userName">{user?.userName}</Typography>
+								<Typography variant="caption">{user?.name}</Typography>
 							</Box>
 						</Box>
 						<Btn>Switch</Btn>

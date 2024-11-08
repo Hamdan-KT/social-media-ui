@@ -34,9 +34,9 @@ export const getPost = async (id) => {
 };
 
 // Get all post based on latest updated
-export const getAllPosts = async () => {
+export const getAllPosts = async (page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/post`);
+		const { data } = await apiClient.get(`/post`, { params: { page, limit } });
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
@@ -54,9 +54,11 @@ export const deletePost = async (id) => {
 };
 
 // Get all posts from a specific user by their ID
-export const getUserPosts = async (id) => {
+export const getUserPosts = async (id, page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/post/${id}/posts`);
+		const { data } = await apiClient.get(`/post/${id}/posts`, {
+			params: { page, limit },
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
@@ -84,9 +86,14 @@ export const unsavePost = async (id) => {
 };
 
 // Get all saved posts for the authenticated user
-export const getSavedPosts = async () => {
+export const getSavedPosts = async (page, limit) => {
 	try {
-		const { data } = await apiClient.get("/post/saved");
+		const { data } = await apiClient.get("/post/saved", {
+			params: {
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
@@ -94,9 +101,14 @@ export const getSavedPosts = async () => {
 };
 
 // Get all posts where a specific user is tagged
-export const getTaggedPosts = async (id) => {
+export const getTaggedPosts = async (id, page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/post/${id}/tagged`);
+		const { data } = await apiClient.get(`/post/${id}/tagged`, {
+			params: {
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);

@@ -65,7 +65,7 @@ function ViewPostMobile() {
 	const { pId } = useParams();
 
 	const { data, isLoading, isSuccess } = useQuery({
-		queryKey: ["get-saved-posts"],
+		queryKey: ["get-post", pId],
 		queryFn: () => getPost(pId),
 	});
 

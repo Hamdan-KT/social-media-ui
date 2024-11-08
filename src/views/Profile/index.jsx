@@ -146,7 +146,7 @@ function Profile() {
 										{data?.data?._id && data?.data?._id !== user?._id && (
 											<>
 												<FollowBtn
-													sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}
+													sx={{ padding: "0.1rem 1rem", fontSize: "0.9rem" }}
 												>
 													Follow
 												</FollowBtn>

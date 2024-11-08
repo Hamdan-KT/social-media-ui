@@ -109,7 +109,11 @@ function PostMobile({ data = {}, divider = false }) {
 								gap: "4px",
 								alignItems: "center",
 								justifyContent: "center",
+								cursor: "pointer",
 							}}
+							onClick={() =>
+								navigate(`/${RoutePath.PROFILE}/${data?.user?._id}`)
+							}
 						>
 							<Typography variant="body">{data?.user?.userName}</Typography>
 							<ImgWrapper sx={{ width: "0.8rem", height: "0.8rem" }}>
@@ -122,7 +126,7 @@ function PostMobile({ data = {}, divider = false }) {
 									}}
 								/>
 							</ImgWrapper>
-							{data?.createdAt && (
+							{data?.createdAt && !matchDownSm && (
 								<>
 									&#183;
 									<Typography
@@ -325,7 +329,7 @@ function PostMobile({ data = {}, divider = false }) {
 						</Typography>
 					) : null)}
 
-				<Box mt={0.4} mb={1}>
+				<Box mt={0.2} mb={!matchDownSm ? 1 : 0}>
 					{/* view comment tag */}
 					<Typography
 						variant="greyTags"
@@ -341,8 +345,23 @@ function PostMobile({ data = {}, divider = false }) {
 						View all {data?.comments ? data?.comments : null} comments
 					</Typography>
 				</Box>
+				{matchDownSm && (
+					<Box mt={0.2} mb={1}>
+						{data?.createdAt && (
+							<Typography
+								variant="p"
+								sx={{
+									color: theme.palette.grey[500],
+									fontSize: "0.7rem",
+									fontWeight: "normal",
+								}}
+							>
+								{data?.createdAt}
+							</Typography>
+						)}
+					</Box>
+				)}
 			</CardContent>
-
 			{/* if divider is true */}
 			{divider && !matchDownSm && <Divider />}
 		</Card>

@@ -36,7 +36,7 @@ function FollowBtn({
 			disableElevation
 			sx={{
 				padding: {
-					xs: variant === "contained" ? "0.35rem 1.7rem" : "0.25rem 1.7rem",
+					xs: variant === "contained" ? "0.25rem 1.7rem" : "0.25rem 1.7rem",
 					sm: variant === "contained" ? "0.25rem 0.4rem" : "0.14rem 0.4rem",
 				},
 				fontSize: { xs: "0.85rem", sm: "0.75" },
