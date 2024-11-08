@@ -13,6 +13,7 @@ import { Link, useLocation } from "react-router-dom";
 import { userPosts } from "src/data";
 import ReactIcons from "utils/ReactIcons";
 import Image from "components/common/Image";
+import React, { forwardRef } from "react";
 
 const StyledGallery = styled(Box)(({ theme }) => ({
 	display: "grid",
@@ -90,7 +91,7 @@ const defaultStyle = {
 	userSelect: "none",
 };
 
-function PhotoGallery({ sx, data = [] }) {
+const PhotoGallery = forwardRef(function PhotoGallery({ sx, data = [] }, ref) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const location = useLocation();
@@ -99,97 +100,103 @@ function PhotoGallery({ sx, data = [] }) {
 		<Grid container>
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				<StyledGallery sx={sx}>
-					{data?.map((post, index) => (
-						<Link
-							to={`/${RoutePath.POST}/${post._id}`}
-							state={{ previousLocation: !matchDownSm ? location : null }}
-						>
-							<MediaDiv key={index}>
-								{post?.files[0]?.fileType === "image" ? (
-									<Image
-										src={post.files[0]?.fileUrl}
-										alt="Not Found!"
-										style={{
-											display: "block",
-											height: "100%",
-											objectPosition: "center",
-											objectFit: "cover",
-											width: "100%",
-											userSelect: "none",
-										}}
-										loading="lazy"
-									/>
-								) : (
-									<video
-										src={post?.files[0]?.fileUrl}
-										alt="Not Found!"
-										style={{
-											display: "block",
-											height: "100%",
-											objectPosition: "center",
-											objectFit: "cover",
-											width: "100%",
-											userSelect: "none",
-										}}
-										loading="lazy"
-									/>
-								)}
-								{!matchDownSm && (
-									<HoverDiv className="HoverDiv">
-										<Box sx={defaultStyle}>
-											<ReactIcons.AiFillHeart
-												size={22}
-												style={{ color: theme.palette.background.paper }}
+					{data?.pages?.map((page, pageIndex, pageArr) => (
+						<React.Fragment key={pageIndex}>
+							{page?.data?.map((post, postIndex, postArr) => (
+								<Link
+									key={post._id}
+									to={`/${RoutePath.POST}/${post._id}`}
+									state={{ previousLocation: !matchDownSm ? location : null }}
+									ref={pageIndex === pageArr.length - 1 ? ref : null}
+								>
+									<MediaDiv>
+										{post?.files[0]?.fileType === "image" ? (
+											<Image
+												src={post.files[0]?.fileUrl}
+												alt="Not Found!"
+												style={{
+													display: "block",
+													height: "100%",
+													objectPosition: "center",
+													objectFit: "cover",
+													width: "100%",
+													userSelect: "none",
+												}}
+												loading="lazy"
 											/>
-											<Typography
-												variant="h4"
-												sx={{ fontWeight: "bold" }}
-												color={theme.palette.background.paper}
-											>
-												{post?.likes}
-											</Typography>
-										</Box>
-										<Box sx={defaultStyle}>
-											<ReactIcons.RiChat1Fill
-												size={22}
-												style={{ color: theme.palette.background.paper }}
+										) : (
+											<video
+												src={post?.files[0]?.fileUrl}
+												alt="Not Found!"
+												style={{
+													display: "block",
+													height: "100%",
+													objectPosition: "center",
+													objectFit: "cover",
+													width: "100%",
+													userSelect: "none",
+												}}
+												loading="lazy"
 											/>
-											<Typography
-												variant="h4"
-												sx={{ fontWeight: "bold" }}
-												color={theme.palette.background.paper}
-											>
-												{post?.comments}
-											</Typography>
-										</Box>
-									</HoverDiv>
-								)}
-								{post?.files?.length > 1 ? (
-									<StyledMediaTag>
-										<ReactIcons.FaImages
-											size={22}
-											style={{
-												color: theme.palette.background.paper,
-											}}
-										/>
-									</StyledMediaTag>
-								) : post?.files[0]?.fileType === "video" ? (
-									<StyledMediaTag>
-										<ReactIcons.BiSolidMoviePlay
-											size={22}
-											sx={{
-												color: theme.palette.background.paper,
-											}}
-										/>
-									</StyledMediaTag>
-								) : null}
-							</MediaDiv>
-						</Link>
+										)}
+										{!matchDownSm && (
+											<HoverDiv className="HoverDiv">
+												<Box sx={defaultStyle}>
+													<ReactIcons.AiFillHeart
+														size={22}
+														style={{ color: theme.palette.background.paper }}
+													/>
+													<Typography
+														variant="h4"
+														sx={{ fontWeight: "bold" }}
+														color={theme.palette.background.paper}
+													>
+														{post?.likes}
+													</Typography>
+												</Box>
+												<Box sx={defaultStyle}>
+													<ReactIcons.RiChat1Fill
+														size={22}
+														style={{ color: theme.palette.background.paper }}
+													/>
+													<Typography
+														variant="h4"
+														sx={{ fontWeight: "bold" }}
+														color={theme.palette.background.paper}
+													>
+														{post?.comments}
+													</Typography>
+												</Box>
+											</HoverDiv>
+										)}
+										{post?.files?.length > 1 ? (
+											<StyledMediaTag>
+												<ReactIcons.FaImages
+													size={22}
+													style={{
+														color: theme.palette.background.paper,
+													}}
+												/>
+											</StyledMediaTag>
+										) : post?.files[0]?.fileType === "video" ? (
+											<StyledMediaTag>
+												<ReactIcons.BiSolidMoviePlay
+													size={22}
+													style={{
+														color: theme.palette.background.paper,
+													}}
+												/>
+											</StyledMediaTag>
+										) : null}
+									</MediaDiv>
+								</Link>
+							))}
+						</React.Fragment>
 					))}
 				</StyledGallery>
 			</Grid>
 		</Grid>
 	);
-}
+});
 
 export default PhotoGallery;

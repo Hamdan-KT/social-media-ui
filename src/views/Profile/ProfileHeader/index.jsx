@@ -6,6 +6,9 @@ import { useNavigate } from "react-router";
 import ReactIcons from "utils/ReactIcons";
 import { RoutePath } from "utils/routes";
 import { useSelector } from "react-redux";
+import ImgWrapper from "src/components/common/ImgWrapper";
+import Image from "src/components/common/Image";
+import verifiedBadge from "assets/images/verifiedBadge.png";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	display: "flex",
@@ -37,8 +40,18 @@ function ProfileHeader({ data = {} }) {
 					>
 						<ReactIcons.IoChevronBack />
 					</IconButton>
-					<Box>
+					<Box sx={{display: "flex", width: "auto", alignItems: "center", gap: "0.5rem", justifyContent: "center"}}>
 						<Typography variant="h4">{data?.userName}</Typography>
+						<ImgWrapper sx={{ width: "1rem", height: "1rem" }}>
+							<Image
+								src={verifiedBadge}
+								style={{
+									display: "block",
+									width: "100%",
+									objectFit: "cover",
+								}}
+							/>
+						</ImgWrapper>
 					</Box>
 					{data?._id && data?._id === user?._id && (
 						<IconButton

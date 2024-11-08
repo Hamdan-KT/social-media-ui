@@ -36,7 +36,7 @@ const captionStyle = {
 	display: "-webkit-box",
 };
 
-function PostMobile({ data = {}, divider = false }) {
+const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const captionRef = useRef(null);
@@ -69,6 +69,7 @@ function PostMobile({ data = {}, divider = false }) {
 				width: "100%",
 			}}
 			elevation={0}
+			ref={ref}
 		>
 			<CardHeader
 				sx={{
@@ -219,12 +220,18 @@ function PostMobile({ data = {}, divider = false }) {
 							aria-label="like"
 							icon={
 								<ReactIcons.AiOutlineHeart
-									style={{ color: `${theme.palette.text.dark}`, fontSize: 28 }}
+									style={{
+										color: `${theme.palette.text.dark}`,
+										fontSize: 28,
+									}}
 								/>
 							}
 							checkedIcon={
 								<ReactIcons.AiFillHeart
-									style={{ color: `${theme.palette.error.main}`, fontSize: 28 }}
+									style={{
+										color: `${theme.palette.error.main}`,
+										fontSize: 28,
+									}}
 								/>
 							}
 						/>
@@ -328,8 +335,7 @@ function PostMobile({ data = {}, divider = false }) {
 							more
 						</Typography>
 					) : null)}
-
-				<Box mt={0.2} mb={!matchDownSm ? 1 : 0}>
+				<Box mt={0.2}>
 					{/* view comment tag */}
 					<Typography
 						variant="greyTags"
@@ -346,7 +352,7 @@ function PostMobile({ data = {}, divider = false }) {
 					</Typography>
 				</Box>
 				{matchDownSm && (
-					<Box mt={0.2} mb={1}>
+					<Box mt={0.2}>
 						{data?.createdAt && (
 							<Typography
 								variant="p"
@@ -363,9 +369,9 @@ function PostMobile({ data = {}, divider = false }) {
 				)}
 			</CardContent>
 			{/* if divider is true */}
-			{divider && !matchDownSm && <Divider />}
+			{divider && !matchDownSm && <Divider sx={{mt: 0.5}}/>}
 		</Card>
 	);
-}
+});
 
 export default PostMobile;

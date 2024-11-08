@@ -24,6 +24,9 @@ import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "src/api/userAPI";
 import FollowBtn from "src/components/common/FollowBtn";
+import ImgWrapper from "src/components/common/ImgWrapper";
+import Image from "src/components/common/Image";
+import verifiedBadge from "assets/images/verifiedBadge.png";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -143,6 +146,16 @@ function Profile() {
 										<Typography variant="userName" sx={{ fontSize: "1rem" }}>
 											{data?.data?.userName}
 										</Typography>
+										<ImgWrapper sx={{ width: "1rem", height: "1rem" }}>
+											<Image
+												src={verifiedBadge}
+												style={{
+													display: "block",
+													width: "100%",
+													objectFit: "cover",
+												}}
+											/>
+										</ImgWrapper>
 										{data?.data?._id && data?.data?._id !== user?._id && (
 											<>
 												<FollowBtn
@@ -213,7 +226,7 @@ function Profile() {
 							)}
 							<StyledBox>
 								<Typography variant="userName" sx={{ fontSize: "0.85rem" }}>
-									{data?.data?.userName}
+									{data?.data?.name}
 								</Typography>
 							</StyledBox>
 							<StyledBox>
