@@ -12,9 +12,15 @@ export const getUser = async (id) => {
 };
 
 // Get a list of all users (can include filtering, pagination, etc.)
-export const getUsers = async (params = {}) => {
+export const getUsers = async (params = {}, page, limit) => {
 	try {
-		const { data } = await apiClient.get("/user", { params });
+		const { data } = await apiClient.get("/user", {
+			params: {
+				...params,
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);

@@ -15,7 +15,6 @@ function ProfileSavedPosts() {
 			queryKey: ["get-all-saved-posts"],
 			queryFn: ({ pageParam = 1 }) => getSavedPosts(pageParam, 9),
 			initialPageParam: 1,
-			refetchOnWindowFocus: false,
 			getNextPageParam: (lastPage, allPages) => {
 				const nextPage = lastPage?.data?.length
 					? allPages?.length + 1

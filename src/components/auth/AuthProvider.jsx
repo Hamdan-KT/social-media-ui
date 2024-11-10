@@ -16,7 +16,7 @@ function AuthProvider({ children }) {
 	const { data, isLoading, isError, error, isSuccess } = useQuery({
 		queryKey: ["currentuser"],
 		queryFn: () => getCurrentUser(),
-		refetchOnWindowFocus: false,
+		refetchOnWindowFocus: true,
 	});
 
 	useEffect(() => {

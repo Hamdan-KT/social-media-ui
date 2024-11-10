@@ -107,7 +107,12 @@ const PhotoGallery = forwardRef(function PhotoGallery({ sx, data = [] }, ref) {
 									key={post._id}
 									to={`/${RoutePath.POST}/${post._id}`}
 									state={{ previousLocation: !matchDownSm ? location : null }}
-									ref={pageIndex === pageArr.length - 1 ? ref : null}
+									ref={
+										pageIndex === pageArr.length - 1 &&
+										postIndex === postArr.length - 1
+											? ref
+											: undefined
+									}
 								>
 									<MediaDiv>
 										{post?.files[0]?.fileType === "image" ? (

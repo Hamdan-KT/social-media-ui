@@ -34,6 +34,12 @@ export const commentTypes = {
 	REPLY: "reply",
 };
 
+export const relationStatus = {
+	FOLLOWING: "following",
+	REQUESTED: "requested",
+	NOT_FOLLOWING: "not_following",
+};
+
 export const editingSlidersConfig = [
 	{
 		id: "Brightness",

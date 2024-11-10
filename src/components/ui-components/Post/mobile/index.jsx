@@ -60,8 +60,6 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 		setExpanded(!expanded);
 	};
 
-	console.log({ postData: data });
-
 	return (
 		<Card
 			sx={{

@@ -62,7 +62,7 @@ function Home() {
 		if (isSuccess) {
 			console.log({ user_posts: data });
 		}
-	}, [isSuccess]);
+	}, [isSuccess, data]);
 
 	return (
 		<Grid container spacing={defaultSpacing}>
@@ -78,7 +78,12 @@ function Home() {
 						<>
 							{page?.data?.map((post, postIndex, postArr) => (
 								<MemoizedPost
-									ref={pageIndex === pageArr.length - 1 ? ref : undefined}
+									ref={
+										pageIndex === pageArr.length - 1 &&
+										postIndex === postArr.length - 1
+											? ref
+											: undefined
+									}
 									key={post?._id}
 									data={post}
 									divider={Boolean(pageIndex !== pageArr.length - 1)}

@@ -16,7 +16,6 @@ function ProfilePosts() {
 			queryKey: ["get-all-user-posts", uid],
 			queryFn: ({ pageParam = 1 }) => getUserPosts(uid, pageParam, 9),
 			initialPageParam: 1,
-			refetchOnWindowFocus: false,
 			getNextPageParam: (lastPage, allPages) => {
 				const nextPage = lastPage?.data?.length
 					? allPages?.length + 1

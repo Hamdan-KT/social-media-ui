@@ -11,6 +11,11 @@ import { defaultUser } from "../../../data";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import ProfileAvatar from "components/common/ProfileAvatar";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getUsers } from "src/api/userAPI";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import DefaultLoader from "src/components/common/DefaultLoader";
 
 const StyledProfile = styled(Paper)(({ theme }) => ({
 	width: "100%",
@@ -76,7 +81,37 @@ const ProfileBox = styled(Box)(({ theme }) => ({
 function Suggessions() {
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.user?.user);
-	console.log({user})
+
+	const { ref, inView } = useInView();
+
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isSuccess,
+		isFetching,
+		data,
+	} = useInfiniteQuery({
+		queryKey: ["get-suggested-users"],
+		queryFn: ({ pageParam = 1 }) => getUsers({}, pageParam, 10),
+		initialPageParam: 1,
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+	});
+
+	useEffect(() => {
+		if (inView && hasNextPage && !isFetching) {
+			fetchNextPage();
+		}
+	}, [inView, hasNextPage, fetchNextPage, isFetching]);
+
+	useEffect(() => {
+		console.log({ users: data });
+	}, [isSuccess]);
 
 	return (
 		<StyledGid container spacing={defaultSpacing}>
@@ -121,19 +156,29 @@ function Suggessions() {
 					<Box
 						sx={{
 							display: "flex",
-							justifyContent: "center",
+							justifyContent: "start",
 							height: "100%",
+							width: "100%",
 							alignItems: "flex-start",
 							overflowY: "scroll",
 							scrollBehavior: "smooth",
+							flexDirection: "column",
 						}}
 						className="scrollbar-hide"
 					>
-						<UserList
-							data={[...Users, ...Users]}
-							buttonState="following"
-							actionButton={true}
-						/>
+						<UserList data={data} ref={ref} buttonState="following" actionButton={true} />
+						{isFetchingNextPage && (
+							<Box
+								sx={{
+									width: "100%",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+								}}
+							>
+								<DefaultLoader />
+							</Box>
+						)}
 					</Box>
 				</StyledPaper>
 			</Grid>

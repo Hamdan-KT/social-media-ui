@@ -16,7 +16,6 @@ function ProfileTaggedPosts() {
 			queryKey: ["get-all-tagged-posts", uid],
 			queryFn: ({ pageParam = 1 }) => getTaggedPosts(uid, pageParam, 9),
 			initialPageParam: 1,
-			refetchOnWindowFocus: false,
 			getNextPageParam: (lastPage, allPages) => {
 				const nextPage = lastPage?.data?.length
 					? allPages?.length + 1
