@@ -26,10 +26,10 @@ export default function AppRouting() {
 	return (
 		<>
 			{AuthenticationRoutes}
-			<AuthProvider>
-				{AppRoutes}
-				{previousLocation && PopuRoutes}
-			</AuthProvider>
+			{/* <AuthProvider> */}
+			{AppRoutes}
+			{previousLocation && PopuRoutes}
+			{/* </AuthProvider> */}
 		</>
 	);
 }

@@ -26,6 +26,8 @@ import toast from "react-hot-toast";
 import { loginUser } from "src/api/authAPI";
 import DefaultLoader from "src/components/common/DefaultLoader";
 import ReactIcons from "src/utils/ReactIcons";
+import { useDispatch } from "react-redux";
+import { saveUser, setToken } from "src/app/slices/userSlice/userSlice";
 
 const CommonBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -33,16 +35,6 @@ const CommonBox = styled(Box)(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
-}));
-
-const MainBox = styled(Box)(({ theme }) => ({
-	width: "max-content",
-	height: "75vh",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center",
-	position: "relative",
-	gap: "1.5rem",
 }));
 
 const LoginBox = styled(Box)(({ theme }) => ({
@@ -74,6 +66,7 @@ const initialValues = {
 function Login() {
 	const theme = useTheme();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -93,6 +86,9 @@ function Login() {
 		mutationKey: ["login"],
 		mutationFn: (userData) => loginUser(userData),
 		onSuccess: (data) => {
+			const { accessToken, user } = data.data;
+			dispatch(saveUser(user));
+			dispatch(setToken(accessToken));
 			toast.success(data?.message);
 			navigate(RoutePath.HOME, { replace: true });
 		},
