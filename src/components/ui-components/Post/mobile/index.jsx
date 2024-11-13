@@ -27,6 +27,7 @@ import AvatarSet from "components/common/AvatarSet";
 import Image from "components/common/Image";
 import Video from "components/common/Video";
 import { handleCommentWindowOpen } from "app/slices/commentSlice/commentSlice";
+import { setCommentData } from "src/app/slices/commentSlice/commentSlice";
 
 // caption style
 const captionStyle = {
@@ -45,6 +46,10 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const dispatch = useDispatch();
+
+	// likes state
+	const [likes, setLikes] = useState(0);
+	const [isLiked, setIsLiked] = useState(false);
 
 	// check expand option of caption
 	useEffect(() => {
@@ -211,38 +216,39 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 			</CardMedia>
 			{/* card actions */}
 			<CardActions disableSpacing sx={{ p: 0 }}>
-				{!data?.isHideLikes && (
-					<>
-						<Checkbox
-							size="small"
-							aria-label="like"
-							icon={
-								<ReactIcons.AiOutlineHeart
-									style={{
-										color: `${theme.palette.text.dark}`,
-										fontSize: 28,
-									}}
-								/>
-							}
-							checkedIcon={
-								<ReactIcons.AiFillHeart
-									style={{
-										color: `${theme.palette.error.main}`,
-										fontSize: 28,
-									}}
-								/>
-							}
+				<Checkbox
+					size="small"
+					aria-label="like"
+					icon={
+						<ReactIcons.AiOutlineHeart
+							style={{
+								color: `${theme.palette.text.dark}`,
+								fontSize: 28,
+							}}
 						/>
-						<Typography variant="userName">{data?.likes}</Typography>
-					</>
+					}
+					checkedIcon={
+						<ReactIcons.AiFillHeart
+							style={{
+								color: `${theme.palette.error.main}`,
+								fontSize: 28,
+							}}
+						/>
+					}
+				/>
+				{!data?.isHideLikes && (
+					<Typography variant="userName">{data?.likes}</Typography>
 				)}
 				{!data?.isDisableComment && (
 					<>
 						<IconButton
 							aria-label="comment"
-							onClick={() =>
+							onClick={
 								matchDownSm
-									? dispatch(handleCommentWindowOpen(true))
+									? () => {
+											dispatch(setCommentData(data._id));
+											dispatch(handleCommentWindowOpen(true));
+									  }
 									: navigate(`/${RoutePath.POST}/${data._id}`, {
 											state: { previousLocation: location },
 									  })
@@ -338,9 +344,12 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 					<Typography
 						variant="greyTags"
 						sx={{ cursor: "pointer" }}
-						onClick={() =>
+						onClick={
 							matchDownSm
-								? dispatch(handleCommentWindowOpen(true))
+								? () => {
+										dispatch(setCommentData(data._id));
+										dispatch(handleCommentWindowOpen(true));
+								  }
 								: navigate(`/${RoutePath.POST}/${data._id}`, {
 										state: { previousLocation: location },
 								  })
@@ -367,7 +376,7 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 				)}
 			</CardContent>
 			{/* if divider is true */}
-			{divider && !matchDownSm && <Divider sx={{mt: 0.5}}/>}
+			{divider && !matchDownSm && <Divider sx={{ mt: 0.5 }} />}
 		</Card>
 	);
 });

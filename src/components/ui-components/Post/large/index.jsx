@@ -60,6 +60,10 @@ function PostLarge({ data = {} }) {
 	const emojPopRef = useRef();
 	const dispatch = useDispatch();
 
+	//likes state
+	const [likes, setLikes] = useState(0);
+	const [isLiked, setIsLiked] = useState(false);
+
 
 	return (
 		<Box
@@ -229,30 +233,28 @@ function PostLarge({ data = {} }) {
 									width: "100%",
 								}}
 							>
-								{!data?.isHideLikes && (
-									<>
-										<Checkbox
-											size="small"
-											aria-label="like"
-											icon={
-												<ReactIcons.AiOutlineHeart
-													style={{
-														color: `${theme.palette.text.dark}`,
-														fontSize: 28,
-													}}
-												/>
-											}
-											checkedIcon={
-												<ReactIcons.AiFillHeart
-													style={{
-														color: `${theme.palette.error.main}`,
-														fontSize: 28,
-													}}
-												/>
-											}
+								<Checkbox
+									size="small"
+									aria-label="like"
+									icon={
+										<ReactIcons.AiOutlineHeart
+											style={{
+												color: `${theme.palette.text.dark}`,
+												fontSize: 28,
+											}}
 										/>
-										<Typography variant="userName">{data?.likes}</Typography>
-									</>
+									}
+									checkedIcon={
+										<ReactIcons.AiFillHeart
+											style={{
+												color: `${theme.palette.error.main}`,
+												fontSize: 28,
+											}}
+										/>
+									}
+								/>
+								{!data?.isHideLikes && (
+									<Typography variant="userName">{data?.likes}</Typography>
 								)}
 								{!data?.isDisableComment && (
 									<>

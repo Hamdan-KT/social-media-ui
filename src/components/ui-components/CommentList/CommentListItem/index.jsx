@@ -8,17 +8,21 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentList from "..";
 import DefaultLoader from "components/common/DefaultLoader";
 import ReactIcons from "utils/ReactIcons";
+import {
+	getReplyComments,
+	likeComment,
+	unlikeComment,
+} from "src/api/commentAPI";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 
-export default function CommentListItem({
-	comment = {},
-	primaryText = "",
-	secondaryText = "",
-}) {
+const CommentListItem = React.forwardRef(function CommentListItem(
+	{ data = {} },
+	ref
+) {
 	const theme = useTheme();
 	const [showReply, setShowReply] = useState(false);
 
@@ -26,9 +30,45 @@ export default function CommentListItem({
 		setShowReply(!showReply);
 	};
 
+	const handleLikeComment = useMutation({
+		mutationKey: ["like-comment"],
+		mutationFn: (values) => likeComment(),
+		onSuccess: (data) => {},
+		onError: (error) => {},
+	});
+
+	const handleUnLikeComment = useMutation({
+		mutationKey: ["unlike-comment"],
+		mutationFn: (values) => unlikeComment(),
+		onSuccess: (data) => {},
+		onError: (error) => {},
+	});
+
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isFetching,
+		data: replyComments,
+		isSuccess,
+	} = useInfiniteQuery({
+		queryKey: ["get-all-reply-comments", data?._id],
+		queryFn: ({ pageParam = 1 }) => getReplyComments(data?._id),
+		initialPageParam: 1,
+		refetchOnWindowFocus: false,
+		enabled: !!data?._id,
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+	});
+
 	return (
 		<>
 			<ListItem
+				ref={ref}
 				dense
 				disableGutters
 				disablePadding
@@ -44,12 +84,12 @@ export default function CommentListItem({
 						}}
 					>
 						<Checkbox
-							sx={{padding: "0.2rem 0.5rem"}}
+							sx={{ padding: "0.2rem 0.5rem" }}
 							size="small"
 							aria-label="like"
 							icon={
 								<ReactIcons.AiOutlineHeart
-								size={17}
+									size={17}
 									style={{
 										color: `${theme.palette.grey[500]}`,
 									}}
@@ -57,21 +97,23 @@ export default function CommentListItem({
 							}
 							checkedIcon={
 								<ReactIcons.AiFillHeart
-								size={17}
+									size={17}
 									style={{
 										color: `${theme.palette.error.main}`,
 									}}
 								/>
 							}
 						/>
-						<Typography variant="caption" sx={{ fontWeight: "bold" }}>
-							325
-						</Typography>
+						{data?.likes ? (
+							<Typography variant="caption" sx={{ fontWeight: "bold" }}>
+								{data?.likes}
+							</Typography>
+						) : null}
 					</Box>
 				}
 			>
 				<ListItemAvatar>
-					<Avatar sx={{ width: 33, height: 33 }} src={comment?.profile} />
+					<Avatar sx={{ width: 33, height: 33 }} src={data?.user?.avatar} />
 				</ListItemAvatar>
 				<ListItemText
 					sx={{ width: "100%" }}
@@ -89,12 +131,8 @@ export default function CommentListItem({
 				>
 					<Box>
 						<Box sx={{ display: "flex", flexDirection: "column" }}>
-							<Typography variant="userName">
-								{comment[primaryText] ?? comment?.name}
-							</Typography>
-							<Typography variant="commonText">
-								{comment[secondaryText] ?? comment?.comment}
-							</Typography>
+							<Typography variant="userName">{data?.user?.userName}</Typography>
+							<Typography variant="commonText">{data?.content}</Typography>
 						</Box>
 						<Box
 							sx={{
@@ -104,46 +142,42 @@ export default function CommentListItem({
 								cursor: "pointer",
 							}}
 						>
-							<Typography variant="caption">{comment?.time}</Typography>
-							<Typography variant="caption" sx={{ fontWeight: "bold" }}>
-								{`${comment?.likes} `}likes
-							</Typography>
+							<Typography variant="caption">{data?.createdAt}</Typography>
 							<Typography variant="caption" sx={{ fontWeight: "bold" }}>
 								Reply
 							</Typography>
 						</Box>
-						{comment?.replies &&
-							Array.isArray(comment?.replies) &&
-							comment?.replies?.length && (
-								<Box
-									sx={{
-										display: "flex",
-										width: "max-content",
-										alignItems: "center",
-										justifyContent: "center",
-										gap: "0.3rem",
-									}}
+						{data?.isReplies && (
+							<Box
+								sx={{
+									display: "flex",
+									width: "max-content",
+									alignItems: "center",
+									justifyContent: "center",
+									gap: "0.3rem",
+								}}
+							>
+								<Typography
+									onClick={handleViewReply}
+									variant="caption"
+									sx={{ cursor: "pointer", mt: 0.5, fontWeight: "bold" }}
 								>
-									<Typography
-										onClick={handleViewReply}
-										variant="caption"
-										sx={{ cursor: "pointer", mt: 0.5, fontWeight: "bold" }}
-									>
-										{showReply
-											? `--- Hide replies`
-											: `--- View replies(${comment?.replies?.length})`}
-									</Typography>
-									{/* <DefaultLoader /> */}
-								</Box>
-							)}
+									{showReply
+										? `--- Hide replies`
+										: `--- View replies(${data?.repliesCount})`}
+								</Typography>
+							</Box>
+						)}
 					</Box>
 				</ListItemText>
 			</ListItem>
 			{showReply && (
 				<Box sx={{ ml: 6.7 }}>
-					<CommentList data={comment?.replies} />
+					<CommentList data={data?.replies} />
 				</Box>
 			)}
 		</>
 	);
-}
+});
+
+export default CommentListItem;

@@ -28,9 +28,14 @@ export const updateComment = async (postId, commentData) => {
 };
 
 // Get all comments for a specific post by its ID
-export const getComments = async (postId) => {
+export const getComments = async (postId, page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/comment/${postId}/comments`);
+		const { data } = await apiClient.get(`/comment/${postId}/comments`, {
+			params: {
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
@@ -38,10 +43,11 @@ export const getComments = async (postId) => {
 };
 
 // Get all reply comments for a specific comment by its ID
-export const getReplyComments = async (commentId) => {
+export const getReplyComments = async (commentId, page, limit) => {
 	try {
 		const { data } = await apiClient.get(
-			`/comment/${commentId}/reply-comments`
+			`/comment/${commentId}/reply-comments`,
+			{ params: { page, limit } }
 		);
 		return data;
 	} catch (error) {

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
-import ReactIcons from "utils/ReactIcons";
+import ReactIcons from "src/utils/ReactIcons";
 import { RoutePath } from "utils/routes";
 import { useSelector } from "react-redux";
 import ImgWrapper from "src/components/common/ImgWrapper";
@@ -40,7 +40,15 @@ function ProfileHeader({ data = {} }) {
 					>
 						<ReactIcons.IoChevronBack />
 					</IconButton>
-					<Box sx={{display: "flex", width: "auto", alignItems: "center", gap: "0.5rem", justifyContent: "center"}}>
+					<Box
+						sx={{
+							display: "flex",
+							width: "auto",
+							alignItems: "center",
+							gap: "0.5rem",
+							justifyContent: "center",
+						}}
+					>
 						<Typography variant="h4">{data?.userName}</Typography>
 						<ImgWrapper sx={{ width: "1rem", height: "1rem" }}>
 							<Image
@@ -53,7 +61,7 @@ function ProfileHeader({ data = {} }) {
 							/>
 						</ImgWrapper>
 					</Box>
-					{data?._id && data?._id === user?._id && (
+					{data?._id && data?._id === user?._id ? (
 						<IconButton
 							size="medium"
 							color="inherit"
@@ -61,6 +69,22 @@ function ProfileHeader({ data = {} }) {
 						>
 							<ReactIcons.MdMenu />
 						</IconButton>
+					) : (
+						<Box>
+							<IconButton aria-label="more">
+								<ReactIcons.LuSend
+									style={{
+										color: `${theme.palette.text.dark}`,
+										transform: "rotate(20deg)",
+									}}
+								/>
+							</IconButton>
+							<IconButton aria-label="more">
+								<ReactIcons.MdMoreHoriz
+									style={{ color: `${theme.palette.text.dark}` }}
+								/>
+							</IconButton>
+						</Box>
 					)}
 				</StyledToolBar>
 			)}

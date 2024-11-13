@@ -64,10 +64,13 @@ function Settings() {
 			(!matchDownSm && pathname !== `/${RoutePath.SETTINGS}`) ? (
 				<Box
 					sx={{
-						width: 390,
+						width: !matchDownSm ? 390 : "100%",
 						height: "100%",
 						overflowY: "scroll",
-						borderRight: {xs: "none", sm: `1px solid ${theme.palette.grey[300]}`},
+						borderRight: {
+							xs: "none",
+							sm: `1px solid ${theme.palette.grey[300]}`,
+						},
 						position: "relative",
 					}}
 					className="scrollbar-hide"
@@ -77,14 +80,14 @@ function Settings() {
 							<Typography variant="h3">Settings</Typography>
 						</Box>
 					) : (
-						<SettingsHeader title="Settings"/>
+						<SettingsHeader title="Settings" />
 					)}
 					<SettingsMenu />
 				</Box>
 			) : null}
 			{pathname !== `/${RoutePath.SETTINGS}` && (
 				<StyledBox className="scrollbar-hide">
-					<Box sx={{ p: { xs: 1, sm: 1.5 }, mt: -4 }}>
+					<Box sx={{ p: { xs: 1, sm: 1.5 }, mt: -4, width: "100%" }}>
 						<Outlet />
 					</Box>
 				</StyledBox>

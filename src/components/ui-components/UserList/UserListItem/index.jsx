@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router";
 import FollowBtn from "src/components/common/FollowBtn";
+import { RoutePath } from "src/utils/routes";
 
 const UserListItem = forwardRef(
 	(
@@ -71,6 +72,7 @@ const UserListItem = forwardRef(
 						/>
 					</ListItemAvatar>
 					<ListItemText
+						onClick={() => navigate(`/${RoutePath.PROFILE}/${data?._id}`)}
 						primaryTypographyProps={{
 							fontSize: 13,
 							noWrap: true,

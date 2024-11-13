@@ -16,8 +16,8 @@ import { defaultUser } from "../../data";
 import { defaultSpacing } from "utils/constants";
 import MediaTabs from "./MediaTabs";
 import ProfileAvatar from "components/common/ProfileAvatar";
-import { RoutePath } from "utils/routes";
-import ReactIcons from "utils/ReactIcons";
+import { RoutePath } from "src/utils/routes";
+import ReactIcons from "src/utils/ReactIcons";
 import { useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -44,7 +44,7 @@ function Profile() {
 	const { uid } = useParams();
 
 	const { data, isLoading, isSuccess } = useQuery({
-		queryKey: ["get-user-profile"],
+		queryKey: ["get-user-profile", uid],
 		queryFn: () => getUser(uid),
 	});
 
@@ -159,16 +159,28 @@ function Profile() {
 										{data?.data?._id && data?.data?._id !== user?._id && (
 											<>
 												<FollowBtn
+													isFollowing={data?.data?.isFollowing}
+													followingStatus={data?.data?.followingStatus}
+													isPublic={data?.data?.isPublic}
+													userID={data?.data?._id}
 													sx={{ padding: "0.1rem 1rem", fontSize: "0.9rem" }}
-												>
-													Follow
-												</FollowBtn>
-												<Btn
-													variant="outlined"
-													sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
-												>
-													Message
-												</Btn>
+												/>
+												{data?.data?.isPublic && (
+													<Btn
+														variant="outlined"
+														sx={{
+															padding: "0.14rem 1.2rem",
+															fontSize: "0.9rem",
+														}}
+														onClick={() =>
+															navigate(
+																`/${RoutePath.MESSAGES}/${data?.data?._id}`
+															)
+														}
+													>
+														Message
+													</Btn>
+												)}
 											</>
 										)}
 										{data?.data?._id && data?.data?._id === user?._id && (
@@ -258,17 +270,24 @@ function Profile() {
 												sx={{
 													width: "100%",
 												}}
-											>
-												Follow
-											</FollowBtn>
-											<Btn
-												variant="outlined"
-												sx={{
-													width: "100%",
-												}}
-											>
-												Message
-											</Btn>
+												isFollowing={data?.data?.isFollowing}
+												followingStatus={data?.data?.followingStatus}
+												isPublic={data?.data?.isPublic}
+												userID={data?.data?._id}
+											/>
+											{data?.data?.isPublic && (
+												<Btn
+													variant="outlined"
+													sx={{
+														width: "100%",
+													}}
+													onClick={() =>
+														navigate(`/${RoutePath.MESSAGES}/${user?._id}`)
+													}
+												>
+													Message
+												</Btn>
+											)}
 										</>
 									)}
 									{data?.data?._id && data?.data?._id === user?._id && (
@@ -300,16 +319,73 @@ function Profile() {
 					</Grid>
 				</Grid>
 			</Grid>
-			{/* story Heighlites */}
-			<Grid item xs={12} md={12} sm={12} lg={12}>
-				<StyledBox>
-					<HighlightSlider />
-				</StyledBox>
-			</Grid>
-			{/* post, tagged, reels */}
-			<Grid item xs={12} md={12} sm={12} lg={12}>
-				<MediaTabs />
-			</Grid>
+
+			{data?.data?._id &&
+			data?.data?._id !== user?._id &&
+			!data?.data?.isPublic &&
+			!data?.data?.isFollowing ? (
+				<Grid
+					item
+					xs={12}
+					md={12}
+					sm={12}
+					lg={12}
+					sx={{ borderTop: `1px solid ${theme.palette.grey[300]}` }}
+				>
+					<StyledBox sx={{ justifyContent: "center" }}>
+						<StyledBox
+							sx={{
+								width: "auto",
+								borderRadius: "50%",
+								border: `1.5px solid ${theme.palette.grey[500]}`,
+								justifyContent: "center",
+								padding: 2,
+							}}
+						>
+							<ReactIcons.MdLock size={30} />
+						</StyledBox>
+						<StyledBox
+							sx={{
+								alignItems: "start",
+								flexDirection: "column",
+								gap: "0.2rem",
+								width: "auto",
+							}}
+						>
+							<Typography variant="h4" fontSize="1.1rem">
+								This account is private
+							</Typography>
+							<Typography variant="greyTags" fontSize="0.8rem">
+								Follow to see their photos and videos.
+							</Typography>
+						</StyledBox>
+					</StyledBox>
+					{/* {!matchDownSm && (
+						<StyledBox sx={{ justifyContent: "center" }}>
+							<FollowBtn
+								isFollowing={data?.data?.isFollowing}
+								followingStatus={data?.data?.followingStatus}
+								isPublic={data?.data?.isPublic}
+								userID={data?.data?._id}
+								sx={{ padding: "0.1rem 1rem", fontSize: "0.9rem" }}
+							/>
+						</StyledBox>
+					)} */}
+				</Grid>
+			) : (
+				<>
+					{/* story Heighlites */}
+					<Grid item xs={12} md={12} sm={12} lg={12}>
+						<StyledBox>
+							<HighlightSlider />
+						</StyledBox>
+					</Grid>
+					{/* post, tagged, reels */}
+					<Grid item xs={12} md={12} sm={12} lg={12}>
+						<MediaTabs />
+					</Grid>
+				</>
+			)}
 		</Grid>
 	);
 }

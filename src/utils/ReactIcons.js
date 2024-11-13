@@ -36,7 +36,8 @@ import {
 	MdFiberManualRecord,
 	MdBlockFlipped,
 	MdVisibility,
-	MdVisibilityOff
+	MdVisibilityOff,
+	MdLock
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
 import {
@@ -194,7 +195,8 @@ const ReactIcons = {
 	IoMdLogOut,
 	MdVisibility,
 	MdVisibilityOff,
-	IoPerson
+	IoPerson,
+	MdLock
 };
 
 export default ReactIcons;

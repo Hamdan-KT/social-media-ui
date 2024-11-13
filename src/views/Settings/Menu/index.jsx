@@ -59,8 +59,8 @@ const SettingsMenu = memo(function () {
 	});
 
 	return (
-		<Box sx={{ position: "relative", mt: { xs: 5, sm: 0 } }}>
-			<List>
+		<Box sx={{ position: "relative", width: "100%", mt: { xs: 5, sm: 0 } }}>
+			<List sx={{ width: "100%" }}>
 				{menuList.map((item, index) => {
 					let listItemProps = {};
 					if (item?.url) {

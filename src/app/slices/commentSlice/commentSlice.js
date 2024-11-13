@@ -1,9 +1,15 @@
+import { commentTypes } from "src/utils/constants";
 import { createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
 
 const initialState = {
 	postId: null,
 	commentWindowOpen: false,
+	commentBody: {
+		parent_comment: null,
+		type: commentTypes.GENERAL,
+		mentions: [],
+	},
 };
 
 export const commentSlice = createSlice({
@@ -16,10 +22,28 @@ export const commentSlice = createSlice({
 		handleCommentWindowOpen: (state, action) => {
 			state.commentWindowOpen = action.payload;
 		},
+		setCommentBody: (state, action) => {
+			state.commentBody = {
+				...state.commentBody,
+				[action.payload.key]: action.payload.value,
+			};
+		},
+		clearCommentBody: (state, action) => {
+			state.commentBody = {
+				parent_comment: null,
+				type: commentTypes.GENERAL,
+				mentions: [],
+			};
+		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { setCommentData, handleCommentWindowOpen } = commentSlice.actions;
+export const {
+	setCommentData,
+	handleCommentWindowOpen,
+	setCommentBody,
+	clearCommentBody,
+} = commentSlice.actions;
 
 export default commentSlice.reducer;

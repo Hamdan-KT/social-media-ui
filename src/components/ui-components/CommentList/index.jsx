@@ -1,39 +1,41 @@
 /* eslint-disable react/display-name */
 import * as React from "react";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import { Box, Checkbox, ListItemButton, Typography } from "@mui/material";
-import { useState } from "react";
 import CommentListItem from "./CommentListItem";
 
-function CommentList({ data, primaryText, secondaryText, sx = {} }) {
-	const theme = useTheme();
+const CommentList = React.forwardRef(
+	({ data = [], primaryText, secondaryText, sx = {} }, ref) => {
+		const theme = useTheme();
 
-	return (
-		<List
-			sx={{
-				width: "100%",
-				bgcolor: theme.palette.background.default,
-				...sx,
-			}}
-		>
-			{data?.map((comment, index) => {
-				return (
-					<CommentListItem
-						key={index}
-						comment={comment}
-						primaryText={primaryText}
-						secondaryText={secondaryText}
-					/>
-				);
-			})}
-		</List>
-	);
-}
+		return (
+			<List
+				ref={ref}
+				sx={{
+					width: "100%",
+					bgcolor: theme.palette.background.default,
+					...sx,
+				}}
+			>
+				{data?.pages?.map((page, pageIndex, pageArr) => (
+					<>
+						{page?.data?.map((comment, commentIndex, commentArr) => (
+							<CommentListItem
+								ref={
+									pageIndex === pageArr.length - 1 &&
+									commentIndex === commentArr.length - 1
+										? ref
+										: undefined
+								}
+								key={commentIndex}
+								data={comment}
+							/>
+						))}
+					</>
+				))}
+			</List>
+		);
+	}
+);
 
 export default CommentList;
