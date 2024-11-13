@@ -48,9 +48,9 @@ const MainRoutes = () => {
 	return {
 		path: RoutePath.HOME,
 		element: (
-			// <AuthProvider>
+			<AuthProvider>
 				<MainLayout />
-			// {/* </AuthProvider> */}
+			</AuthProvider>
 		),
 		children: [
 			{

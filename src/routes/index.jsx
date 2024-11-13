@@ -12,21 +12,26 @@ import AuthProvider from "src/components/auth/AuthProvider";
 export default function AppRouting() {
 	const location = useLocation();
 	const previousLocation = location.state?.previousLocation;
-	// routes
+
+	// Main and Helper routes wrapped in AuthProvider
 	const AppRoutes = useRoutes(
 		[MainRoutes(), HelperRoutes()],
 		previousLocation || location
 	);
-	const AuthenticationRoutes = useRoutes([AuthRoutes()]);
+	// Authentication routes without AuthProvider
+	const AuthenticationRoutes = useRoutes(
+		[AuthRoutes()],
+		previousLocation || location
+	);
 	const PopuRoutes = useRoutes([PopupRoutes()], location);
 
 	return (
 		<>
 			{AuthenticationRoutes}
-			<AuthProvider>
-				{AppRoutes}
-				{previousLocation && PopuRoutes}
-			</AuthProvider>
+			{/* <AuthProvider> */}
+			{AppRoutes}
+			{previousLocation && PopuRoutes}
+			{/* </AuthProvider> */}
 		</>
 	);
 }

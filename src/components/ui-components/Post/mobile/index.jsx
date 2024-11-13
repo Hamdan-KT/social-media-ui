@@ -249,9 +249,10 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 											dispatch(setCommentData(data._id));
 											dispatch(handleCommentWindowOpen(true));
 									  }
-									: navigate(`/${RoutePath.POST}/${data._id}`, {
-											state: { previousLocation: location },
-									  })
+									: () =>
+											navigate(`/${RoutePath.POST}/${data._id}`, {
+												state: { previousLocation: location },
+											})
 							}
 						>
 							<ReactIcons.RiChat3Line
@@ -350,9 +351,10 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 										dispatch(setCommentData(data._id));
 										dispatch(handleCommentWindowOpen(true));
 								  }
-								: navigate(`/${RoutePath.POST}/${data._id}`, {
-										state: { previousLocation: location },
-								  })
+								: () =>
+										navigate(`/${RoutePath.POST}/${data._id}`, {
+											state: { previousLocation: location },
+										})
 						}
 					>
 						View all {data?.comments ? data?.comments : null} comments
