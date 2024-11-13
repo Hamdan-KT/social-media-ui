@@ -86,6 +86,7 @@ function Login() {
 		mutationKey: ["login"],
 		mutationFn: (userData) => loginUser(userData),
 		onSuccess: (data) => {
+			console.log({ data });
 			const { accessToken, user } = data.data;
 			dispatch(saveUser(user));
 			dispatch(setToken(accessToken));
@@ -93,6 +94,7 @@ function Login() {
 			navigate(RoutePath.HOME, { replace: true });
 		},
 		onError: (error) => {
+			console.log({ loginErr: error });
 			toast.error(error.message);
 		},
 	});
