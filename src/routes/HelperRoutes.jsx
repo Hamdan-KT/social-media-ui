@@ -20,9 +20,9 @@ const HelperRoutes = () => {
 	return {
 		path: RoutePath.HOME,
 		element: (
-			<AuthProvider>
+			// <AuthProvider>
 				<MinimalLayout />
-			</AuthProvider>
+			// {/* </AuthProvider> */}
 		),
 		children: [
 			{

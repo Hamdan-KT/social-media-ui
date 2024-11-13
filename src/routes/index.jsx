@@ -17,19 +17,16 @@ export default function AppRouting() {
 		[MainRoutes(), HelperRoutes()],
 		previousLocation || location
 	);
-	const AuthenticationRoutes = useRoutes(
-		[AuthRoutes()],
-		previousLocation || location
-	);
+	const AuthenticationRoutes = useRoutes([AuthRoutes()]);
 	const PopuRoutes = useRoutes([PopupRoutes()], location);
 
 	return (
 		<>
 			{AuthenticationRoutes}
-			{/* <AuthProvider> */}
-			{AppRoutes}
-			{previousLocation && PopuRoutes}
-			{/* </AuthProvider> */}
+			<AuthProvider>
+				{AppRoutes}
+				{previousLocation && PopuRoutes}
+			</AuthProvider>
 		</>
 	);
 }
