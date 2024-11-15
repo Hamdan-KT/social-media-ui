@@ -1,11 +1,19 @@
 import { forwardRef, useEffect, useState } from "react";
-import { Box, IconButton, InputBase, styled, useTheme } from "@mui/material";
+import {
+	Box,
+	IconButton,
+	InputBase,
+	styled,
+	Typography,
+	useTheme,
+} from "@mui/material";
 import BottomSheet from "components/common/BottomSheet";
 import CommentList from "components/ui-components/CommentList";
 import { commentList } from "src/data";
-import ReactIcons from "utils/ReactIcons";
+import ReactIcons from "src/utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
 import {
+	clearCommentBody,
 	handleCommentWindowOpen,
 	setCommentData,
 } from "src/app/slices/commentSlice/commentSlice";
@@ -40,6 +48,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
+const CommonBox = styled("div")(({ theme }) => ({
+	height: "auto",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	width: "100%",
+	gap: "1rem",
+}));
+
 const Comments = function () {
 	const [value, setValue] = useState("");
 	const { ref, inView } = useInView();
@@ -49,36 +66,35 @@ const Comments = function () {
 	const commentWindowOpen = useSelector(
 		(state) => state.comment.commentWindowOpen
 	);
+	console.log({ commentBody });
 	const dispatch = useDispatch();
 	const queryClient = useQueryClient();
 
 	const handleCreateComment = useMutation({
 		mutationKey: ["create-comment"],
-		mutationFn: () => createComment(postId, { ...commentBody, content: value }),
+		mutationFn: () => {
+			const { replyUserName, ...others } = commentBody;
+			createComment(postId, { ...others, content: value });
+		},
 		onSuccess: (data) => {
 			setValue("");
 			queryClient.invalidateQueries({ queryKey: ["get-all-comments"] });
 		},
 	});
 
-	const {
-		fetchNextPage,
-		hasNextPage,
-		isFetchingNextPage,
-		isFetching,
-		data,
-	} = useInfiniteQuery({
-		queryKey: ["get-all-comments", postId],
-		queryFn: ({ pageParam = 1 }) => getComments(postId, pageParam),
-		initialPageParam: 1,
-		enabled: !!postId,
-		getNextPageParam: (lastPage, allPages) => {
-			const nextPage = lastPage?.data?.length
-				? allPages?.length + 1
-				: undefined;
-			return nextPage;
-		},
-	});
+	const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, data } =
+		useInfiniteQuery({
+			queryKey: ["get-all-comments", postId, commentWindowOpen],
+			queryFn: ({ pageParam = 1 }) => getComments(postId, pageParam),
+			initialPageParam: 1,
+			enabled: !!postId && !!commentWindowOpen,
+			getNextPageParam: (lastPage, allPages) => {
+				const nextPage = lastPage?.data?.length
+					? allPages?.length + 1
+					: undefined;
+				return nextPage;
+			},
+		});
 
 	useEffect(() => {
 		if (inView && hasNextPage && !isFetching) {
@@ -103,6 +119,7 @@ const Comments = function () {
 					width: "100%",
 					height: "auto",
 					flexDirection: "column",
+					mb: commentBody?.replyUserName ? 11 : 7,
 				}}
 			>
 				<CommentList data={data} ref={ref} />
@@ -124,15 +141,38 @@ const Comments = function () {
 				sx={{
 					display: "flex",
 					width: "100%",
+					flexDirection: "column",
 					position: "fixed", // Change to fixed to lock position
 					left: 0,
 					bottom: 0,
 					padding: "0.4rem",
-					background: "red",
-					// background: theme.palette.background.paper,
+					// background: "red",
+					background: theme.palette.background.paper,
 					borderTop: `1px solid ${theme.palette.grey[100]}`,
+					borderTopRightRadius: commentBody?.replyUserName ? "17px" : 0,
+					borderTopLeftRadius: commentBody?.replyUserName ? "17px" : 0,
 				}}
 			>
+				{commentBody?.replyUserName && (
+					<CommonBox
+						sx={{
+							borderBottom: `1px solid ${theme.palette.grey[100]}`,
+							p: "0.1rem",
+							justifyContent: "space-between",
+							mb: 0.5,
+						}}
+					>
+						<CommonBox sx={{ width: "auto", pl: "0.5rem" }}>
+							<Typography variant="caption">{`Reply to ${commentBody?.replyUserName}`}</Typography>
+						</CommonBox>
+						<IconButton
+							size="small"
+							onClick={() => dispatch(clearCommentBody())}
+						>
+							<ReactIcons.IoClose />
+						</IconButton>
+					</CommonBox>
+				)}
 				<InputBox>
 					<StyledInputBase
 						sx={{ paddingLeft: "0.5rem" }}

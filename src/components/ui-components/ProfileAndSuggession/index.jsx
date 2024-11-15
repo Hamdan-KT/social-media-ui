@@ -166,7 +166,7 @@ function Suggessions() {
 						}}
 						className="scrollbar-hide"
 					>
-						<UserList data={data} ref={ref} buttonState="following" actionButton={true} />
+						<UserList sx={{maxWidth: "100%"}} data={data} ref={ref} buttonState="following" actionButton={true} />
 						{isFetchingNextPage && (
 							<Box
 								sx={{

@@ -25,6 +25,8 @@ import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
 import AvatarSet from "components/common/AvatarSet";
 import Video from "components/common/Video";
 import Image from "components/common/Image";
+import { useMutation } from "@tanstack/react-query";
+import { likePost } from "src/api/postAPI";
 
 const commonStyle = {
 	display: "flex",
@@ -60,9 +62,39 @@ function PostLarge({ data = {} }) {
 	const emojPopRef = useRef();
 	const dispatch = useDispatch();
 
-	//likes state
-	const [likes, setLikes] = useState(0);
-	const [isLiked, setIsLiked] = useState(false);
+	const handleLikePost = useMutation({
+		mutationKey: ["like-post"],
+		mutationFn: (values) => likePost(data?._id),
+		onSuccess: (data) => {
+			data.isLiked = true;
+		},
+		onError: (error) => {
+			data.isLiked = false;
+		},
+	});
+
+	const handleUnLikePost = useMutation({
+		mutationKey: ["unlike-post"],
+		mutationFn: (values) => unlikePost(data?._id),
+		onSuccess: (data) => {
+			data.isLiked = false;
+		},
+		onError: (error) => {
+			data.isLiked = true;
+		},
+	});
+
+	const handleLiking = (liked = false) => {
+		if (liked) {
+			data.isLiked = false;
+			data.likes = data?.likes - 1;
+			handleUnLikePost.mutate();
+		} else {
+			data.isLiked = true;
+			data.likes = data?.likes + 1;
+			handleLikePost.mutate();
+		}
+	};
 
 
 	return (
@@ -236,6 +268,8 @@ function PostLarge({ data = {} }) {
 								<Checkbox
 									size="small"
 									aria-label="like"
+									checked={data?.isLiked}
+									onChange={() => handleLiking(data?.isLiked)}
 									icon={
 										<ReactIcons.AiOutlineHeart
 											style={{

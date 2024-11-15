@@ -28,6 +28,8 @@ import Image from "components/common/Image";
 import Video from "components/common/Video";
 import { handleCommentWindowOpen } from "app/slices/commentSlice/commentSlice";
 import { setCommentData } from "src/app/slices/commentSlice/commentSlice";
+import { likePost, unlikePost } from "src/api/postAPI";
+import { useMutation } from "@tanstack/react-query";
 
 // caption style
 const captionStyle = {
@@ -47,10 +49,6 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const dispatch = useDispatch();
 
-	// likes state
-	const [likes, setLikes] = useState(0);
-	const [isLiked, setIsLiked] = useState(false);
-
 	// check expand option of caption
 	useEffect(() => {
 		if (captionRef.current) {
@@ -63,6 +61,40 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 	// handling expand
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
+	};
+
+	const handleLikePost = useMutation({
+		mutationKey: ["like-post"],
+		mutationFn: (values) => likePost(data?._id),
+		onSuccess: (data) => {
+			data.isLiked = true;
+		},
+		onError: (error) => {
+			data.isLiked = false;
+		},
+	});
+
+	const handleUnLikePost = useMutation({
+		mutationKey: ["unlike-post"],
+		mutationFn: (values) => unlikePost(data?._id),
+		onSuccess: (data) => {
+			data.isLiked = false;
+		},
+		onError: (error) => {
+			data.isLiked = true;
+		},
+	});
+
+	const handleLiking = (liked = false) => {
+		if (liked) {
+			data.isLiked = false;
+			data.likes = data?.likes - 1;
+			handleUnLikePost.mutate();
+		} else {
+			data.isLiked = true;
+			data.likes = data?.likes + 1;
+			handleLikePost.mutate();
+		}
 	};
 
 	return (
@@ -219,6 +251,8 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 				<Checkbox
 					size="small"
 					aria-label="like"
+					checked={data?.isLiked}
+					onChange={() => handleLiking(data?.isLiked)}
 					icon={
 						<ReactIcons.AiOutlineHeart
 							style={{

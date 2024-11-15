@@ -10,7 +10,7 @@ const CommentList = React.forwardRef(
 
 		return (
 			<List
-				ref={ref}
+				// ref={ref}
 				sx={{
 					width: "100%",
 					bgcolor: theme.palette.background.default,

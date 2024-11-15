@@ -9,6 +9,7 @@ const initialState = {
 		parent_comment: null,
 		type: commentTypes.GENERAL,
 		mentions: [],
+		replyUserName: null,
 	},
 };
 
@@ -23,16 +24,14 @@ export const commentSlice = createSlice({
 			state.commentWindowOpen = action.payload;
 		},
 		setCommentBody: (state, action) => {
-			state.commentBody = {
-				...state.commentBody,
-				[action.payload.key]: action.payload.value,
-			};
+			state.commentBody = action.payload;
 		},
 		clearCommentBody: (state, action) => {
 			state.commentBody = {
 				parent_comment: null,
 				type: commentTypes.GENERAL,
 				mentions: [],
+				replyUserName: null,
 			};
 		},
 	},
