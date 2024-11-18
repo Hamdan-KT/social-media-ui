@@ -7,11 +7,25 @@ import { saveUser, setToken } from "src/app/slices/userSlice/userSlice";
 import { useNavigate } from "react-router";
 import { RoutePath } from "src/utils/routes";
 import { useQuery } from "@tanstack/react-query";
+import { Box, styled, Typography, useTheme } from "@mui/material";
+import _ from "lodash";
+import logo from "public/pwa-512x512.png";
+import ImgWrapper from "../common/ImgWrapper";
+
+const CommonBox = styled("div")(({ theme }) => ({
+	height: "auto",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	width: "auto",
+}));
 
 function AuthProvider({ children }) {
 	const token = useSelector((state) => state.user?.accessToken);
+	const theme = useTheme();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const user = useSelector((state) => state.user?.user);
 
 	const { data, isLoading, isError, error, isSuccess } = useQuery({
 		queryKey: ["currentuser"],
@@ -92,7 +106,42 @@ function AuthProvider({ children }) {
 		};
 	}, [token, dispatch, navigate]);
 
-	return <>{children}</>;
+	return (
+		<>
+			{user && !_.isEmpty(user) ? (
+				children
+			) : (
+				<CommonBox
+					sx={{
+						width: "100vw",
+						height: "100vh",
+						position: "fixed",
+						top: 0,
+						left: 0,
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						flexDirection: "column",
+						background: theme.palette.background.default,
+					}}
+				>
+					<CommonBox sx={{ width: "100%", height: "100%", flexDirection: "column" }}>
+						<ImgWrapper sx={{ width: "5.5rem", height: "5.5rem" }}>
+							<img
+								src={logo}
+								style={{ width: "100%", objectFit: "cover", display: "block" }}
+							/>
+						</ImgWrapper>
+						<CommonBox sx={{ padding: "0rem" }}>
+							<Typography variant="greyTags" sx={{ fontWeight: "bold" }}>
+								Instogram
+							</Typography>
+						</CommonBox>
+					</CommonBox>
+				</CommonBox>
+			)}
+		</>
+	);
 }
 
 export default AuthProvider;

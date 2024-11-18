@@ -46,6 +46,7 @@ const Slider = ({
 	currentIndex = 0,
 	disableDrag = false,
 	onSlideChange = () => {},
+	...rest
 }) => {
 	const [activeIndex, setActiveIndex] = useState(currentIndex);
 	const childrenArray = Children.toArray(children);
@@ -53,7 +54,7 @@ const Slider = ({
 
 	// handle slide change function
 	useEffect(() => {
-		onSlideChange(activeIndex)
+		onSlideChange(activeIndex);
 	}, [activeIndex]);
 
 	// handling auto slide function
@@ -96,6 +97,7 @@ const Slider = ({
 				display: "flex",
 				...sx,
 			}}
+			{...rest}
 		>
 			<motion.div
 				style={{

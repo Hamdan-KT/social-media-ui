@@ -30,6 +30,9 @@ import { handleCommentWindowOpen } from "app/slices/commentSlice/commentSlice";
 import { setCommentData } from "src/app/slices/commentSlice/commentSlice";
 import { likePost, unlikePost } from "src/api/postAPI";
 import { useMutation } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
+import { FaHeart } from "react-icons/fa6";
+import LikeSvg from "src/components/common/LikeSvg";
 
 // caption style
 const captionStyle = {
@@ -48,6 +51,7 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const dispatch = useDispatch();
+	const [likes, setLikes] = useState([]);
 
 	// check expand option of caption
 	useEffect(() => {
@@ -95,6 +99,25 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 			data.likes = data?.likes + 1;
 			handleLikePost.mutate();
 		}
+	};
+
+	const handleLike = (event) => {
+		if (data?.isLiked === false) {
+			data.likes = data?.likes + 1;
+			data.isLiked = true;
+			handleLikePost.mutate();
+		}
+		const x = event.clientX;
+		const y = event.clientY;
+		const newLike = {
+			id: Date.now(),
+			x: x,
+			y: y,
+		};
+		setLikes((prev) => [...prev, newLike]);
+		setTimeout(() => {
+			setLikes((prev) => prev.filter((like) => like.id !== newLike.id));
+		}, 2000);
 	};
 
 	return (
@@ -184,11 +207,38 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 			/>
 			{/* images sections */}
 			<CardMedia
-				sx={{ padding: 0 }}
+				sx={{ padding: 0, position: "relative" }}
 				alt="Not Found"
-				// sx={{ aspectRatio: "4/5" }}
+				onDoubleClick={handleLike}
 			>
-				<Slider controllButtons={false}>
+				{likes.map((like) => (
+					<motion.div
+						key={like.id}
+						style={{
+							position: "fixed",
+							top: like.y,
+							left: like.x,
+							transform: "translate(-50%, -50%)",
+							pointerEvents: "none",
+							zIndex: 1000,
+						}}
+						initial={{ opacity: 0, scale: 0.5, x: 0 }}
+						animate={[
+							{
+								opacity: 1,
+								scale: 1,
+								rotate: [20, -20, 20],
+								transition: { duration: 0.5 },
+							},
+							{ y: -1000, transition: { duration: 0.5, delay: 0.5 } },
+						]}
+						exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.5 } }}
+						transition={{ duration: 1.5 }}
+					>
+						<LikeSvg />
+					</motion.div>
+				))}
+				<Slider controllButtons={false} sx={{ position: "relative" }}>
 					{Array.isArray(data?.files) &&
 						data?.files?.map((file, ind) => (
 							<Slide key={ind} sx={{ position: "relative" }}>
