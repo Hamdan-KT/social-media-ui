@@ -86,6 +86,7 @@ const Comments = function () {
 					queryKey: ["get-all-reply-comments", data?.data?.parent_comment],
 				});
 			}
+			dispatch(clearCommentBody());
 		},
 	});
 
