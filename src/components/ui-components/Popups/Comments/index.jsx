@@ -25,6 +25,7 @@ import {
 import { createComment, getComments } from "src/api/commentAPI";
 import { useInView } from "react-intersection-observer";
 import DefaultLoader from "src/components/common/DefaultLoader";
+import { commentTypes } from "src/utils/constants";
 
 const InputBox = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -74,11 +75,17 @@ const Comments = function () {
 		mutationKey: ["create-comment"],
 		mutationFn: () => {
 			const { replyUserName, ...others } = commentBody;
-			createComment(postId, { ...others, content: value });
+			return createComment(postId, { ...others, content: value });
 		},
 		onSuccess: (data) => {
 			setValue("");
-			queryClient.invalidateQueries({ queryKey: ["get-all-comments"] });
+			if (commentBody?.type === commentTypes.GENERAL) {
+				queryClient.invalidateQueries({ queryKey: ["get-all-comments"] });
+			} else {
+				queryClient.invalidateQueries({
+					queryKey: ["get-all-reply-comments", data?.data?.parent_comment],
+				});
+			}
 		},
 	});
 
