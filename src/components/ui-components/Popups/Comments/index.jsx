@@ -90,19 +90,27 @@ const Comments = function () {
 		},
 	});
 
-	const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, data } =
-		useInfiniteQuery({
-			queryKey: ["get-all-comments", postId, commentWindowOpen],
-			queryFn: ({ pageParam = 1 }) => getComments(postId, pageParam),
-			initialPageParam: 1,
-			enabled: !!postId && !!commentWindowOpen,
-			getNextPageParam: (lastPage, allPages) => {
-				const nextPage = lastPage?.data?.length
-					? allPages?.length + 1
-					: undefined;
-				return nextPage;
-			},
-		});
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isLoading,
+		isFetchingNextPage,
+		isFetching,
+		data,
+	} = useInfiniteQuery({
+		queryKey: ["get-all-comments", postId, commentWindowOpen],
+		queryFn: ({ pageParam = 1 }) => getComments(postId, pageParam),
+		initialPageParam: 1,
+		enabled: !!postId && !!commentWindowOpen,
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+	});
+
+	console.log({ data });
 
 	useEffect(() => {
 		if (inView && hasNextPage && !isFetching) {
@@ -130,7 +138,18 @@ const Comments = function () {
 					mb: commentBody?.replyUserName ? 11 : 7,
 				}}
 			>
-				<CommentList data={data} ref={ref} />
+				{data?.pages[0]?.data?.length === 0 && (
+					<CommonBox
+						sx={{
+							height: "100%",
+							padding: "20vh 0rem",
+							width: "100%",
+						}}
+					>
+						<Typography variant="h4">No comments yet.</Typography>
+					</CommonBox>
+				)}
+				<CommentList data={data} isLoading={isLoading} ref={ref} />
 				{isFetchingNextPage && (
 					<Box
 						sx={{

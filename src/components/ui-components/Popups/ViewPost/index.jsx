@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { explorePosts, userPosts } from "src/data";
 import { useQuery } from "@tanstack/react-query";
 import { getPost } from "src/api/postAPI";
+import SkeletonPostLarge from "../../Post/large/skelton";
 
 function ViewPost({ open = true }) {
 	const navigate = useNavigate();

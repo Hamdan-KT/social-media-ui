@@ -3,10 +3,20 @@ import * as React from "react";
 import List from "@mui/material/List";
 import { useTheme } from "@mui/material/styles";
 import CommentListItem from "./CommentListItem";
+import CommentListSkeleton from "./skelton";
+import { Box } from "@mui/material";
 
 const CommentList = React.forwardRef(
-	({ data = [], primaryText, secondaryText, sx = {} }, ref) => {
+	({ data = [], isLoading = false, primaryText, secondaryText, sx = {} }, ref) => {
 		const theme = useTheme();
+
+		if(!isLoading && data?.length === 0){
+			return null;
+		}
+
+		if (isLoading) {
+			return <CommentListSkeleton />;
+		}
 
 		return (
 			<List

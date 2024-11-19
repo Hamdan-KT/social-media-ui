@@ -13,6 +13,7 @@ import DefaultLoader from "components/common/DefaultLoader";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "src/api/postAPI";
 import { useInView } from "react-intersection-observer";
+import PostMobileSkeleton from "src/components/ui-components/Post/mobile/skelton";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -39,6 +40,7 @@ function Home() {
 		isFetching,
 		data,
 		isSuccess,
+		isLoading,
 	} = useInfiniteQuery({
 		queryKey: ["get-all-posts"],
 		queryFn: ({ pageParam = 1 }) => getAllPosts(pageParam, 2),
@@ -73,24 +75,33 @@ function Home() {
 					{/* story Slider */}
 					<StorySlider />
 					{/* post rendering */}
-
-					{data?.pages?.map((page, pageIndex, pageArr) => (
+					{!data || isLoading ? (
 						<>
-							{page?.data?.map((post, postIndex, postArr) => (
-								<MemoizedPost
-									ref={
-										pageIndex === pageArr.length - 1 &&
-										postIndex === postArr.length - 1
-											? ref
-											: undefined
-									}
-									key={post?._id}
-									data={post}
-									divider={Boolean(pageIndex !== pageArr.length - 1)}
-								/>
+							{Array.from({ length: 2 }).map((_, ind) => (
+								<PostMobileSkeleton key={ind} />
 							))}
 						</>
-					))}
+					) : (
+						<>
+							{data?.pages?.map((page, pageIndex, pageArr) => (
+								<>
+									{page?.data?.map((post, postIndex, postArr) => (
+										<MemoizedPost
+											ref={
+												pageIndex === pageArr.length - 1 &&
+												postIndex === postArr.length - 1
+													? ref
+													: undefined
+											}
+											key={post?._id}
+											data={post}
+											divider={Boolean(pageIndex !== pageArr.length - 1)}
+										/>
+									))}
+								</>
+							))}
+						</>
+					)}
 					{isFetchingNextPage && <DefaultLoader />}
 				</StyledBox>
 			</Grid>

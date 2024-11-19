@@ -39,6 +39,7 @@ import { clearCommentBody } from "src/app/slices/commentSlice/commentSlice";
 import { createComment, getComments } from "src/api/commentAPI";
 import { commentTypes } from "src/utils/constants";
 import { useInView } from "react-intersection-observer";
+import SkeletonPostLarge from "./skelton";
 
 const commonStyle = {
 	display: "flex",
@@ -76,7 +77,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 	gap: "1rem",
 }));
 
-function PostLarge({ data = {} }) {
+function PostLarge({ data }) {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
@@ -165,6 +166,7 @@ function PostLarge({ data = {} }) {
 		hasNextPage,
 		isFetchingNextPage,
 		isFetching,
+		isLoading,
 		data: comments,
 	} = useInfiniteQuery({
 		queryKey: ["get-all-comments", data?._id],
@@ -184,6 +186,10 @@ function PostLarge({ data = {} }) {
 			fetchNextPage();
 		}
 	}, [inView, hasNextPage, fetchNextPage, isFetching]);
+
+	if (!data) {
+		return <SkeletonPostLarge />;
+	}
 
 	return (
 		<Box
@@ -227,7 +233,11 @@ function PostLarge({ data = {} }) {
 								},
 								{ y: -1000, transition: { duration: 0.5, delay: 0.5 } },
 							]}
-							exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.5 } }}
+							exit={{
+								opacity: 0,
+								scale: 0.5,
+								transition: { duration: 0.5 },
+							}}
 							transition={{ duration: 1.5 }}
 						>
 							<LikeSvg />
@@ -364,10 +374,22 @@ function PostLarge({ data = {} }) {
 								width: "100%",
 								overflowY: "scroll",
 								justifyContent: "start",
+								flexDirection: "column",
 								alignItems: "start",
 							}}
 						>
-							<CommentList data={comments} ref={ref} />
+							{comments?.pages[0]?.data?.length === 0 && (
+								<CommonBox
+									sx={{
+										height: "100%",
+										padding: "20vh 0rem",
+										width: "100%",
+									}}
+								>
+									<Typography variant="h4">No comments yet.</Typography>
+								</CommonBox>
+							)}
+							<CommentList data={comments} isLoading={isLoading} ref={ref} />
 							{isFetchingNextPage && (
 								<Box
 									sx={{

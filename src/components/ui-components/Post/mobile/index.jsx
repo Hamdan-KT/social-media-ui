@@ -33,6 +33,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaHeart } from "react-icons/fa6";
 import LikeSvg from "src/components/common/LikeSvg";
+import PostMobileSkeleton from "./skelton";
 
 // caption style
 const captionStyle = {
@@ -42,7 +43,7 @@ const captionStyle = {
 	display: "-webkit-box",
 };
 
-const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
+const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 	const [showExpand, setShowExpand] = useState(false);
 	const [expanded, setExpanded] = useState(false);
 	const captionRef = useRef(null);
@@ -119,6 +120,10 @@ const PostMobile = React.forwardRef(({ data = {}, divider = false }, ref) => {
 			setLikes((prev) => prev.filter((like) => like.id !== newLike.id));
 		}, 2000);
 	};
+
+	if(!data){
+		return <PostMobileSkeleton />
+	}
 
 	return (
 		<Card
