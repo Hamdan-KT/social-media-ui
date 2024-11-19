@@ -55,7 +55,7 @@ const CommentListItem = React.forwardRef(
 		const handleLiking = (liked = false) => {
 			if (liked) {
 				data.isLiked = false;
-				data.likes = data?.likes - 1
+				data.likes = data?.likes - 1;
 				handleUnLikeComment.mutate();
 			} else {
 				data.isLiked = true;
@@ -69,6 +69,7 @@ const CommentListItem = React.forwardRef(
 			hasNextPage,
 			isFetchingNextPage,
 			isFetching,
+			refetch,
 			data: replyComments,
 			isSuccess,
 		} = useInfiniteQuery({
@@ -97,8 +98,12 @@ const CommentListItem = React.forwardRef(
 		};
 
 		const handleReplyFetch = () => {
+			if (showReply === false) {
+				refetch();
+			} else {
+				fetchNextPage();
+			}
 			setShowReply(true);
-			fetchNextPage();
 		};
 
 		return (
