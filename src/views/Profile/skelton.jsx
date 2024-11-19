@@ -67,13 +67,15 @@ const ProfileSkeleton = () => {
 							gap: "1rem",
 						}}
 					>
-						<StyledBox gap="0.7rem">
-							<Skeleton variant="text" width="20%" height={30} />
-							<Skeleton variant="circular" width={20} height={20} />
-							<Skeleton variant="rectangular" width={100} height={30} />
-							<Skeleton variant="rectangular" width={100} height={30} />
-							<Skeleton variant="circular" width={30} height={30} />
-						</StyledBox>
+						{!matchDownSm && (
+							<StyledBox gap="0.7rem">
+								<Skeleton variant="text" width="20%" height={30} />
+								<Skeleton variant="circular" width={20} height={20} />
+								<Skeleton variant="rectangular" width={100} height={30} />
+								<Skeleton variant="rectangular" width={100} height={30} />
+								<Skeleton variant="circular" width={30} height={30} />
+							</StyledBox>
+						)}
 
 						<StyledBox sx={{ flexDirection: "column", alignItems: "start" }}>
 							<Skeleton variant="text" width="40%" height={25} />
