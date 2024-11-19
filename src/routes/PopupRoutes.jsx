@@ -13,7 +13,7 @@ const ViewPost = Loadable(
 const PopupRoutes = () => {
 	return {
 		path: `${RoutePath.HOME}`,
-		element: <ViewPost />,
+		// element: <ViewPost />,
 		children: [
 			{
 				path: `${RoutePath.POST}/:pId`,

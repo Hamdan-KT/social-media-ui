@@ -10,7 +10,7 @@ import {
 	InputBase,
 	Grid,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { commentList } from "src/data";
 import CommentList from "components/ui-components/CommentList";
 import Picker from "@emoji-mart/react";
@@ -20,13 +20,25 @@ import Slide from "components/common/Carousel/Slide";
 import Slider from "components/common/Carousel/Carousel";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import PopOver from "components/common/Popover";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
 import AvatarSet from "components/common/AvatarSet";
 import Video from "components/common/Video";
 import Image from "components/common/Image";
-import { useMutation } from "@tanstack/react-query";
-import { likePost } from "src/api/postAPI";
+import {
+	useInfiniteQuery,
+	useMutation,
+	useQueryClient,
+} from "@tanstack/react-query";
+import { likePost, unlikePost } from "src/api/postAPI";
+import { useParams } from "react-router";
+import LikeSvg from "src/components/common/LikeSvg";
+import { motion } from "framer-motion";
+import DefaultLoader from "src/components/common/DefaultLoader";
+import { clearCommentBody } from "src/app/slices/commentSlice/commentSlice";
+import { createComment, getComments } from "src/api/commentAPI";
+import { commentTypes } from "src/utils/constants";
+import { useInView } from "react-intersection-observer";
 
 const commonStyle = {
 	display: "flex",
@@ -55,12 +67,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
+const CommonBox = styled("div")(({ theme }) => ({
+	height: "auto",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	width: "100%",
+	gap: "1rem",
+}));
+
 function PostLarge({ data = {} }) {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const [value, setValue] = useState("");
 	const emojPopRef = useRef();
 	const dispatch = useDispatch();
+	const [likes, setLikes] = useState([]);
+	const commentBody = useSelector((state) => state.comment.commentBody);
+	console.log({ commentBody });
+	const queryClient = useQueryClient();
+	const { ref, inView } = useInView();
 
 	const handleLikePost = useMutation({
 		mutationKey: ["like-post"],
@@ -96,6 +122,68 @@ function PostLarge({ data = {} }) {
 		}
 	};
 
+	const handleLike = (event) => {
+		if (data?.isLiked === false) {
+			data.likes = data?.likes + 1;
+			data.isLiked = true;
+			handleLikePost.mutate();
+		}
+		const x = event.clientX;
+		const y = event.clientY;
+		const newLike = {
+			id: Date.now(),
+			x: x,
+			y: y,
+		};
+		setLikes((prev) => [...prev, newLike]);
+		setTimeout(() => {
+			setLikes((prev) => prev.filter((like) => like.id !== newLike.id));
+		}, 2000);
+	};
+
+	const handleCreateComment = useMutation({
+		mutationKey: ["create-comment"],
+		mutationFn: () => {
+			const { replyUserName, ...others } = commentBody;
+			return createComment(data?._id, { ...others, content: value });
+		},
+		onSuccess: (data) => {
+			setValue("");
+			if (commentBody?.type === commentTypes.GENERAL) {
+				queryClient.invalidateQueries({ queryKey: ["get-all-comments"] });
+			} else {
+				queryClient.invalidateQueries({
+					queryKey: ["get-all-reply-comments", data?.data?.parent_comment],
+				});
+			}
+			dispatch(clearCommentBody());
+		},
+	});
+
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isFetching,
+		data: comments,
+	} = useInfiniteQuery({
+		queryKey: ["get-all-comments", data?._id],
+		queryFn: ({ pageParam = 1 }) => getComments(data?._id, pageParam),
+		initialPageParam: 1,
+		enabled: !!data?._id,
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+	});
+
+	useEffect(() => {
+		if (inView && hasNextPage && !isFetching) {
+			fetchNextPage();
+		}
+	}, [inView, hasNextPage, fetchNextPage, isFetching]);
 
 	return (
 		<Box
@@ -111,7 +199,40 @@ function PostLarge({ data = {} }) {
 			}}
 		>
 			<Grid container sx={{ border: `1px solid ${theme.palette.grey[300]}` }}>
-				<Grid item sm={7} md={8}>
+				<Grid
+					item
+					sm={7}
+					md={8}
+					onDoubleClick={handleLike}
+					sx={{ position: "relative" }}
+				>
+					{likes.map((like) => (
+						<motion.div
+							key={like.id}
+							style={{
+								position: "fixed",
+								top: like.y,
+								left: like.x,
+								transform: "translate(-50%, -50%)",
+								pointerEvents: "none",
+								zIndex: 1000,
+							}}
+							initial={{ opacity: 0, scale: 0.5, x: 0 }}
+							animate={[
+								{
+									opacity: 1,
+									scale: 1,
+									rotate: [20, -20, 20],
+									transition: { duration: 0.5 },
+								},
+								{ y: -1000, transition: { duration: 0.5, delay: 0.5 } },
+							]}
+							exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.5 } }}
+							transition={{ duration: 1.5 }}
+						>
+							<LikeSvg />
+						</motion.div>
+					))}
 					<Slider
 						sx={{
 							width: "100%",
@@ -119,6 +240,7 @@ function PostLarge({ data = {} }) {
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center",
+							position: "relative",
 						}}
 					>
 						{Array.isArray(data?.files) &&
@@ -234,7 +356,7 @@ function PostLarge({ data = {} }) {
 							className="scrollbar-hide"
 							sx={{
 								...commonStyle,
-								maxHeight: {
+								height: {
 									sm: "calc(50vh)",
 									md: "calc(100vh - 18rem)",
 								},
@@ -245,7 +367,20 @@ function PostLarge({ data = {} }) {
 								alignItems: "start",
 							}}
 						>
-							<CommentList data={commentList} />
+							<CommentList data={comments} ref={ref} />
+							{isFetchingNextPage && (
+								<Box
+									sx={{
+										width: "100%",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+										p: 1,
+									}}
+								>
+									<DefaultLoader />
+								</Box>
+							)}
 						</Box>
 						{/* post info */}
 						<Box
@@ -359,7 +494,46 @@ function PostLarge({ data = {} }) {
 								)}
 							</Box>
 						</Box>
-						<Box sx={{ ...commonStyle, width: "100%", p: "0.4rem" }}>
+						<Box
+							sx={{
+								...commonStyle,
+								width: "100%",
+								p: "0.4rem",
+								flexDirection: "column",
+								position: "relative",
+							}}
+						>
+							{commentBody?.replyUserName && (
+								<CommonBox
+									sx={{
+										position: "absolute",
+										left: 0,
+										bottom: "100%",
+										borderBottom: `1px solid ${theme.palette.grey[100]}`,
+										p: "0.1rem",
+										justifyContent: "space-between",
+										mb: 0.5,
+										background: theme.palette.background.paper,
+										borderTop: `1px solid ${theme.palette.grey[100]}`,
+										borderTopRightRadius: commentBody?.replyUserName
+											? "17px"
+											: 0,
+										borderTopLeftRadius: commentBody?.replyUserName
+											? "17px"
+											: 0,
+									}}
+								>
+									<CommonBox sx={{ width: "auto", pl: "0.5rem" }}>
+										<Typography variant="caption">{`Reply to ${commentBody?.replyUserName}`}</Typography>
+									</CommonBox>
+									<IconButton
+										size="small"
+										onClick={() => dispatch(clearCommentBody())}
+									>
+										<ReactIcons.IoClose />
+									</IconButton>
+								</CommonBox>
+							)}
 							<InputBox>
 								{matchDownMd ? null : (
 									<PopOver
@@ -393,9 +567,14 @@ function PostLarge({ data = {} }) {
 											padding: "0 0.3rem",
 											fontWeight: 600,
 										}}
+										onClick={() => handleCreateComment.mutate()}
 										color={theme.palette.primary.main}
 									>
-										Post
+										{handleCreateComment.isPending ? (
+											<DefaultLoader size={20} />
+										) : (
+											"Post"
+										)}
 									</Typography>
 								)}
 							</InputBox>

@@ -34,7 +34,7 @@ function App() {
 				{/* mui css baseline */}
 				<CssBaseline />
 				{/* navigation Scroll component */}
-				<NavigationScroll>
+				{/* <NavigationScroll> */}
 					{/* routes */}
 					<AppRouting />
 					{/* toaster component */}
@@ -46,7 +46,7 @@ function App() {
 					{/* common popup windows */}
 					<ShareWindow />
 					<Comments />
-				</NavigationScroll>
+				{/* </NavigationScroll> */}
 			</ThemeProvider>
 		</StyledEngineProvider>
 	);

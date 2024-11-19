@@ -23,7 +23,7 @@ export default function AppRouting() {
 		[AuthRoutes()],
 		previousLocation || location
 	);
-	const PopuRoutes = useRoutes([PopupRoutes()], location);
+	const PopuRoutes = useRoutes([PopupRoutes()]);
 
 	return (
 		<>
