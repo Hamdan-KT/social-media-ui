@@ -3,6 +3,7 @@ import * as React from "react";
 import List from "@mui/material/List";
 import { useTheme } from "@mui/material/styles";
 import UserListItem from "./UserListItem";
+import UserListSkeleton from "./skelton";
 
 const UserList = React.forwardRef(
 	(
@@ -18,6 +19,11 @@ const UserList = React.forwardRef(
 		ref
 	) => {
 		const theme = useTheme();
+
+		if (data?.length === 0) {
+			return <UserListSkeleton />;
+		}
+
 		return (
 			<List
 				dense

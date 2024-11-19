@@ -14,6 +14,7 @@ import { userPosts } from "src/data";
 import ReactIcons from "utils/ReactIcons";
 import Image from "components/common/Image";
 import React, { forwardRef } from "react";
+import PhotoGallerySkeleton from "./skelton";
 
 const StyledGallery = styled(Box)(({ theme }) => ({
 	display: "grid",
@@ -91,10 +92,17 @@ const defaultStyle = {
 	userSelect: "none",
 };
 
-const PhotoGallery = forwardRef(function PhotoGallery({ sx, data = [] }, ref) {
+const PhotoGallery = forwardRef(function PhotoGallery(
+	{ sx, data = [], isLoading = false },
+	ref
+) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const location = useLocation();
+
+	if (isLoading) {
+		return <PhotoGallerySkeleton />;
+	}
 
 	return (
 		<Grid container>

@@ -11,7 +11,7 @@ function ProfilePosts() {
 	const { uid } = useParams();
 	const { ref, inView } = useInView();
 
-	const { fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, data } =
+	const { fetchNextPage, hasNextPage, isFetching, isLoading, isFetchingNextPage, data } =
 		useInfiniteQuery({
 			queryKey: ["get-all-user-posts", uid],
 			queryFn: ({ pageParam = 1 }) => getUserPosts(uid, pageParam, 9),
@@ -32,7 +32,7 @@ function ProfilePosts() {
 
 	return (
 		<>
-			<PhotoGallery data={data} ref={ref} />
+			<PhotoGallery data={data} ref={ref} isLoading={isLoading}/>
 			{isFetchingNextPage && (
 				<Box
 					sx={{

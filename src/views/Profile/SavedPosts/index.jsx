@@ -10,18 +10,24 @@ import { Box } from "@mui/material";
 function ProfileSavedPosts() {
 	const { ref, inView } = useInView();
 
-	const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching, data } =
-		useInfiniteQuery({
-			queryKey: ["get-all-saved-posts"],
-			queryFn: ({ pageParam = 1 }) => getSavedPosts(pageParam, 9),
-			initialPageParam: 1,
-			getNextPageParam: (lastPage, allPages) => {
-				const nextPage = lastPage?.data?.length
-					? allPages?.length + 1
-					: undefined;
-				return nextPage;
-			},
-		});
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isLoading,
+		isFetching,
+		data,
+	} = useInfiniteQuery({
+		queryKey: ["get-all-saved-posts"],
+		queryFn: ({ pageParam = 1 }) => getSavedPosts(pageParam, 9),
+		initialPageParam: 1,
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+	});
 
 	useEffect(() => {
 		if (inView && hasNextPage && !isFetching) {
@@ -31,7 +37,7 @@ function ProfileSavedPosts() {
 
 	return (
 		<>
-			<PhotoGallery data={data} ref={ref} />
+			<PhotoGallery data={data} ref={ref} isLoading={isLoading} />
 			{isFetchingNextPage && (
 				<Box
 					sx={{

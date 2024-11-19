@@ -27,6 +27,7 @@ import FollowBtn from "src/components/common/FollowBtn";
 import ImgWrapper from "src/components/common/ImgWrapper";
 import Image from "src/components/common/Image";
 import verifiedBadge from "assets/images/verifiedBadge.png";
+import ProfileSkeleton from "./skelton";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -64,262 +65,282 @@ function Profile() {
 			<Grid item xs={12} md={12} sm={12} lg={12}>
 				{/* profile header */}
 				<ProfileHeader data={data?.data} />
-				{/* profile bio */}
-				<Grid container sx={{ marginTop: { xs: 4.5, sm: 0 } }}>
-					<Grid item xs={4} sm={3} md={4} lg={4}>
-						<StyledBox
-							sx={{
-								justifyContent: "center",
-								padding: { xs: "1rem", sm: "3rem 0rem" },
-							}}
-						>
-							<ProfileAvatar
-								profile={data?.data?.avatar}
-								userName={data?.data?.userName}
-								sx={{
-									width: { xs: 85, sm: 110, md: 154 },
-									height: { xs: 85, sm: 110, md: 154 },
-									border: "2px solid #ffff",
-								}}
-							/>
-						</StyledBox>
-					</Grid>
-					{matchDownSm && (
-						<Grid item xs={8} sm={9} md={8} lg={8}>
-							<StyledBox sx={{ minHeight: "15vh", justifyContent: "center" }}>
-								<Box
-									display="flex"
-									flexDirection="column"
-									justifyContent="center"
-									alignItems="center"
-									gap="0.1rem"
+
+				{!data ? (
+					<ProfileSkeleton />
+				) : (
+					<>
+						{/* profile bio */}
+						<Grid container sx={{ marginTop: { xs: 4.5, sm: 0 } }}>
+							<Grid item xs={4} sm={3} md={4} lg={4}>
+								<StyledBox
+									sx={{
+										justifyContent: "center",
+										padding: { xs: "1rem", sm: "3rem 0rem" },
+									}}
 								>
-									<Typography variant="h4" fontSize="1.1rem">
-										{data?.data?.postsCount}
-									</Typography>
-									<Typography variant="p" fontSize="0.8rem">
-										Posts
-									</Typography>
-								</Box>
-								<Box
-									display="flex"
-									flexDirection="column"
-									justifyContent="center"
-									alignItems="center"
-									gap="0.1rem"
+									<ProfileAvatar
+										profile={data?.data?.avatar}
+										userName={data?.data?.userName}
+										sx={{
+											width: { xs: 85, sm: 110, md: 154 },
+											height: { xs: 85, sm: 110, md: 154 },
+											border: "2px solid #ffff",
+										}}
+									/>
+								</StyledBox>
+							</Grid>
+							{matchDownSm && (
+								<Grid item xs={8} sm={9} md={8} lg={8}>
+									<StyledBox
+										sx={{ minHeight: "15vh", justifyContent: "center" }}
+									>
+										<Box
+											display="flex"
+											flexDirection="column"
+											justifyContent="center"
+											alignItems="center"
+											gap="0.1rem"
+										>
+											<Typography variant="h4" fontSize="1.1rem">
+												{data?.data?.postsCount}
+											</Typography>
+											<Typography variant="p" fontSize="0.8rem">
+												Posts
+											</Typography>
+										</Box>
+										<Box
+											display="flex"
+											flexDirection="column"
+											justifyContent="center"
+											alignItems="center"
+											gap="0.1rem"
+										>
+											<Typography variant="h4" fontSize="1.1rem">
+												{data?.data?.followersCount}
+											</Typography>
+											<Typography variant="p" fontSize="0.8rem">
+												Followers
+											</Typography>
+										</Box>
+										<Box
+											display="flex"
+											flexDirection="column"
+											justifyContent="center"
+											alignItems="center"
+											gap="0.1rem"
+										>
+											<Typography variant="h4" fontSize="1.1rem">
+												{data?.data?.followingCount}
+											</Typography>
+											<Typography variant="p" fontSize="0.8rem">
+												Following
+											</Typography>
+										</Box>
+									</StyledBox>
+								</Grid>
+							)}
+							<Grid item xs={12} sm={8} md={8} lg={8}>
+								<StyledBox
+									sx={{
+										padding: { xs: "0rem 0.5rem", sm: "3rem 0rem" },
+										flexDirection: "column",
+										gap: { xs: "0.3rem", sm: "1rem" },
+									}}
 								>
-									<Typography variant="h4" fontSize="1.1rem">
-										{data?.data?.followersCount}
-									</Typography>
-									<Typography variant="p" fontSize="0.8rem">
-										Followers
-									</Typography>
-								</Box>
-								<Box
-									display="flex"
-									flexDirection="column"
-									justifyContent="center"
-									alignItems="center"
-									gap="0.1rem"
-								>
-									<Typography variant="h4" fontSize="1.1rem">
-										{data?.data?.followingCount}
-									</Typography>
-									<Typography variant="p" fontSize="0.8rem">
-										Following
-									</Typography>
-								</Box>
-							</StyledBox>
-						</Grid>
-					)}
-					<Grid item xs={12} sm={8} md={8} lg={8}>
-						<StyledBox
-							sx={{
-								padding: { xs: "0rem 0.5rem", sm: "3rem 0rem" },
-								flexDirection: "column",
-								gap: { xs: "0.3rem", sm: "1rem" },
-							}}
-						>
-							{!matchDownSm && (
-								<>
-									<StyledBox sx={{ gap: "0.7rem" }}>
-										<Typography variant="userName" sx={{ fontSize: "1rem" }}>
-											{data?.data?.userName}
+									{!matchDownSm && (
+										<>
+											<StyledBox sx={{ gap: "0.7rem" }}>
+												<Typography
+													variant="userName"
+													sx={{ fontSize: "1rem" }}
+												>
+													{data?.data?.userName}
+												</Typography>
+												<ImgWrapper sx={{ width: "1rem", height: "1rem" }}>
+													<Image
+														src={verifiedBadge}
+														style={{
+															display: "block",
+															width: "100%",
+															objectFit: "cover",
+														}}
+													/>
+												</ImgWrapper>
+												{data?.data?._id && data?.data?._id !== user?._id && (
+													<>
+														<FollowBtn
+															isFollowing={data?.data?.isFollowing}
+															followingStatus={data?.data?.followingStatus}
+															isPublic={data?.data?.isPublic}
+															userID={data?.data?._id}
+															sx={{
+																padding: "0.1rem 1rem",
+																fontSize: "0.9rem",
+															}}
+														/>
+														{data?.data?.isPublic && (
+															<Btn
+																variant="outlined"
+																sx={{
+																	padding: "0.14rem 1.2rem",
+																	fontSize: "0.9rem",
+																}}
+																onClick={() =>
+																	navigate(
+																		`/${RoutePath.MESSAGES}/${data?.data?._id}`
+																	)
+																}
+															>
+																Message
+															</Btn>
+														)}
+													</>
+												)}
+												{data?.data?._id && data?.data?._id === user?._id && (
+													<>
+														<Btn
+															variant="outlined"
+															sx={{
+																padding: "0.2rem 1rem",
+																fontSize: "0.9rem",
+															}}
+															onClick={() =>
+																navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
+															}
+														>
+															Edit Profile
+														</Btn>
+														<Btn
+															variant="outlined"
+															sx={{
+																padding: "0.14rem 1.2rem",
+																fontSize: "0.9rem",
+															}}
+														>
+															Share Profile
+														</Btn>
+													</>
+												)}
+												{data?.data?._id && data?.data?._id === user?._id && (
+													<IconButton
+														size="small"
+														color="inherit"
+														onClick={() =>
+															navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
+														}
+													>
+														<ReactIcons.IoIosSettings size={27} />
+													</IconButton>
+												)}
+											</StyledBox>
+											<StyledBox>
+												<Box display="flex" gap="0.5rem">
+													<Typography variant="h4">
+														{data?.data?.postsCount}
+													</Typography>
+													<Typography variant="p">Posts</Typography>
+												</Box>
+												<Box display="flex" gap="0.5rem">
+													<Typography variant="h4">
+														{data?.data?.followersCount}
+													</Typography>
+													<Typography variant="p">Followers</Typography>
+												</Box>
+												<Box display="flex" gap="0.5rem">
+													<Typography variant="h4">
+														{data?.data?.followingCount}
+													</Typography>
+													<Typography variant="p">Following</Typography>
+												</Box>
+											</StyledBox>
+										</>
+									)}
+									<StyledBox>
+										<Typography variant="userName" sx={{ fontSize: "0.85rem" }}>
+											{data?.data?.name}
 										</Typography>
-										<ImgWrapper sx={{ width: "1rem", height: "1rem" }}>
-											<Image
-												src={verifiedBadge}
-												style={{
-													display: "block",
-													width: "100%",
-													objectFit: "cover",
-												}}
-											/>
-										</ImgWrapper>
-										{data?.data?._id && data?.data?._id !== user?._id && (
-											<>
-												<FollowBtn
-													isFollowing={data?.data?.isFollowing}
-													followingStatus={data?.data?.followingStatus}
-													isPublic={data?.data?.isPublic}
-													userID={data?.data?._id}
-													sx={{ padding: "0.1rem 1rem", fontSize: "0.9rem" }}
-												/>
-												{data?.data?.isPublic && (
+									</StyledBox>
+									<StyledBox>
+										<Typography variant="p" color={theme.palette.grey[500]}>
+											{data?.data?.role}
+										</Typography>
+									</StyledBox>
+									<StyledBox>
+										<Typography variant="p">
+											{/* {data?.data?.bio} */}
+											Lorem ipsum dolor sit amet consectetur adipisicing elit.
+											Laudantium totam sed praesentium dignissimos sapiente
+											ducimus quidem atque?
+										</Typography>
+									</StyledBox>
+									{data?.data?._id && data?.data?._id !== user?._id && (
+										<StyledBox>
+											<AvatarSet max={3} size={27} />
+											<Typography variant="body">
+												Followed By William, Clara and 30 others
+											</Typography>
+										</StyledBox>
+									)}
+									{matchDownSm && (
+										<StyledBox sx={{ padding: "0.5rem 0" }}>
+											{data?.data?._id && data?.data?._id !== user?._id && (
+												<>
+													<FollowBtn
+														sx={{
+															width: "100%",
+														}}
+														isFollowing={data?.data?.isFollowing}
+														followingStatus={data?.data?.followingStatus}
+														isPublic={data?.data?.isPublic}
+														userID={data?.data?._id}
+													/>
+													{data?.data?.isPublic && (
+														<Btn
+															variant="outlined"
+															sx={{
+																width: "100%",
+															}}
+															onClick={() =>
+																navigate(`/${RoutePath.MESSAGES}/${user?._id}`)
+															}
+														>
+															Message
+														</Btn>
+													)}
+												</>
+											)}
+											{data?.data?._id && data?.data?._id === user?._id && (
+												<>
 													<Btn
 														variant="outlined"
 														sx={{
-															padding: "0.14rem 1.2rem",
-															fontSize: "0.9rem",
+															width: "100%",
 														}}
 														onClick={() =>
-															navigate(
-																`/${RoutePath.MESSAGES}/${data?.data?._id}`
-															)
+															navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
 														}
 													>
-														Message
+														Edit Profile
 													</Btn>
-												)}
-											</>
-										)}
-										{data?.data?._id && data?.data?._id === user?._id && (
-											<>
-												<Btn
-													variant="outlined"
-													sx={{ padding: "0.2rem 1rem", fontSize: "0.9rem" }}
-													onClick={() =>
-														navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
-													}
-												>
-													Edit Profile
-												</Btn>
-												<Btn
-													variant="outlined"
-													sx={{ padding: "0.14rem 1.2rem", fontSize: "0.9rem" }}
-												>
-													Share Profile
-												</Btn>
-											</>
-										)}
-										{data?.data?._id && data?.data?._id === user?._id && (
-											<IconButton
-												size="small"
-												color="inherit"
-												onClick={() =>
-													navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
-												}
-											>
-												<ReactIcons.IoIosSettings size={27} />
-											</IconButton>
-										)}
-									</StyledBox>
-									<StyledBox>
-										<Box display="flex" gap="0.5rem">
-											<Typography variant="h4">
-												{data?.data?.postsCount}
-											</Typography>
-											<Typography variant="p">Posts</Typography>
-										</Box>
-										<Box display="flex" gap="0.5rem">
-											<Typography variant="h4">
-												{data?.data?.followersCount}
-											</Typography>
-											<Typography variant="p">Followers</Typography>
-										</Box>
-										<Box display="flex" gap="0.5rem">
-											<Typography variant="h4">
-												{data?.data?.followingCount}
-											</Typography>
-											<Typography variant="p">Following</Typography>
-										</Box>
-									</StyledBox>
-								</>
-							)}
-							<StyledBox>
-								<Typography variant="userName" sx={{ fontSize: "0.85rem" }}>
-									{data?.data?.name}
-								</Typography>
-							</StyledBox>
-							<StyledBox>
-								<Typography variant="p" color={theme.palette.grey[500]}>
-									{data?.data?.role}
-								</Typography>
-							</StyledBox>
-							<StyledBox>
-								<Typography variant="p">
-									{/* {data?.data?.bio} */}
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Laudantium totam sed praesentium dignissimos sapiente ducimus
-									quidem atque?
-								</Typography>
-							</StyledBox>
-							{data?.data?._id && data?.data?._id !== user?._id && (
-								<StyledBox>
-									<AvatarSet max={3} size={27} />
-									<Typography variant="body">
-										Followed By William, Clara and 30 others
-									</Typography>
-								</StyledBox>
-							)}
-							{matchDownSm && (
-								<StyledBox sx={{ padding: "0.5rem 0" }}>
-									{data?.data?._id && data?.data?._id !== user?._id && (
-										<>
-											<FollowBtn
-												sx={{
-													width: "100%",
-												}}
-												isFollowing={data?.data?.isFollowing}
-												followingStatus={data?.data?.followingStatus}
-												isPublic={data?.data?.isPublic}
-												userID={data?.data?._id}
-											/>
-											{data?.data?.isPublic && (
-												<Btn
-													variant="outlined"
-													sx={{
-														width: "100%",
-													}}
-													onClick={() =>
-														navigate(`/${RoutePath.MESSAGES}/${user?._id}`)
-													}
-												>
-													Message
-												</Btn>
+													<Btn
+														variant="outlined"
+														sx={{
+															width: "100%",
+														}}
+													>
+														Share Profile
+													</Btn>
+												</>
 											)}
-										</>
-									)}
-									{data?.data?._id && data?.data?._id === user?._id && (
-										<>
-											<Btn
-												variant="outlined"
-												sx={{
-													width: "100%",
-												}}
-												onClick={() =>
-													navigate(`/${RoutePath.SETTINGS_EDIT_PROFILE}`)
-												}
-											>
-												Edit Profile
-											</Btn>
-											<Btn
-												variant="outlined"
-												sx={{
-													width: "100%",
-												}}
-											>
-												Share Profile
-											</Btn>
-										</>
+										</StyledBox>
 									)}
 								</StyledBox>
-							)}
-						</StyledBox>
-					</Grid>
-				</Grid>
+							</Grid>
+						</Grid>
+					</>
+				)}
 			</Grid>
-
 			{data?.data?._id &&
 			data?.data?._id !== user?._id &&
 			!data?.data?.isPublic &&
@@ -360,17 +381,6 @@ function Profile() {
 							</Typography>
 						</StyledBox>
 					</StyledBox>
-					{/* {!matchDownSm && (
-						<StyledBox sx={{ justifyContent: "center" }}>
-							<FollowBtn
-								isFollowing={data?.data?.isFollowing}
-								followingStatus={data?.data?.followingStatus}
-								isPublic={data?.data?.isPublic}
-								userID={data?.data?._id}
-								sx={{ padding: "0.1rem 1rem", fontSize: "0.9rem" }}
-							/>
-						</StyledBox>
-					)} */}
 				</Grid>
 			) : (
 				<>
