@@ -37,11 +37,11 @@ function MobileHeader() {
 							height: "2rem",
 						}}
 					>
-						<Image
+						{/* <Image
 							src={PngLogo}
 							style={{ widht: "100%", userSelect: "none", display: "block" }}
 							alt="not found"
-						/>
+						/> */}
 					</Box>
 					<Box sx={{ display: "flex" }}>
 						<IconButton
