@@ -146,10 +146,10 @@ const SideBar = memo(function () {
 									ml: 1,
 								}}
 							>
-								<Image
+								{/* <Image
 									src={PngLogo}
 									style={{ display: "block", width: "50%" }}
-								/>
+								/> */}
 							</Box>
 						) : (
 							<Box

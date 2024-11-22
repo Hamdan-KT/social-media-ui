@@ -101,7 +101,7 @@ const PhotoGallery = forwardRef(function PhotoGallery(
 	const location = useLocation();
 
 	if (isLoading) {
-		return <PhotoGallerySkeleton />;
+		return <PhotoGallerySkeleton count={matchDownSm ? 18 : 9} />;
 	}
 
 	return (
