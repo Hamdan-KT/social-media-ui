@@ -103,7 +103,7 @@ function Register() {
 					gap: 1,
 				}}
 			>
-				<Image
+				{/* <Image
 					src={PngLogo}
 					style={{
 						display: "block",
@@ -112,7 +112,7 @@ function Register() {
 						marginTop: "2rem",
 						marginBottom: "2rem",
 					}}
-				/>
+				/> */}
 				<form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
 					<CommonBox sx={{ flexDirection: "column", gap: 1 }}>
 						<FormControl fullWidth variant="outlined">
