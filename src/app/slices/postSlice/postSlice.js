@@ -18,6 +18,8 @@ const initialState = {
 		isHideLikes: false,
 		location: "",
 	},
+	taggedUsersWindowOpen: false,
+	taggedFileId: null,
 };
 
 export const postSlice = createSlice({
@@ -187,6 +189,12 @@ export const postSlice = createSlice({
 				state.activePost = state.postMedias[index];
 			}
 		},
+		handleTaggedUsersWindowOpen: (state, action) => {
+			state.taggedUsersWindowOpen = action.payload;
+		},
+		setTaggedFileId: (state, action) => {
+			state.taggedFileId = action.payload;
+		},
 	},
 });
 
@@ -207,6 +215,8 @@ export const {
 	cropPosts,
 	setTags,
 	setPostDetails,
+	handleTaggedUsersWindowOpen,
+	setTaggedFileId,
 } = postSlice.actions;
 
 export default postSlice.reducer;

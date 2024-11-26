@@ -116,9 +116,14 @@ export const getTaggedPosts = async (id, page, limit) => {
 };
 
 // Get all users tagged in a specific post by post media ID
-export const getTaggedUsers = async (id) => {
+export const getTaggedUsers = async (id, page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/post/${id}/tags`);
+		const { data } = await apiClient.get(`/post/${id}/tags`, {
+			params: {
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);

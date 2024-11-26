@@ -40,6 +40,10 @@ import { createComment, getComments } from "src/api/commentAPI";
 import { commentTypes } from "src/utils/constants";
 import { useInView } from "react-intersection-observer";
 import SkeletonPostLarge from "./skelton";
+import {
+	handleTaggedUsersWindowOpen,
+	setTaggedFileId,
+} from "src/app/slices/postSlice/postSlice";
 
 const commonStyle = {
 	display: "flex",
@@ -311,6 +315,10 @@ function PostLarge({ data }) {
 											borderRadius: "50%",
 											background: "black",
 											cursor: "pointer",
+										}}
+										onClick={() => {
+											dispatch(handleTaggedUsersWindowOpen(true));
+											dispatch(setTaggedFileId(file?._id));
 										}}
 									>
 										<ReactIcons.IoPerson

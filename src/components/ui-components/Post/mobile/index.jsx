@@ -34,6 +34,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FaHeart } from "react-icons/fa6";
 import LikeSvg from "src/components/common/LikeSvg";
 import PostMobileSkeleton from "./skelton";
+import {
+	handleTaggedUsersWindowOpen,
+	setTaggedFileId,
+} from "src/app/slices/postSlice/postSlice";
 
 // caption style
 const captionStyle = {
@@ -121,8 +125,8 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 		}, 2000);
 	};
 
-	if(!data){
-		return <PostMobileSkeleton />
+	if (!data) {
+		return <PostMobileSkeleton />;
 	}
 
 	return (
@@ -290,6 +294,10 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 										borderRadius: "50%",
 										background: "black",
 										cursor: "pointer",
+									}}
+									onClick={() => {
+										dispatch(handleTaggedUsersWindowOpen(true));
+										dispatch(setTaggedFileId(file?._id));
 									}}
 								>
 									<ReactIcons.IoPerson
