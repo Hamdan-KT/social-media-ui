@@ -4,6 +4,13 @@ import MainLayout from "layouts/MainLayout";
 import { RoutePath } from "src/utils/routes";
 import AuthProvider from "src/components/auth/AuthProvider";
 
+import { useMediaQuery, useTheme } from "@mui/material";
+
+import Relation from "src/views/Profile/Relation";
+import FollowingRel from "src/views/Profile/Relation/Following";
+import FollowersRel from "src/views/Profile/Relation/Followers";
+import MutualRel from "src/views/Profile/Relation/Mutual";
+
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));
 
@@ -45,6 +52,9 @@ const NotificationSettings = Loadable(
 const SavedPosts = Loadable(lazy(() => import("views/Settings/Saved")));
 
 const MainRoutes = () => {
+	const theme = useTheme();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+
 	return {
 		path: RoutePath.HOME,
 		element: (
@@ -98,6 +108,24 @@ const MainRoutes = () => {
 					{
 						path: `/${RoutePath.PROFILE}/:uid/${RoutePath.PROFILE_TAGGED}`,
 						element: <ProfileTaggedPosts />,
+					},
+				],
+			},
+			{
+				path: `/${RoutePath.PROFILE}/:uid/rel`,
+				element: <Relation />,
+				children: [
+					{
+						path: `/${RoutePath.PROFILE}/:uid/rel/${RoutePath.MUTUAL}`,
+						element: <MutualRel />,
+					},
+					{
+						path: `/${RoutePath.PROFILE}/:uid/rel/${RoutePath.FOLLOWERS}`,
+						element: <FollowersRel />,
+					},
+					{
+						path: `/${RoutePath.PROFILE}/:uid/rel/${RoutePath.FOLLOWING}`,
+						element: <FollowingRel />,
 					},
 				],
 			},

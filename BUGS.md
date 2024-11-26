@@ -15,3 +15,7 @@
 # sticky issue of input field in comment bottom sheet in mobile
 
 # share window comment window close function getting called while clicking on whole application screen
+
+# fix outlet of profile following relation paths
+
+# add header to outlet relation popup

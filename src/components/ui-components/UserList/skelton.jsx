@@ -13,7 +13,7 @@ const UserListSkeleton = ({ count = 10 }) => {
 			dense
 			sx={{
 				width: "100%",
-				maxWidth: 360,
+				maxWidth: "100%",
 				gap: "0.5rem",
 			}}
 		>

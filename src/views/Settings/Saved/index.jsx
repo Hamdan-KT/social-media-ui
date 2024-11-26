@@ -35,7 +35,7 @@ function SavedPosts() {
 						<Typography variant="h3">Saved Posts</Typography>
 					</Box>
 				)}
-				<CommonBox sx={{ flexDirection: "column", background: "red", gap: "1rem", mt: 3 }}>
+				<CommonBox sx={{ flexDirection: "column", gap: "1rem", mt: 3 }}>
 					{/* content */}
 					<ProfileSavedPosts />
 				</CommonBox>

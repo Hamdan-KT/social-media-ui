@@ -18,7 +18,7 @@ import MediaTabs from "./MediaTabs";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import { RoutePath } from "src/utils/routes";
 import ReactIcons from "src/utils/ReactIcons";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -43,6 +43,7 @@ function Profile() {
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.user?.user);
 	const { uid } = useParams();
+	const location = useLocation();
 
 	const { data, isLoading, isSuccess } = useQuery({
 		queryKey: ["get-user-profile", uid],
@@ -115,6 +116,11 @@ function Profile() {
 											justifyContent="center"
 											alignItems="center"
 											gap="0.1rem"
+											onClick={() =>
+												navigate(
+													`/${RoutePath.PROFILE}/${uid}/rel/${RoutePath.FOLLOWERS}`
+												)
+											}
 										>
 											<Typography variant="h4" fontSize="1.1rem">
 												{data?.data?.followersCount}
@@ -129,6 +135,11 @@ function Profile() {
 											justifyContent="center"
 											alignItems="center"
 											gap="0.1rem"
+											onClick={() =>
+												navigate(
+													`/${RoutePath.PROFILE}/${uid}/rel/${RoutePath.FOLLOWING}`
+												)
+											}
 										>
 											<Typography variant="h4" fontSize="1.1rem">
 												{data?.data?.followingCount}
@@ -241,13 +252,41 @@ function Profile() {
 													</Typography>
 													<Typography variant="p">Posts</Typography>
 												</Box>
-												<Box display="flex" gap="0.5rem">
+												<Box
+													display="flex"
+													gap="0.5rem"
+													sx={{ cursor: "pointer" }}
+													onClick={() =>
+														navigate(
+															`/${RoutePath.PROFILE}/${data?.data?._id}/rel/${RoutePath.FOLLOWERS}`,
+															{
+																state: {
+																	previousLocation: location,
+																},
+															}
+														)
+													}
+												>
 													<Typography variant="h4">
 														{data?.data?.followersCount}
 													</Typography>
 													<Typography variant="p">Followers</Typography>
 												</Box>
-												<Box display="flex" gap="0.5rem">
+												<Box
+													display="flex"
+													gap="0.5rem"
+													sx={{ cursor: "pointer" }}
+													onClick={() =>
+														navigate(
+															`/${RoutePath.PROFILE}/${data?.data?._id}/rel/${RoutePath.FOLLOWING}`,
+															{
+																state: {
+																	previousLocation: location,
+																},
+															}
+														)
+													}
+												>
 													<Typography variant="h4">
 														{data?.data?.followingCount}
 													</Typography>

@@ -62,9 +62,15 @@ export const deleteUser = async (id) => {
 };
 
 // Get the list of users the specified user is following
-export const getFollowingUsers = async (id) => {
+export const getFollowingUsers = async (id, params = {}, page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/user/${id}/following`);
+		const { data } = await apiClient.get(`/user/${id}/following`, {
+			params: {
+				...params,
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
@@ -72,9 +78,15 @@ export const getFollowingUsers = async (id) => {
 };
 
 // Get the list of users following the specified user (i.e., their followers)
-export const getFollowerUsers = async (id) => {
+export const getFollowerUsers = async (id, params = {}, page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/user/${id}/followers`);
+		const { data } = await apiClient.get(`/user/${id}/followers`, {
+			params: {
+				...params,
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
@@ -82,9 +94,15 @@ export const getFollowerUsers = async (id) => {
 };
 
 // Get the list of mutual users (both following and followers) for the specified user
-export const getMutualUsers = async (id) => {
+export const getMutualUsers = async (id, params = {}, page, limit) => {
 	try {
-		const { data } = await apiClient.get(`/user/${id}/mutual`);
+		const { data } = await apiClient.get(`/user/${id}/mutual`, {
+			params: {
+				...params,
+				page,
+				limit,
+			},
+		});
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
