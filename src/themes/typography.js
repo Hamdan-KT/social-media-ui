@@ -4,7 +4,7 @@
  */
 
 export default function themeTypography(theme) {
-  return {
+	return {
 		// fontFamily: theme?.customization?.fontFamily,
 		h6: {
 			fontWeight: 500,
@@ -38,6 +38,13 @@ export default function themeTypography(theme) {
 		},
 		userName: {
 			fontSize: "0.75rem",
+			color: theme.heading,
+			fontWeight: 700,
+		},
+		logo: {
+			fontFamily: "Cookie, cursive",
+			fontStyle: "normal",
+			fontSize: "2rem",
 			color: theme.heading,
 			fontWeight: 700,
 		},

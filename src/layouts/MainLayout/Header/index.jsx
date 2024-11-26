@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import PngLogo from "assets/images/logoText.png";
 import { useNavigate } from "react-router";
 import ReactIcons from "utils/ReactIcons";
@@ -34,7 +34,9 @@ function MobileHeader() {
 							overflow: "hidden",
 							display: "flex",
 							width: "40%",
-							height: "2rem",
+							height: "2.7rem",
+							alignItems: "center",
+							justifyContent: "center"
 						}}
 					>
 						{/* <Image
@@ -42,6 +44,9 @@ function MobileHeader() {
 							style={{ widht: "100%", userSelect: "none", display: "block" }}
 							alt="not found"
 						/> */}
+						<Typography variant="logo" sx={{ fontSize: "2.3rem" }}>
+							Instogram
+						</Typography>
 					</Box>
 					<Box sx={{ display: "flex" }}>
 						<IconButton

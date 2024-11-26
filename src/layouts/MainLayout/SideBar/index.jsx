@@ -14,6 +14,7 @@ import {
 	Badge,
 	Box,
 	ListItemAvatar,
+	Typography,
 	useMediaQuery,
 } from "@mui/material";
 import { menuList } from "./MenuList";
@@ -150,6 +151,7 @@ const SideBar = memo(function () {
 									src={PngLogo}
 									style={{ display: "block", width: "50%" }}
 								/> */}
+								<Typography variant="logo" sx={{fontSize: "2.3rem"}}>Instogram</Typography>
 							</Box>
 						) : (
 							<Box

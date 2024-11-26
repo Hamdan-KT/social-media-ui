@@ -118,6 +118,9 @@ function Login() {
 						marginBottom: "2rem",
 					}}
 				/> */}
+				<Typography variant="logo" sx={{ fontSize: "3rem", p: "0.5rem", marginTop: "2rem", marginBottom:"2rem" }}>
+					Instogram
+				</Typography>
 				<form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
 					<CommonBox sx={{ flexDirection: "column", gap: 1 }}>
 						<FormControl fullWidth variant="outlined">
