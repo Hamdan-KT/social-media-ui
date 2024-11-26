@@ -11,21 +11,21 @@ import ReactIcons from "utils/ReactIcons";
 import Image from "components/common/Image";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
-  display: "flex",
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "0 1rem",
-  backgroundColor: theme.palette.background.default,
-  position: "static",
+	display: "flex",
+	width: "100%",
+	alignItems: "center",
+	justifyContent: "space-between",
+	padding: "0 1rem",
+	backgroundColor: theme.palette.background.default,
+	position: "static",
 }));
 
 function MobileHeader() {
-  const theme = useTheme();
-  const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-  const navigate = useNavigate();
+	const theme = useTheme();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const navigate = useNavigate();
 
-  return (
+	return (
 		<>
 			{matchDownSm && (
 				<StyledToolBar>
@@ -36,7 +36,7 @@ function MobileHeader() {
 							width: "40%",
 							height: "2.7rem",
 							alignItems: "center",
-							justifyContent: "center"
+							justifyContent: "start",
 						}}
 					>
 						{/* <Image
