@@ -87,7 +87,8 @@ function SkeletonPostLarge() {
 						>
 							<List
 								sx={{
-									width: "100%",
+									width: 370,
+									// width: "100%",
 									// ...sx,
 								}}
 							>

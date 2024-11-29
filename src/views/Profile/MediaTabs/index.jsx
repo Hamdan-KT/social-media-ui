@@ -9,6 +9,7 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router";
 import { RoutePath } from "src/utils/routes";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -47,6 +48,7 @@ function MediaTabs() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { uid } = useParams();
+	const user = useSelector((state) => state.user?.user);
 
 	const tabValue =
 		{
@@ -81,12 +83,14 @@ function MediaTabs() {
 					label={!matchDownSm && "POSTS"}
 					{...a11yProps(0)}
 				/>
-				<Tab
-					icon={<ReactIcons.RiBookmarkLine size={22} />}
-					iconPosition="start"
-					label={!matchDownSm && "SAVED"}
-					{...a11yProps(1)}
-				/>
+				{user && user?._id === uid && (
+					<Tab
+						icon={<ReactIcons.RiBookmarkLine size={22} />}
+						iconPosition="start"
+						label={!matchDownSm && "SAVED"}
+						{...a11yProps(1)}
+					/>
+				)}
 				<Tab
 					icon={<ReactIcons.MdOutlineAccountBox size={25} />}
 					iconPosition="start"

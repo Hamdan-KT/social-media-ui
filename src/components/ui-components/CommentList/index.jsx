@@ -7,15 +7,25 @@ import CommentListSkeleton from "./skelton";
 import { Box } from "@mui/material";
 
 const CommentList = React.forwardRef(
-	({ data = [], isLoading = false, primaryText, secondaryText, sx = {} }, ref) => {
+	(
+		{
+			data = [],
+			isLoading = false,
+			primaryText,
+			secondaryText,
+			sx = {},
+			skeltonSx = {},
+		},
+		ref
+	) => {
 		const theme = useTheme();
 
-		if(!isLoading && data?.length === 0){
+		if (!isLoading && data?.length === 0) {
 			return null;
 		}
 
 		if (isLoading) {
-			return <CommentListSkeleton />;
+			return <CommentListSkeleton sx={skeltonSx} />;
 		}
 
 		return (

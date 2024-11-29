@@ -72,7 +72,7 @@ function PostSettingsMobile() {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 
-	const user = useSelector((state) => state.user?.user)
+	const user = useSelector((state) => state.user?.user);
 
 	const formattedPostData = async (postMedias) => {
 		const formData = new FormData();
@@ -84,7 +84,7 @@ function PostSettingsMobile() {
 					[media?.uID],
 					await getEditedImage(media.croppedUrl, media?.customFilters)
 				);
-				postData[media?.uID] = media?.tags ?? [];
+				postData[media?.uID] = { tags: media?.tags ?? [] };
 			})
 		)
 			.then((result) => {

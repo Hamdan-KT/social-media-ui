@@ -7,7 +7,7 @@ import {
 	Skeleton,
 } from "@mui/material";
 
-const UserListSkeleton = ({ count = 10 }) => {
+const UserListSkeleton = ({ count = 10, sx ={} }) => {
 	return (
 		<List
 			dense
@@ -15,6 +15,7 @@ const UserListSkeleton = ({ count = 10 }) => {
 				width: "100%",
 				maxWidth: "100%",
 				gap: "0.5rem",
+				...sx
 			}}
 		>
 			{Array.from({ length: count }).map((_, index) => (

@@ -125,7 +125,9 @@ function AuthProvider({ children }) {
 						background: theme.palette.background.default,
 					}}
 				>
-					<CommonBox sx={{ width: "100%", height: "100%", flexDirection: "column" }}>
+					<CommonBox
+						sx={{ width: "100%", height: "100%", flexDirection: "column" }}
+					>
 						<ImgWrapper sx={{ width: "5.5rem", height: "5.5rem" }}>
 							<img
 								src={logo}

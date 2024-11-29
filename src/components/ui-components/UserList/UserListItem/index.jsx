@@ -25,6 +25,7 @@ const UserListItem = forwardRef(
 			secondaryText,
 			customButtonProps,
 			actionButton = true,
+			profileNavigation = true,
 		},
 		ref
 	) => {
@@ -56,7 +57,7 @@ const UserListItem = forwardRef(
 			>
 				<ListItemButton
 					onClick={() => {
-						typeof onClick === "function" && onClick();
+						typeof onClick === "function" && onClick(data);
 						urlPrefix && navigateId && navigate(`${urlPrefix}/${navigateId}`);
 					}}
 				>
@@ -72,7 +73,11 @@ const UserListItem = forwardRef(
 						/>
 					</ListItemAvatar>
 					<ListItemText
-						onClick={() => navigate(`/${RoutePath.PROFILE}/${data?._id}`)}
+						onClick={() => {
+							if (profileNavigation) {
+								navigate(`/${RoutePath.PROFILE}/${data?._id}`);
+							}
+						}}
 						primaryTypographyProps={{
 							fontSize: 13,
 							noWrap: true,

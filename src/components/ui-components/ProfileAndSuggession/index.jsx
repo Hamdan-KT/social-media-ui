@@ -111,7 +111,7 @@ function Suggessions() {
 
 	useEffect(() => {
 		console.log({ users: data });
-	}, [isSuccess]);
+	}, [data]);
 
 	return (
 		<StyledGid container spacing={defaultSpacing}>

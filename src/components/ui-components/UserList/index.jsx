@@ -15,13 +15,15 @@ const UserList = React.forwardRef(
 			data = [],
 			customButtonProps,
 			actionButton = false,
+			profileNavigation = true,
+			skeltonSx = {},
 		},
 		ref
 	) => {
 		const theme = useTheme();
 
 		if (data?.length === 0) {
-			return <UserListSkeleton />;
+			return <UserListSkeleton sx={skeltonSx} />;
 		}
 
 		return (
@@ -54,6 +56,7 @@ const UserList = React.forwardRef(
 								onClick={onClick}
 								onButtonClick={onButtonClick}
 								customButton={customButton}
+								profileNavigation={profileNavigation}
 							/>
 						))}
 					</React.Fragment>

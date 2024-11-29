@@ -28,7 +28,7 @@ import Image from "components/common/Image";
 import Video from "components/common/Video";
 import { handleCommentWindowOpen } from "app/slices/commentSlice/commentSlice";
 import { setCommentData } from "src/app/slices/commentSlice/commentSlice";
-import { likePost, unlikePost } from "src/api/postAPI";
+import { likePost, savePost, unlikePost, unsavePost } from "src/api/postAPI";
 import { useMutation } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaHeart } from "react-icons/fa6";
@@ -103,6 +103,38 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 			data.isLiked = true;
 			data.likes = data?.likes + 1;
 			handleLikePost.mutate();
+		}
+	};
+
+	const handleSavePost = useMutation({
+		mutationKey: ["save-post"],
+		mutationFn: (values) => savePost(data?._id),
+		onSuccess: (data) => {
+			data.isSaved = true;
+		},
+		onError: (error) => {
+			data.isSaved = false;
+		},
+	});
+
+	const handleUnSavePost = useMutation({
+		mutationKey: ["unsave-post"],
+		mutationFn: (values) => unsavePost(data?._id),
+		onSuccess: (data) => {
+			data.isSaved = false;
+		},
+		onError: (error) => {
+			data.isSaved = true;
+		},
+	});
+
+	const handleSaving = (saved = false) => {
+		if (saved) {
+			data.isSaved = false;
+			handleUnSavePost.mutate();
+		} else {
+			data.isSaved = true;
+			handleSavePost.mutate();
 		}
 	};
 
@@ -379,6 +411,8 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 				<Checkbox
 					sx={{ ml: "auto" }}
 					aria-label="save"
+					checked={data?.isSaved}
+					onChange={() => handleSaving(data?.isSaved)}
 					icon={
 						<ReactIcons.RiBookmarkLine
 							style={{ color: `${theme.palette.text.dark}`, fontSize: 25 }}

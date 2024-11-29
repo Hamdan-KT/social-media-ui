@@ -1,9 +1,4 @@
-import {
-	Box,
-	styled,
-	useMediaQuery,
-	useTheme,
-} from "@mui/material";
+import { Box, styled, useMediaQuery, useTheme } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchInput from "components/common/SearchInput";
@@ -12,6 +7,11 @@ import UserList from "components/ui-components/UserList";
 import { Users } from "src/data";
 import Video from "components/common/Video";
 import Image from "components/common/Image";
+import { useInView } from "react-intersection-observer";
+import { getUsers } from "src/api/userAPI";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import DefaultLoader from "src/components/common/DefaultLoader";
+import { setTags } from "src/app/slices/postSlice/postSlice";
 
 const StyledContainer = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -25,7 +25,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
 	zIndex: 5,
 	borderRadius: "10px",
 	overflowY: "scroll",
-	flexDirection: "column"
+	flexDirection: "column",
 }));
 
 function TagView({ media }) {
@@ -33,19 +33,20 @@ function TagView({ media }) {
 	const dispatch = useDispatch();
 	const postStates = useSelector((state) => state.post);
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const [value, setValue] = useState()
-	const [tagPosition, setTagPosition] = useState(null);
-	const [tags, setTags] = useState([]);
+	const [value, setValue] = useState();
+	const [tagPosition, setTagPosition] = useState();
+	const [tagsArr, setTagsArr] = useState([]);
 	const [openTagSearch, setOpenTagSearch] = useState(false);
 	const containerRef = useRef(null);
 	const searchContainerRef = useRef(null);
+	const { ref, inView } = useInView();
 
 	// Capture click position
 	const handleImageClick = (e) => {
 		setOpenTagSearch(true);
-		const containerRect = containerRef.current.getBoundingClientRect();
+		const containerRect = containerRef.current?.getBoundingClientRect();
 		const searchContainerRect =
-			searchContainerRef.current.getBoundingClientRect();
+			searchContainerRef.current?.getBoundingClientRect();
 		const x = e.clientX - containerRect.left;
 		const y = e.clientY - containerRect.top;
 		const newX =
@@ -57,12 +58,33 @@ function TagView({ media }) {
 				? containerRect.height - searchContainerRect.height
 				: y; // Adjust height overflow
 
+		console.log({ x: newX, y: newY });
 		setTagPosition({ x: newX, y: newY });
 	};
 
 	// Handle tag selection
-	const handleTagSelection = (name) => {
-		setTags([...tags, { ...tagPosition, name }]);
+	const handleTagSelection = (data) => {
+		console.log({ tagData: data });
+		let updatedArr = [
+			...tagsArr,
+			{ ...tagPosition, name: data?.name, user: data?._id },
+		].filter(
+			(
+				(seen) => (item) =>
+					!seen.has(item.user) && seen.add(item.user)
+			)(new Set())
+		);
+		console.log({ updatedArr });
+		setTagsArr(updatedArr);
+		dispatch(
+			setTags({
+				tags: updatedArr?.map((tag) => ({
+					x: tag?.x,
+					y: tag?.y,
+					user: tag?.user,
+				})),
+			})
+		);
 		setOpenTagSearch(false);
 		setTagPosition(null);
 	};
@@ -84,6 +106,35 @@ function TagView({ media }) {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [searchContainerRef, containerRef]);
+
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isSuccess,
+		isFetching,
+		data,
+	} = useInfiniteQuery({
+		queryKey: ["get-tagging-users"],
+		queryFn: ({ pageParam = 1 }) => getUsers({}, pageParam, 10),
+		initialPageParam: 1,
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+	});
+
+	useEffect(() => {
+		if (inView && hasNextPage && !isFetching) {
+			fetchNextPage();
+		}
+	}, [inView, hasNextPage, fetchNextPage, isFetching]);
+
+	useEffect(() => {
+		console.log({ users: data });
+	}, [data]);
 
 	return (
 		<Box
@@ -160,11 +211,33 @@ function TagView({ media }) {
 					>
 						<SearchInput value={value} setValue={setValue} />
 					</Box>
-					<ScrollBox sx={{ mt: 0, height: "auto" }}>
+					<ScrollBox
+						sx={{
+							mt: 0,
+							height: "max-content",
+							justifyContent: "start",
+							flexDirection: "column",
+						}}
+					>
 						<UserList
-							data={[...Users, ...Users, ...Users]}
 							sx={{ maxWidth: "100%" }}
+							data={data}
+							ref={ref}
+							profileNavigation={false}
+							onClick={handleTagSelection}
 						/>
+						{isFetchingNextPage && (
+							<Box
+								sx={{
+									width: "100%",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+								}}
+							>
+								<DefaultLoader />
+							</Box>
+						)}
 					</ScrollBox>
 				</StyledContainer>
 			)}

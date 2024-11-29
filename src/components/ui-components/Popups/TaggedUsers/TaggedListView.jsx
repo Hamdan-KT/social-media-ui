@@ -4,8 +4,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import UserList from "../../UserList";
 import DefaultLoader from "src/components/common/DefaultLoader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
+import { handleTaggedUsersWindowOpen } from "src/app/slices/postSlice/postSlice";
+import { useNavigate } from "react-router";
+import { RoutePath } from "src/utils/routes";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -18,6 +21,8 @@ const CommonBox = styled("div")(({ theme }) => ({
 function TaggedListView() {
 	const { ref, inView } = useInView();
 	const taggedFileId = useSelector((state) => state.post.taggedFileId);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const {
 		fetchNextPage,
@@ -73,6 +78,11 @@ function TaggedListView() {
 				data={data}
 				ref={ref}
 				actionButton={true}
+				profileNavigation={false}
+				onClick={(data) => {
+					navigate(`/${RoutePath.PROFILE}/${data?._id}`);
+					dispatch(handleTaggedUsersWindowOpen(false));
+				}}
 			/>
 			{isFetchingNextPage && (
 				<Box

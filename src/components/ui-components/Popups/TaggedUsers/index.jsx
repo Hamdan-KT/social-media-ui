@@ -47,7 +47,8 @@ function TaggedUserWindow({ open = false, onClose = () => {} }) {
 					sheetBodyStyles={{ position: "relative" }}
 					title="Tagged Peoples"
 				>
-					<TaggedListView />
+					<TaggedListView
+					/>
 				</BottomSheet>
 			) : (
 				<CustomModal
@@ -70,7 +71,8 @@ function TaggedUserWindow({ open = false, onClose = () => {} }) {
 								</Typography>
 							</StyledHeader>
 						)}
-						<TaggedListView />
+						<TaggedListView
+						/>
 					</Wrappper>
 				</CustomModal>
 			)}
