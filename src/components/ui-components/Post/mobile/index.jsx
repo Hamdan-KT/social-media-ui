@@ -38,6 +38,7 @@ import {
 	handleTaggedUsersWindowOpen,
 	setTaggedFileId,
 } from "src/app/slices/postSlice/postSlice";
+import PostOptionsWindow from "components/ui-components/Popups/PostOptions";
 
 // caption style
 const captionStyle = {
@@ -57,6 +58,7 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const dispatch = useDispatch();
 	const [likes, setLikes] = useState([]);
+	const [openOptions, setOpenOptions] = useState(false);
 
 	// check expand option of caption
 	useEffect(() => {
@@ -187,7 +189,10 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 					/>
 				}
 				action={
-					<IconButton aria-label="settings">
+					<IconButton
+						aria-label="settings"
+						onClick={() => setOpenOptions(true)}
+					>
 						<ReactIcons.MdMoreHoriz
 							style={{ color: `${theme.palette.text.dark}` }}
 						/>
@@ -510,6 +515,14 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 			</CardContent>
 			{/* if divider is true */}
 			{divider && !matchDownSm && <Divider sx={{ mt: 0.5 }} />}
+			<PostOptionsWindow
+				open={openOptions}
+				onClose={() => setOpenOptions(false)}
+				pId={data?._id}
+				isHideLikes={data?.isHideLikes}
+				isDisableComment={data?.isDisableComment}
+				postUser={data?.user?._id}
+			/>
 		</Card>
 	);
 });

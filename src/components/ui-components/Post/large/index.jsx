@@ -44,6 +44,7 @@ import {
 	handleTaggedUsersWindowOpen,
 	setTaggedFileId,
 } from "src/app/slices/postSlice/postSlice";
+import PostOptionsWindow from "components/ui-components/Popups/PostOptions";
 
 const commonStyle = {
 	display: "flex",
@@ -92,6 +93,7 @@ function PostLarge({ data }) {
 	console.log({ commentBody });
 	const queryClient = useQueryClient();
 	const { ref, inView } = useInView();
+	const [openOptions, setOpenOptions] = useState(false);
 
 	const handleLikePost = useMutation({
 		mutationKey: ["like-post"],
@@ -397,6 +399,15 @@ function PostLarge({ data }) {
 							<Typography variant="userName">{data?.user?.userName}</Typography>
 							<Typography variant="caption">{"kozhikode"}</Typography>
 						</Box>
+						<IconButton
+							aria-label="settings"
+							onClick={() => setOpenOptions(true)}
+							sx={{ ml: "auto" }}
+						>
+							<ReactIcons.MdMoreHoriz
+								style={{ color: `${theme.palette.text.dark}` }}
+							/>
+						</IconButton>
 					</Box>
 					{/* comments */}
 					<Box
@@ -648,6 +659,14 @@ function PostLarge({ data }) {
 					</Box>
 				</Box>
 			</Box>
+			<PostOptionsWindow
+				open={openOptions}
+				onClose={() => setOpenOptions(false)}
+				pId={data?._id}
+				isHideLikes={data?.isHideLikes}
+				isDisableComment={data?.isDisableComment}
+				postUser={data?.user?._id}
+			/>
 			{/* <Grid container sx={{ border: `1px solid ${theme.palette.grey[300]}` }}>
 				
 			</Grid> */}

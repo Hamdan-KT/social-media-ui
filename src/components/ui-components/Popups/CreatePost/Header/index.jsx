@@ -63,7 +63,14 @@ function CreateHeader({ onClose }) {
 					[media?.uID],
 					await getEditedImage(media.croppedUrl, media?.customFilters)
 				);
-				postData[media?.uID] = { tags: media?.tags ?? [] };
+				postData[media?.uID] = {
+					tags:
+						media?.tags?.map((tag) => ({
+							x: tag?.x,
+							y: tag?.y,
+							user: tag?.user,
+						})) ?? [],
+				};
 			})
 		)
 			.then((result) => {

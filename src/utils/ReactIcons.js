@@ -37,7 +37,8 @@ import {
 	MdBlockFlipped,
 	MdVisibility,
 	MdVisibilityOff,
-	MdLock
+	MdLock,
+	MdEdit,
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
 import {
@@ -55,6 +56,7 @@ import {
 	RiBookmarkFill,
 	RiLinkM,
 	RiDislikeLine,
+	RiChatOffLine,
 } from "react-icons/ri";
 import {
 	IoMdImages,
@@ -77,13 +79,9 @@ import {
 	LuPlus,
 	LuTrash,
 	LuSmile,
+	LuHeartOff,
 } from "react-icons/lu";
-import {
-	FaRegImage,
-	FaImages,
-	FaPlay,
-	FaPause,
-} from "react-icons/fa6";
+import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
 import { LiaPhotoVideoSolid } from "react-icons/lia";
 import {
@@ -102,7 +100,6 @@ import {
 import { HiDownload } from "react-icons/hi";
 import { FiShare, FiLock } from "react-icons/fi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -196,7 +193,10 @@ const ReactIcons = {
 	MdVisibility,
 	MdVisibilityOff,
 	IoPerson,
-	MdLock
+	MdLock,
+	MdEdit,
+	LuHeartOff,
+	RiChatOffLine,
 };
 
 export default ReactIcons;

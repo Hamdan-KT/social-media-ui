@@ -15,8 +15,8 @@ export default defineConfig({
 				"maskable_icon.svg",
 			],
 			manifest: {
-				name: "Instagram_Lite",
-				short_name: "Instagram_Lite",
+				name: "Instogram",
+				short_name: "Instogram",
 				description:
 					"It is clone application of Instagram application, not included all features",
 				icons: [
@@ -46,7 +46,7 @@ export default defineConfig({
 					},
 				],
 				theme_color: "#171717",
-				background_color: "#f0e7db",
+				background_color: "#ffffff",
 				display: "standalone",
 				scope: "/",
 				start_url: "/",

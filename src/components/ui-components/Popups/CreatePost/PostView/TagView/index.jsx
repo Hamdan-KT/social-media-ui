@@ -1,4 +1,11 @@
-import { Box, styled, useMediaQuery, useTheme } from "@mui/material";
+import {
+	Box,
+	IconButton,
+	styled,
+	Typography,
+	useMediaQuery,
+	useTheme,
+} from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchInput from "components/common/SearchInput";
@@ -12,6 +19,7 @@ import { getUsers } from "src/api/userAPI";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import DefaultLoader from "src/components/common/DefaultLoader";
 import { setTags } from "src/app/slices/postSlice/postSlice";
+import ReactIcons from "src/utils/ReactIcons";
 
 const StyledContainer = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -67,7 +75,12 @@ function TagView({ media }) {
 		console.log({ tagData: data });
 		let updatedArr = [
 			...tagsArr,
-			{ ...tagPosition, name: data?.name, user: data?._id },
+			{
+				...tagPosition,
+				userName: data?.userName,
+				avatar: data?.avatar,
+				user: data?._id,
+			},
 		].filter(
 			(
 				(seen) => (item) =>
@@ -78,15 +91,26 @@ function TagView({ media }) {
 		setTagsArr(updatedArr);
 		dispatch(
 			setTags({
-				tags: updatedArr?.map((tag) => ({
-					x: tag?.x,
-					y: tag?.y,
-					user: tag?.user,
-				})),
+				tags: updatedArr,
 			})
 		);
 		setOpenTagSearch(false);
 		setTagPosition(null);
+	};
+
+	//handle remove tag selection
+	const handleRemoveTaggedUser = (userId) => {
+		console.log({ userId });
+		let updatedArr = postStates.activePost?.tags?.filter(
+			(item) => item?.user !== userId
+		);
+		console.log({ updatedArr });
+		setTagsArr(updatedArr);
+		dispatch(
+			setTags({
+				tags: updatedArr,
+			})
+		);
 	};
 
 	// Close search container on click outside
@@ -148,6 +172,38 @@ function TagView({ media }) {
 			}}
 			ref={containerRef}
 		>
+			{postStates.activePost?.tags?.map((taggedUser, index) => (
+				<Box
+					key={index}
+					sx={{
+						display: "flex",
+						padding: "0.2rem 0.5rem",
+						borderRadius: 3,
+						alignItems: "center",
+						justifyContent: "space-between",
+						width: "auto",
+						gap: "0.7rem",
+						position: "absolute",
+						left: taggedUser?.x,
+						top: taggedUser?.y,
+						zIndex: 4,
+						background: theme.palette.common.black,
+						color: theme.palette.common.white
+					}}
+				>
+					<Typography>{taggedUser?.userName}</Typography>
+					<IconButton
+						size="large"
+						sx={{ padding: 0 }}
+						color="inherit"
+						onClick={() => handleRemoveTaggedUser(taggedUser?.user)}
+					>
+						<ReactIcons.IoClose
+							style={{ fontSize: "1.2rem", cursor: "pointer" }}
+						/>
+					</IconButton>
+				</Box>
+			))}
 			{media?.type === "image" && (
 				<Image
 					onClick={handleImageClick}

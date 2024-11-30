@@ -9,7 +9,8 @@ import { RoutePath } from "src/utils/routes";
 import { useQuery } from "@tanstack/react-query";
 import { Box, styled, Typography, useTheme } from "@mui/material";
 import _ from "lodash";
-import logo from "/pwa-512x512.png";
+import logo from "/images/instagram.png";
+// import logo from "/images/instogram.png";
 import ImgWrapper from "../common/ImgWrapper";
 
 const CommonBox = styled("div")(({ theme }) => ({

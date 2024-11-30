@@ -16,6 +16,8 @@
 
 # share window comment window close function getting called while clicking on whole application screen
 
-# fix outlet of profile following relation paths
+# complete save post
 
-# add header to outlet relation popup
+# post slider
+
+# complete post options

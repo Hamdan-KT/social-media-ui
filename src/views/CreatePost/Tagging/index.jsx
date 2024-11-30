@@ -5,6 +5,11 @@ import {
 	Box,
 	Grid,
 	IconButton,
+	List,
+	ListItem,
+	ListItemAvatar,
+	ListItemButton,
+	ListItemText,
 	Toolbar,
 	Typography,
 	styled,
@@ -28,6 +33,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { setTags } from "src/app/slices/postSlice/postSlice";
 import DefaultLoader from "src/components/common/DefaultLoader";
+import ProfileAvatar from "src/components/common/ProfileAvatar";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -73,8 +79,10 @@ function PostTaggingMobile() {
 	}, [postStates.activePost?.flip, postStates.activePost]);
 
 	// handle post slide view change to get current item to manage values for each one
-	const onSlideChange = (activeIndex) =>
+	const onSlideChange = (activeIndex) => {
+		setTagsArr([]);
 		dispatch(setActivePost(postStates.postMedias[activeIndex]));
+	};
 
 	// Capture click position
 	const handleImageClick = (e) => {
@@ -91,7 +99,12 @@ function PostTaggingMobile() {
 		console.log({ tagData: data });
 		let updatedArr = [
 			...tagsArr,
-			{ ...tagPosition, name: data?.name, user: data?._id },
+			{
+				...tagPosition,
+				userName: data?.userName,
+				avatar: data?.avatar,
+				user: data?._id,
+			},
 		].filter(
 			(
 				(seen) => (item) =>
@@ -102,15 +115,26 @@ function PostTaggingMobile() {
 		setTagsArr(updatedArr);
 		dispatch(
 			setTags({
-				tags: updatedArr?.map((tag) => ({
-					x: tag?.x,
-					y: tag?.y,
-					user: tag?.user,
-				})),
+				tags: updatedArr,
 			})
 		);
 		setTagSearchOpen(false);
 		setTagPosition(null);
+	};
+
+	//handle remove tag selection
+	const handleRemoveTaggedUser = (userId) => {
+		console.log({ userId });
+		let updatedArr = postStates.activePost?.tags?.filter(
+			(item) => item?.user !== userId
+		);
+		console.log({ updatedArr });
+		setTagsArr(updatedArr);
+		dispatch(
+			setTags({
+				tags: updatedArr,
+			})
+		);
 	};
 
 	const {
@@ -239,6 +263,67 @@ function PostTaggingMobile() {
 							</Slide>
 						))}
 				</Slider>
+				<MainBox>
+					<List
+						dense
+						sx={{
+							width: "100%",
+							maxWidth: "100%",
+							bgcolor: theme.palette.background.default,
+							gap: "0.5rem",
+						}}
+					>
+						{postStates.activePost?.tags?.map((taggedUser, index) => (
+							<ListItem
+								key={index}
+								secondaryAction={
+									<IconButton
+										size="large"
+										sx={{ padding: 0 }}
+										color="inherit"
+										onClick={() => handleRemoveTaggedUser(taggedUser?.user)}
+									>
+										<ReactIcons.IoClose
+											style={{ fontSize: "1.2rem", cursor: "pointer" }}
+										/>
+									</IconButton>
+								}
+								disablePadding
+							>
+								<ListItemButton>
+									<ListItemAvatar>
+										<ProfileAvatar
+											profile={taggedUser?.avatar}
+											userName={taggedUser?.userName}
+											sx={{
+												width: { xs: 43, sm: 46 },
+												height: { xs: 43, sm: 46 },
+											}}
+											containerSx={{ padding: { xs: "2px", sm: "2px" }, mr: 1 }}
+										/>
+									</ListItemAvatar>
+									<ListItemText
+										primaryTypographyProps={{
+											fontSize: 13,
+											noWrap: true,
+											fontWeight: "bold",
+											mr: 5,
+										}}
+										secondaryTypographyProps={{
+											noWrap: true,
+											fontSize: 12,
+											mr: {
+												xs: 9,
+												sm: 6,
+											},
+										}}
+										primary={taggedUser?.userName}
+									/>
+								</ListItemButton>
+							</ListItem>
+						))}
+					</List>
+				</MainBox>
 			</MainBox>
 			{/* tage search */}
 			<BottomSheet
