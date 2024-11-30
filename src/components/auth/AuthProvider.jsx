@@ -37,11 +37,13 @@ function AuthProvider({ children }) {
 	useEffect(() => {
 		if (isSuccess) {
 			console.log({ currentUser: data });
-			const { accessToken, user } = data.data;
-			console.log(user);
-			console.log(accessToken);
-			dispatch(saveUser(user));
-			dispatch(setToken(accessToken));
+			if (data?.data) {
+				const { accessToken, user } = data?.data;
+				console.log(user);
+				console.log(accessToken);
+				dispatch(saveUser(user));
+				dispatch(setToken(accessToken));
+			}
 		}
 		if (isError) {
 			console.log({ currentUserError: error });
