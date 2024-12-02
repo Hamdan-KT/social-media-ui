@@ -21,3 +21,5 @@
 # post slider
 
 # complete post options
+
+# create alert popup for deletion

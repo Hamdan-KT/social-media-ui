@@ -370,9 +370,9 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 						/>
 					}
 				/>
-				{!data?.isHideLikes && (
+				{!data?.isHideLikes && data?.likes ? (
 					<Typography variant="userName">{data?.likes}</Typography>
-				)}
+				) : null}
 				{!data?.isDisableComment && (
 					<>
 						<IconButton
@@ -397,7 +397,9 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 								}}
 							/>
 						</IconButton>
-						<Typography variant="userName">{data?.comments}</Typography>
+						{data?.comments ? (
+							<Typography variant="userName">{data?.comments}</Typography>
+						) : null}
 					</>
 				)}
 				<IconButton
