@@ -149,3 +149,29 @@ export const unlikePost = async (id) => {
 		handleApiCallError(error);
 	}
 };
+
+// toggle hide like count by its ID
+export const toggleHideLikeCount = async (id, body = {}) => {
+	try {
+		const { data } = await apiClient.patch(
+			`/post/${id}/toggle-hide-like-count`,
+			body
+		);
+		return data;
+	} catch (error) {
+		handleApiCallError(error);
+	}
+};
+
+// toggle disable commenting by its ID
+export const toggleDisableCommenting = async (id, body = {}) => {
+	try {
+		const { data } = await apiClient.patch(
+			`/post/${id}/toggle-disable-commenting`,
+			body
+		);
+		return data;
+	} catch (error) {
+		handleApiCallError(error);
+	}
+};

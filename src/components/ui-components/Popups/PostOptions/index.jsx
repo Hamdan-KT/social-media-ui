@@ -37,10 +37,11 @@ function PostOptionsWindow({
 	isHideLikes,
 	isDisableComment,
 	postUser,
+	post = {},
 }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	
+
 	return (
 		<>
 			{matchDownSm ? (
@@ -51,11 +52,8 @@ function PostOptionsWindow({
 					title="Options"
 				>
 					<PostOptions
-						pId={pId}
-						isHideLikes={isHideLikes}
-						isDisableComment={isDisableComment}
 						onClose={() => onClose()}
-						postUser={postUser}
+						post={post}
 					/>
 				</BottomSheet>
 			) : (
@@ -76,11 +74,8 @@ function PostOptionsWindow({
 							</StyledHeader>
 						)}
 						<PostOptions
-							pId={pId}
-							isHideLikes={isHideLikes}
-							isDisableComment={isDisableComment}
 							onClose={onClose}
-							postUser={postUser}
+							post={post}
 						/>
 					</Wrappper>
 				</CustomModal>

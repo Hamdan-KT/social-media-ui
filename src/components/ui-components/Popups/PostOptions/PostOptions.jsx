@@ -3,7 +3,11 @@ import { Box, styled, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletePost } from "src/api/postAPI";
+import {
+	deletePost,
+	toggleDisableCommenting,
+	toggleHideLikeCount,
+} from "src/api/postAPI";
 import toast from "react-hot-toast";
 import { RoutePath } from "src/utils/routes";
 
@@ -41,13 +45,7 @@ const StyledTypography = styled(Typography)(({ theme, border = true }) => ({
 	},
 }));
 
-function PostOptions({
-	pId,
-	isHideLikes,
-	isDisableComment,
-	onClose,
-	postUser,
-}) {
+function PostOptions({ onClose, post = {} }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const user = useSelector((state) => state?.user?.user);
@@ -67,6 +65,36 @@ function PostOptions({
 		},
 	});
 
+	const handleHideLikeCount = useMutation({
+		mutationKey: ["handle-HideLikeCount"],
+		mutationFn: () =>
+			toggleHideLikeCount(post?._id, { isHideLikes: !post?.isHideLikes }),
+		onSuccess: (data) => {
+			post.isHideLikes = !post.isHideLikes;
+			onClose();
+			toast.success(data?.message);
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
+
+	const handleDisableCommenting = useMutation({
+		mutationKey: ["handle-DisableCommenting"],
+		mutationFn: () =>
+			toggleDisableCommenting(post?._id, {
+				isDisableComment: !post?.isDisableComment,
+			}),
+		onSuccess: (data) => {
+			post.isDisableComment = !post?.isDisableComment;
+			onClose();
+			toast.success(data?.message);
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
+
 	return (
 		<CommonBox
 			sx={{
@@ -76,12 +104,12 @@ function PostOptions({
 			}}
 		>
 			<StyledPopoverBox sx={{ padding: "0rem" }}>
-				{user?._id === postUser && (
+				{user?._id === post?.user?._id && (
 					<>
 						<StyledTypography
 							sx={{ color: theme.palette.error.main }}
 							onClick={() => {
-								deleteUserPost.mutate(pId);
+								deleteUserPost.mutate(post?._id);
 								onClose();
 							}}
 						>
@@ -92,18 +120,18 @@ function PostOptions({
 							Edit
 							<ReactIcons.MdEdit size={20} />
 						</StyledTypography>
-						<StyledTypography>
-							Hide like count
+						<StyledTypography onClick={handleHideLikeCount.mutate}>
+							{`${post?.isHideLikes ? "Show" : "Hide"} like count`}
 							<ReactIcons.LuHeartOff size={20} />
 						</StyledTypography>
-						<StyledTypography>
-							Turn off commenting
+						<StyledTypography onClick={handleDisableCommenting.mutate}>
+							{`Turn ${post?.isDisableComment ? "on" : "off"} commenting`}
 							<ReactIcons.RiChatOffLine size={20} />
 						</StyledTypography>
 					</>
 				)}
 				<StyledTypography
-					onClick={() => navigate(`/${RoutePath.PROFILE}/${postUser}`)}
+					onClick={() => navigate(`/${RoutePath.PROFILE}/${post?.user?._id}`)}
 				>
 					Go to profile
 					<ReactIcons.RiAccountCircleLine size={23} />

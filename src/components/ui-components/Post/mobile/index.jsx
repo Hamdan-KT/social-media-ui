@@ -524,6 +524,7 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 				isHideLikes={data?.isHideLikes}
 				isDisableComment={data?.isDisableComment}
 				postUser={data?.user?._id}
+				post={data}
 			/>
 		</Card>
 	);
