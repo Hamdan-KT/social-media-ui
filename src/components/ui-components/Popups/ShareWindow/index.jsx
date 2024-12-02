@@ -5,6 +5,7 @@ import { styled, useMediaQuery, useTheme } from "@mui/material";
 import BottomSheet from "components/common/BottomSheet";
 import { useDispatch, useSelector } from "react-redux";
 import { handleShareWindowOpen } from "app/slices/shareSlice/shareSlice";
+import { setSelectedUsers } from "src/app/slices/shareSlice/shareSlice";
 
 const Wrappper = styled("div")(({ theme }) => ({
 	height: "72%",
@@ -19,33 +20,32 @@ const Wrappper = styled("div")(({ theme }) => ({
 	overflow: "hidden",
 }));
 
-function ShareWindow({ open = false, onClose = () => {} }) {
+function ShareWindow() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const shareWindowOpen = useSelector((state) => state.share.shareWindowOpen);
 	const dispatch = useDispatch();
+
+	const onClose = () => {
+		dispatch(setSelectedUsers({}));
+		dispatch(handleShareWindowOpen(false));
+	};
 
 	return (
 		<>
 			{matchDownSm ? (
 				<BottomSheet
 					open={shareWindowOpen}
-					onClose={() => dispatch(handleShareWindowOpen(false))}
+					onClose={onClose}
 					sheetBodyStyles={{ position: "relative" }}
 					title="Share"
 				>
-					<ListSection onClose={() => dispatch(handleShareWindowOpen(false))} />
+					<ListSection onClose={onClose} />
 				</BottomSheet>
 			) : (
-				<CustomModal
-					closeIcon={true}
-					open={shareWindowOpen}
-					onClose={() => dispatch(handleShareWindowOpen(false))}
-				>
+				<CustomModal closeIcon={true} open={shareWindowOpen} onClose={onClose}>
 					<Wrappper>
-						<ListSection
-							onClose={() => dispatch(handleShareWindowOpen(false))}
-						/>
+						<ListSection onClose={onClose} />
 					</Wrappper>
 				</CustomModal>
 			)}
