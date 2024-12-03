@@ -27,19 +27,6 @@ const SelectionListItem = forwardRef(
 		ref
 	) => {
 		const theme = useTheme();
-		// handling selection
-		// const handleSelection = (checked = false) => {
-		// 	if (checked) {
-		// 		setSelection({
-		// 			...selection,
-		// 			[data[dataTag]]: checked,
-		// 		});
-		// 	} else {
-		// 		const updatedSelection = { ...selection };
-		// 		delete updatedSelection[data[dataTag]];
-		// 		setSelection(updatedSelection);
-		// 	}
-		// };
 
 		useEffect(() => {
 			console.log(selection);

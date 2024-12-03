@@ -12,6 +12,12 @@ import _ from "lodash";
 import logo from "/images/instagram.png";
 // import logo from "/images/instogram.png";
 import ImgWrapper from "../common/ImgWrapper";
+import {
+	resetSocket,
+	setConnected,
+	setSocket,
+} from "src/app/slices/socketSlice/socketSlice";
+import { disconnectSocket, initSocket } from "src/services/socket";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -33,6 +39,27 @@ function AuthProvider({ children }) {
 		queryFn: () => getCurrentUser(),
 		refetchOnWindowFocus: true,
 	});
+
+	useEffect(() => {
+		if (!_.isEmpty(user)) {
+			const socketInstance = initSocket(
+				(socket) => {
+					dispatch(setSocket(socket));
+					dispatch(setConnected(true));
+				},
+				() => {
+					dispatch(setConnected(false));
+				},
+				{
+					query: { userId: user?._id },
+				}
+			);
+		}
+		return () => {
+			disconnectSocket();
+			dispatch(resetSocket());
+		};
+	}, [dispatch, user]);
 
 	useEffect(() => {
 		if (isSuccess) {
