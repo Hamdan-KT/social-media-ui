@@ -12,17 +12,15 @@ import { Outlet, useLocation } from "react-router";
 import { Users } from "src/data";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import MessageHeader from "./MessageHeader";
+import MessageHeader from "./messageHeader";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
-import MessageList from "components/ui-components/MessageList";
 import { RoutePath } from "src/utils/routes";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { messageSections } from "src/utils/constants";
 import SearchInput from "src/components/common/SearchInput";
-import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
 import MsgUserSearchList from "./SearchList";
 import { useDebounceValue } from "src/hooks/useDebounce";
-import MsgGeneral from "./MessageSections/General";
+import MsgGeneral from "./messageSections/General";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;

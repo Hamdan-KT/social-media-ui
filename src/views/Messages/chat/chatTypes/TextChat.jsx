@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import ReactIcons from "utils/ReactIcons";
-import ChatOptions from "../ChatOptions";
+import ChatOptions from "../chatOptions";
 import PopOver from "components/common/Popover";
 
 const ChatText = styled(Box)(({ theme, chat, user }) => ({
