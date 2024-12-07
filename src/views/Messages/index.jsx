@@ -20,7 +20,7 @@ import { messageSections } from "src/utils/constants";
 import SearchInput from "src/components/common/SearchInput";
 import MsgUserSearchList from "./SearchList";
 import { useDebounceValue } from "src/hooks/useDebounce";
-import MsgGeneral from "./messageSections/General";
+import MsgGeneral from "./messageSections/general";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
