@@ -32,7 +32,7 @@ function ChatLayout() {
 		if (bottomDivRef.current) {
 			bottomDivRef.current.scrollIntoView();
 		}
-	}, [messageState]);
+	}, [messageState, isTyping]);
 
 	const {
 		fetchNextPage,
