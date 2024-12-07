@@ -23,3 +23,7 @@
 # complete post options
 
 # create alert popup for deletion
+
+# add message for empty relation user.. etc.. followers, following, mutual
+
+# add skelton for message list

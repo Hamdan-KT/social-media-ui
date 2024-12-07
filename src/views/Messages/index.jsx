@@ -12,14 +12,17 @@ import { Outlet, useLocation } from "react-router";
 import { Users } from "src/data";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import MessageHeader from "./messageHeader";
+import MessageHeader from "./MessageHeader";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import MessageList from "components/ui-components/MessageList";
 import { RoutePath } from "src/utils/routes";
 import { IoChatbubblesOutline } from "react-icons/io5";
-import { messageSections } from "utils/constants";
-import SearchInput from "components/common/SearchInput";
+import { messageSections } from "src/utils/constants";
+import SearchInput from "src/components/common/SearchInput";
 import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
+import MsgUserSearchList from "./SearchList";
+import { useDebounceValue } from "src/hooks/useDebounce";
+import MsgGeneral from "./MessageSections/General";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -64,8 +67,8 @@ const MSGSECTIONS = [
 
 function Messages() {
 	const theme = useTheme();
-	const [value, setValue] = useState("");
-	const [tab, setTab] = useState(0)
+	const { debouncedValue, value, setValue } = useDebounceValue("", 500);
+	const [tab, setTab] = useState(0);
 	const { pathname } = useLocation();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
@@ -92,62 +95,59 @@ function Messages() {
 						}}
 					>
 						<SearchInput value={value} setValue={setValue} />
-						<Box
-							sx={{
-								height: "max-content",
-								p: 0,
-								mt: 1,
-								gap: "0.5rem",
-								width: "100%",
-								maxWidth: "100%",
-								display: "flex",
-								alignItems: "center",
-								overFlowX: "scroll",
-							}}
-						>
-							{MSGSECTIONS.map((item, index) => (
+						{value !== "" ? (
+							<MsgUserSearchList value={debouncedValue} setValue={setValue} />
+						) : (
+							<>
 								<Box
-									key={index}
 									sx={{
+										height: "max-content",
+										p: 0,
+										mt: 1,
+										gap: "0.5rem",
+										width: "100%",
+										maxWidth: "100%",
 										display: "flex",
 										alignItems: "center",
-										width: "max-content",
-										height: "max-content",
-										justifyContent: "center",
-										p: "0.4rem 0.8rem",
-										bgcolor:
-											activeSection === item
-												? theme.palette.primary.light
-												: theme.palette.grey[100],
-										color:
-											activeSection === item
-												? theme.palette.primary.dark
-												: theme.palette.text,
-										borderRadius: "8px",
-										userSelect: "none",
-										cursor: "pointer",
-										fontWeight: "medium",
-									}}
-									onClick={() => {
-										setActiveSection(item);
+										overFlowX: "scroll",
 									}}
 								>
-									{item}
+									{MSGSECTIONS.map((item, index) => (
+										<Box
+											key={index}
+											sx={{
+												display: "flex",
+												alignItems: "center",
+												width: "max-content",
+												height: "max-content",
+												justifyContent: "center",
+												p: "0.4rem 0.8rem",
+												bgcolor:
+													activeSection === item
+														? theme.palette.primary.light
+														: theme.palette.grey[100],
+												color:
+													activeSection === item
+														? theme.palette.primary.dark
+														: theme.palette.text,
+												borderRadius: "8px",
+												userSelect: "none",
+												cursor: "pointer",
+												fontWeight: "medium",
+											}}
+											onClick={() => {
+												setActiveSection(item);
+											}}
+										>
+											{item}
+										</Box>
+									))}
 								</Box>
-							))}
-						</Box>
-						<Box sx={{ width: "100%" }}>
-							<ScrollBox sx={{ mt: 0.5, height: { xs: "100%", md: "80vh" } }}>
-								<MessageList
-									data={[...Users, ...Users]}
-									sx={{ maxWidth: "100%" }}
-									actionButton={matchDownMd || matchDownSm ? true : false}
-									customButton={
-										matchDownMd || matchDownSm ? <CustomButton /> : null
-									}
-								/>
-							</ScrollBox>
-						</Box>
+								{activeSection === messageSections.PRIMARY && (
+									<MsgGeneral />
+								)}
+							</>
+						)}
 					</Box>
 				</Grid>
 			)}

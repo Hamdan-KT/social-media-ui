@@ -20,6 +20,16 @@ import ReactIcons from "utils/ReactIcons";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import PopOver from "components/common/Popover";
 import VoiceInput from "../voiceInput";
+import { messageEvents } from "src/services/socket/events";
+import { useParams } from "react-router";
+import {
+	messageContentTypes,
+	messageStatusTypes,
+	messageTypes,
+} from "src/utils/constants";
+import { v4 as uuidv4 } from "uuid";
+import { setChatMessages } from "src/app/slices/messageSlice/messageSlice";
+import { forwardRef } from "react";
 
 const StyledToolBar = styled(Toolbar)(({ theme, isAttachment }) => ({
 	display: "flex",
@@ -79,7 +89,8 @@ const AttachmentView = styled("div")(({ theme }) => ({
 	padding: "0.2rem 0.5rem",
 }));
 
-function ChatInput() {
+// eslint-disable-next-line react/display-name
+const ChatInput = forwardRef((props, ref) => {
 	const [value, setValue] = useState("");
 	const [recording, setRecording] = useState(false);
 	const recordingRef = useRef();
@@ -88,11 +99,55 @@ function ChatInput() {
 	const emojPopRef = useRef();
 	const dispatch = useDispatch();
 	const messageState = useSelector((state) => state.message);
+	const user = useSelector((state) => state.user?.user);
+	const socket = useSelector((state) => state.socket.socket);
+	const { chatId } = useParams();
 
 	useEffect(() => {
 		if (recording && recordingRef.current)
 			return recordingRef.current?.startRecording();
 	}, [recording]);
+
+	const sendMessage = () => {
+		const newMessage = {
+			_id: uuidv4(),
+			chatId,
+			senderId: user?._id,
+			receiverId: messageState?.selectedChat?.receiver?._id,
+			messageType: messageState?.attachment?.messageId
+				? messageTypes.REPLY
+				: messageTypes.GENERAL,
+			contentType: messageContentTypes.TEXT,
+			replyRef: messageState?.attachment?.messageId ?? null,
+			content: value,
+			media: [],
+			sender: {
+				_id: user?._id,
+			},
+		};
+		let updatedMessages = [
+			...(messageState?.chatMessages ?? []),
+			{ ...newMessage, status: messageStatusTypes.SENDING },
+		];
+		dispatch(setChatMessages(updatedMessages));
+		socket.emit(messageEvents.SEND_MESSAGE, newMessage, (response) => {
+			console.log({ response });
+			dispatch(
+				setChatMessages(
+					updatedMessages.map((msg) =>
+						msg._id === newMessage._id
+							? {
+									...msg,
+									_id: response.messageId,
+									status: messageStatusTypes.SEND,
+							  }
+							: msg
+					)
+				)
+			);
+		});
+		setValue("");
+	};
 
 	return (
 		<StyledToolBar
@@ -103,8 +158,7 @@ function ChatInput() {
 				<AttachmentView>
 					<Box sx={{ display: "flex", flexDirection: "column", width: "90%" }}>
 						<Typography variant="subtitle1">
-							Replying to
-							{/* GrAttachment */}
+							Replying to {/* GrAttachment */}
 							<Typography variant="userName">
 								{messageState?.attachment?.name}
 							</Typography>
@@ -153,6 +207,7 @@ function ChatInput() {
 							</PopOver>
 						)}
 						<StyledInputBase
+							ref={ref}
 							fullWidth
 							value={value}
 							onChange={(e) => setValue(e.target.value)}
@@ -169,6 +224,7 @@ function ChatInput() {
 									background: "#673ab7",
 									"&:hover": { background: "#673ab7" },
 								}}
+								onClick={sendMessage}
 							>
 								<SendIcon sx={{ color: "#ffff" }} />
 							</IconButton>
@@ -195,6 +251,6 @@ function ChatInput() {
 			</Search>
 		</StyledToolBar>
 	);
-}
+});
 
 export default ChatInput;

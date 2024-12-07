@@ -84,7 +84,7 @@ const MainRoutes = () => {
 				element: <Messages />,
 				children: [
 					{
-						path: ":id",
+						path: ":chatId",
 						element: <ChatLayout />,
 					},
 				],

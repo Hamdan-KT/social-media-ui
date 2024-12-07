@@ -56,6 +56,7 @@ const formWaveSurferOptions = (ref) => ({
 	audioRate: 1,
 });
 
+// eslint-disable-next-line react/display-name
 const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 	const theme = useTheme();
 	const [isRecording, setIsRecording] = useState(false);

@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
 import { Box, Grid, Typography, styled, useTheme } from "@mui/material";
 import React, { useRef, useState } from "react";
-import AudioType from "./mediaTypes/AudioType";
-import PhotoType from "./mediaTypes/PhotoType";
-import VideoType from "./mediaTypes/VideoType";
+import AudioType from "./MediaTypes/AudioType";
+import PhotoType from "./MediaTypes/PhotoType";
+import VideoType from "./MediaTypes/VideoType";
 import ReplyChat from "./ReplyChat";
 import DragBox from "components/common/DragBox";
 import ImageViewer from "components/ui-components/ImageViewer";
@@ -11,7 +11,7 @@ import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import { useDispatch } from "react-redux";
 import ReactIcons from "utils/ReactIcons";
 import PopOver from "components/common/Popover";
-import ChatOptions from "../chatOptions";
+import ChatOptions from "../ChatOptions";
 
 const StyledMedia = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -61,9 +61,9 @@ function MediaChat({ chat, options = true }) {
 	const handleUpdateReplyAttachment = () => {
 		dispatch(
 			updateAttachment({
-				userId: 1,
-				messageId: chat?.id,
-				name: "Jhon",
+				userId: chat?.sender?._id,
+				messageId: chat?._id,
+				name: chat?.sender?.userName,
 				message: "Attachment",
 			})
 		);

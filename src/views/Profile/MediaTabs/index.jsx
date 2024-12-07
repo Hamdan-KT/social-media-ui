@@ -82,6 +82,7 @@ function MediaTabs() {
 					iconPosition="start"
 					label={!matchDownSm && "POSTS"}
 					{...a11yProps(0)}
+					value={0}
 				/>
 				{user && user?._id === uid && (
 					<Tab
@@ -89,6 +90,7 @@ function MediaTabs() {
 						iconPosition="start"
 						label={!matchDownSm && "SAVED"}
 						{...a11yProps(1)}
+						value={1}
 					/>
 				)}
 				<Tab
@@ -96,6 +98,7 @@ function MediaTabs() {
 					iconPosition="start"
 					label={!matchDownSm && "TAGGED"}
 					{...a11yProps(2)}
+					value={2}
 				/>
 			</Tabs>
 			<Box sx={{ width: "100%" }}>

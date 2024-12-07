@@ -3,10 +3,15 @@ import { Box, Divider, Paper } from "@mui/material";
 import UserList from "components/ui-components/UserList";
 import { Users } from "src/data";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import _ from "lodash";
 import SearchInput from "components/common/SearchInput";
+import { getUsers } from "src/api/userAPI";
+import { useDebounceValue } from "src/hooks/useDebounce";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
+import DefaultLoader from "src/components/common/DefaultLoader";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
@@ -42,7 +47,39 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 function SearchPopUp() {
-	const [value, setValue] = useState("");
+	const { debouncedValue, value, setValue } = useDebounceValue("", 500);
+	const { ref, inView } = useInView();
+
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isSuccess,
+		isFetching,
+		isLoading,
+		data,
+	} = useInfiniteQuery({
+		queryKey: ["get-search-users", debouncedValue],
+		queryFn: ({ pageParam = 1 }) => getUsers({ search: value }, pageParam, 10),
+		initialPageParam: 1,
+		enabled: !!debouncedValue,
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+	});
+
+	useEffect(() => {
+		if (inView && hasNextPage && !isFetching) {
+			fetchNextPage();
+		}
+	}, [inView, hasNextPage, fetchNextPage, isFetching]);
+
+	useEffect(() => {
+		console.log({ users: data });
+	}, [data]);
 
 	return (
 		<Box sx={{ width: "100%" }}>
@@ -75,14 +112,21 @@ function SearchPopUp() {
 						className="scrollbar-hide"
 					>
 						{!_.isEmpty(value) ? (
-							<UserList
-								sx={{ maxWidth: "100%" }}
-								data={[...Users, ...Users, ...Users]?.filter((user) => {
-									return (
-										user?.name.toLowerCase().indexOf(value.toLowerCase()) != -1
-									);
-								})}
-							/>
+							<Box sx={{width: "100%", display: "flex", flexDirection: "column"}}>
+								<UserList ref={ref} sx={{ maxWidth: "100%" }} data={data} />
+								{(isFetchingNextPage || isLoading) && (
+									<Box
+										sx={{
+											width: "100%",
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+										}}
+									>
+										<DefaultLoader />
+									</Box>
+								)}
+							</Box>
 						) : (
 							<Typography mt={3} variant="h5">
 								No recent searches!

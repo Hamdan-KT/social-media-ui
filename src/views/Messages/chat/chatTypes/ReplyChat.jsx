@@ -1,8 +1,8 @@
 import { Box, Grid, Typography, styled, useTheme } from "@mui/material";
 import React, { useState } from "react";
-import PhotoType from "./mediaTypes/PhotoType";
-import VideoType from "./mediaTypes/VideoType";
-import AudioType from "./mediaTypes/AudioType";
+import PhotoType from "./MediaTypes/PhotoType";
+import VideoType from "./MediaTypes/VideoType";
+import AudioType from "./MediaTypes/AudioType";
 import TextChat from "./TextChat";
 
 const StyledReplyBox = styled(Box)(({ theme, chat }) => ({

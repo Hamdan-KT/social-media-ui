@@ -5,6 +5,7 @@ import { IconButton, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import { useSelector } from "react-redux";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	display: "flex",
@@ -34,6 +35,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 function MessageHeader() {
   const theme = useTheme();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user?.user)
 
   return (
     <StyledToolBar disableGutters>
@@ -41,7 +43,7 @@ function MessageHeader() {
         <IconButton size="large" color="inherit" onClick={() => navigate(-1)}>
           <ArrowBackIosNewIcon />
         </IconButton>
-        <Typography variant="h4">Jack Sparrow</Typography>
+        <Typography variant="h4">{user?.userName}</Typography>
       </Box>
       <IconButton
         size="large"

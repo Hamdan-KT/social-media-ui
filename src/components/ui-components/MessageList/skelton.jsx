@@ -6,9 +6,8 @@ import {
 	ListItemText,
 	Skeleton,
 } from "@mui/material";
-import { FaLess } from "react-icons/fa6";
 
-const UserListSkeleton = ({ count = 10, sx = {}, actionButton = false }) => {
+const MessageListSkeleton = ({ count = 10, sx ={} }) => {
 	return (
 		<List
 			dense
@@ -16,7 +15,8 @@ const UserListSkeleton = ({ count = 10, sx = {}, actionButton = false }) => {
 				width: "100%",
 				maxWidth: "100%",
 				gap: "0.5rem",
-				...sx,
+				padding: "0.5rem",
+				...sx
 			}}
 		>
 			{Array.from({ length: count }).map((_, index) => (
@@ -49,18 +49,10 @@ const UserListSkeleton = ({ count = 10, sx = {}, actionButton = false }) => {
 						}
 						sx={{ ml: 1 }}
 					/>
-					{actionButton && (
-						<Skeleton
-							variant="rectangular"
-							width={70}
-							height={27}
-							sx={{ borderRadius: 2 }}
-						/>
-					)}
 				</ListItem>
 			))}
 		</List>
 	);
 };
 
-export default UserListSkeleton;
+export default MessageListSkeleton;

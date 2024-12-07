@@ -4,7 +4,7 @@ import React from "react";
 const StyledScrollBox = styled(Box)(({ theme }) => ({
 	display: "flex",
 	width: "100%",
-	justifyContent: "center",
+	justifyContent: "start",
 	height: "calc(100vh - 6.6rem)",
 	alignItems: "flex-start",
 	overflowY: "scroll",

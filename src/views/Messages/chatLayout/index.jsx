@@ -1,24 +1,116 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ChatHeader from "./Header";
 import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import ChatInput from "./chatInput/Index";
 import { motion } from "framer-motion";
 import { chatData } from "src/data";
 import Chat from "../chat";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchChatMessages } from "src/api/messageAPI";
+import { messageEvents } from "src/services/socket/events";
+import DefaultLoader from "src/components/common/DefaultLoader";
+import { setChatMessages } from "src/app/slices/messageSlice/messageSlice";
+import DragBox from "src/components/common/DragBox";
+import useOutSlideClick from "src/hooks/useOutSlideClick";
+import TypingIndicator from "src/components/common/TypingIndicator";
 
 function ChatLayout() {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const messageState = useSelector((state) => state.message);
+	const socket = useSelector((state) => state?.socket?.socket);
+	const bottomDivRef = useRef();
+	const dispatch = useDispatch();
+	const inputRef = useRef();
+	const { outSide } = useOutSlideClick(inputRef);
+	const { ref, inView } = useInView();
+	const [isTyping, setIsTyping] = useState(false);
+
+	useEffect(() => {
+		if (bottomDivRef.current) {
+			bottomDivRef.current.scrollIntoView();
+		}
+	}, [messageState]);
+
+	const {
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isSuccess,
+		isFetching,
+		isLoading,
+		data,
+	} = useInfiniteQuery({
+		queryKey: ["get-user-chat-messages", messageState?.selectedChat?._id],
+		queryFn: ({ pageParam = 1 }) =>
+			fetchChatMessages(messageState?.selectedChat?._id, pageParam, 10),
+		getNextPageParam: (lastPage, allPages) => {
+			const nextPage = lastPage?.data?.length
+				? allPages?.length + 1
+				: undefined;
+			return nextPage;
+		},
+		enabled: !!messageState?.selectedChat?._id,
+		initialPageParam: 1,
+	});
+
+	useEffect(() => {
+		if (inView && hasNextPage && !isFetching) {
+			fetchNextPage();
+		}
+	}, [inView, hasNextPage, fetchNextPage, isFetching]);
+
+	useEffect(() => {
+		dispatch(setChatMessages(data?.pages?.flatMap((page) => page?.data) || []));
+	}, [data, dispatch]);
+
+	useEffect(() => {
+		// Listen for incoming messages
+		socket?.on(messageEvents.RECEIVE, (newMessage) => {
+			console.log({ newMessage });
+			if (newMessage.chat === messageState?.selectedChat?._id) {
+				dispatch(
+					setChatMessages([...(messageState?.chatMessages ?? []), newMessage])
+				);
+			}
+		});
+
+		return () => {
+			socket?.off(messageEvents.RECEIVE);
+		};
+	}, [
+		socket,
+		messageState?.selectedChat?._id,
+		messageState?.chatMessages,
+		dispatch,
+	]);
+
+	useEffect(() => {
+		if (outSide) {
+			socket?.emit(messageEvents.TYPING, {
+				chatId: messageState?.selectedChat?._id,
+				isTyping: false,
+			});
+		} else {
+			socket?.emit(messageEvents.TYPING, {
+				chatId: messageState?.selectedChat?._id,
+				isTyping: true,
+			});
+		}
+		socket?.on(messageEvents.USER_TYPING, (isTyping) => {
+			setIsTyping(isTyping);
+		});
+
+		return () => {
+			socket?.off(messageEvents.TYPING);
+			socket?.off(messageEvents.USER_TYPING);
+		};
+	}, [outSide, messageState?.selectedChat?._id, socket]);
 
 	return (
-		<motion.div
-			// initial={{ width: 0 }}
-			// animate={{ width: "100%" }}
-			// exit={{ x: "100%" }}
-			style={{ width: "100%" }}
-		>
+		<motion.div style={{ width: "100%" }}>
 			<Grid container>
 				{matchDownMd && <ChatHeader />}
 				<Grid item xs={12}>
@@ -59,14 +151,41 @@ function ChatLayout() {
 							width: "100%",
 						}}
 					>
+						{isFetchingNextPage && (
+							<Box
+								sx={{
+									width: "100%",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+								}}
+							>
+								<DefaultLoader />
+							</Box>
+						)}
 						{/* chats will render heare */}
-						<Chat data={chatData} />
+						<Chat
+							data={messageState?.chatMessages}
+							ref={ref}
+							isLoading={isLoading}
+						/>
+						{isTyping && <TypingIndicator isVisible={isTyping} />}
+						<Box
+							sx={{
+								height: 0,
+								margin: 0,
+								padding: 0,
+								width: 0,
+								boxSizing: "border-box",
+							}}
+							ref={bottomDivRef}
+						></Box>
 					</Box>
 				</Grid>
-				<Grid item xs={12} sx={{ xs: "0.2rem 0", md: 1 }}>
-					{!matchDownMd && <ChatInput />}
+				<Grid item xs={12}>
+					{!matchDownMd && <ChatInput ref={inputRef} />}
 				</Grid>
-				{matchDownMd && <ChatInput />}
+				{matchDownMd && <ChatInput ref={inputRef} />}
 			</Grid>
 		</motion.div>
 	);

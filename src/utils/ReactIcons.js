@@ -15,6 +15,8 @@ import {
 	IoChevronForward,
 	IoNotificationsOutline,
 	IoPerson,
+	IoArrowBackCircleOutline,
+	IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import {
 	MdOutlineExplore,
@@ -80,6 +82,7 @@ import {
 	LuTrash,
 	LuSmile,
 	LuHeartOff,
+	LuSendHorizonal,
 } from "react-icons/lu";
 import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
 import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
@@ -197,6 +200,9 @@ const ReactIcons = {
 	MdEdit,
 	LuHeartOff,
 	RiChatOffLine,
+	LuSendHorizonal,
+	IoArrowBackCircleOutline,
+	IoArrowForwardCircleOutline,
 };
 
 export default ReactIcons;

@@ -1,20 +1,21 @@
 import DragBox from "components/common/DragBox";
 import { Box, Stack, Typography, styled, useTheme } from "@mui/material";
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import ReactIcons from "utils/ReactIcons";
-import ChatOptions from "../chatOptions";
+import ChatOptions from "../ChatOptions";
 import PopOver from "components/common/Popover";
 
-const ChatText = styled(Box)(({ theme, chat }) => ({
+const ChatText = styled(Box)(({ theme, chat, user }) => ({
 	display: "flex",
 	maxWidth: "100%",
 	alignItems: "center",
 	justifyContent: "center",
-	background: chat.incoming
-		? theme.palette.grey[500]
-		: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
+	background:
+		chat.sender?._id === user?._id
+			? "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)"
+			: theme.palette.grey[500],
 	padding: "0.5rem 0.8rem",
 	borderRadius: "20px",
 	position: "relative",
@@ -36,15 +37,15 @@ const StyledDisableLayer = styled(Stack)(({ theme, chat }) => ({
 	pointerEvents: "none",
 }));
 
-const StyledOptionsBox = styled(Box)(({ theme, chat }) => ({
+const StyledOptionsBox = styled(Box)(({ theme, chat, user }) => ({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
 	gap: "0.3rem",
 	padding: "0.2rem 0.3rem",
 	position: "absolute",
-	...(chat?.incoming ? { right: -49 } : { left: -49 }),
-	flexDirection: chat?.incoming ? "row" : "row-reverse",
+	...(chat.sender?._id === user?._id ? { left: -49 } : { right: -49 }),
+	flexDirection: chat.sender?._id === user?._id ? "row-reverse" : "row",
 	top: "50%",
 	transform: "translateY(-50%)",
 }));
@@ -60,15 +61,16 @@ function TextChat({
 	const dispatch = useDispatch();
 	const [showOptions, setShowOptions] = useState(false);
 	const optionsRef = useRef();
+	const user = useSelector((state) => state?.user?.user);
 
 	// handling reply attachment
 	const handleUpdateReplyAttachment = () => {
 		dispatch(
 			updateAttachment({
-				userId: 1,
-				messageId: chat?.id,
-				name: "Jhon",
-				message: chat?.caption,
+				userId: chat?.sender?._id,
+				messageId: chat?._id,
+				name: chat?.sender?.userName,
+				message: chat?.content,
 			})
 		);
 	};
@@ -94,23 +96,24 @@ function TextChat({
 			}}
 			onDragEnd={handleUpdateReplyAttachment}
 			disableDrag={disableDrag}
-			dragLockDir={chat.incoming ? "left" : "right"}
+			dragLockDir={chat.sender?._id === user?._id ? "right" : "left"}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 		>
-			<ChatText chat={chat}>
+			<ChatText chat={chat} user={user}>
 				<Typography
 					variant="body2"
 					sx={{ userSelect: "none" }}
 					color={theme.palette.background.paper}
 				>
-					{chat.caption}
+					{chat.content}
 				</Typography>
 				{disabled && <StyledDisableLayer />}
 			</ChatText>
 			{options && showOptions && (
 				<StyledOptionsBox
 					chat={chat}
+					user={user}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}
 				>
@@ -130,7 +133,7 @@ function TextChat({
 						}}
 						transformOrigin={{
 							vertical: "bottom",
-							horizontal: chat?.incoming ? "left" : "right",
+							horizontal: chat.sender?._id === user?._id ? "right" : "left",
 						}}
 						sx={{
 							"& .MuiPopover-paper": {

@@ -23,7 +23,7 @@ const UserList = React.forwardRef(
 		const theme = useTheme();
 
 		if (data?.length === 0) {
-			return <UserListSkeleton sx={skeltonSx} />;
+			return <UserListSkeleton sx={skeltonSx} actionButton={actionButton}/>;
 		}
 
 		return (

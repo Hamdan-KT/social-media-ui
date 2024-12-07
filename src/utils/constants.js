@@ -34,6 +34,22 @@ export const commentTypes = {
 	REPLY: "reply",
 };
 
+export const messageTypes = {
+	GENERAL: "general",
+	REPLY: "reply",
+};
+
+export const messageContentTypes = {
+	TEXT: "text",
+	MEDIA: "media",
+};
+
+export const messageStatusTypes = {
+	SEND: "send",
+	SENDING: "sending",
+	FAILED: "failed",
+};
+
 export const relationStatus = {
 	FOLLOWING: "following",
 	REQUESTED: "requested",
