@@ -79,6 +79,7 @@ function MsgGeneral() {
 							alignItems: "center",
 							justifyContent: "center",
 							flexDirection: "column",
+							mt: {xs: "50%", md: 0}
 						}}
 					>
 						<Typography variant="h4">No conversations yet.</Typography>
