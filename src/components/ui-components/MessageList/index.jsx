@@ -24,9 +24,11 @@ const MessageList = React.forwardRef(
 	) => {
 		const theme = useTheme();
 
-		console.log({ listdata: data });
+		if (!isLoading && data?.length === 0) {
+			return null;
+		}
 
-		if (data?.length === 0) {
+		if (isLoading || !data) {
 			return <MessageListSkeleton sx={skeltonSx} />;
 		}
 

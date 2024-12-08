@@ -1,6 +1,6 @@
 import MessageList from "src/components/ui-components/MessageList";
 import ScrollBox from "src/components/ui-components/Wrappers/ScrollBox";
-import { Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect } from "react";
 import { Users } from "src/data";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
@@ -33,6 +33,7 @@ function MsgGeneral() {
 		hasNextPage,
 		isFetchingNextPage,
 		isSuccess,
+		isLoading,
 		isFetching,
 		data,
 	} = useInfiniteQuery({
@@ -69,14 +70,33 @@ function MsgGeneral() {
 	return (
 		<Box sx={{ width: "100%" }}>
 			<ScrollBox sx={{ mt: 0.5, height: { xs: "100%", md: "80vh" } }}>
-				<MessageList
-					data={flattenedData}
-					ref={ref}
-					onClick={onChatClick}
-					sx={{ maxWidth: "100%" }}
-					actionButton={matchDownMd || matchDownSm ? true : false}
-					customButton={matchDownMd || matchDownSm ? <CustomButton /> : null}
-				/>
+				{flattenedData?.length === 0 ? (
+					<Box
+						sx={{
+							width: "100%",
+							height: "100%",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							flexDirection: "column",
+						}}
+					>
+						<Typography variant="h4">No conversations yet.</Typography>
+						<Typography variant="greyTagsXs">
+							Search and start new conversation with friends.
+						</Typography>
+					</Box>
+				) : (
+					<MessageList
+						isLoading={isLoading}
+						data={flattenedData}
+						ref={ref}
+						onClick={onChatClick}
+						sx={{ maxWidth: "100%" }}
+						actionButton={matchDownMd || matchDownSm ? true : false}
+						customButton={matchDownMd || matchDownSm ? <CustomButton /> : null}
+					/>
+				)}
 			</ScrollBox>
 		</Box>
 	);
