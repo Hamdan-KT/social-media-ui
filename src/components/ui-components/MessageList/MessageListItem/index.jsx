@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Btn from "components/common/Button";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import {
@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router";
 import { forwardRef } from "react";
+import { useSelector } from "react-redux";
+import { messageEvents } from "src/services/socket/events";
 
 const renderSecondayText = (chat) => {
 	if (chat?.unreadMessagesCount > 0) {
@@ -52,12 +54,27 @@ const MessageListItem = forwardRef(
 		const navigate = useNavigate();
 		const { pathname } = useLocation();
 		const theme = useTheme();
+		const socket = useSelector((state) => state?.socket?.socket);
+		const [isTyping, setIsTyping] = useState(false);
+		// custom button
 		const ModifiedCustomBtn = React.Children.map(customButton, (child) =>
 			React.cloneElement(child, {
 				onClick: () => onButtonClick(data),
 				...customButtonProps,
 			})
 		);
+
+		useEffect(() => {
+			socket?.on(messageEvents.USERLIST_TYPING, ({ chatId, isTyping }) => {
+				if (data?._id === chatId) {
+					setIsTyping(isTyping);
+				}
+			});
+
+			return () => {
+				socket?.off(messageEvents.USERLIST_TYPING);
+			};
+		}, [socket, data?._id]);
 
 		return (
 			<ListItem
@@ -129,7 +146,9 @@ const MessageListItem = forwardRef(
 							},
 						}}
 						primary={primaryText}
-						secondary={secondaryText ?? renderSecondayText(data)}
+						secondary={
+							isTyping ? "Typing..." : secondaryText ?? renderSecondayText(data)
+						}
 					/>
 				</ListItemButton>
 			</ListItem>

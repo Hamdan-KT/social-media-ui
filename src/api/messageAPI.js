@@ -20,11 +20,9 @@ export const getChatSearchUsers = async (params = {}, page, limit) => {
 // start a new conversation if chat is not already exist
 export const inintializeChat = async (receiverId) => {
 	try {
-		const { data } = await apiClient.get("/message/inintialize-chat", {
-			params: {
-				receiverId,
-			},
-		});
+		const { data } = await apiClient.get(
+			`/message/initialize-chat/${receiverId}`
+		);
 		return data;
 	} catch (error) {
 		handleApiCallError(error);

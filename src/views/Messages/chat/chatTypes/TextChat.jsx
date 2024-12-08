@@ -32,7 +32,7 @@ const StyledDisableLayer = styled(Stack)(({ theme, chat }) => ({
 	top: 0,
 	zIndex: 2,
 	borderRadius: "20px",
-	backgroundColor: "rgba(0, 0, 0, 0.5)",
+	backgroundColor: "rgba(0, 0, 0, 0.4)",
 	userSelect: "none",
 	pointerEvents: "none",
 }));
@@ -68,9 +68,7 @@ function TextChat({
 		dispatch(
 			updateAttachment({
 				userId: chat?.sender?._id,
-				messageId: chat?._id,
-				name: chat?.sender?.userName,
-				message: chat?.content,
+				message: chat,
 			})
 		);
 	};

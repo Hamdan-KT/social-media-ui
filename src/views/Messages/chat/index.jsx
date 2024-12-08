@@ -39,8 +39,6 @@ const StyledMessageStatus = styled(Box)(({ theme, chat, user }) => ({
 	position: "absolute",
 	left: "100%",
 	gap: "0.2rem",
-	// background: "red",
-	// padding: "0.5rem",
 }));
 
 const renderMessageType = (data) => {
@@ -64,18 +62,19 @@ const Chat = forwardRef(({ data, isLoading = false }, ref) => {
 		<DragBox
 			sx={{
 				width: "100%",
+				// minHeight: "100%",
 				display: "flex",
 				alignItems: "center",
-				justifyContent: "center",
+				justifyContent: "start",
 				flexDirection: "column",
 			}}
 		>
-			{data?.map((item, index) => (
+			{data?.map((item, index, dataArr) => (
 				<StyledBox
-					// ref={index === 0 ? ref : undefined}
 					key={index}
 					chat={item}
 					user={user}
+					ref={index === 0 ? ref : undefined}
 				>
 					{(() => {
 						switch (item?.messageType) {

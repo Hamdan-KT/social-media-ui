@@ -4,9 +4,7 @@ import _ from "lodash";
 const initialState = {
 	attachment: {
 		userId: null,
-		messageId: null,
-		name: "",
-		message: "",
+		message: null,
 	},
 	selectedChat: null,
 	chatMessages: []

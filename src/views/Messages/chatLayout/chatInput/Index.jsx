@@ -114,11 +114,11 @@ const ChatInput = forwardRef((props, ref) => {
 			chatId,
 			senderId: user?._id,
 			receiverId: messageState?.selectedChat?.receiver?._id,
-			messageType: messageState?.attachment?.messageId
+			messageType: messageState?.attachment?.message
 				? messageTypes.REPLY
 				: messageTypes.GENERAL,
 			contentType: messageContentTypes.TEXT,
-			replyRef: messageState?.attachment?.messageId ?? null,
+			replyRef: messageState?.attachment?.message ?? null,
 			content: value,
 			media: [],
 			sender: {
@@ -137,8 +137,7 @@ const ChatInput = forwardRef((props, ref) => {
 					updatedMessages.map((msg) =>
 						msg._id === newMessage._id
 							? {
-									...msg,
-									_id: response.messageId,
+									...response.formattedMessage,
 									status: messageStatusTypes.SEND,
 							  }
 							: msg
@@ -146,25 +145,31 @@ const ChatInput = forwardRef((props, ref) => {
 				)
 			);
 		});
+		if (newMessage?.messageType === messageTypes.REPLY) {
+			dispatch(updateAttachment({}));
+		}
 		setValue("");
 	};
 
 	return (
 		<StyledToolBar
 			disableGutters
-			isAttachment={Boolean(messageState?.attachment?.messageId)}
+			isAttachment={Boolean(messageState?.attachment?.message?._id)}
 		>
-			{messageState?.attachment?.messageId && (
+			{messageState?.attachment?.message?._id && (
 				<AttachmentView>
 					<Box sx={{ display: "flex", flexDirection: "column", width: "90%" }}>
 						<Typography variant="subtitle1">
 							Replying to {/* GrAttachment */}
 							<Typography variant="userName">
-								{messageState?.attachment?.name}
+								{messageState?.attachment?.message?.sender?.userName}
 							</Typography>
 						</Typography>
 						<Typography variant="disabled" textOverflow="ellipsis" noWrap>
-							{messageState?.attachment?.message}
+							{messageState?.attachment?.message?.contentType ===
+							messageContentTypes.TEXT
+								? messageState?.attachment?.message?.content
+								: "Attachment"}
 						</Typography>
 					</Box>
 					<Box>

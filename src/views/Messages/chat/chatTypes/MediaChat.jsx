@@ -62,9 +62,7 @@ function MediaChat({ chat, options = true }) {
 		dispatch(
 			updateAttachment({
 				userId: chat?.sender?._id,
-				messageId: chat?._id,
-				name: chat?.sender?.userName,
-				message: "Attachment",
+				message: chat,
 			})
 		);
 	};

@@ -45,7 +45,7 @@ function ChatLayout() {
 	} = useInfiniteQuery({
 		queryKey: ["get-user-chat-messages", messageState?.selectedChat?._id],
 		queryFn: ({ pageParam = 1 }) =>
-			fetchChatMessages(messageState?.selectedChat?._id, pageParam, 10),
+			fetchChatMessages(messageState?.selectedChat?._id, pageParam, 200),
 		getNextPageParam: (lastPage, allPages) => {
 			const nextPage = lastPage?.data?.length
 				? allPages?.length + 1
@@ -63,8 +63,12 @@ function ChatLayout() {
 	}, [inView, hasNextPage, fetchNextPage, isFetching]);
 
 	useEffect(() => {
-		dispatch(setChatMessages(data?.pages?.flatMap((page) => page?.data) || []));
-	}, [data, dispatch]);
+		if (isSuccess) {
+			dispatch(
+				setChatMessages(data?.pages?.flatMap((page) => page?.data) || [])
+			);
+		}
+	}, [data, dispatch, isSuccess]);
 
 	useEffect(() => {
 		// Listen for incoming messages
@@ -99,8 +103,10 @@ function ChatLayout() {
 				isTyping: true,
 			});
 		}
-		socket?.on(messageEvents.USER_TYPING, (isTyping) => {
-			setIsTyping(isTyping);
+		socket?.on(messageEvents.USER_TYPING, ({ chatId, isTyping }) => {
+			if (messageState?.selectedChat?._id === chatId) {
+				setIsTyping(isTyping);
+			}
 		});
 
 		return () => {

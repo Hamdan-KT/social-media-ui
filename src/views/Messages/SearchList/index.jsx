@@ -5,9 +5,9 @@ import React, { useEffect } from "react";
 import UserList from "src/components/ui-components/UserList";
 import MessageList from "src/components/ui-components/MessageList";
 import { useInView } from "react-intersection-observer";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import DefaultLoader from "src/components/common/DefaultLoader";
-import { getChatSearchUsers } from "src/api/messageAPI";
+import { getChatSearchUsers, inintializeChat } from "src/api/messageAPI";
 import { useNavigate } from "react-router";
 import { RoutePath } from "src/utils/routes";
 import { useDispatch } from "react-redux";
@@ -53,20 +53,26 @@ function MsgUserSearchList({ value = "", setValue = () => {} }) {
 		console.log({ users: data });
 	}, [data]);
 
-	const handleClick = (info) => {
-		setValue("");
-		dispatch(
-			setSelectedChat({
-				chatId: info?.chat ?? info?._id,
-				avatar: "",
-				isGroupChat: false,
-				name: info?.userName,
-				receiver: {
-					_id: info?._id,
-				},
-			})
-		);
-		navigate(`/${RoutePath.MESSAGES}/${info?._id}`);
+	const initialChat = useMutation({
+		mutationKey: ["initial-chat"],
+		mutationFn: (info) => inintializeChat(info?._id),
+		onSuccess: (data) => {
+			console.log(data);
+			setValue("");
+			dispatch(setSelectedChat(data?.data));
+			navigate(`/${RoutePath.MESSAGES}/${data?.data?._id}`);
+		},
+	});
+
+	const handleClick = async (info) => {
+		console.log({ info });
+		if (info?.chat?._id) {
+			setValue("");
+			dispatch(setSelectedChat(info?.chat));
+			return navigate(`/${RoutePath.MESSAGES}/${info?.chat?._id}`);
+		} else {
+			return initialChat.mutate(info);
+		}
 	};
 
 	return (
@@ -83,6 +89,10 @@ function MsgUserSearchList({ value = "", setValue = () => {} }) {
 					data={data}
 					sx={{ maxWidth: "100%" }}
 					onClick={(info) => handleClick(info)}
+					profileNavigation={false}
+					customButton={
+						initialChat.isPending ? <DefaultLoader size={25} /> : null
+					}
 				/>
 				{(isFetchingNextPage || isLoading) && (
 					<Box

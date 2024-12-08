@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 function useOutSlideClick(ref, callBack = () => {}) {
-	const [outSide, setOutside] = useState();
+	const [outSide, setOutside] = useState(true);
 
 	useEffect(() => {
 		function handleOutSlideClick(e) {
