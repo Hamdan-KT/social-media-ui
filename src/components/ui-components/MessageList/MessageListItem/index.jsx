@@ -14,8 +14,10 @@ import { useLocation, useNavigate } from "react-router";
 import { forwardRef } from "react";
 import { useSelector } from "react-redux";
 import { messageEvents } from "src/services/socket/events";
+import { messageContentTypes } from "src/utils/constants";
 
-const renderSecondayText = (chat) => {
+const RenderSecondayText = ({ chat }) => {
+	const user = useSelector((state) => state?.user?.user);
 	if (chat?.unreadMessagesCount > 0) {
 		return (
 			<Typography>
@@ -24,6 +26,22 @@ const renderSecondayText = (chat) => {
 						? `${4}+`
 						: `${chat?.unreadMessagesCount}`}{" "}
 					{chat?.unreadMessagesCount > 1 ? "New Messages" : "New Message"}{" "}
+					&#183;{" "}
+				</Typography>
+				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
+					{chat?.lastMessage?.createdAt}
+				</Typography>
+			</Typography>
+		);
+	} else {
+		return (
+			<Typography>
+				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
+					{chat?.lastMessage?.sender !== user?._id
+						? chat?.lastMessage?.contentType === messageContentTypes.MEDIA
+							? "sent you attachment "
+							: `${chat?.lastMessage?.content} `
+						: "sent "}
 					&#183;{" "}
 				</Typography>
 				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
@@ -147,7 +165,9 @@ const MessageListItem = forwardRef(
 						}}
 						primary={primaryText}
 						secondary={
-							isTyping ? "Typing..." : secondaryText ?? renderSecondayText(data)
+							isTyping
+								? "Typing..."
+								: secondaryText ?? <RenderSecondayText chat={data} />
 						}
 					/>
 				</ListItemButton>

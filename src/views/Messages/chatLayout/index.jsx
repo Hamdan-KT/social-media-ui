@@ -138,21 +138,21 @@ function ChatLayout() {
 							overflowX: "hidden",
 							mt: { xs: 6, sm: 7, md: 7 },
 							height: {
-								md: messageState?.attachment?.messageId
+								md: messageState?.attachment?.message?._id
 									? `calc(100vh - 26.2vh)`
 									: `calc(100vh - 20vh)`,
 							},
 							maxHeight: {
 								xs: `100%`,
-								md: messageState?.attachment?.messageId
-									? `calc(100vh - 26.2vh)`
+								md: messageState?.attachment?.message?._id
+									? `calc(100vh - 26.2.2vh)`
 									: `calc(100vh - 20vh)`,
 							},
 							overflowY: { md: "scroll" },
 							p: { xs: 0.5, sm: 1 },
 							mb: {
-								xs: messageState?.attachment?.messageId ? 8 : 0.7,
-								sm: messageState?.attachment?.messageId ? 13.5 : 7,
+								xs: messageState?.attachment?.message?._id ? 8 : 0.7,
+								sm: messageState?.attachment?.message?._id ? 13.5 : 7,
 								md: 0,
 							},
 							width: "100%",

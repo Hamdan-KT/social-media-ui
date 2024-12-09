@@ -176,7 +176,7 @@ function MediaChat({ chat, options = true }) {
 															mediaItem={mediaItem}
 															chat={chat}
 															onClick={() => openMedia(mediaItem)}
-															sx={{ width: "80%" }}
+															// sx={{ width: "80%" }}
 														/>
 													);
 												case "reply":
