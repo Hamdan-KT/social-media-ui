@@ -64,6 +64,7 @@ function ChatLayout() {
 
 	useEffect(() => {
 		if (isSuccess) {
+			console.log({ list: data?.pages?.flatMap((page) => page?.data) });
 			dispatch(
 				setChatMessages(data?.pages?.flatMap((page) => page?.data) || [])
 			);

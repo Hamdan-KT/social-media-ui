@@ -23,6 +23,7 @@ const StyledBox = styled(Box)(({ theme, chat, user }) => ({
 	width: "100%",
 	alignItems: "center",
 	justifyContent: chat.sender?._id === user?._id ? "flex-end" : "flex-start",
+	// background: "red",
 	minHeight: "30px",
 	marginBottom: 6,
 	"&:last-child": {

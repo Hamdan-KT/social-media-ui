@@ -222,3 +222,17 @@ export const handleApiCallError = (error) => {
 		throw error.response.data;
 	} else throw error;
 };
+
+export const blobUrlToFile = async (blobUrl, fileName, mimeType) => {
+	try {
+		// Fetch the Blob data from the Blob URL
+		const response = await fetch(blobUrl);
+		const blob = await response.blob();
+
+		// Create and return a File object
+		return new File([blob], fileName, { type: mimeType });
+	} catch (error) {
+		console.error("Error converting Blob URL to File:", error);
+		throw error;
+	}
+};

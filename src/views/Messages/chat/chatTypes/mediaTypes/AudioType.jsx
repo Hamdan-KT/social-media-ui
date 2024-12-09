@@ -14,8 +14,9 @@ import sampleAudio from "/audio/audio.mp3";
 import WaveSurfer from "wavesurfer.js";
 import { formatDuration } from "utils/common";
 import ReactIcons from "utils/ReactIcons";
+import { useSelector } from "react-redux";
 
-const StyledStack = styled(Box)(({ theme, chat, disabled = false }) => ({
+const StyledStack = styled(Box)(({ theme, chat, user, disabled = false }) => ({
 	position: "relative",
 	display: "flex",
 	width: "max-content",
@@ -27,13 +28,14 @@ const StyledStack = styled(Box)(({ theme, chat, disabled = false }) => ({
 	justifyContent: "space-between",
 	gap: "0.3rem",
 	borderRadius: "20px",
-	background: chat.incoming
-		? disabled
-			? "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)"
-			: theme.palette.grey[500]
-		: disabled
-		? theme.palette.grey[500]
-		: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
+	background:
+		chat.sender?._id !== user?._id
+			? disabled
+				? "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)"
+				: theme.palette.grey[500]
+			: disabled
+			? theme.palette.grey[500]
+			: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
 	pointerEvents: disabled && "none",
 	userSelect: disabled && "none",
 }));
@@ -69,7 +71,7 @@ const formWaveSurferOptions = (ref) => ({
 	barWidth: 3,
 	barRadius: 50,
 	barGap: 3,
-	barMinHeight: 20,
+	barMinHeight: 40,
 	cursorWidth: 1,
 	backend: "WebAudio",
 	height: 40,
@@ -82,10 +84,12 @@ const formWaveSurferOptions = (ref) => ({
 	dragToSeek: true,
 	fillParent: false,
 	audioRate: 1,
+	normalize: true,
 });
 
-function AudioType({ chat, disabled = false }) {
+function AudioType({ chat, mediaItem, disabled = false }) {
 	const theme = useTheme();
+	const user = useSelector((state) => state?.user?.user);
 	const containerRef = useRef();
 	const waveSurferRef = useRef();
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -100,7 +104,7 @@ function AudioType({ chat, disabled = false }) {
 			return waveSurferRef.current?.setPlaybackRate(1, false);
 		}
 		setPlayBackSpeed((prev) => (prev = prev + 0.5));
-		waveSurferRef.current?.setPlaybackRate(currentPlayBackSpeed + 0.5, false);
+		waveSurferRef.current?.setPlaybackRate(currentPlayBackSpeed + 0.2, false);
 	};
 
 	useEffect(() => {
@@ -108,7 +112,7 @@ function AudioType({ chat, disabled = false }) {
 		const options = formWaveSurferOptions(containerRef.current);
 		const wavesurfer = WaveSurfer.create(options);
 		// loading audio
-		wavesurfer.load(sampleAudio);
+		wavesurfer.load(mediaItem?.url);
 		// when wavesurfer is ready
 		wavesurfer.on("ready", () => {
 			// setting duration on start of wavesurfer loaded
@@ -139,7 +143,7 @@ function AudioType({ chat, disabled = false }) {
 			wavesurfer.un("ready");
 			wavesurfer.destroy();
 		};
-	}, [sampleAudio]);
+	}, [mediaItem?.url]);
 
 	// handling play pause
 	const handlePlayPause = () => {
@@ -148,7 +152,7 @@ function AudioType({ chat, disabled = false }) {
 	};
 
 	return (
-		<StyledStack chat={chat} disabled={disabled}>
+		<StyledStack chat={chat} user={user} disabled={disabled}>
 			<IconButton
 				size="small"
 				onClick={handlePlayPause}

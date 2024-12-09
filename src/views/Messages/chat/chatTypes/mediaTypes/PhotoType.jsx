@@ -9,6 +9,7 @@ const StyledBox = styled(Box)(({ theme, chat }) => ({
 	height: "100%",
 	borderRadius: "20px",
 	overflow: "hidden",
+	background: "black",
 }));
 
 function PhotoType({ mediaItem, chat, onClick, sx = {} }) {
@@ -22,7 +23,7 @@ function PhotoType({ mediaItem, chat, onClick, sx = {} }) {
 						objectFit: "cover",
 					}}
 					draggable="false"
-					src={mediaItem.src}
+					src={mediaItem.url}
 				/>
 			</StyledBox>
 		</>

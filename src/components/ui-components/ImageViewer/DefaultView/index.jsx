@@ -12,6 +12,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Image from "components/common/Image";
 import Video from "components/common/Video";
+import { messageMediaTypes } from "src/utils/constants";
 
 // Slide main Component
 const Slider = styled(Box)({
@@ -29,7 +30,7 @@ const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
 	height: "100%",
 	display: "flex",
-	gap: "0.5rem",
+	gap: "0.4rem",
 	alignItems: "center",
 	justifyContent: "center",
 	flexDirection: "column",
@@ -64,7 +65,7 @@ const ViewBox = styled(Box)({
 const ImageSelector = styled(Box)({
 	display: "flex",
 	width: "80%",
-	height: "4rem",
+	minHeight: "4rem",
 	flexDirection: "row",
 	overflow: "scroll",
 	alignItems: "center",
@@ -101,9 +102,9 @@ function DefaultImageView({ medias = [] }) {
 										transform: `translate(-${activeIndex * 100}%)`,
 									}}
 								>
-									{media?.type === "image" && (
+									{media?.type === messageMediaTypes.IMAGE && (
 										<Image
-											src={media?.src}
+											src={media?.url}
 											alt="Not Found"
 											style={{
 												display: "block",
@@ -116,10 +117,10 @@ function DefaultImageView({ medias = [] }) {
 											draggable={false}
 										/>
 									)}
-									{media?.type === "video" && (
+									{media?.type === messageMediaTypes.VIDEO && (
 										<Video
 											controls
-											src={media?.src}
+											src={media?.url}
 											alt="Not Found"
 											style={{
 												display: "block",
@@ -174,6 +175,7 @@ function DefaultImageView({ medias = [] }) {
 										maxWidth: activeIndex === ind ? "3rem" : "2.3rem",
 										minWidth: activeIndex === ind ? "3rem" : "2.3rem",
 										maxHeight: activeIndex === ind ? "3rem" : "2.3rem",
+										background:"black",
 										overflow: "hidden",
 										border:
 											activeIndex === ind
@@ -191,7 +193,7 @@ function DefaultImageView({ medias = [] }) {
 											width: "100%",
 											objectFit: "contain",
 										}}
-										src={media?.src}
+										src={media?.url}
 									/>
 								</Box>
 							))}

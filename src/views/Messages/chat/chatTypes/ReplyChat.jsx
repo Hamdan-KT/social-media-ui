@@ -93,7 +93,7 @@ function ReplyChat({ chat }) {
 										}
 									>
 										<Grid item xs={3}>
-											<PhotoType mediaItem={chat.ref} />
+											<PhotoType mediaItem={chat.replyRef?.media[0]} />
 										</Grid>
 									</Grid>
 								</StyledReplyBox>
@@ -129,7 +129,7 @@ function ReplyChat({ chat }) {
 										}
 									>
 										<Grid item xs={3}>
-											<VideoType mediaItem={chat.ref} />
+											<VideoType mediaItem={chat.replyRef} />
 										</Grid>
 									</Grid>
 								</StyledReplyBox>
@@ -165,7 +165,7 @@ function ReplyChat({ chat }) {
 										}
 									>
 										<Grid item xs={12} md={12}>
-											<AudioType chat={chat} disabled={true} />
+											<AudioType chat={chat?.replyRef} disabled={true} />
 										</Grid>
 									</Grid>
 								</StyledReplyBox>

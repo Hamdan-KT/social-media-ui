@@ -8,10 +8,11 @@ import ReplyChat from "./ReplyChat";
 import DragBox from "components/common/DragBox";
 import ImageViewer from "components/ui-components/ImageViewer";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactIcons from "utils/ReactIcons";
 import PopOver from "components/common/Popover";
 import ChatOptions from "../chatOptions";
+import { messageMediaTypes } from "src/utils/constants";
 
 const StyledMedia = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -37,15 +38,15 @@ const StyledOverlay = styled(Box)(({ theme }) => ({
 	pointerEvents: "none",
 }));
 
-const StyledOptionsBox = styled(Box)(({ theme, chat }) => ({
+const StyledOptionsBox = styled(Box)(({ theme, chat, user }) => ({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
 	gap: "0.3rem",
 	padding: "0.2rem 0.3rem",
 	position: "absolute",
-	...(chat?.incoming ? { right: -49 } : { left: -49 }),
-	flexDirection: chat?.incoming ? "row" : "row-reverse",
+	...(chat.sender?._id !== user?._id ? { right: -49 } : { left: -49 }),
+	flexDirection: chat.sender?._id !== user?._id ? "row" : "row-reverse",
 	top: "50%",
 	transform: "translateY(-50%)",
 }));
@@ -56,6 +57,7 @@ function MediaChat({ chat, options = true }) {
 	const [showOptions, setShowOptions] = useState(false);
 	const optionsRef = useRef();
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state?.user?.user);
 
 	// handling reply attachment
 	const handleUpdateReplyAttachment = () => {
@@ -69,7 +71,10 @@ function MediaChat({ chat, options = true }) {
 
 	// handleMedia open on photos or videos
 	const openMedia = (mediaItem) => {
-		if (mediaItem?.type === ("image" || "video")) setViewOpen(true);
+		if (
+			mediaItem?.type === (messageMediaTypes.IMAGE || messageMediaTypes.VIDEO)
+		)
+			setViewOpen(true);
 	};
 
 	// showing options menu if hover on chat item element
@@ -88,7 +93,9 @@ function MediaChat({ chat, options = true }) {
 				container
 				rowGap={0.5}
 				columnGap={0.5}
-				justifyContent={chat.incoming ? "flex-start" : "flex-end"}
+				justifyContent={
+					chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
+				}
 			>
 				{chat?.media?.map((mediaItem, index, mediaArr) => (
 					<>
@@ -103,11 +110,11 @@ function MediaChat({ chat, options = true }) {
 									{index <= 3 &&
 										(() => {
 											switch (mediaItem?.type) {
-												case "image":
+												case messageMediaTypes.IMAGE:
 													return (
 														<PhotoType mediaItem={mediaItem} chat={chat} />
 													);
-												case "video":
+												case messageMediaTypes.VIDEO:
 													return (
 														<VideoType mediaItem={mediaItem} chat={chat} />
 													);
@@ -136,15 +143,22 @@ function MediaChat({ chat, options = true }) {
 							<>
 								<Grid item xs={12} md={12}>
 									<DragBox
-										sx={{ maxWidth: "100%" }}
+										sx={{
+											width: "100%",
+											// background: "yellow",
+											justifyContent:
+												chat.sender?._id !== user?._id ? "start" : "end",
+										}}
 										onDragEnd={handleUpdateReplyAttachment}
-										dragLockDir={chat.incoming ? "left" : "right"}
+										dragLockDir={
+											chat.sender?._id !== user?._id ? "left" : "right"
+										}
 										onMouseEnter={handleMouseEnter}
 										onMouseLeave={handleMouseLeave}
 									>
 										{(() => {
 											switch (mediaItem?.type) {
-												case "image":
+												case messageMediaTypes.IMAGE:
 													return (
 														<PhotoType
 															mediaItem={mediaItem}
@@ -152,11 +166,11 @@ function MediaChat({ chat, options = true }) {
 															onClick={() => openMedia(mediaItem)}
 														/>
 													);
-												case "voice":
+												case messageMediaTypes.AUDIO:
 													return (
 														<AudioType mediaItem={mediaItem} chat={chat} />
 													);
-												case "video":
+												case messageMediaTypes.VIDEO:
 													return (
 														<VideoType
 															mediaItem={mediaItem}
@@ -174,6 +188,7 @@ function MediaChat({ chat, options = true }) {
 										{options && showOptions && (
 											<StyledOptionsBox
 												chat={chat}
+												user={user}
 												onMouseEnter={handleMouseEnter}
 												onMouseLeave={handleMouseLeave}
 											>
@@ -196,7 +211,8 @@ function MediaChat({ chat, options = true }) {
 													}}
 													transformOrigin={{
 														vertical: "bottom",
-														horizontal: chat?.incoming ? "left" : "right",
+														horizontal:
+															chat.sender?._id !== user?._id ? "left" : "right",
 													}}
 													sx={{
 														"& .MuiPopover-paper": {
@@ -210,7 +226,8 @@ function MediaChat({ chat, options = true }) {
 										)}
 									</DragBox>
 								</Grid>
-								{mediaItem?.type === ("image" || "video") && (
+								{mediaItem?.type ===
+									(messageMediaTypes.IMAGE || messageMediaTypes.VIDEO) && (
 									<ImageViewer
 										medias={mediaArr}
 										open={viewOpen}

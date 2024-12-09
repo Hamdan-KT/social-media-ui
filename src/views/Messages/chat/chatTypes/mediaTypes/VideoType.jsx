@@ -2,13 +2,14 @@ import Video from "components/common/Video";
 import { Box, styled } from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme, chat }) => ({
-  display: "flex",
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "center",
-  height: "100%",
-  borderRadius: "20px",
-  overflow: "hidden",
+	display: "flex",
+	width: "100%",
+	alignItems: "center",
+	justifyContent: "center",
+	height: "100%",
+	borderRadius: "20px",
+	overflow: "hidden",
+	background: "black"
 }));
 
 function VideoType({ mediaItem, chat, onClick, sx = {} }) {
@@ -16,12 +17,14 @@ function VideoType({ mediaItem, chat, onClick, sx = {} }) {
 		<>
 			<StyledBox chat={chat} onClick={onClick} sx={sx}>
 				<Video
+					controls
+					loop={false}
 					style={{
 						display: "block",
 						width: "100%",
 						objectFit: "cover",
 					}}
-					src={mediaItem.src}
+					src={mediaItem.url}
 					draggable="false"
 				/>
 			</StyledBox>

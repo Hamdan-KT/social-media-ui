@@ -68,3 +68,15 @@ export const fetchChatMessages = async (chatId, page, limit) => {
 		handleApiCallError(error);
 	}
 };
+
+// upload message medias
+export const uploadMessageMedias = async (medias) => {
+	try {
+		const { data } = await apiClient.post("/message/upload-media", medias, {
+			headers: { "Content-Type": "multipart/form-data" },
+		});
+		return data;
+	} catch (error) {
+		handleApiCallError(error);
+	}
+};

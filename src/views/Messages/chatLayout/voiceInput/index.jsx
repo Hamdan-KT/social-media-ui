@@ -14,6 +14,22 @@ import WaveSurfer from "wavesurfer.js";
 import Lottie from "lottie-react";
 import { formatDuration } from "utils/common";
 import useStopwatch from "hooks/useStopWatch";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { useMutation } from "@tanstack/react-query";
+import { uploadMessageMedias } from "src/api/messageAPI";
+import { v4 as uuidv4 } from "uuid";
+import {
+	messageContentTypes,
+	messageStatusTypes,
+	messageTypes,
+} from "src/utils/constants";
+import {
+	setChatMessages,
+	updateAttachment,
+} from "src/app/slices/messageSlice/messageSlice";
+import { blobUrlToFile } from "src/utils/common";
+import { messageEvents } from "src/services/socket/events";
 
 const RecordingWrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -41,7 +57,7 @@ const formWaveSurferOptions = (ref) => ({
 	barWidth: 3,
 	barRadius: 50,
 	barGap: 3,
-	barMinHeight: 20,
+	barMinHeight: 40,
 	cursorWidth: 1,
 	backend: "WebAudio",
 	height: 30,
@@ -54,11 +70,19 @@ const formWaveSurferOptions = (ref) => ({
 	dragToSeek: true,
 	fillParent: false,
 	audioRate: 1,
+	normalize: true,
 });
 
 // eslint-disable-next-line react/display-name
 const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 	const theme = useTheme();
+	const messageState = useSelector((state) => state.message);
+	const user = useSelector((state) => state.user?.user);
+	const socket = useSelector((state) => state.socket.socket);
+	const dispatch = useDispatch();
+	const { chatId } = useParams();
+	const mimeType = "audio/webm";
+
 	const [isRecording, setIsRecording] = useState(false);
 	const [audioUrl, setAudioUrl] = useState("");
 	const [preview, setPreview] = useState(false);
@@ -67,7 +91,6 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 	const recorderRef = useRef(null);
 	const gumStreamRef = useRef(null);
 	const { elapsedTime, start, stop, reset } = useStopwatch();
-	const mimeType = "audio/webm";
 
 	// wavesurfer states
 	const containerRef = useRef();
@@ -173,6 +196,80 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 		[]
 	);
 
+	const uploadMessagMedia = useMutation({
+		mutationKey: ["upload-messge-media"],
+		mutationFn: (data) => uploadMessageMedias(data),
+	});
+
+	const sendMediaMessage = async (medias = []) => {
+		const newMessage = {
+			_id: uuidv4(),
+			chatId: chatId ?? messageState?.selectedChat?._id,
+			senderId: user?._id,
+			receiverId: messageState?.selectedChat?.receiver?._id,
+			messageType: messageState?.attachment?.message
+				? messageTypes.REPLY
+				: messageTypes.GENERAL,
+			contentType:
+				medias?.length > 0
+					? messageContentTypes.MEDIA
+					: messageContentTypes.TEXT,
+			replyRef: messageState?.attachment?.message ?? null,
+			content: "",
+			media: medias,
+			sender: {
+				_id: user?._id,
+			},
+		};
+		let updatedMessages = [
+			...(messageState?.chatMessages ?? []),
+			{ ...newMessage, status: messageStatusTypes.SENDING },
+		];
+		dispatch(setChatMessages(updatedMessages));
+		const formData = new FormData();
+		await Promise.all(
+			medias?.map(async (media) => {
+				formData.append(
+					[media?.name],
+					await blobUrlToFile(media?.url, uuidv4(), mimeType)
+				);
+			})
+		);
+		await uploadMessagMedia.mutateAsync(formData).then((data) => {
+			socket.emit(
+				messageEvents.SEND_MESSAGE,
+				{ ...newMessage, media: data?.data },
+				(response) => {
+					console.log({ response });
+					dispatch(
+						setChatMessages(
+							updatedMessages.map((msg) =>
+								msg._id === newMessage._id
+									? {
+											...response.formattedMessage,
+											status: messageStatusTypes.SEND,
+									  }
+									: msg
+							)
+						)
+					);
+				}
+			);
+			if (newMessage?.messageType === messageTypes.REPLY) {
+				dispatch(updateAttachment({}));
+			}
+		});
+	};
+
+	const handleSendAudio = () => {
+		stopRecording();
+		setIsRecording(false);
+		setRecording(false);
+		setPreview(false);
+		const audio = [{ url: audioUrl }];
+		sendMediaMessage(audio);
+	};
+
 	return (
 		<RecordingWrapper>
 			<IconButton
@@ -250,6 +347,7 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 			)}
 			{!isRecording ? (
 				<IconButton
+					onClick={handleSendAudio}
 					sx={{
 						background: theme.palette.background.paper,
 						color: theme.palette.primary.main,

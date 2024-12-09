@@ -1,6 +1,12 @@
 import MessageList from "src/components/ui-components/MessageList";
 import ScrollBox from "src/components/ui-components/Wrappers/ScrollBox";
-import { Box, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+	Box,
+	IconButton,
+	Typography,
+	useMediaQuery,
+	useTheme,
+} from "@mui/material";
 import React, { useEffect } from "react";
 import { Users } from "src/data";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
@@ -70,7 +76,7 @@ function MsgGeneral() {
 	return (
 		<Box sx={{ width: "100%" }}>
 			<ScrollBox sx={{ mt: 0.5, height: { xs: "100%", md: "80vh" } }}>
-				{flattenedData?.length === 0 ? (
+				{!isLoading && flattenedData?.length === 0 ? (
 					<Box
 						sx={{
 							width: "100%",
@@ -79,7 +85,7 @@ function MsgGeneral() {
 							alignItems: "center",
 							justifyContent: "center",
 							flexDirection: "column",
-							mt: {xs: "50%", md: 0}
+							mt: { xs: "50%", md: 0 },
 						}}
 					>
 						<Typography variant="h4">No conversations yet.</Typography>

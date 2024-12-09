@@ -44,6 +44,13 @@ export const messageContentTypes = {
 	MEDIA: "media",
 };
 
+export const messageMediaTypes = {
+	IMAGE: "image",
+	VIDEO: "video",
+	AUDIO: "audio",
+	FILE: "file",
+};
+
 export const messageStatusTypes = {
 	SEND: "send",
 	SENDING: "sending",

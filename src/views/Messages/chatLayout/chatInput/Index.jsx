@@ -30,6 +30,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { setChatMessages } from "src/app/slices/messageSlice/messageSlice";
 import { forwardRef } from "react";
+import FileSelect from "./fileSelect";
 
 const StyledToolBar = styled(Toolbar)(({ theme, isAttachment }) => ({
 	display: "flex",
@@ -111,7 +112,7 @@ const ChatInput = forwardRef((props, ref) => {
 	const sendMessage = () => {
 		const newMessage = {
 			_id: uuidv4(),
-			chatId,
+			chatId: chatId ?? messageState?.selectedChat?._id,
 			senderId: user?._id,
 			receiverId: messageState?.selectedChat?.receiver?._id,
 			messageType: messageState?.attachment?.message
@@ -125,6 +126,7 @@ const ChatInput = forwardRef((props, ref) => {
 				_id: user?._id,
 			},
 		};
+		setValue("");
 		let updatedMessages = [
 			...(messageState?.chatMessages ?? []),
 			{ ...newMessage, status: messageStatusTypes.SENDING },
@@ -148,7 +150,6 @@ const ChatInput = forwardRef((props, ref) => {
 		if (newMessage?.messageType === messageTypes.REPLY) {
 			dispatch(updateAttachment({}));
 		}
-		setValue("");
 	};
 
 	return (
@@ -246,9 +247,7 @@ const ChatInput = forwardRef((props, ref) => {
 								>
 									<ReactIcons.LuMic />
 								</IconButton>
-								<IconButton color="inherit">
-									<ReactIcons.IoMdImages />
-								</IconButton>
+								<FileSelect />
 							</>
 						)}
 					</>

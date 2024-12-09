@@ -3,7 +3,7 @@ import { Box, Skeleton } from "@mui/material";
 
 const ChatMessagesSkeleton = () => {
 	// Array to simulate the loading messages structure
-	const loadingMessages = Array(10).fill(null);
+	const loadingMessages = Array(8).fill(null);
 
 	return (
 		<Box

@@ -7,6 +7,7 @@ import Slider from "components/common/Carousel/Carousel";
 import Slide from "components/common/Carousel/Slide";
 import Image from "components/common/Image";
 import Video from "components/common/Video";
+import { messageMediaTypes } from "src/utils/constants";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -62,9 +63,9 @@ function MobileImageView({ medias = [] }) {
 											}
 										}}
 									>
-										{media?.type === "image" && (
+										{media?.type === messageMediaTypes.IMAGE && (
 											<Image
-												src={media?.src}
+												src={media?.url}
 												alt="Not Found"
 												style={{
 													display: "block",
@@ -77,9 +78,9 @@ function MobileImageView({ medias = [] }) {
 												draggable={false}
 											/>
 										)}
-										{media?.type === "video" && (
+										{media?.type === messageMediaTypes.VIDEO && (
 											<Video
-												src={media?.src}
+												src={media?.url}
 												alt="Not Found"
 												style={{
 													display: "block",
@@ -116,7 +117,7 @@ function MobileImageView({ medias = [] }) {
 									{Array.isArray(medias) &&
 										medias?.map((media, ind) => (
 											<Slide key={ind} sx={{ padding: "0.4rem" }}>
-												{media?.type === "image" && (
+												{media?.type === messageMediaTypes.IMAGE && (
 													<Image
 														style={{
 															display: "block",
@@ -126,16 +127,16 @@ function MobileImageView({ medias = [] }) {
 														}}
 														alt="Not found!"
 														key={ind}
-														src={media?.src}
+														src={media?.url}
 														loading="lazy"
 														draggable={false}
 													/>
 												)}
-												{media?.type === "video" && (
+												{media?.type === messageMediaTypes.VIDEO && (
 													<Video
 														controls
 														key={ind}
-														src={media?.src}
+														src={media?.url}
 														alt="Not Found!"
 														style={{
 															display: "block",
