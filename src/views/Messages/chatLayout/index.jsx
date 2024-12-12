@@ -32,7 +32,8 @@ function ChatLayout() {
 		if (bottomDivRef.current) {
 			bottomDivRef.current.scrollIntoView();
 		}
-	}, [messageState, isTyping]);
+	}, []);
+	// }, [messageState, isTyping]);
 
 	const {
 		fetchNextPage,
@@ -81,9 +82,16 @@ function ChatLayout() {
 				);
 			}
 		});
+		socket?.on(messageEvents.MESSAGE_DELETED, (messageId) => {
+			const updatedMessages = messageState?.chatMessages.filter(
+				(message) => message._id !== messageId
+			);
+			dispatch(setChatMessages(updatedMessages));
+		});
 
 		return () => {
 			socket?.off(messageEvents.RECEIVE);
+			socket?.off(messageEvents.MESSAGE_DELETED);
 		};
 	}, [
 		socket,

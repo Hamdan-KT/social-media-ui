@@ -126,6 +126,7 @@ const ChatInput = forwardRef((props, ref) => {
 				_id: user?._id,
 			},
 		};
+		console.log({ newMessage });
 		setValue("");
 		let updatedMessages = [
 			...(messageState?.chatMessages ?? []),

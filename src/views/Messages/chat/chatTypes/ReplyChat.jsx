@@ -5,7 +5,8 @@ import VideoType from "./mediaTypes/VideoType";
 import AudioType from "./mediaTypes/AudioType";
 import TextChat from "./TextChat";
 import { useSelector } from "react-redux";
-import { messageContentTypes } from "src/utils/constants";
+import { messageContentTypes, messageMediaTypes } from "src/utils/constants";
+import MediaChat from "./MediaChat";
 
 const StyledReplyBox = styled(Box)(({ theme, chat, user }) => ({
 	display: "flex",
@@ -23,9 +24,176 @@ const StyledReplyBox = styled(Box)(({ theme, chat, user }) => ({
 	},
 }));
 
-function ReplyChat({ chat }) {
-	const theme = useTheme();
-	const user = useSelector((state) => state?.user?.user);
+function MediaChats({ chat, user }) {
+	switch (chat?.replyRef?.media[0]?.type) {
+		case messageMediaTypes.IMAGE:
+			return (
+				<Box
+					sx={{
+						width: "100%",
+						gap: "0.4rem",
+						display: "flex",
+						justifyContent:
+							chat.sender?._id !== user?._id ? "flex-start" : "flex-end",
+						flexDirection: "column",
+						alignItems: chat.sender?._id !== user?._id ? "start" : "end",
+					}}
+				>
+					<Typography
+						sx={{ padding: "0rem 0.7rem", userSelect: "none" }}
+						variant="caption"
+					>
+						{chat?.replyRef?.sender?._id === chat.sender?._id
+							? chat.sender?._id === user?._id
+								? "Replied to yourself"
+								: "Replied to themself"
+							: chat?.replyRef?.sender?._id === user?._id
+							? "Replied to you"
+							: chat?.sender?._id === user?._id
+							? "You replied"
+							: "Replied to someone"}
+					</Typography>
+					<StyledReplyBox chat={chat} user={user}>
+						<Grid
+							container
+							justifyContent={
+								chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
+							}
+						>
+							<Grid item xs={3}>
+								<PhotoType mediaItem={chat.replyRef?.media[0]} />
+							</Grid>
+						</Grid>
+					</StyledReplyBox>
+					{chat?.contentType === messageContentTypes.TEXT ? (
+						<TextChat chat={chat} user={user} />
+					) : (
+						<MediaChat chat={chat} user={user} />
+					)}
+				</Box>
+			);
+		case messageMediaTypes.VIDEO:
+			return (
+				<Box
+					sx={{
+						width: "100%",
+						gap: "0.4rem",
+						display: "flex",
+						justifyContent:
+							chat.sender?._id !== user?._id ? "flex-start" : "flex-end",
+						flexDirection: "column",
+						alignItems: chat.sender?._id !== user?._id ? "start" : "end",
+					}}
+				>
+					<Typography
+						sx={{ padding: "0rem 0.7rem", userSelect: "none" }}
+						variant="caption"
+					>
+						{chat?.replyRef?.sender?._id === chat.sender?._id
+							? chat.sender?._id === user?._id
+								? "Replied to yourself"
+								: "Replied to themself"
+							: chat?.replyRef?.sender?._id === user?._id
+							? "Replied to you"
+							: chat?.sender?._id === user?._id
+							? "You replied"
+							: "Replied to someone"}
+					</Typography>
+					<StyledReplyBox chat={chat} user={user}>
+						<Grid
+							container
+							justifyContent={
+								chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
+							}
+						>
+							<Grid item xs={3}>
+								<VideoType mediaItem={chat.replyRef?.media[0]} />
+							</Grid>
+						</Grid>
+					</StyledReplyBox>
+					{chat?.contentType === messageContentTypes.TEXT ? (
+						<TextChat chat={chat} user={user} />
+					) : (
+						<MediaChat chat={chat} user={user} />
+					)}
+				</Box>
+			);
+		case messageMediaTypes.AUDIO:
+			return (
+				<Box
+					sx={{
+						width: "100%",
+						gap: "0.4rem",
+						display: "flex",
+						justifyContent:
+							chat.sender?._id !== user?._id ? "flex-start" : "flex-end",
+						flexDirection: "column",
+						alignItems: chat.sender?._id !== user?._id ? "start" : "end",
+					}}
+				>
+					<Typography
+						sx={{ padding: "0rem 0.7rem", userSelect: "none" }}
+						variant="caption"
+					>
+						{chat?.replyRef?.sender?._id === chat.sender?._id
+							? chat.sender?._id === user?._id
+								? "Replied to yourself"
+								: "Replied to themself"
+							: chat?.replyRef?.sender?._id === user?._id
+							? "Replied to you"
+							: chat?.sender?._id === user?._id
+							? "You replied"
+							: "Replied to someone"}
+					</Typography>
+					<StyledReplyBox chat={chat} user={user}>
+						<Grid
+							container
+							justifyContent={
+								chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
+							}
+						>
+							<Grid item xs={12} md={12}>
+								<AudioType
+									chat={chat?.replyRef}
+									mediaItem={chat?.replyRef?.media[0]}
+									disabled={true}
+								/>
+							</Grid>
+						</Grid>
+					</StyledReplyBox>
+					{chat?.contentType === messageContentTypes.TEXT ? (
+						<TextChat chat={chat} user={user} />
+					) : (
+						<MediaChat chat={chat} user={user} />
+					)}
+				</Box>
+			);
+	}
+}
+
+function ReplyChat({ chat, user }) {
+	console.log({ repUser: user?._id });
+	console.log({ replyRef_sender: chat?.replyRef?.sender?._id });
+	console.log({ chat_sender: chat.sender?._id });
+	console.log({ chat });
+
+	//conditions
+	console.log(chat?.replyRef?.sender?._id == chat.sender?._id);
+	console.log(chat.sender?._id == user?._id);
+	console.log(chat?.replyRef?.sender?._id == user?._id);
+	console.log(chat?.sender?._id == user?._id);
+
+	{
+		chat?.replyRef?.sender?._id == chat.sender?._id
+			? chat.sender?._id == user?._id
+				? "Replied to yourself"
+				: "Replied to themself"
+			: chat?.replyRef?.sender?._id == user?._id
+			? "Replied to you"
+			: chat?.sender?._id == user?._id
+			? "You replied"
+			: "Replied to someone";
+	}
 
 	return (
 		<>
@@ -48,9 +216,15 @@ function ReplyChat({ chat }) {
 									sx={{ padding: "0rem 0.7rem", userSelect: "none" }}
 									variant="caption"
 								>
-									{chat.sender?._id !== user?._id
-										? "Replied to You"
-										: "You Replied"}
+									{chat?.replyRef?.sender?._id == chat.sender?._id
+										? chat.sender?._id == user?._id
+											? "Replied to yourself"
+											: "Replied to themself"
+										: chat?.replyRef?.sender?._id == user?._id
+										? "Replied to you"
+										: chat?.sender?._id == user?._id
+										? "You replied"
+										: "Replied to someone"}
 								</Typography>
 								<StyledReplyBox chat={chat} user={user}>
 									<TextChat
@@ -59,119 +233,18 @@ function ReplyChat({ chat }) {
 										disabled={true}
 										disableDrag={true}
 										options={false}
+										user={user}
 									/>
 								</StyledReplyBox>
-								<TextChat chat={chat} />
+								{chat?.contentType === messageContentTypes.TEXT ? (
+									<TextChat chat={chat} user={user} />
+								) : (
+									<MediaChat chat={chat} user={user} />
+								)}
 							</Box>
 						);
-					case "image":
-						return (
-							<Box
-								sx={{
-									width: "100%",
-									gap: "0.4rem",
-									display: "flex",
-									justifyContent:
-										chat.sender?._id !== user?._id ? "flex-start" : "flex-end",
-									flexDirection: "column",
-									alignItems: chat.sender?._id !== user?._id ? "start" : "end",
-								}}
-							>
-								<Typography
-									sx={{ padding: "0rem 0.7rem", userSelect: "none" }}
-									variant="caption"
-								>
-									{chat.sender?._id !== user?._id
-										? "Replied to You"
-										: "You Replied"}
-								</Typography>
-								<StyledReplyBox chat={chat} user={user}>
-									<Grid
-										container
-										justifyContent={
-											chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
-										}
-									>
-										<Grid item xs={3}>
-											<PhotoType mediaItem={chat.replyRef?.media[0]} />
-										</Grid>
-									</Grid>
-								</StyledReplyBox>
-								<TextChat chat={chat} />
-							</Box>
-						);
-					case "video":
-						return (
-							<Box
-								sx={{
-									width: "100%",
-									gap: "0.4rem",
-									display: "flex",
-									justifyContent:
-										chat.sender?._id !== user?._id ? "flex-start" : "flex-end",
-									flexDirection: "column",
-									alignItems: chat.sender?._id !== user?._id ? "start" : "end",
-								}}
-							>
-								<Typography
-									sx={{ padding: "0rem 0.7rem", userSelect: "none" }}
-									variant="caption"
-								>
-									{chat.sender?._id !== user?._id
-										? "Replied to You"
-										: "You Replied"}
-								</Typography>
-								<StyledReplyBox chat={chat} user={user}>
-									<Grid
-										container
-										justifyContent={
-											chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
-										}
-									>
-										<Grid item xs={3}>
-											<VideoType mediaItem={chat.replyRef} />
-										</Grid>
-									</Grid>
-								</StyledReplyBox>
-								<TextChat chat={chat} />
-							</Box>
-						);
-					case "voice":
-						return (
-							<Box
-								sx={{
-									width: "100%",
-									gap: "0.4rem",
-									display: "flex",
-									justifyContent:
-										chat.sender?._id !== user?._id ? "flex-start" : "flex-end",
-									flexDirection: "column",
-									alignItems: chat.sender?._id !== user?._id ? "start" : "end",
-								}}
-							>
-								<Typography
-									sx={{ padding: "0rem 0.7rem", userSelect: "none" }}
-									variant="caption"
-								>
-									{chat.sender?._id !== user?._id
-										? "Replied to You"
-										: "You Replied"}
-								</Typography>
-								<StyledReplyBox chat={chat} user={user}>
-									<Grid
-										container
-										justifyContent={
-											chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
-										}
-									>
-										<Grid item xs={12} md={12}>
-											<AudioType chat={chat?.replyRef} disabled={true} />
-										</Grid>
-									</Grid>
-								</StyledReplyBox>
-								<TextChat chat={chat} />
-							</Box>
-						);
+					case messageContentTypes.MEDIA:
+						return <MediaChats chat={chat} user={user} />;
 				}
 			})()}
 		</>

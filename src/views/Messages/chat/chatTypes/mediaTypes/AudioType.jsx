@@ -99,7 +99,7 @@ function AudioType({ chat, mediaItem, disabled = false }) {
 
 	const handlePlayBackSpeed = () => {
 		const currentPlayBackSpeed = waveSurferRef.current?.getPlaybackRate();
-		if (currentPlayBackSpeed === 2) {
+		if (currentPlayBackSpeed === 1.4) {
 			setPlayBackSpeed((prev) => (prev = 1));
 			return waveSurferRef.current?.setPlaybackRate(1, false);
 		}

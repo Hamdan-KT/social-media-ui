@@ -56,12 +56,12 @@ function TextChat({
 	dragBoxStyle = {},
 	disableDrag = false,
 	options = true,
+	user = {}
 }) {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const [showOptions, setShowOptions] = useState(false);
 	const optionsRef = useRef();
-	const user = useSelector((state) => state?.user?.user);
 
 	// handling reply attachment
 	const handleUpdateReplyAttachment = () => {
@@ -139,7 +139,7 @@ function TextChat({
 							},
 						}}
 					>
-						<ChatOptions />
+						<ChatOptions chat={chat} user={user} />
 					</PopOver>
 				</StyledOptionsBox>
 			)}

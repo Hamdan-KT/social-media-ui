@@ -85,7 +85,7 @@ import {
 	LuSendHorizonal,
 } from "react-icons/lu";
 import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
-import { TbBoxMultiple, TbZoomIn } from "react-icons/tb";
+import { TbBoxMultiple, TbZoomIn, TbArrowBackUp } from "react-icons/tb";
 import { LiaPhotoVideoSolid } from "react-icons/lia";
 import {
 	BsBrightnessHigh,
@@ -103,6 +103,7 @@ import {
 import { HiDownload } from "react-icons/hi";
 import { FiShare, FiLock } from "react-icons/fi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -203,6 +204,7 @@ const ReactIcons = {
 	LuSendHorizonal,
 	IoArrowBackCircleOutline,
 	IoArrowForwardCircleOutline,
+	TbArrowBackUp
 };
 
 export default ReactIcons;

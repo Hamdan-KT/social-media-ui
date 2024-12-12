@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
 
-function TimeLine({ chat }) {
+function TimeLine({ chat, user }) {
 	return (
 		<Box
 			sx={{

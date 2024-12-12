@@ -51,13 +51,12 @@ const StyledOptionsBox = styled(Box)(({ theme, chat, user }) => ({
 	transform: "translateY(-50%)",
 }));
 
-function MediaChat({ chat, options = true }) {
+function MediaChat({ chat, options = true, user }) {
 	const theme = useTheme();
 	const [viewOpen, setViewOpen] = useState(false);
 	const [showOptions, setShowOptions] = useState(false);
 	const optionsRef = useRef();
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state?.user?.user);
 
 	// handling reply attachment
 	const handleUpdateReplyAttachment = () => {
@@ -176,7 +175,8 @@ function MediaChat({ chat, options = true }) {
 															mediaItem={mediaItem}
 															chat={chat}
 															onClick={() => openMedia(mediaItem)}
-															// sx={{ width: "80%" }}
+															controls
+															loop={false}
 														/>
 													);
 												case "reply":
@@ -220,7 +220,7 @@ function MediaChat({ chat, options = true }) {
 														},
 													}}
 												>
-													<ChatOptions />
+													<ChatOptions chat={chat} user={user} />
 												</PopOver>
 											</StyledOptionsBox>
 										)}

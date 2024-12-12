@@ -20,7 +20,7 @@ function PhotoType({ mediaItem, chat, onClick, sx = {} }) {
 					style={{
 						display: "block",
 						width: "100%",
-						objectFit: "cover",
+						objectFit: "contain",
 					}}
 					draggable="false"
 					src={mediaItem.url}

@@ -65,6 +65,7 @@ function FileSelect() {
 				);
 			})
 		);
+		formData.append("chatId", chatId ?? messageState?.selectedChat?._id);
 		await uploadMessagMedia.mutateAsync(formData).then((data) => {
 			socket.emit(
 				messageEvents.SEND_MESSAGE,

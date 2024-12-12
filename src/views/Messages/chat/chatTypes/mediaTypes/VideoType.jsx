@@ -12,20 +12,19 @@ const StyledBox = styled(Box)(({ theme, chat }) => ({
 	background: "black"
 }));
 
-function VideoType({ mediaItem, chat, onClick, sx = {} }) {
+function VideoType({ mediaItem, chat, onClick, sx = {}, ...rest }) {
 	return (
 		<>
 			<StyledBox chat={chat} onClick={onClick} sx={sx}>
 				<Video
-					controls
-					loop={false}
 					style={{
 						display: "block",
 						width: "100%",
-						objectFit: "cover",
+						objectFit: "contain",
 					}}
 					src={mediaItem.url}
 					draggable="false"
+					{...rest}
 				/>
 			</StyledBox>
 		</>

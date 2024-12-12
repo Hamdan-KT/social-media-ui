@@ -51,7 +51,7 @@ const SettingsMenu = memo(function () {
 			toast.success(data?.message);
 			dispatch(saveUser({}));
 			dispatch(setToken(null));
-			navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, { replace: true });
+			window.location.replace(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`);
 		},
 		onError: (error) => {
 			toast.error(error.message);

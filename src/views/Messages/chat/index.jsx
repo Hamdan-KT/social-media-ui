@@ -42,12 +42,12 @@ const StyledMessageStatus = styled(Box)(({ theme, chat, user }) => ({
 	gap: "0.2rem",
 }));
 
-const renderMessageType = (data) => {
-	switch (data?.contentType) {
+const GeneralMessageTypes = ({ chat, user }) => {
+	switch (chat?.contentType) {
 		case messageContentTypes.MEDIA:
-			return <MediaChat chat={data} />;
+			return <MediaChat chat={chat} user={user} />;
 		case messageContentTypes.TEXT:
-			return <TextChat chat={data} />;
+			return <TextChat chat={chat} user={user} />;
 	}
 };
 
@@ -80,11 +80,11 @@ const Chat = forwardRef(({ data, isLoading = false }, ref) => {
 					{(() => {
 						switch (item?.messageType) {
 							case messageTypes.GENERAL:
-								return renderMessageType(item);
+								return <GeneralMessageTypes chat={item} user={user} />;
 							case messageTypes.REPLY:
-								return <ReplyChat chat={item} />;
+								return <ReplyChat chat={item} user={user} />;
 							case "time":
-								return <TimeLine chat={item} />;
+								return <TimeLine chat={item} user={user} />;
 						}
 					})()}
 					<StyledMessageStatus>
