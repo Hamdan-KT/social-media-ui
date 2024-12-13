@@ -47,6 +47,11 @@ function FileSelect() {
 			replyRef: messageState?.attachment?.message ?? null,
 			content: "",
 			media: medias,
+			...(messageState?.attachment?.media && {
+				details: {
+					mediaId: messageState.attachment.media,
+				},
+			}),
 			sender: {
 				_id: user?._id,
 			},
@@ -94,6 +99,10 @@ function FileSelect() {
 
 	const handleFileSelect = (e) => {
 		const files = e.target.files;
+
+		if (files?.length === 0) {
+			return;
+		}
 
 		const selectedMedias = Object.keys(files).map((key) => {
 			const file = files[key];

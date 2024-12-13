@@ -5,9 +5,10 @@ const initialState = {
 	attachment: {
 		userId: null,
 		message: null,
+		media: null,
 	},
 	selectedChat: null,
-	chatMessages: []
+	chatMessages: [],
 };
 
 export const messageSlice = createSlice({
@@ -15,14 +16,17 @@ export const messageSlice = createSlice({
 	initialState,
 	reducers: {
 		updateAttachment: (state, action) => {
-			state.attachment = action.payload;
+			state.attachment = {
+				...action.payload,
+				media: action.payload?.media ?? null,
+			};
 		},
 		setSelectedChat: (state, action) => {
 			state.selectedChat = action.payload;
 		},
 		setChatMessages: (state, action) => {
-			state.chatMessages = action.payload
-		}
+			state.chatMessages = action.payload;
+		},
 	},
 });
 
