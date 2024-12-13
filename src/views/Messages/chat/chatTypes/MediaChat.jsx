@@ -59,11 +59,12 @@ function MediaChat({ chat, options = true, user }) {
 	const dispatch = useDispatch();
 
 	// handling reply attachment
-	const handleUpdateReplyAttachment = () => {
+	const handleUpdateReplyAttachment = (media) => {
 		dispatch(
 			updateAttachment({
 				userId: chat?.sender?._id,
-				message: chat,
+				message: { ...chat, media: [media] },
+				media,
 			})
 		);
 	};
@@ -148,7 +149,7 @@ function MediaChat({ chat, options = true, user }) {
 											justifyContent:
 												chat.sender?._id !== user?._id ? "start" : "end",
 										}}
-										onDragEnd={handleUpdateReplyAttachment}
+										onDragEnd={() => handleUpdateReplyAttachment(mediaItem)}
 										dragLockDir={
 											chat.sender?._id !== user?._id ? "left" : "right"
 										}
@@ -195,7 +196,7 @@ function MediaChat({ chat, options = true, user }) {
 												<ReactIcons.LuReply
 													style={{ cursor: "pointer" }}
 													size={18}
-													onClick={handleUpdateReplyAttachment}
+													onClick={() => handleUpdateReplyAttachment(mediaItem)}
 												/>
 												<PopOver
 													ref={optionsRef}

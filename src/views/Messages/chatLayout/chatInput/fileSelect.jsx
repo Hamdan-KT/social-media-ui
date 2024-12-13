@@ -49,13 +49,14 @@ function FileSelect() {
 			media: medias,
 			...(messageState?.attachment?.media && {
 				details: {
-					mediaId: messageState.attachment.media,
+					mediaId: messageState.attachment.media?._id,
 				},
 			}),
 			sender: {
 				_id: user?._id,
 			},
 		};
+		console.log({ newMessage });
 		let updatedMessages = [
 			...(messageState?.chatMessages ?? []),
 			{ ...newMessage, status: messageStatusTypes.SENDING },
@@ -74,7 +75,11 @@ function FileSelect() {
 		await uploadMessagMedia.mutateAsync(formData).then((data) => {
 			socket.emit(
 				messageEvents.SEND_MESSAGE,
-				{ ...newMessage, media: data?.data },
+				{
+					...newMessage,
+					replyRef: newMessage?.replyRef?._id,
+					media: data?.data,
+				},
 				(response) => {
 					console.log({ response });
 					dispatch(
