@@ -4,6 +4,7 @@ import List from "@mui/material/List";
 import { useTheme } from "@mui/material/styles";
 import MessageListItem from "./MessageListItem";
 import MessageListSkeleton from "./skelton";
+import { AnimatePresence, motion, useIsPresent } from "framer-motion";
 
 const MessageList = React.forwardRef(
 	(

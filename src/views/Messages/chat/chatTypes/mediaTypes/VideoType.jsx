@@ -1,4 +1,4 @@
-import Video from "components/common/Video";
+import Video from "src/components/common/Video";
 import { Box, styled } from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme, chat }) => ({

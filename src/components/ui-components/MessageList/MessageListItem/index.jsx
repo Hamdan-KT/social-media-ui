@@ -29,7 +29,7 @@ const RenderSecondayText = ({ chat }) => {
 					&#183;{" "}
 				</Typography>
 				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
-					{chat?.lastMessage?.createdAt}
+					{chat?.lastMessage?.formattedCreatedAt}
 				</Typography>
 			</Typography>
 		);
@@ -45,7 +45,7 @@ const RenderSecondayText = ({ chat }) => {
 					&#183;{" "}
 				</Typography>
 				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
-					{chat?.lastMessage?.createdAt}
+					{chat?.lastMessage?.formattedCreatedAt}
 				</Typography>
 			</Typography>
 		);

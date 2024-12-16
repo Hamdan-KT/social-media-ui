@@ -42,7 +42,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	},
 	top: 0,
 	left: 0,
-	zIndex: 7,
+	zIndex: 10,
 }));
 
 function ChatHeader() {

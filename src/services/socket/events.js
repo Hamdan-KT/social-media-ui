@@ -7,4 +7,7 @@ export const messageEvents = {
 	RECEIVE_LASTMESSAGE: "message:receive_last_message",
 	DELETE_MESSAGE: "message:delete_message",
 	MESSAGE_DELETED: "message:message_deleted",
+	CHATLIST_UPDATED: "message:chatlist_updated",
+	CHAT_READ: "message:chat_read",
+	CHAT_READED: "message:chat_readed",
 };

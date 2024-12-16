@@ -8,6 +8,7 @@ const initialState = {
 		media: null,
 	},
 	selectedChat: null,
+	primaryChatList: [],
 	chatMessages: [],
 };
 
@@ -27,11 +28,18 @@ export const messageSlice = createSlice({
 		setChatMessages: (state, action) => {
 			state.chatMessages = action.payload;
 		},
+		setPrimaryChatList: (state, action) => {
+			state.primaryChatList = action.payload;
+		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { updateAttachment, setSelectedChat, setChatMessages } =
-	messageSlice.actions;
+export const {
+	updateAttachment,
+	setSelectedChat,
+	setChatMessages,
+	setPrimaryChatList,
+} = messageSlice.actions;
 
 export default messageSlice.reducer;

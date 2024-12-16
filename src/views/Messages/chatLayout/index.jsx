@@ -32,8 +32,7 @@ function ChatLayout() {
 		if (bottomDivRef.current) {
 			bottomDivRef.current.scrollIntoView();
 		}
-	}, []);
-	// }, [messageState, isTyping]);
+	}, [messageState, isTyping]);
 
 	const {
 		fetchNextPage,
@@ -76,6 +75,9 @@ function ChatLayout() {
 		// Listen for incoming messages
 		socket?.on(messageEvents.RECEIVE, (newMessage) => {
 			console.log({ newMessage });
+			socket?.emit(messageEvents.CHAT_READ, {
+				chatId: messageState?.selectedChat?._id,
+			});
 			if (newMessage.chat === messageState?.selectedChat?._id) {
 				dispatch(
 					setChatMessages([...(messageState?.chatMessages ?? []), newMessage])
@@ -123,6 +125,17 @@ function ChatLayout() {
 			socket?.off(messageEvents.USER_TYPING);
 		};
 	}, [outSide, messageState?.selectedChat?._id, socket]);
+
+	//handle read functionality
+	useEffect(() => {
+		// Listen for updated chat
+		socket?.emit(messageEvents.CHAT_READ, {
+			chatId: messageState?.selectedChat?._id,
+		});
+		return () => {
+			socket?.off(messageEvents.CHAT_READ);
+		};
+	}, [socket, messageState?.selectedChat?._id]);
 
 	return (
 		<motion.div style={{ width: "100%" }}>

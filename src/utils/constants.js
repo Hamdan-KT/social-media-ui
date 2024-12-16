@@ -5,7 +5,7 @@ export const defaultSpacing = 2;
 
 export const messageSections = {
 	PRIMARY: "Primary",
-	GENERAL: "General",
+	GROUPS: "Groups",
 	REQUESTS: "Requests",
 };
 
