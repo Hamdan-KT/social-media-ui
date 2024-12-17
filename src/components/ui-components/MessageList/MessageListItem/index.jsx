@@ -15,9 +15,34 @@ import { forwardRef } from "react";
 import { useSelector } from "react-redux";
 import { messageEvents } from "src/services/socket/events";
 import { messageContentTypes } from "src/utils/constants";
+import _ from "lodash";
+import relativeTime from "dayjs/plugin/relativeTime.js";
+import dayjs from "dayjs";
+dayjs.extend(relativeTime);
 
 const RenderSecondayText = ({ chat }) => {
 	const user = useSelector((state) => state?.user?.user);
+	const lastMessage = chat?.lastMessage;
+	const isLastMessageNotEmpty = !_.isEmpty(lastMessage);
+	const isSenderNotUser = lastMessage?.sender !== user?._id;
+	const isMediaType = lastMessage?.contentType === messageContentTypes.MEDIA;
+
+	let message = "start conversation";
+
+	if (isLastMessageNotEmpty) {
+		if (
+			!isSenderNotUser &&
+			!chat?.isGroupChat &&
+			chat?.lastMessage?.readBy?.length > 0
+		) {
+			message = "seen";
+		} else if (isSenderNotUser) {
+			message = isMediaType ? "sent you attachment" : `${lastMessage?.content}`;
+		} else {
+			message = "sent";
+		}
+	}
+
 	if (chat?.unreadMessagesCount > 0) {
 		return (
 			<Typography>
@@ -37,15 +62,15 @@ const RenderSecondayText = ({ chat }) => {
 		return (
 			<Typography>
 				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
-					{chat?.lastMessage?.sender !== user?._id
-						? chat?.lastMessage?.contentType === messageContentTypes.MEDIA
-							? "sent you attachment "
-							: `${chat?.lastMessage?.content} `
-						: "sent "}
+					{`${message} `}
 					&#183;{" "}
 				</Typography>
 				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
-					{chat?.lastMessage?.formattedCreatedAt}
+					{!isSenderNotUser &&
+					!chat?.isGroupChat &&
+					chat?.lastMessage?.readBy?.length > 0
+						? dayjs(chat?.lastMessage?.readBy[0]?.readAt).fromNow()
+						: chat?.lastMessage?.formattedCreatedAt}
 				</Typography>
 			</Typography>
 		);
