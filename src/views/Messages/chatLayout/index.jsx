@@ -74,9 +74,9 @@ function ChatLayout() {
 	useEffect(() => {
 		// Listen for incoming messages
 		socket?.on(messageEvents.RECEIVE, (newMessage) => {
-			console.log({ newMessage });
 			socket?.emit(messageEvents.CHAT_READ, {
 				chatId: messageState?.selectedChat?._id,
+				receiverId: messageState?.selectedChat?.receiver?._id,
 			});
 			if (newMessage.chat === messageState?.selectedChat?._id) {
 				dispatch(
@@ -99,6 +99,7 @@ function ChatLayout() {
 		socket,
 		messageState?.selectedChat?._id,
 		messageState?.chatMessages,
+		messageState?.selectedChat?.receiver?._id,
 		dispatch,
 	]);
 
@@ -131,11 +132,16 @@ function ChatLayout() {
 		// Listen for updated chat
 		socket?.emit(messageEvents.CHAT_READ, {
 			chatId: messageState?.selectedChat?._id,
+			receiverId: messageState?.selectedChat?.receiver?._id,
 		});
 		return () => {
 			socket?.off(messageEvents.CHAT_READ);
 		};
-	}, [socket, messageState?.selectedChat?._id]);
+	}, [
+		socket,
+		messageState?.selectedChat?._id,
+		messageState?.selectedChat?.receiver?._id,
+	]);
 
 	return (
 		<motion.div style={{ width: "100%" }}>
