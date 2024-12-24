@@ -1,11 +1,14 @@
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { IconButton, Typography, useTheme } from "@mui/material";
+import { IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import NewMessageWindow from "src/components/ui-components/Popups/NewMessage";
+import { RoutePath } from "src/utils/routes";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	display: "flex",
@@ -33,27 +36,37 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 }));
 
 function MessageHeader() {
-  const theme = useTheme();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user?.user)
+	const theme = useTheme();
+	const navigate = useNavigate();
+	const user = useSelector((state) => state.user?.user);
+	const [openNewMessage, setOpenNewMessage] = useState(false);
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
-  return (
-    <StyledToolBar disableGutters>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <IconButton size="large" color="inherit" onClick={() => navigate(-1)}>
-          <ArrowBackIosNewIcon />
-        </IconButton>
-        <Typography variant="h4">{user?.userName}</Typography>
-      </Box>
-      <IconButton
-        size="large"
-        color="inherit"
-        onClick={() => console.log("more buttom clicked")}
-      >
-        <DriveFileRenameOutlineOutlinedIcon />
-      </IconButton>
-    </StyledToolBar>
-  );
+	return (
+		<StyledToolBar disableGutters>
+			<Box sx={{ display: "flex", alignItems: "center" }}>
+				<IconButton size="large" color="inherit" onClick={() => navigate(-1)}>
+					<ArrowBackIosNewIcon />
+				</IconButton>
+				<Typography variant="h4">{user?.userName}</Typography>
+			</Box>
+			<IconButton
+				size="medium"
+				color="inherit"
+				onClick={() => {
+					!matchDownSm ? setOpenNewMessage(true) : navigate(`/${RoutePath.NEW_MESSAGE}`);
+				}}
+			>
+				<DriveFileRenameOutlineOutlinedIcon />
+			</IconButton>
+			{!matchDownSm && (
+				<NewMessageWindow
+					open={openNewMessage}
+					onClose={() => setOpenNewMessage(false)}
+				/>
+			)}
+		</StyledToolBar>
+	);
 }
 
 export default MessageHeader;

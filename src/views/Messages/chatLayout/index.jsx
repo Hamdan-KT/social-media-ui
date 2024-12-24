@@ -21,16 +21,23 @@ function ChatLayout() {
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const messageState = useSelector((state) => state.message);
 	const socket = useSelector((state) => state?.socket?.socket);
-	const bottomDivRef = useRef();
+	// const bottomDivRef = useRef();
+	const containerRef = useRef(null);
 	const dispatch = useDispatch();
 	const inputRef = useRef();
 	const { outSide } = useOutSlideClick(inputRef);
 	const { ref, inView } = useInView();
 	const [isTyping, setIsTyping] = useState(false);
 
+	// useEffect(() => {
+	// 	if (bottomDivRef.current) {
+	// 		bottomDivRef.current.scrollIntoView();
+	// 	}
+	// }, [messageState, isTyping]);
+
 	useEffect(() => {
-		if (bottomDivRef.current) {
-			bottomDivRef.current.scrollIntoView();
+		if (containerRef.current) {
+			containerRef.current.scrollTop = containerRef.current.scrollHeight;
 		}
 	}, [messageState, isTyping]);
 
@@ -161,6 +168,7 @@ function ChatLayout() {
 				</Grid>
 				<Grid item xs={12}>
 					<Box
+						ref={containerRef}
 						sx={{
 							overflowX: "hidden",
 							mt: { xs: 6, sm: 7, md: 7 },
@@ -212,7 +220,7 @@ function ChatLayout() {
 								width: 0,
 								boxSizing: "border-box",
 							}}
-							ref={bottomDivRef}
+							// ref={bottomDivRef}
 						></Box>
 					</Box>
 				</Grid>

@@ -66,7 +66,7 @@ function MessageAndReplySettings() {
 								>
 									Show activity status
 								</Typography>
-								<MUISwitch />
+								<MUISwitch size={35} />
 							</CommonBox>
 							<Typography variant="caption">
 								Allow accounts you follow and anyone you message to see when you

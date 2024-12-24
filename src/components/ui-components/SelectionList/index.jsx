@@ -14,6 +14,7 @@ const SelectionList = React.forwardRef(
 			setSelection,
 			dataTag = "_id",
 			onChange = () => {},
+			secondaryText,
 		},
 		ref
 	) => {
@@ -48,6 +49,7 @@ const SelectionList = React.forwardRef(
 								dataTag={dataTag}
 								index={userIndex}
 								onChange={onChange}
+								secondaryText={secondaryText}
 							/>
 						))}
 					</React.Fragment>

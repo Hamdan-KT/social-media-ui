@@ -55,7 +55,7 @@ function LikeAndShareCountSettings() {
 								>
 									Hide like & share counts
 								</Typography>
-								<MUISwitch />
+								<MUISwitch size={35} />
 							</CommonBox>
 							<Typography variant="caption">
 								On Instogram, the number of likes on posts and reels from other

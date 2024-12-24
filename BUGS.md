@@ -29,5 +29,3 @@
 # audio type its getting playing even after completion of actual audio when changing play back speed
 
 # show only chats if there is atleast one message exist
-
-# chatlayout scroll effecting entire body.. issue

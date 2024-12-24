@@ -55,7 +55,8 @@ function MsgUserSearchList({ value = "", setValue = () => {} }) {
 
 	const initialChat = useMutation({
 		mutationKey: ["initial-chat"],
-		mutationFn: (info) => inintializeChat(info?._id),
+		mutationFn: (info) =>
+			inintializeChat({ participants: [info?._id], isGroupChat: false }),
 		onSuccess: (data) => {
 			console.log(data);
 			setValue("");

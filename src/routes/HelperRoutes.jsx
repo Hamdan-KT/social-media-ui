@@ -3,6 +3,10 @@ import Loadable from "components/common/Loadable";
 import { RoutePath } from "src/utils/routes";
 import MinimalLayout from "../layouts/MinimalLayout";
 import AuthProvider from "src/components/auth/AuthProvider";
+//
+import MessageInfoView from "src/views/MessageInfo/View";
+import MessagePrivacyAndSafety from "src/views/MessageInfo/PrivacyAndSafety";
+import MessageInfoPeoples from "src/views/MessageInfo/Peoples";
 // testroute
 
 // MAIN ROUTES
@@ -12,6 +16,8 @@ const EditPostMobile = Loadable(
 	lazy(() => import("views/CreatePost/FilterAdjustment"))
 );
 const SharePostMobile = Loadable(lazy(() => import("views/CreatePost/Share")));
+const NewMessage = Loadable(lazy(() => import("views/NewMessage")));
+const MessageInfo = Loadable(lazy(() => import("views/MessageInfo")));
 const PostTaggingMobile = Loadable(
 	lazy(() => import("views/CreatePost/Tagging"))
 );
@@ -50,21 +56,25 @@ const HelperRoutes = () => {
 					},
 				],
 			},
-			// // auth routes
-			// {
-			// 	path: RoutePath.AUTH,
-			// 	element: <AuthLayout />,
-			// 	children: [
-			// 		{
-			// 			path: RoutePath.LOGIN,
-			// 			element: <Login />,
-			// 		},
-			// 		{
-			// 			path: RoutePath.REGISTER,
-			// 			element: <Register />,
-			// 		},
-			// 	],
-			// },
+			{ path: RoutePath.NEW_MESSAGE, element: <NewMessage /> },
+			{
+				path: `${RoutePath.MESSAGE_INFO}`,
+				element: <MessageInfo />,
+				children: [
+					{
+						path: `/${RoutePath.MESSAGE_INFO_VIEW}/:chatId`,
+						element: <MessageInfoView />,
+					},
+					{
+						path: `/${RoutePath.MESSAGE_INFO_PEOPLES}/:chatId`,
+						element: <MessageInfoPeoples />,
+					},
+					{
+						path: `/${RoutePath.MESSAGE_INFO_PRIVACY_SAFETY}/:chatId`,
+						element: <MessagePrivacyAndSafety />,
+					},
+				],
+			},
 		],
 	};
 };

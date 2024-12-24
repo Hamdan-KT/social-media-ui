@@ -80,7 +80,7 @@ const SelectionListItem = forwardRef(
 						}}
 						primary={primaryText}
 						secondary={
-							secondaryText ??
+							data[secondaryText] ?? secondaryText ??
 							"followed by you and 40+ more.. followed by you and 40+ more.."
 						}
 					/>
