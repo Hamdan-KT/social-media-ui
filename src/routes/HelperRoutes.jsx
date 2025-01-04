@@ -3,11 +3,6 @@ import Loadable from "components/common/Loadable";
 import { RoutePath } from "src/utils/routes";
 import MinimalLayout from "../layouts/MinimalLayout";
 import AuthProvider from "src/components/auth/AuthProvider";
-//
-import MessageInfoView from "src/views/MessageInfo/View";
-import MessagePrivacyAndSafety from "src/views/MessageInfo/PrivacyAndSafety";
-import MessageInfoPeoples from "src/views/MessageInfo/Peoples";
-// testroute
 
 // MAIN ROUTES
 const Story = Loadable(lazy(() => import("views/Stories")));
@@ -21,6 +16,11 @@ const MessageInfo = Loadable(lazy(() => import("views/MessageInfo")));
 const PostTaggingMobile = Loadable(
 	lazy(() => import("views/CreatePost/Tagging"))
 );
+const MessageInfoView = Loadable(lazy(() => import("views/MessageInfo/View")));
+const MessagePrivacyAndSafety = Loadable(lazy(() => import("views/MessageInfo/PrivacyAndSafety")));
+const MessageInfoPeoples = Loadable(lazy(() => import("views/MessageInfo/Peoples")));
+const Call = Loadable(lazy(() => import("views/Call")));
+
 
 const HelperRoutes = () => {
 	return {
@@ -74,6 +74,10 @@ const HelperRoutes = () => {
 						element: <MessagePrivacyAndSafety />,
 					},
 				],
+			},
+			{
+				path: `${RoutePath.CALL}`,
+				element: <Call />,
 			},
 		],
 	};

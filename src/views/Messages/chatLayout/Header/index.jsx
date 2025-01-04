@@ -45,7 +45,7 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	zIndex: 10,
 }));
 
-function ChatHeader() {
+function ChatHeader({ msgInfoOpen = false, setMsgInfoOpen = () => {} }) {
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -121,17 +121,31 @@ function ChatHeader() {
 			</Box>
 			{selectedChat && (
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					<IconButton size="medium" color="inherit">
+					<IconButton
+						size="medium"
+						color="inherit"
+						onClick={() =>
+							navigate(`/${RoutePath.CALL}`)
+						}
+					>
 						<ReactIcons.IoCallOutline />
 					</IconButton>
-					<IconButton size="medium" color="inherit">
+					<IconButton
+						size="medium"
+						color="inherit"
+						onClick={() =>
+							navigate(`/${RoutePath.CALL}`)
+						}
+					>
 						<ReactIcons.IoVideocamOutline />
 					</IconButton>
 					<IconButton
 						size="medium"
 						color="inherit"
 						onClick={() =>
-							navigate(`/${RoutePath.MESSAGE_INFO_VIEW}/${chatId}`)
+							!matchDownMd
+								? setMsgInfoOpen(!msgInfoOpen)
+								: navigate(`/${RoutePath.MESSAGE_INFO_VIEW}/${chatId}`)
 						}
 					>
 						<ReactIcons.IoInformationCircleOutline />

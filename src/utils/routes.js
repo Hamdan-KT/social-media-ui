@@ -36,4 +36,5 @@ export const RoutePath = {
 	SETTINGS_MESSAGES_AND_STORY_REPLY: "account/messages_and_story_replies",
 	SETTINGS_COMMENTS: "account/comments",
 	SETTINGS_LIKE_AND_SHARE_COUNT: "account/like_count",
+	CALL: "call",
 };

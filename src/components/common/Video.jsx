@@ -1,7 +1,8 @@
 import React from "react";
+import { forwardRef } from "react";
 
-function Video({ ...props }) {
-	return <video loading="lazy" draggable={false} {...props} />;
-}
+const Video = forwardRef(function Video({ ...props }, ref) {
+	return <video ref={ref} loading="lazy" draggable={false} {...props} />;
+});
 
 export default Video;

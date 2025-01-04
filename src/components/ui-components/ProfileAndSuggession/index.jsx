@@ -149,7 +149,7 @@ function Suggessions() {
 				</StyledProfile>
 			</Grid>
 			<Grid item md={12} lg={12}>
-				<Typography mb={1} ml={1}>
+				<Typography variant="userName" sx={{ mb: 1 }}>
 					Suggested For You
 				</Typography>
 				<StyledPaper elevation={2}>
@@ -166,7 +166,13 @@ function Suggessions() {
 						}}
 						className="scrollbar-hide"
 					>
-						<UserList sx={{maxWidth: "100%"}} data={data} ref={ref} buttonState="following" actionButton={true} />
+						<UserList
+							sx={{ maxWidth: "100%" }}
+							data={data}
+							ref={ref}
+							buttonState="following"
+							actionButton={true}
+						/>
 						{isFetchingNextPage && (
 							<Box
 								sx={{

@@ -4,7 +4,7 @@ import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import ChatInput from "./chatInput/Index";
 import { motion } from "framer-motion";
 import { chatData } from "src/data";
-import Chat from "../chat";
+import Chat from "../Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
@@ -15,6 +15,7 @@ import { setChatMessages } from "src/app/slices/messageSlice/messageSlice";
 import DragBox from "src/components/common/DragBox";
 import useOutSlideClick from "src/hooks/useOutSlideClick";
 import TypingIndicator from "src/components/common/TypingIndicator";
+import MessageInfoLarge from "../MessageInfo";
 
 function ChatLayout() {
 	const theme = useTheme();
@@ -28,12 +29,7 @@ function ChatLayout() {
 	const { outSide } = useOutSlideClick(inputRef);
 	const { ref, inView } = useInView();
 	const [isTyping, setIsTyping] = useState(false);
-
-	// useEffect(() => {
-	// 	if (bottomDivRef.current) {
-	// 		bottomDivRef.current.scrollIntoView();
-	// 	}
-	// }, [messageState, isTyping]);
+	const [msgInfoOpen, setMsgInfoOpen] = useState(false);
 
 	useEffect(() => {
 		if (containerRef.current) {
@@ -153,81 +149,98 @@ function ChatLayout() {
 	return (
 		<motion.div style={{ width: "100%" }}>
 			<Grid container>
-				{matchDownMd && <ChatHeader />}
-				<Grid item xs={12}>
-					<Box
-						sx={{
-							width: "100%",
-							position: "relative",
-							padding: 0,
-						}}
-					>
-						{/* message header */}
-						{!matchDownMd && <ChatHeader />}
-					</Box>
-				</Grid>
-				<Grid item xs={12}>
-					<Box
-						ref={containerRef}
-						sx={{
-							overflowX: "hidden",
-							mt: { xs: 6, sm: 7, md: 7 },
-							height: {
-								md: messageState?.attachment?.message?._id
-									? `calc(100vh - 26.2vh)`
-									: `calc(100vh - 20vh)`,
-							},
-							maxHeight: {
-								xs: `100%`,
-								md: messageState?.attachment?.message?._id
-									? `calc(100vh - 26.2.2vh)`
-									: `calc(100vh - 20vh)`,
-							},
-							overflowY: { md: "scroll" },
-							p: { xs: 0.5, sm: 1 },
-							mb: {
-								xs: messageState?.attachment?.message?._id ? 8 : 0.7,
-								sm: messageState?.attachment?.message?._id ? 13.5 : 7,
-								md: 0,
-							},
-							width: "100%",
-						}}
-					>
-						{isFetchingNextPage && (
-							<Box
-								sx={{
-									width: "100%",
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
-								}}
-							>
-								<DefaultLoader />
-							</Box>
-						)}
-						{/* chats will render heare */}
-						<Chat
-							data={messageState?.chatMessages}
-							ref={ref}
-							isLoading={isLoading}
+				<Grid item xs={msgInfoOpen && !matchDownMd ? 7.5 : 12}>
+					{matchDownMd && (
+						<ChatHeader
+							msgInfoOpen={msgInfoOpen}
+							setMsgInfoOpen={setMsgInfoOpen}
 						/>
-						{isTyping && <TypingIndicator isVisible={isTyping} />}
+					)}
+					<Grid item xs={12}>
 						<Box
 							sx={{
-								height: 0,
-								margin: 0,
+								width: "100%",
+								position: "relative",
 								padding: 0,
-								width: 0,
-								boxSizing: "border-box",
 							}}
-							// ref={bottomDivRef}
-						></Box>
-					</Box>
+						>
+							{/* message header */}
+							{!matchDownMd && (
+								<ChatHeader
+									msgInfoOpen={msgInfoOpen}
+									setMsgInfoOpen={setMsgInfoOpen}
+								/>
+							)}
+						</Box>
+					</Grid>
+					<Grid item xs={12}>
+						<Box
+							ref={containerRef}
+							sx={{
+								overflowX: "hidden",
+								mt: { xs: 6, sm: 7, md: 7 },
+								height: {
+									md: messageState?.attachment?.message?._id
+										? `calc(100vh - 26.2vh)`
+										: `calc(100vh - 20vh)`,
+								},
+								maxHeight: {
+									xs: `100%`,
+									md: messageState?.attachment?.message?._id
+										? `calc(100vh - 26.2.2vh)`
+										: `calc(100vh - 20vh)`,
+								},
+								overflowY: { md: "scroll" },
+								p: { xs: 0.5, sm: 1 },
+								mb: {
+									xs: messageState?.attachment?.message?._id ? 8 : 0.7,
+									sm: messageState?.attachment?.message?._id ? 13.5 : 7,
+									md: 0,
+								},
+								width: "100%",
+							}}
+						>
+							{isFetchingNextPage && (
+								<Box
+									sx={{
+										width: "100%",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									<DefaultLoader />
+								</Box>
+							)}
+							{/* chats will render heare */}
+							<Chat
+								data={messageState?.chatMessages}
+								ref={ref}
+								isLoading={isLoading}
+							/>
+							{isTyping && <TypingIndicator isVisible={isTyping} />}
+							<Box
+								sx={{
+									height: 0,
+									margin: 0,
+									padding: 0,
+									width: 0,
+									boxSizing: "border-box",
+								}}
+								// ref={bottomDivRef}
+							></Box>
+						</Box>
+					</Grid>
+					<Grid item xs={12}>
+						{!matchDownMd && <ChatInput ref={inputRef} />}
+					</Grid>
+					{matchDownMd && <ChatInput ref={inputRef} />}
 				</Grid>
-				<Grid item xs={12}>
-					{!matchDownMd && <ChatInput ref={inputRef} />}
-				</Grid>
-				{matchDownMd && <ChatInput ref={inputRef} />}
+				{msgInfoOpen && !matchDownMd && (
+					<Grid item xs={4.5}>
+						<MessageInfoLarge open={msgInfoOpen} setOpen={setMsgInfoOpen} />
+					</Grid>
+				)}
 			</Grid>
 		</motion.div>
 	);
