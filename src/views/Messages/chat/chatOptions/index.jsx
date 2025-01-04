@@ -32,12 +32,17 @@ function ChatOptions({ chat, user }) {
 	const theme = useTheme();
 	const socket = useSelector((state) => state?.socket?.socket);
 	const chatMessages = useSelector((state) => state.message?.chatMessages);
+	const selectedChat = useSelector((state) => state.message?.selectedChat);
 	const dispatch = useDispatch();
 
 	const unsendChat = (unsend = true) => {
 		socket.emit(
 			messageEvents.DELETE_MESSAGE,
-			{ messageId: chat?._id, unsend },
+			{
+				messageId: chat?._id,
+				receiverId: selectedChat?.receiver?._id,
+				unsend,
+			},
 			(response) => {
 				console.log({ response });
 				if (response?.status === true) {

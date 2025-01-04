@@ -55,7 +55,7 @@ function AccountPrivacy() {
 								>
 									Privat account
 								</Typography>
-								<MUISwitch />
+								<MUISwitch size={35} />
 							</CommonBox>
 							<Typography variant="caption">
 								When your account is public, your profile and posts can be seen

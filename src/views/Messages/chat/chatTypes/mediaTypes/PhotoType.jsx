@@ -1,4 +1,4 @@
-import Image from "components/common/Image";
+import Image from "src/components/common/Image";
 import { Box, styled } from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme, chat }) => ({

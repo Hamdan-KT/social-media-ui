@@ -10,7 +10,6 @@ import {
 	useTheme,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
-import { defaultUser } from "../../../../data";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ReactIcons from "utils/ReactIcons";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +17,7 @@ import { useEffect } from "react";
 import { getCurrentChat } from "src/api/messageAPI";
 import { useQuery } from "@tanstack/react-query";
 import { setSelectedChat } from "src/app/slices/messageSlice/messageSlice";
+import { RoutePath } from "src/utils/routes";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	display: "flex",
@@ -42,10 +42,10 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	},
 	top: 0,
 	left: 0,
-	zIndex: 7,
+	zIndex: 10,
 }));
 
-function ChatHeader() {
+function ChatHeader({ msgInfoOpen = false, setMsgInfoOpen = () => {} }) {
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -62,9 +62,8 @@ function ChatHeader() {
 	useEffect(() => {
 		if (isSuccess) {
 			dispatch(setSelectedChat(data?.data));
-			console.log({ profile: data });
 		}
-	}, [isSuccess, data, dispatch]);
+	}, [isSuccess, data]);
 
 	return (
 		<StyledToolBar disableGutters>
@@ -82,6 +81,8 @@ function ChatHeader() {
 							selectedChat?.isGroupChat
 								? selectedChat?.groupName
 								: selectedChat?.receiver?.userName
+								? selectedChat?.receiver?.userName
+								: "Instogram user"
 						}
 						src={
 							selectedChat?.isGroupChat
@@ -109,7 +110,9 @@ function ChatHeader() {
 							<Typography variant="h5" sx={{ fontWeight: "bold" }}>
 								{selectedChat?.isGroupChat
 									? selectedChat?.groupName
-									: selectedChat?.receiver?.userName}
+									: selectedChat?.receiver?.userName
+									? selectedChat?.receiver?.userName
+									: "Instogram user"}
 							</Typography>
 							<Typography variant="greyTagsXs">Active 18 ago</Typography>
 						</>
@@ -118,13 +121,33 @@ function ChatHeader() {
 			</Box>
 			{selectedChat && (
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					<IconButton size="medium" color="inherit">
+					<IconButton
+						size="medium"
+						color="inherit"
+						onClick={() =>
+							navigate(`/${RoutePath.CALL}`)
+						}
+					>
 						<ReactIcons.IoCallOutline />
 					</IconButton>
-					<IconButton size="medium" color="inherit">
+					<IconButton
+						size="medium"
+						color="inherit"
+						onClick={() =>
+							navigate(`/${RoutePath.CALL}`)
+						}
+					>
 						<ReactIcons.IoVideocamOutline />
 					</IconButton>
-					<IconButton size="medium" color="inherit">
+					<IconButton
+						size="medium"
+						color="inherit"
+						onClick={() =>
+							!matchDownMd
+								? setMsgInfoOpen(!msgInfoOpen)
+								: navigate(`/${RoutePath.MESSAGE_INFO_VIEW}/${chatId}`)
+						}
+					>
 						<ReactIcons.IoInformationCircleOutline />
 					</IconButton>
 				</Box>

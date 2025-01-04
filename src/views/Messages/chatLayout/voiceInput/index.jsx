@@ -217,6 +217,11 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 			replyRef: messageState?.attachment?.message ?? null,
 			content: "",
 			media: medias,
+			...(messageState?.attachment?.media && {
+				details: {
+					mediaId: messageState.attachment.media?._id,
+				},
+			}),
 			sender: {
 				_id: user?._id,
 			},
@@ -239,7 +244,11 @@ const VoiceInput = forwardRef(function ({ setRecording }, ref) {
 		await uploadMessagMedia.mutateAsync(formData).then((data) => {
 			socket.emit(
 				messageEvents.SEND_MESSAGE,
-				{ ...newMessage, media: data?.data },
+				{
+					...newMessage,
+					replyRef: newMessage?.replyRef?._id,
+					media: data?.data,
+				},
 				(response) => {
 					console.log({ response });
 					dispatch(

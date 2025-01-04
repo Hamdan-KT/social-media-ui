@@ -17,6 +17,8 @@ import {
 	IoPerson,
 	IoArrowBackCircleOutline,
 	IoArrowForwardCircleOutline,
+	IoVideocam,
+	IoVideocamOff,
 } from "react-icons/io5";
 import {
 	MdOutlineExplore,
@@ -41,8 +43,9 @@ import {
 	MdVisibilityOff,
 	MdLock,
 	MdEdit,
+	MdCallEnd,
 } from "react-icons/md";
-import { BiMoviePlay, BiSolidMoviePlay } from "react-icons/bi";
+import { BiMoviePlay, BiSolidMoviePlay, BiBrush } from "react-icons/bi";
 import {
 	RiAddBoxLine,
 	RiAddBoxFill,
@@ -69,6 +72,9 @@ import {
 	IoIosSquare,
 	IoIosSettings,
 	IoMdLogOut,
+	IoMdExpand,
+	IoMdMic,
+	IoMdMicOff,
 } from "react-icons/io";
 import {
 	LuSend,
@@ -83,14 +89,22 @@ import {
 	LuSmile,
 	LuHeartOff,
 	LuSendHorizonal,
+	LuScreenShare,
 } from "react-icons/lu";
 import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
-import { TbBoxMultiple, TbZoomIn, TbArrowBackUp } from "react-icons/tb";
+import {
+	TbBoxMultiple,
+	TbZoomIn,
+	TbArrowBackUp,
+	TbMessageReport,
+} from "react-icons/tb";
 import { LiaPhotoVideoSolid } from "react-icons/lia";
 import {
 	BsBrightnessHigh,
 	BsThermometerHalf,
 	BsVignette,
+	BsPeople,
+	BsPersonAdd,
 } from "react-icons/bs";
 import { SiTicktick } from "react-icons/si";
 import { GrAttachment } from "react-icons/gr";
@@ -204,7 +218,18 @@ const ReactIcons = {
 	LuSendHorizonal,
 	IoArrowBackCircleOutline,
 	IoArrowForwardCircleOutline,
-	TbArrowBackUp
+	TbArrowBackUp,
+	BiBrush,
+	BsPeople,
+	BsPersonAdd,
+	TbMessageReport,
+	IoMdExpand,
+	LuScreenShare,
+	IoVideocam,
+	IoVideocamOff,
+	IoMdMic,
+	IoMdMicOff,
+	MdCallEnd,
 };
 
 export default ReactIcons;

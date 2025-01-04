@@ -122,6 +122,11 @@ const ChatInput = forwardRef((props, ref) => {
 			replyRef: messageState?.attachment?.message ?? null,
 			content: value,
 			media: [],
+			...(messageState?.attachment?.media && {
+				details: {
+					mediaId: messageState.attachment.media?._id,
+				},
+			}),
 			sender: {
 				_id: user?._id,
 			},
@@ -133,21 +138,25 @@ const ChatInput = forwardRef((props, ref) => {
 			{ ...newMessage, status: messageStatusTypes.SENDING },
 		];
 		dispatch(setChatMessages(updatedMessages));
-		socket.emit(messageEvents.SEND_MESSAGE, newMessage, (response) => {
-			console.log({ response });
-			dispatch(
-				setChatMessages(
-					updatedMessages.map((msg) =>
-						msg._id === newMessage._id
-							? {
-									...response.formattedMessage,
-									status: messageStatusTypes.SEND,
-							  }
-							: msg
+		socket.emit(
+			messageEvents.SEND_MESSAGE,
+			{ ...newMessage, replyRef: newMessage?.replyRef?._id },
+			(response) => {
+				console.log({ response });
+				dispatch(
+					setChatMessages(
+						updatedMessages.map((msg) =>
+							msg._id === newMessage._id
+								? {
+										...response.formattedMessage,
+										status: messageStatusTypes.SEND,
+								  }
+								: msg
+						)
 					)
-				)
-			);
-		});
+				);
+			}
+		);
 		if (newMessage?.messageType === messageTypes.REPLY) {
 			dispatch(updateAttachment({}));
 		}

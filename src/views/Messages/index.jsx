@@ -20,7 +20,7 @@ import { messageSections } from "src/utils/constants";
 import SearchInput from "src/components/common/SearchInput";
 import MsgUserSearchList from "./SearchList";
 import { useDebounceValue } from "src/hooks/useDebounce";
-import MsgGeneral from "./MessageSections/General";
+import MsgPrimary from "./MessageSections/Primary";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -59,7 +59,7 @@ const CustomButton = (props) => (
 
 const MSGSECTIONS = [
 	messageSections.PRIMARY,
-	messageSections.GENERAL,
+	messageSections.GROUPS,
 	messageSections.REQUESTS,
 ];
 
@@ -141,9 +141,7 @@ function Messages() {
 										</Box>
 									))}
 								</Box>
-								{activeSection === messageSections.PRIMARY && (
-									<MsgGeneral />
-								)}
+								{activeSection === messageSections.PRIMARY && <MsgPrimary />}
 							</>
 						)}
 					</Box>

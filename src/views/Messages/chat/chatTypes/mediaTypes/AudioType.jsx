@@ -30,10 +30,6 @@ const StyledStack = styled(Box)(({ theme, chat, user, disabled = false }) => ({
 	borderRadius: "20px",
 	background:
 		chat.sender?._id !== user?._id
-			? disabled
-				? "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)"
-				: theme.palette.grey[500]
-			: disabled
 			? theme.palette.grey[500]
 			: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(94,4,167,0.6951155462184874) 0%, rgba(241,0,203,1) 100%)",
 	pointerEvents: disabled && "none",

@@ -175,7 +175,7 @@ function DefaultImageView({ medias = [] }) {
 										maxWidth: activeIndex === ind ? "3rem" : "2.3rem",
 										minWidth: activeIndex === ind ? "3rem" : "2.3rem",
 										maxHeight: activeIndex === ind ? "3rem" : "2.3rem",
-										background:"black",
+										background: "black",
 										overflow: "hidden",
 										border:
 											activeIndex === ind

@@ -3,7 +3,6 @@ import Loadable from "components/common/Loadable";
 import { RoutePath } from "src/utils/routes";
 import MinimalLayout from "../layouts/MinimalLayout";
 import AuthProvider from "src/components/auth/AuthProvider";
-// testroute
 
 // MAIN ROUTES
 const Story = Loadable(lazy(() => import("views/Stories")));
@@ -12,9 +11,16 @@ const EditPostMobile = Loadable(
 	lazy(() => import("views/CreatePost/FilterAdjustment"))
 );
 const SharePostMobile = Loadable(lazy(() => import("views/CreatePost/Share")));
+const NewMessage = Loadable(lazy(() => import("views/NewMessage")));
+const MessageInfo = Loadable(lazy(() => import("views/MessageInfo")));
 const PostTaggingMobile = Loadable(
 	lazy(() => import("views/CreatePost/Tagging"))
 );
+const MessageInfoView = Loadable(lazy(() => import("views/MessageInfo/View")));
+const MessagePrivacyAndSafety = Loadable(lazy(() => import("views/MessageInfo/PrivacyAndSafety")));
+const MessageInfoPeoples = Loadable(lazy(() => import("views/MessageInfo/Peoples")));
+const Call = Loadable(lazy(() => import("views/Call")));
+
 
 const HelperRoutes = () => {
 	return {
@@ -50,21 +56,29 @@ const HelperRoutes = () => {
 					},
 				],
 			},
-			// // auth routes
-			// {
-			// 	path: RoutePath.AUTH,
-			// 	element: <AuthLayout />,
-			// 	children: [
-			// 		{
-			// 			path: RoutePath.LOGIN,
-			// 			element: <Login />,
-			// 		},
-			// 		{
-			// 			path: RoutePath.REGISTER,
-			// 			element: <Register />,
-			// 		},
-			// 	],
-			// },
+			{ path: RoutePath.NEW_MESSAGE, element: <NewMessage /> },
+			{
+				path: `${RoutePath.MESSAGE_INFO}`,
+				element: <MessageInfo />,
+				children: [
+					{
+						path: `/${RoutePath.MESSAGE_INFO_VIEW}/:chatId`,
+						element: <MessageInfoView />,
+					},
+					{
+						path: `/${RoutePath.MESSAGE_INFO_PEOPLES}/:chatId`,
+						element: <MessageInfoPeoples />,
+					},
+					{
+						path: `/${RoutePath.MESSAGE_INFO_PRIVACY_SAFETY}/:chatId`,
+						element: <MessagePrivacyAndSafety />,
+					},
+				],
+			},
+			{
+				path: `${RoutePath.CALL}`,
+				element: <Call />,
+			},
 		],
 	};
 };

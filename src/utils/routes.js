@@ -6,6 +6,11 @@ export const RoutePath = {
 	EXPLORE: "explore",
 	EXPLORE_SEARCH: "explore/search",
 	MESSAGES: "messages",
+	NEW_MESSAGE: "new-message",
+	MESSAGE_INFO: "message-info",
+	MESSAGE_INFO_VIEW: "message-info/view",
+	MESSAGE_INFO_PEOPLES: "message-info/peoples",
+	MESSAGE_INFO_PRIVACY_SAFETY: "message-info/privacy-safety",
 	REELS: "reels",
 	PROFILE: "profile",
 	FOLLOWERS: "followers",
@@ -31,4 +36,5 @@ export const RoutePath = {
 	SETTINGS_MESSAGES_AND_STORY_REPLY: "account/messages_and_story_replies",
 	SETTINGS_COMMENTS: "account/comments",
 	SETTINGS_LIKE_AND_SHARE_COUNT: "account/like_count",
+	CALL: "call",
 };

@@ -172,29 +172,6 @@ function MediaChats({ chat, user }) {
 }
 
 function ReplyChat({ chat, user }) {
-	console.log({ repUser: user?._id });
-	console.log({ replyRef_sender: chat?.replyRef?.sender?._id });
-	console.log({ chat_sender: chat.sender?._id });
-	console.log({ chat });
-
-	//conditions
-	console.log(chat?.replyRef?.sender?._id == chat.sender?._id);
-	console.log(chat.sender?._id == user?._id);
-	console.log(chat?.replyRef?.sender?._id == user?._id);
-	console.log(chat?.sender?._id == user?._id);
-
-	{
-		chat?.replyRef?.sender?._id == chat.sender?._id
-			? chat.sender?._id == user?._id
-				? "Replied to yourself"
-				: "Replied to themself"
-			: chat?.replyRef?.sender?._id == user?._id
-			? "Replied to you"
-			: chat?.sender?._id == user?._id
-			? "You replied"
-			: "Replied to someone";
-	}
-
 	return (
 		<>
 			{(() => {

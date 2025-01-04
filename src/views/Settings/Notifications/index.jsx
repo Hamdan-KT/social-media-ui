@@ -83,7 +83,7 @@ function NotificationSettings() {
 						<Typography variant="h4">Push Notification</Typography>
 						<CommonBox sx={{ justifyContent: "space-between" }}>
 							<Typography>Pause all</Typography>
-							<MUISwitch />
+							<MUISwitch size={35} />
 						</CommonBox>
 					</CommonBox>
 					<NotificationOption
