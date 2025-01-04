@@ -31,7 +31,7 @@ const ProfileTaggedPosts = Loadable(
 const Notifications = Loadable(lazy(() => import("views/Notifications")));
 const ViewPostMobile = Loadable(lazy(() => import("views/ViewPost")));
 // Sub windows
-const ChatLayout = Loadable(lazy(() => import("views/Messages/chatLayout")));
+const ChatLayout = Loadable(lazy(() => import("views/Messages/ChatLayout")));
 const Settings = Loadable(lazy(() => import("views/Settings")));
 // settings windows
 const EditProfile = Loadable(lazy(() => import("views/Settings/EditProfile")));

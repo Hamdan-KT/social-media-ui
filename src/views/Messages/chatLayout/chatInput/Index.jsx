@@ -19,7 +19,7 @@ import Picker from "@emoji-mart/react";
 import ReactIcons from "utils/ReactIcons";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import PopOver from "components/common/Popover";
-import VoiceInput from "../voiceInput";
+import VoiceInput from "../VoiceInput";
 import { messageEvents } from "src/services/socket/events";
 import { useParams } from "react-router";
 import {

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import ChatHeader from "./Header";
 import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
-import ChatInput from "./chatInput/Index";
+import ChatInput from "./ChatInput/Index";
 import { motion } from "framer-motion";
 import { chatData } from "src/data";
-import Chat from "../Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
@@ -16,6 +15,7 @@ import DragBox from "src/components/common/DragBox";
 import useOutSlideClick from "src/hooks/useOutSlideClick";
 import TypingIndicator from "src/components/common/TypingIndicator";
 import MessageInfoLarge from "../MessageInfo";
+import Chat from "../Chat";
 
 function ChatLayout() {
 	const theme = useTheme();
