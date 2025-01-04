@@ -3,13 +3,7 @@ import Loadable from "components/common/Loadable";
 import MainLayout from "layouts/MainLayout";
 import { RoutePath } from "src/utils/routes";
 import AuthProvider from "src/components/auth/AuthProvider";
-
 import { useMediaQuery, useTheme } from "@mui/material";
-
-import Relation from "src/views/Profile/Relation";
-import FollowingRel from "src/views/Profile/Relation/Following";
-import FollowersRel from "src/views/Profile/Relation/Followers";
-import MutualRel from "src/views/Profile/Relation/Mutual";
 
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));
@@ -50,6 +44,14 @@ const NotificationSettings = Loadable(
 	lazy(() => import("views/Settings/Notifications"))
 );
 const SavedPosts = Loadable(lazy(() => import("views/Settings/Saved")));
+const Relation = Loadable(lazy(() => import("views/Profile/Relation")));
+const FollowingRel = Loadable(
+	lazy(() => import("views/Profile/Relation/Following"))
+);
+const FollowersRel = Loadable(
+	lazy(() => import("views/Profile/Relation/Followers"))
+);
+const MutualRel = Loadable(lazy(() => import("views/Profile/Relation/Mutual")));
 
 const MainRoutes = () => {
 	const theme = useTheme();
