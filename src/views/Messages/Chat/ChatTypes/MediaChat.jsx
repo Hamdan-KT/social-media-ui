@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-key */
 import { Box, Grid, Typography, styled, useTheme } from "@mui/material";
 import React, { useRef, useState } from "react";
-import AudioType from "./lMediaTypes/AudioType";
-import PhotoType from "./lMediaTypes/PhotoType";
-import VideoType from "./lMediaTypes/VideoType";
+import AudioType from "./MediaTypes/AudioType";
+import PhotoType from "./MediaTypes/PhotoType";
+import VideoType from "./MediaTypes/VideoType";
 import ReplyChat from "./ReplyChat";
 import DragBox from "components/common/DragBox";
 import ImageViewer from "components/ui-components/ImageViewer";
@@ -11,7 +11,7 @@ import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ReactIcons from "utils/ReactIcons";
 import PopOver from "components/common/Popover";
-import ChatOptions from "../lChatOptions";
+import ChatOptions from "../ChatOptions";
 import { messageMediaTypes } from "src/utils/constants";
 
 const StyledMedia = styled(Box)(({ theme }) => ({

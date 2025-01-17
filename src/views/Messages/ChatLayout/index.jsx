@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ChatHeader from "./Header";
 import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
-import ChatInput from "./lChatInput/Index";
+import ChatInput from "./ChatInput/Index";
 import { motion } from "framer-motion";
 import { chatData } from "src/data";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ import DragBox from "src/components/common/DragBox";
 import useOutSlideClick from "src/hooks/useOutSlideClick";
 import TypingIndicator from "src/components/common/TypingIndicator";
 import MessageInfoLarge from "../MessageInfo";
-import Chat from "../lChat";
+import Chat from "../Chat";
 
 function ChatLayout() {
 	const theme = useTheme();
