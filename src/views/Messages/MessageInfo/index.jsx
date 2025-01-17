@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import MessageInfoPeoples from "src/views/MessageInfo/Peoples";
-import MUISwitch from "src/components/common/FormInputs/Switch";
+import MUISwitch from "@/components/common/FormInputs/Switch";
 import Btn from "src/components/common/Button";
 import { useSelector } from "react-redux";
 import NewMessageWindow from "src/components/ui-components/Popups/NewMessage";

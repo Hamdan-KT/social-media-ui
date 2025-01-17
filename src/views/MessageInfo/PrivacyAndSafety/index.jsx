@@ -3,7 +3,7 @@ import { Box, styled, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import MUISwitch from "src/components/common/FormInputs/Switch";
+import MUISwitch from "@/components/common/FormInputs/Switch";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	display: "flex",
