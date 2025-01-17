@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import filterDefaultImg from "assets/images/filtersDefault.jpeg";
-import MuiIOSSlider from "components/common/formInputs/Slider";
+import MuiIOSSlider from "components/common/FormInputs/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import { InstagramFilters } from "src/utils/filters";
 import { setFilterClassName } from "app/slices/postSlice/postSlice";
