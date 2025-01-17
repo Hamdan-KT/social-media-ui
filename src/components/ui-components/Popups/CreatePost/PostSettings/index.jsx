@@ -10,7 +10,7 @@ import {
 	styled,
 } from "@mui/material";
 import React, { useRef, useState } from "react";
-import MUISwitch from "components/common/formInputs/Switch";
+import MUISwitch from "components/common/FormInputs/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
 import { setPostDetails } from "src/app/slices/postSlice/postSlice";

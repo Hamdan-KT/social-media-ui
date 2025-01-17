@@ -12,7 +12,7 @@ import {
 	useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
-import MUISwitch from "components/common/formInputs/Switch";
+import MUISwitch from "components/common/FormInputs/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { postStages as ps } from "utils/constants";
 import { useNavigate } from "react-router";
