@@ -12,7 +12,7 @@ import { Outlet, useLocation } from "react-router";
 import { Users } from "src/data";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import MessageHeader from "./messageHeader";
+import MessageHeader from "./lMessageHeader";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import { RoutePath } from "src/utils/routes";
 import { IoChatbubblesOutline } from "react-icons/io5";

@@ -1,8 +1,8 @@
 import { Box, Grid, Typography, styled, useTheme } from "@mui/material";
 import React, { useState } from "react";
-import PhotoType from "./mediaTypes/PhotoType";
-import VideoType from "./mediaTypes/VideoType";
-import AudioType from "./mediaTypes/AudioType";
+import PhotoType from "./lMediaTypes/PhotoType";
+import VideoType from "./lMediaTypes/VideoType";
+import AudioType from "./lMediaTypes/AudioType";
 import TextChat from "./TextChat";
 import { useSelector } from "react-redux";
 import { messageContentTypes, messageMediaTypes } from "src/utils/constants";

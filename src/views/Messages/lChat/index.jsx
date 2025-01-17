@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { forwardRef } from "react";
 
 // chat type components
-import MediaChat from "./chatTypes/MediaChat";
-import TextChat from "./chatTypes/TextChat";
-import ReplyChat from "./chatTypes/ReplyChat";
-import TimeLine from "./chatTypes/TimeLine";
+import MediaChat from "./lChatTypes/MediaChat";
+import TextChat from "./lChatTypes/TextChat";
+import ReplyChat from "./lChatTypes/ReplyChat";
+import TimeLine from "./lChatTypes/TimeLine";
 import {
 	messageContentTypes,
 	messageStatusTypes,
