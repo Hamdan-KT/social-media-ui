@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import CustomModal from "components/common/Modal";
+import CustomModal from "src/components/common/Modal";
 import { styled, Typography, useMediaQuery, useTheme } from "@mui/material";
 import BottomSheet from "components/common/BottomSheet";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,14 +47,16 @@ function TaggedUserWindow({ open = false, onClose = () => {} }) {
 					sheetBodyStyles={{ position: "relative" }}
 					title="Tagged Peoples"
 				>
-					<TaggedListView
-					/>
+					<TaggedListView />
 				</BottomSheet>
 			) : (
 				<CustomModal
 					closeIcon={true}
 					open={shareWindowOpen}
-					onClose={() => dispatch(handleTaggedUsersWindowOpen(false))}
+					onClose={() => {
+						console.log("calling tag close funciton...");
+						dispatch(handleTaggedUsersWindowOpen(false));
+					}}
 				>
 					<Wrappper>
 						{!matchDownSm && (
@@ -71,8 +73,7 @@ function TaggedUserWindow({ open = false, onClose = () => {} }) {
 								</Typography>
 							</StyledHeader>
 						)}
-						<TaggedListView
-						/>
+						<TaggedListView />
 					</Wrappper>
 				</CustomModal>
 			)}

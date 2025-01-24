@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Fade, styled, useTheme } from "@mui/material";
 import ReactIcons from "utils/ReactIcons";
+import { useRef } from "react";
+import useOutSlideClick from "src/hooks/useOutSlideClick";
 
 const MainBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -15,7 +17,7 @@ const MainBox = styled(Box)(({ theme }) => ({
 	alignItems: "center",
 	justifyContent: "center",
 	padding: "2.5rem 0.5rem 0.5rem 0.5rem",
-	overflow: "hidden"
+	overflow: "hidden",
 }));
 
 function CustomModal({
@@ -25,20 +27,28 @@ function CustomModal({
 	closeIcon = false,
 	sx = {},
 }) {
-	const theme = useTheme()
+	const theme = useTheme();
+	const ref = useRef();
+
+	const { outSide } = useOutSlideClick(ref, onClose);
+	console.log(outSide);
+
 	return (
 		<Modal
 			aria-labelledby="transition-modal-title"
 			aria-describedby="transition-modal-description"
 			open={open}
-			onClose={!closeIcon ? onClose : null}
+			// onClose={!closeIcon ? onClose : null}
+			onClose={() => onClose()}
 			closeAfterTransition
 			disableAutoFocus
 			slots={{ backdrop: Backdrop }}
 			slotProps={{
 				backdrop: {
 					timeout: 500,
-					// onClick: onClose
+					onClose: () => {
+						console.log("calling backdrop click....");
+					},
 				},
 			}}
 			sx={sx}
@@ -59,10 +69,32 @@ function CustomModal({
 								onClick={onClose}
 							/>
 						)}
+						{/* <div
+							ref={ref}
+							style={{
+								// maxWidth: "100%",
+								// height: "100%",
+								alignItems: "center",
+								justifyContent: "center",
+								display: "flex",
+							}}
+						> */}
 						{children}
+						{/* </div> */}
 					</MainBox>
 				) : (
-					<>{children}</>
+					<div
+						ref={ref}
+						style={{
+							// maxWidth: "100%",
+							// maxHeight: "100%",
+							alignItems: "center",
+							justifyContent: "center",
+							display: "flex",
+						}}
+					>
+						{children}
+					</div>
 				)}
 			</Fade>
 		</Modal>

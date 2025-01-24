@@ -649,7 +649,7 @@ function PostLarge({ data }) {
 									color={theme.palette.primary.main}
 								>
 									{handleCreateComment.isPending ? (
-										<DefaultLoader size={20} />
+										<DefaultLoader size={22} />
 									) : (
 										"Post"
 									)}
