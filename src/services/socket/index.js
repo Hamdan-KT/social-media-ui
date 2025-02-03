@@ -7,6 +7,7 @@ export const initSocket = (onConnect, onDisconnect, options = {}) => {
 	socket = io(HOST, {
 		withCredentials: true,
 		// query: { userId },
+		// transports: ["websocket", "polling"],
 		...options,
 	});
 

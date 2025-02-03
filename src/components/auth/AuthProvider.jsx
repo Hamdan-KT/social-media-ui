@@ -42,7 +42,7 @@ function AuthProvider({ children }) {
 
 	useEffect(() => {
 		if (!_.isEmpty(user)) {
-			const socketInstance = initSocket(
+			initSocket(
 				(socket) => {
 					dispatch(setSocket(socket));
 					dispatch(setConnected(true));
@@ -59,7 +59,7 @@ function AuthProvider({ children }) {
 			disconnectSocket();
 			dispatch(resetSocket());
 		};
-	}, [dispatch, user]);
+	}, [user]);
 
 	useEffect(() => {
 		if (isSuccess) {
