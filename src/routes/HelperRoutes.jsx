@@ -17,10 +17,13 @@ const PostTaggingMobile = Loadable(
 	lazy(() => import("views/CreatePost/Tagging"))
 );
 const MessageInfoView = Loadable(lazy(() => import("views/MessageInfo/View")));
-const MessagePrivacyAndSafety = Loadable(lazy(() => import("views/MessageInfo/PrivacyAndSafety")));
-const MessageInfoPeoples = Loadable(lazy(() => import("views/MessageInfo/Peoples")));
+const MessagePrivacyAndSafety = Loadable(
+	lazy(() => import("views/MessageInfo/PrivacyAndSafety"))
+);
+const MessageInfoPeoples = Loadable(
+	lazy(() => import("views/MessageInfo/Peoples"))
+);
 const Call = Loadable(lazy(() => import("views/Call")));
-
 
 const HelperRoutes = () => {
 	return {
