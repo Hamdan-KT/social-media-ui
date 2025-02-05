@@ -1,95 +1,70 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, useTheme, Zoom } from "@mui/material";
+import { Box, IconButton, styled, useTheme, Zoom } from "@mui/material";
 import "./index.css";
+import Image from "src/components/common/Image";
+import Story from "./Story";
+import { generateStories } from "./dummy";
 
-const imagesArr = [
-	"https://images.pexels.com/photos/18816017/pexels-photo-18816017/free-photo-of-empty-highway-surrounded-by-trees-during-a-foggy-weather.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18000249/pexels-photo-18000249/free-photo-of-a-photo-of-a-food-stand-at-dusk.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/13909946/pexels-photo-13909946.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/7873841/pexels-photo-7873841.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18551704/pexels-photo-18551704/free-photo-of-man-and-woman-holding-hands-at-a-sea-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18721030/pexels-photo-18721030/free-photo-of-church-tower-behind-trees.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/15547144/pexels-photo-15547144/free-photo-of-a-snowy-mountain-with-trees-on-top.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18796548/pexels-photo-18796548/free-photo-of-way-of-water.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/12389195/pexels-photo-12389195.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18854123/pexels-photo-18854123/free-photo-of-el-micalet-valencia.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/15114678/pexels-photo-15114678/free-photo-of-photo-of-a-person-running-around-columns.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/6981693/pexels-photo-6981693.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18693566/pexels-photo-18693566/free-photo-of-a-small-pagoda-on-a-lake-surrounded-by-trees.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18831203/pexels-photo-18831203/free-photo-of-view-of-mountains-under-a-cloudy-sky.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/12229002/pexels-photo-12229002.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18091873/pexels-photo-18091873/free-photo-of-a-street-sign-that-says-valla-port.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18624946/pexels-photo-18624946/free-photo-of-model-posing-in-black-clothes-at-dusk.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18622543/pexels-photo-18622543/free-photo-of-go-home.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/15030785/pexels-photo-15030785/free-photo-of-a-mountain-with-trees-and-grass-in-the-foreground.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18642137/pexels-photo-18642137/free-photo-of-train-on-track-near-buildings.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-	"https://images.pexels.com/photos/18720682/pexels-photo-18720682/free-photo-of-girl-at-rural.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
-];
-
-const arrStyle = [
-	{ left: "calc(18%)" }, //18
-	{ left: "calc(34%)" }, //+16
-	{ left: "calc(50%)" }, //+16
-	{ left: "calc(66%)" }, //+16
-	{ left: "calc(82%)" }, //+16
-];
-
-const storyStyle = {
-	display: "inline-block",
-	height: "48vh",
-	position: "absolute",
-	left: "50%",
-	transform: "translate(-50%, 0)",
+const CommonBox = styled("div")(({ theme }) => ({
+	height: "auto",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
 	width: "auto",
-	aspectRatio: "9 / 16",
-	backgroundPosition: "50% 50%",
-	backgroundSize: "cover",
-	transition: "0.5s ease-in-out",
-	border: "1px solid white",
-	borderRadius: "10px",
-};
+}));
 
 function Stories() {
 	const [open, setOpen] = useState(true);
-	const [visibleImages, setVisibleImages] = useState(imagesArr.slice(0, 5)); // Render first 5 images initially
+	const [activeSlide, setActiveSlide] = useState(2);
+	const slidesRef = useRef([]);
+	const [stories, setStories] = useState(generateStories() ?? []);
 
-	const handleClickNext = () => {
-		setVisibleImages((prev) => {
-			const nextImages = [
-				...prev.slice(1),
-				imagesArr[(imagesArr.indexOf(prev[4]) + 1) % imagesArr.length],
-			];
-			return nextImages;
-		});
+	const handleNext = () => {
+		setActiveSlide((prev) => Math.min(stories.length - 1, prev + 1));
+	};
+	const handlePrev = () => {
+		setActiveSlide((prev) => Math.max(0, prev - 1));
 	};
 
-	const handleClickPrev = () => {
-		setVisibleImages((prev) => {
-			const prevIndex = imagesArr.indexOf(prev[0]) - 1;
-			const newImage =
-				imagesArr[(prevIndex + imagesArr.length) % imagesArr.length];
-			return [newImage, ...prev.slice(0, 4)];
-		});
-	};
+	useEffect(() => {
+		const slides = slidesRef.current;
+		if (!slides.length) return;
+
+		const activeSlideWidth = 95 * (9 / 16);
+
+		const updateSlides = () => {
+			slides.forEach((slide, index) => {
+				let offset = index - activeSlide;
+				let translateX = `calc(${offset * activeSlideWidth}vh - 50%)`;
+				let opacity = Math.abs(offset) > 2 ? 0 : 1;
+				slide.style.height = index === activeSlide ? `95vh` : `48vh`;
+				slide.style.transform = `translateX(${translateX})`;
+				slide.style.opacity = opacity;
+				// slide.style.aspectRatio = "9/16";
+				// slide.style.maxHeight = "95vh";
+			});
+		};
+
+		updateSlides();
+	}, [activeSlide]);
 
 	return (
 		<Zoom in={open} timeout={500}>
 			<Box className="container">
-				{visibleImages.map((image, ind) => (
-					<Box
-						className="story"
-						key={ind}
-						sx={{
-							...storyStyle,
-							backgroundImage: `url(${image})`,
-							...arrStyle[ind],
-						}}
-					></Box>
+				{stories?.map((story, index) => (
+					<Story
+						key={index}
+						story={story}
+						ref={(el) => (slidesRef.current[index] = el)}
+						isActive={index === activeSlide}
+						handleNext={handleNext}
+						handlePrev={handlePrev}
+						onClick={() => setActiveSlide(index)}
+						activeSlide={activeSlide}
+						isStart={activeSlide === 0}
+						isEnd={activeSlide === stories?.length - 1}
+					/>
 				))}
-				<div className="btn-container">
-					<button onClick={handleClickPrev}>prev</button>
-					<button onClick={handleClickNext}>next</button>
-				</div>
 			</Box>
 		</Zoom>
 	);

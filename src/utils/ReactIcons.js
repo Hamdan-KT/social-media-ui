@@ -75,6 +75,7 @@ import {
 	IoMdExpand,
 	IoMdMic,
 	IoMdMicOff,
+	IoMdSend
 } from "react-icons/io";
 import {
 	LuSend,
@@ -230,6 +231,7 @@ const ReactIcons = {
 	IoMdMic,
 	IoMdMicOff,
 	MdCallEnd,
+	IoMdSend,
 };
 
 export default ReactIcons;

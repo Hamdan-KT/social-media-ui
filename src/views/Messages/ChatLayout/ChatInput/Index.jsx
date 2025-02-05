@@ -242,7 +242,7 @@ const ChatInput = forwardRef((props, ref) => {
 								}}
 								onClick={sendMessage}
 							>
-								<SendIcon sx={{ color: "#ffff" }} />
+								<ReactIcons.IoMdSend style={{ color: "#ffff" }} />
 							</IconButton>
 						) : (
 							<>
