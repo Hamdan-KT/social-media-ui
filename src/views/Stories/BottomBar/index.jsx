@@ -10,7 +10,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 	width: "auto",
 }));
 
-function StoryBottomBar({ story }) {
+function StoryBottomBar({ story, sx }) {
 	const theme = useTheme();
 	return (
 		<CommonBox
@@ -20,7 +20,9 @@ function StoryBottomBar({ story }) {
 				position: "absolute",
 				bottom: 0,
 				left: 0,
+				right: 0,
 				padding: "0.7rem",
+				...sx
 			}}
 		>
 			<ReplyInput placeholder={`Reply to ${story?.name} ...`} />

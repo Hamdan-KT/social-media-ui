@@ -1,5 +1,5 @@
 import {
-    Checkbox,
+	Checkbox,
 	IconButton,
 	InputBase,
 	styled,
@@ -20,7 +20,7 @@ const Search = styled("div")(({ theme }) => ({
 	justifyContent: "space-between",
 	borderRadius: "55px",
 	width: "100%",
-	padding: "0.2rem 0.2rem",
+	padding: "0rem 0rem",
 	background: "transparent",
 	border: `1px solid ${theme.palette.grey[300]}`,
 }));

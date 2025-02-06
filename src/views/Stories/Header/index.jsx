@@ -10,7 +10,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 }));
 
 function StoryHeader({ story = [] }) {
-  const theme = useTheme();
+	const theme = useTheme();
 	return (
 		<CommonBox
 			sx={{
@@ -41,11 +41,7 @@ function StoryHeader({ story = [] }) {
 			<CommonBox sx={{ justifyContent: "space-between", width: "100%" }}>
 				<CommonBox sx={{ flexDirection: "column" }}>
 					<CommonBox sx={{ gap: "0.5rem", padding: "0.5rem" }}>
-						<Avatar
-							sx={{ width: 33, height: 33 }}
-							src={story?.avatar}
-							alt={story?.name}
-						/>
+						<Avatar sx={{ width: 33, height: 33 }} src={story?.avatar} />
 						<Typography
 							variant="userName"
 							sx={{ color: theme.palette.background.paper }}

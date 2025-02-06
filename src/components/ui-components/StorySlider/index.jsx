@@ -16,6 +16,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { userStories } from "src/data";
 import { useRef, memo } from "react";
 import ProfileAvatar from "components/common/ProfileAvatar";
+import { RoutePath } from "src/utils/routes";
+import { useNavigate } from "react-router";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
@@ -90,6 +92,7 @@ function StorySlider(props) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const sliderWindow = useRef();
+	const navigate = useNavigate();
 
 	const handleStorySlide = (e, direction) => {
 		if (direction === "right") {
@@ -145,6 +148,7 @@ function StorySlider(props) {
 									maxWidth: "5.5rem",
 									minWidth: { xs: "5.5rem", sm: "4rem" },
 								}}
+								onClick={() => navigate(`/${RoutePath.STORY}`)}
 								key={ind}
 							>
 								<ProfileAvatar

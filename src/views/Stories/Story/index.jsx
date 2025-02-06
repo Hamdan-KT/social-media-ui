@@ -1,19 +1,17 @@
-import Image from "src/components/common/Image";
-import {
-	Avatar,
-	Box,
-	IconButton,
-	styled,
-	Typography,
-	useTheme,
-} from "@mui/material";
-import React from "react";
-import { forwardRef } from "react";
-import ReplyInput from "src/components/common/ReplyInput";
-import StoryBottomBar from "./BottomBar";
-import StoryHeader from "./Header";
-import ProfileAvatar from "src/components/common/ProfileAvatar";
-import ReactIcons from "src/utils/ReactIcons";
+import { useMediaQuery } from "@mui/material";
+import { IconButton, styled } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-cube";
+import "swiper/css/pagination";
+// import required modules
+import { EffectCube, Pagination } from "swiper/modules";
+import { Box, useTheme, Zoom } from "@mui/material";
+import StoryLG from "./StoryLg";
+import StorySM from "./StorySm";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -23,127 +21,99 @@ const CommonBox = styled("div")(({ theme }) => ({
 	width: "auto",
 }));
 
-const Story = forwardRef(function Story(
-	{ story, isActive, handleNext, handlePrev, isStart, isEnd, ...others },
-	ref
-) {
+function Story({ stories = [] }) {
 	const theme = useTheme();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const [activeSlide, setActiveSlide] = useState(2);
+	const slidesRef = useRef([]);
+	// const [stories, setStories] = useState(generateStories() ?? []);
+
+	const handleNext = () => {
+		setActiveSlide((prev) => Math.min(stories.length - 1, prev + 1));
+	};
+	const handlePrev = () => {
+		setActiveSlide((prev) => Math.max(0, prev - 1));
+	};
+
+	useEffect(() => {
+		if(!matchDownSm){
+			const slides = slidesRef.current;
+			if (!slides.length) return;
+
+			const activeSlideWidth = 95 * (9 / 16);
+
+			const updateSlides = () => {
+				slides.forEach((slide, index) => {
+					let offset = index - activeSlide;
+					let translateX = `calc(${offset * activeSlideWidth}vh - 50%)`;
+					let opacity = Math.abs(offset) > 2 ? 0 : 1;
+					slide.style.height = index === activeSlide ? `95vh` : `48vh`;
+					slide.style.transform = `translateX(${translateX})`;
+					slide.style.opacity = opacity;
+				});
+			};
+
+			updateSlides();
+		}
+	}, [activeSlide, matchDownSm]);
+
 	return (
-		<Box
-			className="story"
-			ref={ref}
-			sx={{
-				// overflow: "hidden",
-				borderRadius: "10px",
-				position: "relative",
-				zIndex: 9,
-			}}
-		>
-			<CommonBox
-				sx={{
-					overflow: "hidden",
-					width: "100%",
-					height: "100%",
-					borderRadius: "10px",
-					cursor: !isActive && "pointer",
-				}}
-				{...others}
-			>
-				{/* Header */}
-				{isActive && <StoryHeader story={story} />}
-				{/* content section */}
-				<Image
-					src={story?.medias[0]?.url}
-                    draggable={false}
-					style={{ display: "block", width: "100%", objectFit: "cover", userSelect: "none" }}
-				/>
-				{/* profile Avatar for in active stories */}
-				{!isActive && (
-					<CommonBox
-						sx={{
-							position: "absolute",
-							zIndex: 10,
-							left: "50%",
-							top: "50%",
-							transform: "translate(-50%, -50%)",
-							flexDirection: "column",
-							transition: "0.3s ease-in-out",
-						}}
-					>
-						<ProfileAvatar profile={story?.avatar} userName={story?.name} />
-						<Typography
-							variant="userName"
-							sx={{ color: theme.palette.background.paper }}
-						>
-							{story?.name}
-							<Typography
-								variant="greyTags"
-								sx={{
-									color: theme.palette.grey[300],
-									fontSize: "0.8rem",
-									fontWeight: "medium",
-									ml: 1,
-								}}
-							>
-								2d
-							</Typography>
-						</Typography>
-					</CommonBox>
-				)}
-				{/* bottom bar */}
-				{isActive && <StoryBottomBar story={story} />}
-			</CommonBox>
-			{/* controle btns */}
-			{isActive && (
+		<>
+			{!matchDownSm ? (
 				<>
-					{!isStart && (
-						<IconButton
-							disableRipple
-							size="small"
-							sx={{
-								position: "absolute",
-								left: "-8%",
-								top: "50%",
-								transform: "translateY(-50%)",
-								zIndex: 10,
-								backgroundColor: "rgba(202, 202, 202, 0.61)",
-								"&:hover": {
-									backgroundColor: theme.palette.background.paper,
-								},
-							}}
-							onClick={handlePrev}
-						>
-							<ReactIcons.MdNavigateBefore
-								style={{ color: theme.palette.common.black }}
-							/>
-						</IconButton>
-					)}
-					{!isEnd && (
-						<IconButton
-							disableRipple
-							size="small"
-							sx={{
-								position: "absolute",
-								right: "-8%",
-								top: "50%",
-								transform: "translateY(-50%)",
-								zIndex: 10,
-								backgroundColor: "rgba(202, 202, 202, 0.61)",
-								"&:hover": {
-									backgroundColor: theme.palette.background.paper,
-								},
-							}}
-							onClick={handleNext}
-						>
-							<ReactIcons.MdNavigateNext
-								style={{ color: theme.palette.common.black }}
-							/>
-						</IconButton>
-					)}
+					{stories?.map((story, index) => (
+						<StoryLG
+							key={index}
+							story={story}
+							ref={(el) => (slidesRef.current[index] = el)}
+							isActive={index === activeSlide}
+							handleNext={handleNext}
+							handlePrev={handlePrev}
+							onClick={() => setActiveSlide(index)}
+							activeSlide={activeSlide}
+							isStart={activeSlide === 0}
+							isEnd={activeSlide === stories?.length - 1}
+						/>
+					))}
 				</>
+			) : (
+				<Swiper effect={"cube"} grabCursor={true} modules={[EffectCube]}>
+					{stories?.map((story, index) => (
+						<SwiperSlide
+							key={index}
+							style={{
+								background: theme.palette.common.black,
+								height: "100vh",
+								width: "100%",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+							}}
+						>
+							<StorySM
+								story={story}
+								containerSx={{
+									display: "flex",
+									width: "100%",
+									height: "97vh",
+									transition: "0.3s ease-in-out",
+									borderRadius: "10px",
+								}}
+								// ref={(el) => (slidesRef.current[index] = el)}
+								isActive={true}
+								// handleNext={handleNext}
+								// handlePrev={handlePrev}
+								// onClick={() => setActiveSlide(index)}
+								// activeSlide={activeSlide}
+								// isStart={activeSlide === 0}
+								// isEnd={activeSlide === stories?.length - 1}
+							/>
+						</SwiperSlide>
+					))}
+				</Swiper>
 			)}
-		</Box>
+		</>
 	);
-});
+}
 
 export default Story;
