@@ -27,3 +27,5 @@
 # add message for empty relation user.. etc.. followers, following, mutual
 
 # audio type its getting playing even after completion of actual audio when changing play back speed
+
+# audio duration is false some thime it start from 59:00

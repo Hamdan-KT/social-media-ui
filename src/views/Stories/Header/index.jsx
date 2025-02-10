@@ -28,7 +28,7 @@ function StoryHeader({ story = [] }) {
 		>
 			{/* story count and duration bars */}
 			<CommonBox
-				sx={{ width: "100%", gap: "4px", padding: "0 0.5rem", mt: "0.8rem" }}
+				sx={{ width: "100%", gap: "4px", padding: "0 0.5rem", mt: "0.5rem" }}
 			>
 				{story?.medias?.map((str, index) => (
 					<CommonBox

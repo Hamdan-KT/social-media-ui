@@ -15,7 +15,7 @@ function StoryBottomBar({ story, sx }) {
 	return (
 		<CommonBox
 			sx={{
-				flexDirection: "column",
+				// flexDirection: "column",
 				width: "100%",
 				position: "absolute",
 				bottom: 0,

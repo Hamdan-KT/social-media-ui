@@ -5,7 +5,7 @@ export function generateStories() {
 
 	for (let i = 1; i <= 20; i++) {
 		const user = {
-			id: i,
+			_id: uuId(),
 			name: faker.person.fullName(),
 			avatar: faker.image.avatar(),
 			medias: [],
@@ -15,7 +15,7 @@ export function generateStories() {
 
 		for (let j = 1; j <= storyCount; j++) {
 			const media = {
-				id: uuId(),
+				_id: uuId(),
 				type: faker.helpers.arrayElement(["image"]),
 				url: faker.image.urlPicsumPhotos({ width: 1080, height: 1920 }),
 				timestamp: faker.date.recent().toISOString(),

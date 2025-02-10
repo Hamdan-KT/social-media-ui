@@ -46,6 +46,7 @@ const StorySM = forwardRef(function Story(
 				position: "relative",
 				zIndex: 9,
 				maxWidth: "100%",
+				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "start",
@@ -63,6 +64,8 @@ const StorySM = forwardRef(function Story(
 					justifyContent: "start",
 					alignItems: "start",
 					flexDirection: "column",
+					position: "relative",
+					mt: 2,
 					...sx,
 				}}
 				{...others}
@@ -80,37 +83,6 @@ const StorySM = forwardRef(function Story(
 						userSelect: "none",
 					}}
 				/>
-				{/* profile Avatar for in active stories */}
-				<CommonBox
-					sx={{
-						position: "absolute",
-						zIndex: 10,
-						left: "50%",
-						top: "50%",
-						transform: "translate(-50%, -50%)",
-						flexDirection: "column",
-						transition: "0.3s ease-in-out",
-					}}
-				>
-					<ProfileAvatar profile={story?.avatar} userName={story?.name} />
-					<Typography
-						variant="userName"
-						sx={{ color: theme.palette.background.paper }}
-					>
-						{story?.name}
-						<Typography
-							variant="greyTags"
-							sx={{
-								color: theme.palette.grey[300],
-								fontSize: "0.8rem",
-								fontWeight: "medium",
-								ml: 1,
-							}}
-						>
-							2d
-						</Typography>
-					</Typography>
-				</CommonBox>
 			</CommonBox>
 			{/* bottom bar */}
 			<StoryBottomBar

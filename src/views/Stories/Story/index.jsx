@@ -95,12 +95,12 @@ function Story({ stories = [] }) {
 								containerSx={{
 									display: "flex",
 									width: "100%",
-									height: "97vh",
+									height: "100vh",
 									transition: "0.3s ease-in-out",
 									borderRadius: "10px",
 								}}
 								// ref={(el) => (slidesRef.current[index] = el)}
-								isActive={true}
+								// isActive={true}
 								// handleNext={handleNext}
 								// handlePrev={handlePrev}
 								// onClick={() => setActiveSlide(index)}

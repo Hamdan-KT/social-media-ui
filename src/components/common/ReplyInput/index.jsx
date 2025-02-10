@@ -49,7 +49,7 @@ function ReplyInput({ ...others }) {
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 
 	return (
-		<CommonBox sx={{ width: "100%", gap: "0.3rem" }}>
+		<CommonBox sx={{ width: "100%", gap: "0.3rem", padding: "0 0.4rem" }}>
 			<Search>
 				<PopOver
 					ref={emojPopRef}
