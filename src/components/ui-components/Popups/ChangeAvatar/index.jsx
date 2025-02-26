@@ -101,7 +101,11 @@ function ChangeAvatar({ open = false, onClose = () => {}, imgUrl = "" }) {
 									"&:hover": { color: theme.palette.text.primary },
 								}}
 								color={theme.palette.primary.main}
-								onClick={() => changeProfileAvatar.mutate(imgUrl)}
+								onClick={(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+									changeProfileAvatar.mutate(imgUrl);
+								}}
 							>
 								Save
 							</Typography>
