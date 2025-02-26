@@ -80,19 +80,19 @@ const StoryLG = forwardRef(function Story(
 	}, [currentMedia, isActive, activeSlide, isLoaded]);
 
 	const startProgress = () => {
-		setProgress(0);
-		clearInterval(intervalRef.current);
-		const startTime = Date.now();
+		// setProgress(0);
+		// clearInterval(intervalRef.current);
+		// const startTime = Date.now();
 
-		intervalRef.current = setInterval(() => {
-			const elapsedTime = Date.now() - startTime;
-			const progress = (elapsedTime / duration) * 100;
-			setProgress(progress);
-			if (progress >= 100) {
-				clearInterval(intervalRef.current);
-				gotoNext(currentMedia);
-			}
-		}, 50);
+		// intervalRef.current = setInterval(() => {
+		// 	const elapsedTime = Date.now() - startTime;
+		// 	const progress = (elapsedTime / duration) * 100;
+		// 	setProgress(progress);
+		// 	if (progress >= 100) {
+		// 		clearInterval(intervalRef.current);
+		// 		gotoNext(currentMedia);
+		// 	}
+		// }, 50);
 	};
 
 	const gotoNext = (currentMedia) => {
@@ -162,9 +162,9 @@ const StoryLG = forwardRef(function Story(
 						story={story}
 						isActive={isActive}
 						currentMedia={currentMedia}
-						progress={progress}
-						setProgress={setProgress}
-						duration={duration}
+						// progress={progress}
+						// setProgress={setProgress}
+						// duration={duration}
 					/>
 				)}
 				{/* content section */}

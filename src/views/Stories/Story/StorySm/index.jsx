@@ -81,19 +81,19 @@ const StorySM = forwardRef(function Story(
 	}, [currentMedia, isActive, isLoaded]);
 
 	const startProgress = (currentMedia) => {
-		setProgress(0);
-		clearInterval(intervalRef.current);
-		const startTime = Date.now();
+		// setProgress(0);
+		// clearInterval(intervalRef.current);
+		// const startTime = Date.now();
 
-		intervalRef.current = setInterval(() => {
-			const elapsedTime = Date.now() - startTime;
-			const progress = (elapsedTime / duration) * 100;
-			setProgress(progress);
-			if (progress >= 100) {
-				clearInterval(intervalRef.current);
-				gotoNext(currentMedia);
-			}
-		}, 50);
+		// intervalRef.current = setInterval(() => {
+		// 	const elapsedTime = Date.now() - startTime;
+		// 	const progress = (elapsedTime / duration) * 100;
+		// 	setProgress(progress);
+		// 	if (progress >= 100) {
+		// 		clearInterval(intervalRef.current);
+		// 		gotoNext(currentMedia);
+		// 	}
+		// }, 50);
 	};
 
 	const gotoNext = (currentMedia) => {
@@ -162,8 +162,8 @@ const StorySM = forwardRef(function Story(
 				<StoryHeader
 					story={story}
 					currentMedia={currentMedia}
-					progress={progress}
-					duration={duration}
+					// progress={progress}
+					// duration={duration}
 				/>
 				{/* content section */}
 				<Image
