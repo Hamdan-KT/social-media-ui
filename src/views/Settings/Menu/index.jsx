@@ -52,7 +52,7 @@ const SettingsMenu = memo(function () {
 			toast.success(data?.message);
 			dispatch(saveUser({}));
 			dispatch(setToken(null));
-			setLocalStorage("accessToken", null); // for temporary
+			// setLocalStorage("accessToken", null); // for temporary
 			window.location.replace(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`);
 		},
 		onError: (error) => {
