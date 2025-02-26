@@ -3,35 +3,35 @@ import { v4 as uuId } from "uuid";
 export function generateStories(count = 20) {
 	const users = [];
 
-	// for (let i = 1; i <= count; i++) {
-	// 	const user = {
-	// 		_id: uuId(),
-	// 		name: faker.person.fullName(),
-	// 		avatar: faker.image.avatar(),
-	// 		medias: [],
-	// 	};
+	for (let i = 1; i <= count; i++) {
+		const user = {
+			_id: uuId(),
+			name: faker.person.fullName(),
+			avatar: faker.image.avatar(),
+			medias: [],
+		};
 
-	// 	const storyCount = faker.number.int({ min: 1, max: 5 }); // Each user has 1-5 stories
+		const storyCount = faker.number.int({ min: 1, max: 5 }); // Each user has 1-5 stories
 
-	// 	for (let j = 1; j <= storyCount; j++) {
-	// 		const media = {
-	// 			_id: uuId(),
-	// 			fileType: faker.helpers.arrayElement(["image"]),
-	// 			fileUrl: faker.image.urlPicsumPhotos({ width: 1080, height: 1920 }),
-	// 			aspectRatio: 9 / 16,
-	// 			createdAt: faker.date.recent().toISOString(),
-	// 			views: faker.number.int({ min: 4, max: 2000 }),
-	// 			seen: faker.helpers.arrayElement([true, false]),
-	// 			seenAt: faker.date.recent().toISOString(),
-	// 			likeCount: faker.number.int({ min: 4, max: 450 }),
-	// 			viewsCount: faker.number.int({ min: 4, max: 2000 }),
-	// 		};
+		for (let j = 1; j <= storyCount; j++) {
+			const media = {
+				_id: uuId(),
+				fileType: faker.helpers.arrayElement(["image"]),
+				fileUrl: faker.image.urlPicsumPhotos({ width: 1080, height: 1920 }),
+				aspectRatio: 9 / 16,
+				createdAt: faker.date.recent().toISOString(),
+				views: faker.number.int({ min: 4, max: 2000 }),
+				seen: faker.helpers.arrayElement([true, false]),
+				seenAt: faker.date.recent().toISOString(),
+				likeCount: faker.number.int({ min: 4, max: 450 }),
+				viewsCount: faker.number.int({ min: 4, max: 2000 }),
+			};
 
-	// 		user.medias.push(media);
-	// 	}
+			user.medias.push(media);
+		}
 
-	// 	users.push(user);
-	// }
+		users.push(user);
+	}
 
 	return users;
 }
