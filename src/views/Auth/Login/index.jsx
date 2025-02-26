@@ -92,7 +92,7 @@ function Login() {
 			console.log({ accessToken, user });
 			dispatch(saveUser(user));
 			dispatch(setToken(accessToken));
-			// setLocalStorage("accessToken", accessToken); // for temporary
+			setLocalStorage("accessToken", accessToken); // for temporary
 			toast.success(data?.message);
 			navigate(RoutePath.HOME, { replace: true });
 		},

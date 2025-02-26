@@ -29,8 +29,8 @@ const CommonBox = styled("div")(({ theme }) => ({
 }));
 
 function AuthProvider({ children }) {
-	const token = useSelector((state) => state.user?.accessToken);
-	// const token = getLocalStorage("accessToken"); // for temporary
+	// const token = useSelector((state) => state.user?.accessToken);
+	const token = getLocalStorage("accessToken"); // for temporary
 	console.log({ tokenInAuithProvider: token });
 	const theme = useTheme();
 	const dispatch = useDispatch();
@@ -118,7 +118,7 @@ function AuthProvider({ children }) {
 						//setting new access token
 						dispatch(setToken(response.data));
 						// setting new access token in local storage
-						// setLocalStorage("accessToken", response.data); // for temporary
+						setLocalStorage("accessToken", response.data); // for temporary
 						originalRequest.headers.Authorization = `Bearer ${response.data}`;
 						originalRequest._retry = true;
 						return apiClient(originalRequest);
@@ -127,7 +127,7 @@ function AuthProvider({ children }) {
 						if (error?.status === 403) {
 							dispatch(saveUser({}));
 							dispatch(setToken(null));
-							// setLocalStorage("accessToken", null); // for temporary
+							setLocalStorage("accessToken", null); // for temporary
 							navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, {
 								replace: true,
 							});
