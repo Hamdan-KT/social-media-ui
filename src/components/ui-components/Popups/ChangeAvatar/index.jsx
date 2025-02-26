@@ -91,25 +91,23 @@ function ChangeAvatar({ open = false, onClose = () => {}, imgUrl = "" }) {
 					title="Change Avatar"
 					actionLoading={changeProfileAvatar.isPending}
 					actionButton={
-						<Button>
-							<Typography
-								variant="body"
-								sx={{
-									userSelect: "none",
-									padding: "0 0.3rem",
-									fontWeight: 600,
-									"&:hover": { color: theme.palette.text.primary },
-								}}
-								color={theme.palette.primary.main}
-								onClick={(e) => {
-									e.preventDefault();
-									e.stopPropagation();
-									changeProfileAvatar.mutate(imgUrl);
-								}}
-							>
-								Save
-							</Typography>
-						</Button>
+						<Typography
+							variant="body"
+							sx={{
+								// userSelect: "none",
+								padding: "0 0.3rem",
+								fontWeight: 600,
+								// "&:hover": { color: theme.palette.text.primary },
+							}}
+							color={theme.palette.primary.main}
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+								changeProfileAvatar.mutate(imgUrl);
+							}}
+						>
+							Save
+						</Typography>
 					}
 				>
 					<CommonBox sx={{ position: "relative", height: "55vh" }}>
