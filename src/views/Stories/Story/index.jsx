@@ -77,7 +77,17 @@ function Story({ stories = [] }) {
 					))}
 				</>
 			) : (
-				<Swiper effect={"cube"} grabCursor={true} modules={[EffectCube]}>
+				<Swiper
+					effect={"cube"}
+					grabCursor={true}
+					modules={[EffectCube]}
+					cubeEffect={{
+						shadow: true,
+						slideShadows: true,
+						shadowOffset: 20,
+						shadowScale: 0.94,
+					}}
+				>
 					{stories?.map((story, index) => (
 						<SwiperSlide
 							key={index}
