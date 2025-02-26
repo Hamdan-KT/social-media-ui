@@ -63,21 +63,21 @@ const StoryLG = forwardRef(function Story(
 		};
 	}
 
-	useEffect(() => {
-		if (isActive) {
-			navigate(`/${RoutePath.STORY}/${uId}/${currentMedia?.media?._id}`, {
-				replace: true,
-			});
-			if (isLoaded) {
-				startProgress(currentMedia);
-			}
-		}
-		return () => {
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-			}
-		};
-	}, [currentMedia, isActive, activeSlide, isLoaded]);
+	// useEffect(() => {
+	// 	if (isActive) {
+	// 		navigate(`/${RoutePath.STORY}/${uId}/${currentMedia?.media?._id}`, {
+	// 			replace: true,
+	// 		});
+	// 		if (isLoaded) {
+	// 			startProgress(currentMedia);
+	// 		}
+	// 	}
+	// 	return () => {
+	// 		if (intervalRef.current) {
+	// 			clearInterval(intervalRef.current);
+	// 		}
+	// 	};
+	// }, [currentMedia, isActive, activeSlide, isLoaded]);
 
 	const startProgress = () => {
 		// setProgress(0);

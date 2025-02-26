@@ -69,16 +69,16 @@ const StorySM = forwardRef(function Story(
 		};
 	}
 
-	useEffect(() => {
-		if (isActive && isLoaded) {
-			startProgress(currentMedia);
-		}
-		return () => {
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-			}
-		};
-	}, [currentMedia, isActive, isLoaded]);
+	// useEffect(() => {
+	// 	if (isActive && isLoaded) {
+	// 		startProgress(currentMedia);
+	// 	}
+	// 	return () => {
+	// 		if (intervalRef.current) {
+	// 			clearInterval(intervalRef.current);
+	// 		}
+	// 	};
+	// }, [currentMedia, isActive, isLoaded]);
 
 	const startProgress = (currentMedia) => {
 		// setProgress(0);
