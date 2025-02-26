@@ -1,6 +1,6 @@
 import ReactIcons from "src/utils/ReactIcons";
 import { RoutePath } from "src/utils/routes";
-import { Avatar, styled, Typography, useTheme } from "@mui/material";
+import { Avatar, duration, styled, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
 
@@ -12,7 +12,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 	width: "auto",
 }));
 
-function StoryHeader({ story = [] }) {
+function StoryHeader({ story = [], currentMedia = {}, progress = 0 }) {
 	const theme = useTheme();
 	const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ function StoryHeader({ story = [] }) {
 				position: "absolute",
 				top: 0,
 				left: 0,
+				zIndex: 10
 			}}
 		>
 			{/* story count and duration bars */}
@@ -37,9 +38,29 @@ function StoryHeader({ story = [] }) {
 							width: "100%",
 							height: "2px",
 							borderRadius: "50px",
-							background: "white",
+							background: theme.palette.grey[400],
+							overflow: "hidden",
+							position: "relative",
 						}}
-					></CommonBox>
+					>
+						<CommonBox
+							sx={{
+								position: "absolute",
+								left: 0,
+								top: 0,
+								height: "100%",
+								width:
+									index < currentMedia?.index
+										? "100%"
+										: index > currentMedia?.index
+										? "0%"
+										: `${progress}%`,
+								borderRadius: "50px",
+								transition: `width ${duration}ms linear`,
+								background: theme.palette.common.white,
+							}}
+						></CommonBox>
+					</CommonBox>
 				))}
 			</CommonBox>
 			{/* profile details */}

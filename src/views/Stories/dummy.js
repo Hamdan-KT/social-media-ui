@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker";
 import { v4 as uuId } from "uuid";
-export function generateStories() {
+export function generateStories(count = 20) {
 	const users = [];
 
-	for (let i = 1; i <= 20; i++) {
+	for (let i = 1; i <= count; i++) {
 		const user = {
 			_id: uuId(),
 			name: faker.person.fullName(),
@@ -16,9 +16,15 @@ export function generateStories() {
 		for (let j = 1; j <= storyCount; j++) {
 			const media = {
 				_id: uuId(),
-				type: faker.helpers.arrayElement(["image"]),
-				url: faker.image.urlPicsumPhotos({ width: 1080, height: 1920 }),
-				timestamp: faker.date.recent().toISOString(),
+				fileType: faker.helpers.arrayElement(["image"]),
+				fileUrl: faker.image.urlPicsumPhotos({ width: 1080, height: 1920 }),
+				aspectRatio: 9 / 16,
+				createdAt: faker.date.recent().toISOString(),
+				views: faker.number.int({ min: 4, max: 2000 }),
+				seen: faker.helpers.arrayElement([true, false]),
+				seenAt: faker.date.recent().toISOString(),
+				likeCount: faker.number.int({ min: 4, max: 450 }),
+				viewsCount: faker.number.int({ min: 4, max: 2000 }),
 			};
 
 			user.medias.push(media);

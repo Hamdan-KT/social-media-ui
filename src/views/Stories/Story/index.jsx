@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@mui/material";
 import { IconButton, styled } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -12,6 +12,7 @@ import { EffectCube, Pagination } from "swiper/modules";
 import { Box, useTheme, Zoom } from "@mui/material";
 import StoryLG from "./StoryLg";
 import StorySM from "./StorySm";
+import { useParams } from "react-router";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -24,9 +25,11 @@ const CommonBox = styled("div")(({ theme }) => ({
 function Story({ stories = [] }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const [activeSlide, setActiveSlide] = useState(2);
+	const [activeSlide, setActiveSlide] = useState(0);
+	const [activeStory, setActiveStory] = useState(null);
 	const slidesRef = useRef([]);
-	// const [stories, setStories] = useState(generateStories() ?? []);
+	const { uId, sId } = useParams();
+	const swiperRef = useRef(null);
 
 	const handleNext = () => {
 		setActiveSlide((prev) => Math.min(stories.length - 1, prev + 1));
@@ -35,8 +38,21 @@ function Story({ stories = [] }) {
 		setActiveSlide((prev) => Math.max(0, prev - 1));
 	};
 
+	// find story based on userId from url and set as active index
+	useLayoutEffect(() => {
+		const index = stories.findIndex((story) => story._id === uId);
+		if (index !== -1) {
+			setActiveSlide(index);
+			// setActiveStory(stories[index]);
+			if (matchDownSm && swiperRef.current) {
+				swiperRef.current.setTransition(0, 0);
+				swiperRef.current.slideTo(index, 0);
+			}
+		}
+	}, [uId, stories, matchDownSm]);
+
 	useEffect(() => {
-		if(!matchDownSm){
+		if (!matchDownSm) {
 			const slides = slidesRef.current;
 			if (!slides.length) return;
 
@@ -52,8 +68,9 @@ function Story({ stories = [] }) {
 					slide.style.opacity = opacity;
 				});
 			};
-
 			updateSlides();
+		} else {
+			swiperRef.current?.slideTo(activeSlide, 0);
 		}
 	}, [activeSlide, matchDownSm]);
 
@@ -69,7 +86,7 @@ function Story({ stories = [] }) {
 							isActive={index === activeSlide}
 							handleNext={handleNext}
 							handlePrev={handlePrev}
-							onClick={() => setActiveSlide(index)}
+							setActiveSlide={() => setActiveSlide(index)}
 							activeSlide={activeSlide}
 							isStart={activeSlide === 0}
 							isEnd={activeSlide === stories?.length - 1}
@@ -77,10 +94,15 @@ function Story({ stories = [] }) {
 					))}
 				</>
 			) : (
-				<Swiper effect={"cube"} grabCursor={true} modules={[EffectCube]}>
+				<Swiper
+					effect={"cube"}
+					grabCursor={true}
+					modules={[EffectCube]}
+					onSwiper={(swiper) => (swiperRef.current = swiper)}
+				>
 					{stories?.map((story, index) => (
 						<SwiperSlide
-							key={index}
+							key={story?._id}
 							style={{
 								background: theme.palette.common.black,
 								height: "100vh",
@@ -99,14 +121,9 @@ function Story({ stories = [] }) {
 									transition: "0.3s ease-in-out",
 									borderRadius: "10px",
 								}}
-								// ref={(el) => (slidesRef.current[index] = el)}
-								// isActive={true}
-								// handleNext={handleNext}
-								// handlePrev={handlePrev}
-								// onClick={() => setActiveSlide(index)}
-								// activeSlide={activeSlide}
-								// isStart={activeSlide === 0}
-								// isEnd={activeSlide === stories?.length - 1}
+								isActive={index === activeSlide}
+								handleNext={handleNext}
+								handlePrev={handlePrev}
 							/>
 						</SwiperSlide>
 					))}

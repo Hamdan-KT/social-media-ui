@@ -88,7 +88,7 @@ const SlideButton = styled(IconButton)(({ direction }) => ({
 	zIndex: 7,
 }));
 
-function StorySlider(props) {
+function StorySlider({ stories = [] }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const sliderWindow = useRef();
@@ -130,13 +130,13 @@ function StorySlider(props) {
 								sx={{
 									fontSize: { xs: "11px" },
 									userSelect: "none",
-									width: "5.5rem",
+									width: "100%",
 								}}
 							>
-								{userStories[9].name}
+								{"Your story"}
 							</Typography>
 						</Box>
-						{userStories?.map((story, ind) => (
+						{stories?.map((story, ind) => (
 							<Box
 								sx={{
 									display: "flex",
@@ -148,20 +148,17 @@ function StorySlider(props) {
 									maxWidth: "5.5rem",
 									minWidth: { xs: "5.5rem", sm: "4rem" },
 								}}
-								onClick={() => navigate(`/${RoutePath.STORY}`)}
+								onClick={() => navigate(`/${RoutePath.STORY}/${story?._id}`)}
 								key={ind}
 							>
-								<ProfileAvatar
-									profile={story?.profile}
-									userName={story?.name}
-								/>
+								<ProfileAvatar profile={story?.avatar} userName={story?.name} />
 								<Typography
 									noWrap
 									variant="p"
 									sx={{
 										fontSize: { xs: "11px" },
 										userSelect: "none",
-										width: "5.5rem",
+										width: "100%",
 									}}
 								>
 									{story.name}
@@ -191,4 +188,5 @@ function StorySlider(props) {
 	);
 }
 
-export default memo(StorySlider);
+const MemoizedStorySlider = memo(StorySlider);
+export default MemoizedStorySlider;

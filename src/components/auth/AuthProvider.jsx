@@ -18,6 +18,7 @@ import {
 	setSocket,
 } from "src/app/slices/socketSlice/socketSlice";
 import { disconnectSocket, initSocket } from "src/services/socket";
+import { getLocalStorage, setLocalStorage } from "src/utils/common";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -28,7 +29,9 @@ const CommonBox = styled("div")(({ theme }) => ({
 }));
 
 function AuthProvider({ children }) {
-	const token = useSelector((state) => state.user?.accessToken);
+	// const token = useSelector((state) => state.user?.accessToken);
+	const token = getLocalStorage("accessToken"); // for temporary
+	console.log({ tokenInAuithProvider: token });
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -38,6 +41,7 @@ function AuthProvider({ children }) {
 		queryKey: ["currentuser"],
 		queryFn: () => getCurrentUser(),
 		refetchOnWindowFocus: true,
+		// enabled: !!token,
 	});
 
 	useEffect(() => {
@@ -113,6 +117,8 @@ function AuthProvider({ children }) {
 						const response = await refreshAuthToken();
 						//setting new access token
 						dispatch(setToken(response.data));
+						// setting new access token in local storage
+						setLocalStorage("accessToken", response.data); // for temporary
 						originalRequest.headers.Authorization = `Bearer ${response.data}`;
 						originalRequest._retry = true;
 						return apiClient(originalRequest);
@@ -121,6 +127,7 @@ function AuthProvider({ children }) {
 						if (error?.status === 403) {
 							dispatch(saveUser({}));
 							dispatch(setToken(null));
+							setLocalStorage("accessToken", null); // for temporary
 							navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`, {
 								replace: true,
 							});

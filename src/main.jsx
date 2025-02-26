@@ -11,8 +11,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<React.StrictMode>
-		{/* redux provider --> importing store from app/store.js */}
+
+
 		<Provider store={store}>
 			{/* browser router */}
 			<BrowserRouter>
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 				</QueryClientProvider>
 			</BrowserRouter>
 		</Provider>
-	</React.StrictMode>
+
 );

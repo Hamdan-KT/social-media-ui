@@ -1,8 +1,10 @@
+import { generateStories } from "src/views/Stories/dummy";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	user: {},
 	accessToken: null,
+	stories: generateStories(),
 };
 
 export const userSlice = createSlice({
@@ -10,7 +12,7 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		saveUser: (state, action) => {
-			console.log(action.payload?.user)
+			console.log(action.payload?.user);
 			state.user = action.payload;
 		},
 		logOut: (state) => {
@@ -19,10 +21,13 @@ export const userSlice = createSlice({
 		setToken: (state, action) => {
 			state.accessToken = action.payload;
 		},
+		setStories: (state, action) => {
+			state.stories = action.payload;
+		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { saveUser, logOut, setToken } = userSlice.actions;
+export const { saveUser, logOut, setToken, setStories } = userSlice.actions;
 
 export default userSlice.reducer;

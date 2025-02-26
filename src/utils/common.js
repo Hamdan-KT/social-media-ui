@@ -236,3 +236,20 @@ export const blobUrlToFile = async (blobUrl, fileName, mimeType) => {
 		throw error;
 	}
 };
+
+export const setLocalStorage = (key, value) => {
+	localStorage.setItem(key, JSON.stringify(value)); // Store as string
+};
+
+export const getLocalStorage = (key) => {
+	const value = localStorage.getItem(key);
+	return value ? JSON.parse(value) : null; // Parse back to original format
+};
+
+export const removeLocalStorage = (key) => {
+	localStorage.removeItem(key);
+};
+
+export const clearLocalStorage = () => {
+	localStorage.clear();
+};

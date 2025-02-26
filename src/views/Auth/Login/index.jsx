@@ -28,6 +28,7 @@ import DefaultLoader from "src/components/common/DefaultLoader";
 import ReactIcons from "src/utils/ReactIcons";
 import { useDispatch } from "react-redux";
 import { saveUser, setToken } from "src/app/slices/userSlice/userSlice";
+import { setLocalStorage } from "src/utils/common";
 
 const CommonBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -88,8 +89,10 @@ function Login() {
 		onSuccess: (data) => {
 			console.log({ data });
 			const { accessToken, user } = data.data;
+			console.log({ accessToken, user });
 			dispatch(saveUser(user));
 			dispatch(setToken(accessToken));
+			setLocalStorage("accessToken", accessToken); // for temporary
 			toast.success(data?.message);
 			navigate(RoutePath.HOME, { replace: true });
 		},
@@ -118,7 +121,15 @@ function Login() {
 						marginBottom: "2rem",
 					}}
 				/> */}
-				<Typography variant="logo" sx={{ fontSize: "3rem", p: "0.5rem", marginTop: "2rem", marginBottom:"2rem" }}>
+				<Typography
+					variant="logo"
+					sx={{
+						fontSize: "3rem",
+						p: "0.5rem",
+						marginTop: "2rem",
+						marginBottom: "2rem",
+					}}
+				>
 					Instogram
 				</Typography>
 				<form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>

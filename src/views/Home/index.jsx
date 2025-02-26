@@ -8,12 +8,14 @@ import PostMobile from "components/ui-components/Post/mobile";
 // dummy data
 import { userPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import DefaultLoader from "components/common/DefaultLoader";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "src/api/postAPI";
 import { useInView } from "react-intersection-observer";
 import PostMobileSkeleton from "src/components/ui-components/Post/mobile/skelton";
+import { generateStories } from "../Stories/dummy";
+import { useSelector } from "react-redux";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -32,6 +34,7 @@ function Home() {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const { ref, inView } = useInView();
+	const stories = useSelector((state) => state.user.stories);
 
 	const {
 		fetchNextPage,
@@ -73,7 +76,7 @@ function Home() {
 					{/* mobile header in xs devices */}
 					<MobileHeader />
 					{/* story Slider */}
-					<StorySlider />
+					<StorySlider stories={stories} />
 					{/* post rendering */}
 					{!data || isLoading ? (
 						<>

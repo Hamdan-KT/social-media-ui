@@ -15,6 +15,7 @@ import { generateStories } from "./dummy";
 import ReactIcons from "src/utils/ReactIcons";
 import { useNavigate } from "react-router";
 import { RoutePath } from "src/utils/routes";
+import { useSelector } from "react-redux";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -26,13 +27,13 @@ const CommonBox = styled("div")(({ theme }) => ({
 
 function Stories() {
 	const [open, setOpen] = useState(true);
-	const [stories, setStories] = useState(generateStories() ?? []);
+	const stories = useSelector((state) => state.user.stories);
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
-		<Zoom in={open} timeout={500}>
+		<Zoom in={open} timeout={200}>
 			<Box className="container">
 				{!matchDownSm && (
 					<ReactIcons.IoClose

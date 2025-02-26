@@ -5,7 +5,7 @@ import MinimalLayout from "../layouts/MinimalLayout";
 import AuthProvider from "src/components/auth/AuthProvider";
 
 // MAIN ROUTES
-const Story = Loadable(lazy(() => import("views/Stories")));
+const Stories = Loadable(lazy(() => import("views/Stories")));
 const CropPostMobile = Loadable(lazy(() => import("views/CreatePost/Crop")));
 const EditPostMobile = Loadable(
 	lazy(() => import("views/CreatePost/FilterAdjustment"))
@@ -35,8 +35,12 @@ const HelperRoutes = () => {
 		),
 		children: [
 			{
-				path: RoutePath.STORY,
-				element: <Story />,
+				path: `${RoutePath.STORY}/:uId`,
+				element: <Stories />,
+			},
+			{
+				path: `${RoutePath.STORY}/:uId/:sId`,
+				element: <Stories />,
 			},
 			{
 				path: RoutePath.CREATE,

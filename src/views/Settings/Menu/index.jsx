@@ -21,6 +21,7 @@ import { RoutePath } from "src/utils/routes";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { saveUser, setToken } from "src/app/slices/userSlice/userSlice";
+import { setLocalStorage } from "src/utils/common";
 
 // styled drawer header
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
@@ -51,6 +52,7 @@ const SettingsMenu = memo(function () {
 			toast.success(data?.message);
 			dispatch(saveUser({}));
 			dispatch(setToken(null));
+			setLocalStorage("accessToken", null); // for temporary
 			window.location.replace(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`);
 		},
 		onError: (error) => {
