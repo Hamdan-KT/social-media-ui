@@ -3,12 +3,13 @@ import CustomModal from "components/common/Modal";
 // import ListSection from "./ListSection";
 import {
 	Box,
+	Button,
 	styled,
 	Typography,
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import BottomSheet from "components/common/BottomSheet";
+import BottomSheet from "src/components/common/BottomSheet";
 import { useDispatch, useSelector } from "react-redux";
 import Cropper from "react-easy-crop";
 import DefaultLoader from "src/components/common/DefaultLoader";
@@ -90,20 +91,21 @@ function ChangeAvatar({ open = false, onClose = () => {}, imgUrl = "" }) {
 					title="Change Avatar"
 					actionLoading={changeProfileAvatar.isPending}
 					actionButton={
-						<Typography
-							variant="body"
-							sx={{
-								userSelect: "none",
-								cursor: "pointer",
-								padding: "0 0.3rem",
-								fontWeight: 600,
-								"&:hover": { color: theme.palette.text.primary },
-							}}
-							color={theme.palette.primary.main}
-							onClick={() => changeProfileAvatar.mutate(imgUrl)}
-						>
-							Save
-						</Typography>
+						<Button>
+							<Typography
+								variant="body"
+								sx={{
+									userSelect: "none",
+									padding: "0 0.3rem",
+									fontWeight: 600,
+									"&:hover": { color: theme.palette.text.primary },
+								}}
+								color={theme.palette.primary.main}
+								onClick={() => changeProfileAvatar.mutate(imgUrl)}
+							>
+								Save
+							</Typography>
+						</Button>
 					}
 				>
 					<CommonBox sx={{ position: "relative", height: "55vh" }}>
