@@ -1,10 +1,16 @@
 import { lazy } from "react";
 import Loadable from "components/common/Loadable";
 import { RoutePath } from "src/utils/routes";
-import RelationPopUp from "src/components/ui-components/Popups/Relation";
-import MutualRel from "src/views/Profile/Relation/Mutual";
-import FollowersRel from "src/views/Profile/Relation/Followers";
-import FollowingRel from "src/views/Profile/Relation/Following";
+const RelationPopUp = Loadable(
+	lazy(() => import("components/ui-components/Popups/Relation"))
+);
+const MutualRel = Loadable(lazy(() => import("views/Profile/Relation/Mutual")));
+const FollowersRel = Loadable(
+	lazy(() => import("views/Profile/Relation/Followers"))
+);
+const FollowingRel = Loadable(
+	lazy(() => import("views/Profile/Relation/Following"))
+);
 
 // testroute
 const Test = Loadable(lazy(() => import("views/Test")));
