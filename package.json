@@ -36,6 +36,7 @@
 		"react-redux": "^8.1.2",
 		"react-router": "^6.15.0",
 		"react-router-dom": "^6.15.0",
+		"react-virtuoso": "^4.12.5",
 		"socket.io-client": "^4.8.1",
 		"swiper": "^11.2.2",
 		"uuid": "^10.0.0",

@@ -1,16 +1,15 @@
 import { useTheme } from "@mui/material/styles";
-import { Box, Divider, Grid, styled, useMediaQuery } from "@mui/material";
+import { Box, Grid, styled, useMediaQuery } from "@mui/material";
 import { defaultSpacing } from "utils/constants";
 import StorySlider from "components/ui-components/StorySlider";
 import Suggessions from "components/ui-components/ProfileAndSuggession";
 import PostMobile from "components/ui-components/Post/mobile";
-
+import { Virtuoso } from "react-virtuoso";
 // dummy data
-import { userPosts } from "../../data";
 import MobileHeader from "layouts/MainLayout/Header";
 import { memo, useEffect } from "react";
 import DefaultLoader from "components/common/DefaultLoader";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getAllPosts } from "src/api/postAPI";
 import { useInView } from "react-intersection-observer";
 import PostMobileSkeleton from "src/components/ui-components/Post/mobile/skelton";
@@ -20,9 +19,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
 	display: "flex",
 	flexDirection: "column",
 	alignItems: "center",
-	justifyContent: "center",
+	justifyContent: "start",
 	background: theme.palette.background.default,
 	gap: "1rem",
+	position: "relative",
+	minHeight: "100vh",
 }));
 
 // memorize post component
@@ -31,6 +32,7 @@ const MemoizedPost = memo(PostMobile);
 function Home() {
 	const theme = useTheme();
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const { ref, inView } = useInView();
 
 	const {
@@ -83,23 +85,31 @@ function Home() {
 						</>
 					) : (
 						<>
-							{data?.pages?.map((page, pageIndex, pageArr) => (
-								<>
-									{page?.data?.map((post, postIndex, postArr) => (
-										<MemoizedPost
-											ref={
-												pageIndex === pageArr.length - 1 &&
-												postIndex === postArr.length - 1
-													? ref
-													: undefined
-											}
-											key={post?._id}
-											data={post}
-											divider={Boolean(pageIndex !== pageArr.length - 1)}
-										/>
-									))}
-								</>
-							))}
+							<Virtuoso
+								useWindowScroll
+								data={data.pages.flatMap((page) => page.data)}
+								style={{
+									height: "100vh",
+									width: matchDownSm ? "100%" : "470px",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									flexDirection: "column",
+								}}
+								itemContent={(index, post) => (
+									<MemoizedPost
+										ref={
+											index ===
+											data.pages.flatMap((page) => page.data).length - 1
+												? ref
+												: undefined
+										}
+										key={post._id}
+										data={post}
+										divider={true}
+									/>
+								)}
+							/>
 						</>
 					)}
 					{isFetchingNextPage && <DefaultLoader />}

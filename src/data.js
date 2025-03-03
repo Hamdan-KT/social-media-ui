@@ -1,13 +1,3 @@
-// function getRandomImageRatio() {
-// 	const sizes = [
-// 		{ width: 1080, height: 1350 },
-// 		{ width: 1080, height: 1080 },
-// 		{ width: 1080, height: 608 },
-// 	];
-// 	const randomIndex = Math.floor(Math.random() * sizes.length);
-// 	return sizes[randomIndex];
-// }
-
 export const defaultUser = {
 	id: 67,
 	userId: "Jack_Sparrow",

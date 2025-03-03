@@ -32,7 +32,7 @@ const StoryLG = forwardRef(function Story(
 		isStart,
 		isEnd,
 		containerSx,
-        sx,
+		sx,
 		...others
 	},
 	ref
@@ -57,7 +57,7 @@ const StoryLG = forwardRef(function Story(
 					borderRadius: "10px",
 					cursor: !isActive && "pointer",
 					aspectRatio: "9/16",
-                    ...sx
+					...sx,
 				}}
 				{...others}
 			>
