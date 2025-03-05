@@ -18,6 +18,7 @@ import { useRef, memo } from "react";
 import ProfileAvatar from "components/common/ProfileAvatar";
 import { RoutePath } from "src/utils/routes";
 import { useNavigate } from "react-router";
+import { dummyStories } from "src/views/Stories/dummy";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
@@ -90,6 +91,8 @@ const SlideButton = styled(IconButton)(({ direction }) => ({
 
 function StorySlider(props) {
 	const theme = useTheme();
+	const user = useSelector((state) => state?.user?.user);
+	console.log({ user });
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const sliderWindow = useRef();
 	const navigate = useNavigate();
@@ -120,8 +123,8 @@ function StorySlider(props) {
 							}}
 						>
 							<ProfileAvatar
-								profile={userStories[9]?.profile}
-								userName={userStories[9]?.name}
+								profile={user?.avatar}
+								userName={user?.userName}
 								badge={true}
 							/>
 							<Typography
@@ -133,10 +136,10 @@ function StorySlider(props) {
 									width: "5.5rem",
 								}}
 							>
-								{userStories[9].name}
+								{user?.userName}
 							</Typography>
 						</Box>
-						{userStories?.map((story, ind) => (
+						{dummyStories?.map((story, ind) => (
 							<Box
 								sx={{
 									display: "flex",
@@ -152,8 +155,8 @@ function StorySlider(props) {
 								key={ind}
 							>
 								<ProfileAvatar
-									profile={story?.profile}
-									userName={story?.name}
+									profile={story?.avatar}
+									userName={story?.userName}
 								/>
 								<Typography
 									noWrap
@@ -164,7 +167,7 @@ function StorySlider(props) {
 										width: "5.5rem",
 									}}
 								>
-									{story.name}
+									{story.userName}
 								</Typography>
 							</Box>
 						))}

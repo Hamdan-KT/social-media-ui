@@ -14,6 +14,8 @@ import StoryBottomBar from "../../BottomBar";
 import StoryHeader from "../../Header";
 import ProfileAvatar from "src/components/common/ProfileAvatar";
 import ReactIcons from "src/utils/ReactIcons";
+import Video from "src/components/common/Video";
+import { commonMediaTypes } from "src/utils/constants";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -50,6 +52,7 @@ const StorySM = forwardRef(function Story(
 				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "start",
+				background: theme.palette.common.black,
 				...containerSx,
 			}}
 		>
@@ -73,16 +76,33 @@ const StorySM = forwardRef(function Story(
 				{/* Header */}
 				<StoryHeader story={story} />
 				{/* content section */}
-				<Image
-					src={story?.medias[0]?.url}
-					draggable={false}
-					style={{
-						display: "block",
-						width: "100%",
-						objectFit: "cover",
-						userSelect: "none",
-					}}
-				/>
+				{story?.items[0]?.fileType === commonMediaTypes.IMAGE && (
+					<Image
+						src={story?.items[0]?.fileUrl}
+						draggable={false}
+						style={{
+							display: "block",
+							width: "100%",
+							objectFit: "cover",
+							userSelect: "none",
+						}}
+					/>
+				)}
+				{story?.items[0]?.fileType === commonMediaTypes.VIDEO && (
+					<Video
+						src={story?.items[0]?.fileUrl}
+						draggable={false}
+						controls={false}
+						playsInline
+						autoPlay
+						style={{
+							display: "block",
+							width: "100%",
+							objectFit: "cover",
+							userSelect: "none",
+						}}
+					/>
+				)}
 			</CommonBox>
 			{/* bottom bar */}
 			<StoryBottomBar

@@ -30,7 +30,7 @@ function StoryHeader({ story = [] }) {
 			<CommonBox
 				sx={{ width: "100%", gap: "4px", padding: "0 0.5rem", mt: "0.5rem" }}
 			>
-				{story?.medias?.map((str, index) => (
+				{story?.items?.map((str, index) => (
 					<CommonBox
 						key={index}
 						sx={{
@@ -51,7 +51,7 @@ function StoryHeader({ story = [] }) {
 							variant="userName"
 							sx={{ color: theme.palette.background.paper }}
 						>
-							{story?.name}
+							{story?.userName}
 							<Typography
 								variant="greyTags"
 								sx={{

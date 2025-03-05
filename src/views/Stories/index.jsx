@@ -11,7 +11,7 @@ import {
 import "./index.css";
 import Image from "src/components/common/Image";
 import Story from "./Story";
-import { generateStories } from "./dummy";
+import { dummyStories } from "./dummy";
 import ReactIcons from "src/utils/ReactIcons";
 import { useNavigate } from "react-router";
 import { RoutePath } from "src/utils/routes";
@@ -26,7 +26,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 
 function Stories() {
 	const [open, setOpen] = useState(true);
-	const [stories, setStories] = useState(generateStories() ?? []);
+	const [stories, setStories] = useState(dummyStories ?? []);
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));

@@ -14,6 +14,8 @@ import StoryBottomBar from "../../BottomBar";
 import StoryHeader from "../../Header";
 import ProfileAvatar from "src/components/common/ProfileAvatar";
 import ReactIcons from "src/utils/ReactIcons";
+import { commonMediaTypes } from "src/utils/constants";
+import Video from "src/components/common/Video";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -64,16 +66,34 @@ const StoryLG = forwardRef(function Story(
 				{/* Header */}
 				{isActive && <StoryHeader story={story} />}
 				{/* content section */}
-				<Image
-					src={story?.medias[0]?.url}
-					draggable={false}
-					style={{
-						display: "block",
-						width: "100%",
-						objectFit: "cover",
-						userSelect: "none",
-					}}
-				/>
+				{story?.items[0]?.fileType === commonMediaTypes.IMAGE && (
+					<Image
+						src={story?.items[0]?.fileUrl}
+						draggable={false}
+						style={{
+							display: "block",
+							width: "100%",
+							objectFit: "cover",
+							userSelect: "none",
+						}}
+					/>
+				)}
+				{story?.items[0]?.fileType === commonMediaTypes.VIDEO && (
+					<Video
+						src={story?.items[0]?.fileUrl}
+						draggable={false}
+						controls={false}
+						playsInline
+						autoPlay
+						style={{
+							display: "block",
+							width: "100%",
+							objectFit: "cover",
+							userSelect: "none",
+						}}
+					/>
+				)}
+
 				{/* profile Avatar for in active stories */}
 				{!isActive && (
 					<CommonBox
@@ -87,12 +107,12 @@ const StoryLG = forwardRef(function Story(
 							transition: "0.3s ease-in-out",
 						}}
 					>
-						<ProfileAvatar profile={story?.avatar} userName={story?.name} />
+						<ProfileAvatar profile={story?.avatar} userName={story?.userName} />
 						<Typography
 							variant="userName"
 							sx={{ color: theme.palette.background.paper }}
 						>
-							{story?.name}
+							{story?.userName}
 							<Typography
 								variant="greyTags"
 								sx={{

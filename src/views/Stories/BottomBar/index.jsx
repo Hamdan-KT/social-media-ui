@@ -22,10 +22,10 @@ function StoryBottomBar({ story, sx }) {
 				left: 0,
 				right: 0,
 				padding: "0.7rem",
-				...sx
+				...sx,
 			}}
 		>
-			<ReplyInput placeholder={`Reply to ${story?.name} ...`} />
+			<ReplyInput placeholder={`Reply to ${story?.userName} ...`} />
 		</CommonBox>
 	);
 }
