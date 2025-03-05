@@ -7,8 +7,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cube";
 import "swiper/css/pagination";
+import "swiper/css/virtual";
 // import required modules
-import { EffectCube, Pagination } from "swiper/modules";
+import { EffectCube, Pagination, Virtual } from "swiper/modules";
 import { Box, useTheme, Zoom } from "@mui/material";
 import StoryLG from "./StoryLg";
 import StorySM from "./StorySm";
@@ -36,23 +37,22 @@ function Story({ stories = [] }) {
 	};
 
 	useEffect(() => {
-		if(!matchDownSm){
+		if (!matchDownSm) {
 			const slides = slidesRef.current;
 			if (!slides.length) return;
-
 			const activeSlideWidth = 95 * (9 / 16);
-
 			const updateSlides = () => {
 				slides.forEach((slide, index) => {
+					if (!slide) return;
 					let offset = index - activeSlide;
+					console.log({ offset });
+					slide.style.display = "block";
+					slide.style.opacity = 1;
 					let translateX = `calc(${offset * activeSlideWidth}vh - 50%)`;
-					let opacity = Math.abs(offset) > 2 ? 0 : 1;
 					slide.style.height = index === activeSlide ? `95vh` : `48vh`;
 					slide.style.transform = `translateX(${translateX})`;
-					slide.style.opacity = opacity;
 				});
 			};
-
 			updateSlides();
 		}
 	}, [activeSlide, matchDownSm]);
@@ -61,36 +61,43 @@ function Story({ stories = [] }) {
 		<>
 			{!matchDownSm ? (
 				<>
-					{stories?.map((story, index) => (
-						<StoryLG
-							key={index}
-							story={story}
-							ref={(el) => (slidesRef.current[index] = el)}
-							isActive={index === activeSlide}
-							handleNext={handleNext}
-							handlePrev={handlePrev}
-							onClick={() => setActiveSlide(index)}
-							activeSlide={activeSlide}
-							isStart={activeSlide === 0}
-							isEnd={activeSlide === stories?.length - 1}
-						/>
-					))}
+					{stories
+						?.slice(Math.max(0, activeSlide - 2), activeSlide + 3)
+						.map((story, index) => {
+							const actualIndex = Math.max(0, activeSlide - 2) + index;
+							return (
+								<StoryLG
+									key={actualIndex}
+									story={story}
+									ref={(el) => (slidesRef.current[actualIndex] = el)}
+									isActive={actualIndex === activeSlide}
+									handleNext={handleNext}
+									handlePrev={handlePrev}
+									onClick={() => setActiveSlide(actualIndex)}
+									activeSlide={activeSlide}
+									isStart={activeSlide === 0}
+									isEnd={activeSlide === stories?.length - 1}
+								/>
+							);
+						})}
 				</>
 			) : (
 				<Swiper
 					effect={"cube"}
 					grabCursor={true}
-					modules={[EffectCube]}
+					modules={[EffectCube, Virtual]}
 					cubeEffect={{
 						shadow: true,
 						slideShadows: true,
 						shadowOffset: 20,
 						shadowScale: 0.94,
 					}}
+					virtual
 				>
 					{stories?.map((story, index) => (
 						<SwiperSlide
 							key={index}
+							virtualIndex={index}
 							style={{
 								background: theme.palette.common.black,
 								height: "100vh",
@@ -100,24 +107,22 @@ function Story({ stories = [] }) {
 								justifyContent: "center",
 							}}
 						>
-							<StorySM
-								story={story}
-								containerSx={{
-									display: "flex",
-									width: "100%",
-									height: "100vh",
-									transition: "0.3s ease-in-out",
-									borderRadius: "10px",
-								}}
-								// ref={(el) => (slidesRef.current[index] = el)}
-								// isActive={true}
-								// handleNext={handleNext}
-								// handlePrev={handlePrev}
-								// onClick={() => setActiveSlide(index)}
-								// activeSlide={activeSlide}
-								// isStart={activeSlide === 0}
-								// isEnd={activeSlide === stories?.length - 1}
-							/>
+							{({ isActive }) => (
+								<StorySM
+									story={story}
+									containerSx={{
+										display: "flex",
+										width: "100%",
+										height: "100vh",
+										transition: "0.3s ease-in-out",
+										borderRadius: "10px",
+									}}
+									isActive={isActive}
+									handleNext={handleNext}
+									handlePrev={handlePrev}
+									// activeSlide={activeSlide}
+								/>
+							)}
 						</SwiperSlide>
 					))}
 				</Swiper>
