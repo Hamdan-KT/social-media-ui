@@ -151,7 +151,7 @@ function StorySlider(props) {
 									maxWidth: "5.5rem",
 									minWidth: { xs: "5.5rem", sm: "4rem" },
 								}}
-								onClick={() => navigate(`/${RoutePath.STORY}`)}
+								onClick={() => navigate(`/${RoutePath.STORY}/${story?._id}`)}
 								key={ind}
 							>
 								<ProfileAvatar

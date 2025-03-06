@@ -35,7 +35,11 @@ const HelperRoutes = () => {
 		),
 		children: [
 			{
-				path: RoutePath.STORY,
+				path: `${RoutePath.STORY}/:uId`,
+				element: <Story />,
+			},
+			{
+				path: `${RoutePath.STORY}/:uId/:sId`,
 				element: <Story />,
 			},
 			{

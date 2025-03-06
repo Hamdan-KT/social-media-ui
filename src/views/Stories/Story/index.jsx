@@ -45,9 +45,6 @@ function Story({ stories = [] }) {
 				slides.forEach((slide, index) => {
 					if (!slide) return;
 					let offset = index - activeSlide;
-					console.log({ offset });
-					slide.style.display = "block";
-					slide.style.opacity = 1;
 					let translateX = `calc(${offset * activeSlideWidth}vh - 50%)`;
 					slide.style.height = index === activeSlide ? `95vh` : `48vh`;
 					slide.style.transform = `translateX(${translateX})`;
@@ -74,7 +71,6 @@ function Story({ stories = [] }) {
 									handleNext={handleNext}
 									handlePrev={handlePrev}
 									onClick={() => setActiveSlide(actualIndex)}
-									activeSlide={activeSlide}
 									isStart={activeSlide === 0}
 									isEnd={activeSlide === stories?.length - 1}
 								/>
@@ -120,7 +116,6 @@ function Story({ stories = [] }) {
 									isActive={isActive}
 									handleNext={handleNext}
 									handlePrev={handlePrev}
-									// activeSlide={activeSlide}
 								/>
 							)}
 						</SwiperSlide>
