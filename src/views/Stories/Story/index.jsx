@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@mui/material";
 import { IconButton, styled } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -13,6 +13,7 @@ import { EffectCube, Pagination, Virtual } from "swiper/modules";
 import { Box, useTheme, Zoom } from "@mui/material";
 import StoryLG from "./StoryLg";
 import StorySM from "./StorySm";
+import { useParams } from "react-router";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -25,9 +26,22 @@ const CommonBox = styled("div")(({ theme }) => ({
 function Story({ stories = [] }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
-	const [activeSlide, setActiveSlide] = useState(2);
+	const [activeSlide, setActiveSlide] = useState(null);
 	const slidesRef = useRef([]);
-	// const [stories, setStories] = useState(generateStories() ?? []);
+	const swiperRef = useRef(null);
+	const { uId } = useParams();
+
+	// find user story based on uId from stories
+	useLayoutEffect(() => {
+		const userStoryIndex = stories?.findIndex((item) => item?._id === uId);
+		if (!matchDownSm) {
+			setActiveSlide(userStoryIndex);
+		} else {
+			if (swiperRef.current) {
+				swiperRef.current?.slideTo(userStoryIndex, 0, false);
+			}
+		}
+	}, [uId]);
 
 	const handleNext = () => {
 		setActiveSlide((prev) => Math.min(stories.length - 1, prev + 1));
@@ -88,6 +102,7 @@ function Story({ stories = [] }) {
 						shadowOffset: 20,
 						shadowScale: 0.94,
 					}}
+					onSwiper={(swiper) => (swiperRef.current = swiper)}
 					virtual
 				>
 					{stories?.map((story, index) => (

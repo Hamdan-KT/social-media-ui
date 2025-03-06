@@ -47,7 +47,6 @@ export const refreshAuthToken = async (refreshToken) => {
 export const getCurrentUser = async () => {
 	try {
 		const { data } = await apiClient.get("/auth/current-user");
-		console.log({ data });
 		return data;
 	} catch (error) {
 		handleApiCallError(error);

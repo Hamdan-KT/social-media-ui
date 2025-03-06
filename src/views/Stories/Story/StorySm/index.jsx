@@ -31,8 +31,6 @@ const StorySM = forwardRef(function Story(
 		isActive,
 		handleNext,
 		handlePrev,
-		isStart,
-		isEnd,
 		containerSx,
 		sx,
 		...others

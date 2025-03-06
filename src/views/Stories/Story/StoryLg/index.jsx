@@ -7,7 +7,7 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { forwardRef } from "react";
 import ReplyInput from "src/components/common/ReplyInput";
 import StoryBottomBar from "../../BottomBar";
@@ -16,6 +16,7 @@ import ProfileAvatar from "src/components/common/ProfileAvatar";
 import ReactIcons from "src/utils/ReactIcons";
 import { commonMediaTypes } from "src/utils/constants";
 import Video from "src/components/common/Video";
+import { useParams } from "react-router";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -40,13 +41,36 @@ const StoryLG = forwardRef(function Story(
 	ref
 ) {
 	const theme = useTheme();
-	
+	const { uId, sId } = useParams(); // userId and storyId from params
+	const [activeItem, setActiveItem] = useState({ item: {}, index: 0 });
+
+	function findInitialItem(story) {
+		if (!story?.items?.length) return;
+
+		let itemIndex = sId
+			? story.items.findIndex((item) => item?._id === sId)
+			: -1;
+
+		if (itemIndex === -1) {
+			itemIndex = story.items.findIndex((item) => item?.seen === false);
+		}
+
+		itemIndex = itemIndex !== -1 ? itemIndex : 0; // updating latest itemIndex
+
+		return { item: story.items[itemIndex], index: itemIndex };
+	}
+
+	useEffect(() => {
+		const initialItem = findInitialItem(story);
+		console.log({ initialItem });
+		setActiveItem(initialItem);
+	}, [story]);
+
 	return (
 		<Box
 			className="story"
 			ref={ref}
 			sx={{
-				// overflow: "hidden",
 				borderRadius: "10px",
 				position: "relative",
 				zIndex: 9,
@@ -94,7 +118,6 @@ const StoryLG = forwardRef(function Story(
 						}}
 					/>
 				)}
-
 				{/* profile Avatar for in active stories */}
 				{!isActive && (
 					<CommonBox

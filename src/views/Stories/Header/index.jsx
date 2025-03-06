@@ -1,6 +1,13 @@
 import ReactIcons from "src/utils/ReactIcons";
 import { RoutePath } from "src/utils/routes";
-import { Avatar, styled, Typography, useTheme } from "@mui/material";
+import {
+	Avatar,
+	IconButton,
+	styled,
+	Typography,
+	useMediaQuery,
+	useTheme,
+} from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
 
@@ -15,6 +22,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 function StoryHeader({ story = [] }) {
 	const theme = useTheme();
 	const navigate = useNavigate();
+	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
 		<CommonBox
@@ -66,16 +74,18 @@ function StoryHeader({ story = [] }) {
 						</Typography>
 					</CommonBox>
 				</CommonBox>
-				<CommonBox>
-					<ReactIcons.IoClose
-						style={{
-							color: theme.palette.background.paper,
-							cursor: "pointer",
-							fontSize: "2rem",
-						}}
-						onClick={() => navigate(RoutePath.HOME)}
-					/>
-				</CommonBox>
+				{matchDownSm && (
+					<CommonBox>
+						<ReactIcons.IoClose
+							style={{
+								color: theme.palette.background.paper,
+								cursor: "pointer",
+								fontSize: "2rem",
+							}}
+							onClick={() => navigate(RoutePath.HOME)}
+						/>
+					</CommonBox>
+				)}
 			</CommonBox>
 		</CommonBox>
 	);
