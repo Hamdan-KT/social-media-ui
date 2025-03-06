@@ -40,6 +40,7 @@ const StoryLG = forwardRef(function Story(
 	ref
 ) {
 	const theme = useTheme();
+	
 	return (
 		<Box
 			className="story"
