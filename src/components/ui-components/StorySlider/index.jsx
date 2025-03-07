@@ -133,7 +133,7 @@ function StorySlider(props) {
 								sx={{
 									fontSize: { xs: "11px" },
 									userSelect: "none",
-									width: "5.5rem",
+									width: "100%",
 								}}
 							>
 								{user?.userName}
@@ -164,7 +164,7 @@ function StorySlider(props) {
 									sx={{
 										fontSize: { xs: "11px" },
 										userSelect: "none",
-										width: "5.5rem",
+										width: "100%",
 									}}
 								>
 									{story.userName}

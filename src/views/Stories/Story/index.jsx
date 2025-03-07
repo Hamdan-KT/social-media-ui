@@ -50,7 +50,7 @@ function Story({ stories = [] }) {
 		setActiveSlide((prev) => Math.max(0, prev - 1));
 	};
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!matchDownSm) {
 			const slides = slidesRef.current;
 			if (!slides.length) return;
@@ -84,6 +84,7 @@ function Story({ stories = [] }) {
 									isActive={actualIndex === activeSlide}
 									handleNext={handleNext}
 									handlePrev={handlePrev}
+									activeSlide={activeSlide}
 									onClick={() => setActiveSlide(actualIndex)}
 									isStart={activeSlide === 0}
 									isEnd={activeSlide === stories?.length - 1}

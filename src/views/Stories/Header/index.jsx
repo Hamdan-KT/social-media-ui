@@ -19,7 +19,21 @@ const CommonBox = styled("div")(({ theme }) => ({
 	width: "auto",
 }));
 
-function StoryHeader({ story = [] }) {
+const defaultStyle = (theme) => ({
+	color: theme.palette.background.paper,
+	cursor: "pointer",
+	fontSize: "2rem",
+});
+
+function StoryHeader({
+	story = [],
+	activeItem = {},
+	isPlaying = true,
+	isMuted = false,
+	isVideo = false,
+	togglePlayPause = () => {},
+	toggleMute = () => {},
+}) {
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -32,6 +46,7 @@ function StoryHeader({ story = [] }) {
 				position: "absolute",
 				top: 0,
 				left: 0,
+				zIndex: 5,
 			}}
 		>
 			{/* story count and duration bars */}
@@ -45,9 +60,27 @@ function StoryHeader({ story = [] }) {
 							width: "100%",
 							height: "2px",
 							borderRadius: "50px",
-							background: "white",
+							position: "relative",
+							backgroundColor: "#a8b1bb99",
 						}}
-					></CommonBox>
+					>
+						<CommonBox
+							sx={{
+								width:
+									index < activeItem?.index
+										? "100%"
+										: index === activeItem?.index
+										? "100%"
+										: "0%",
+								height: "2px",
+								position: "absolute",
+								left: 0,
+								top: 0,
+								borderRadius: "50px",
+								backgroundColor: theme.palette.background.paper,
+							}}
+						></CommonBox>
+					</CommonBox>
 				))}
 			</CommonBox>
 			{/* profile details */}
@@ -74,18 +107,43 @@ function StoryHeader({ story = [] }) {
 						</Typography>
 					</CommonBox>
 				</CommonBox>
-				{matchDownSm && (
-					<CommonBox>
+				<CommonBox sx={{ gap: "1rem", mr: "0.5rem" }}>
+					{isVideo && (
+						<>
+							{isPlaying ? (
+								<ReactIcons.FaPause
+									style={{ ...defaultStyle(theme), fontSize: "1.5rem" }}
+									onClick={togglePlayPause}
+								/>
+							) : (
+								<ReactIcons.FaPlay
+									style={{ ...defaultStyle(theme), fontSize: "1.2rem" }}
+									onClick={togglePlayPause}
+								/>
+							)}
+							{isMuted ? (
+								<ReactIcons.ImVolumeMute
+									style={{ ...defaultStyle(theme), fontSize: "1.3rem" }}
+									onClick={toggleMute}
+								/>
+							) : (
+								<ReactIcons.ImVolumeMute2
+									style={{ ...defaultStyle(theme), fontSize: "1.3rem" }}
+									onClick={toggleMute}
+								/>
+							)}
+						</>
+					)}
+					<ReactIcons.MdMoreHoriz
+						style={{ ...defaultStyle(theme), fontSize: "1.5rem" }}
+					/>
+					{matchDownSm && (
 						<ReactIcons.IoClose
-							style={{
-								color: theme.palette.background.paper,
-								cursor: "pointer",
-								fontSize: "2rem",
-							}}
+							style={defaultStyle(theme)}
 							onClick={() => navigate(RoutePath.HOME)}
 						/>
-					</CommonBox>
-				)}
+					)}
+				</CommonBox>
 			</CommonBox>
 		</CommonBox>
 	);

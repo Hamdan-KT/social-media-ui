@@ -7,14 +7,13 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { forwardRef } from "react";
-import ReplyInput from "src/components/common/ReplyInput";
 import StoryBottomBar from "../../BottomBar";
 import StoryHeader from "../../Header";
 import ProfileAvatar from "src/components/common/ProfileAvatar";
 import ReactIcons from "src/utils/ReactIcons";
-import { commonMediaTypes } from "src/utils/constants";
+import { commonMediaTypes, defaultStoryDuration } from "src/utils/constants";
 import Video from "src/components/common/Video";
 import { useParams } from "react-router";
 
@@ -36,6 +35,7 @@ const StoryLG = forwardRef(function Story(
 		isEnd,
 		containerSx,
 		sx,
+		activeSlide,
 		...others
 	},
 	ref
@@ -43,28 +43,92 @@ const StoryLG = forwardRef(function Story(
 	const theme = useTheme();
 	const { uId, sId } = useParams(); // userId and storyId from params
 	const [activeItem, setActiveItem] = useState({ item: {}, index: 0 });
+	const videoRef = useRef(null);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const [isMuted, setIsMuted] = useState(false);
+
+	// handle toggle play / pause
+	function togglePlayPause() {
+		if (videoRef?.current) {
+			if (isPlaying) {
+				videoRef?.current?.pause();
+			} else {
+				videoRef?.current?.play();
+			}
+			setIsPlaying(!isPlaying);
+		}
+	}
+
+	// handle restart video
+	function restartVideo() {
+		if (videoRef.current) {
+			videoRef.current.currentTime = 0;
+			videoRef?.current?.play();
+			setIsPlaying(true);
+		}
+	}
+
+	// handle toggle mute / unmute
+	function toggleMute() {
+		if (videoRef?.current) {
+			videoRef.current.muted = !isMuted;
+			setIsMuted(!isMuted);
+		}
+	}
 
 	function findInitialItem(story) {
 		if (!story?.items?.length) return;
-
 		let itemIndex = sId
 			? story.items.findIndex((item) => item?._id === sId)
 			: -1;
-
 		if (itemIndex === -1) {
 			itemIndex = story.items.findIndex((item) => item?.seen === false);
 		}
-
 		itemIndex = itemIndex !== -1 ? itemIndex : 0; // updating latest itemIndex
-
 		return { item: story.items[itemIndex], index: itemIndex };
 	}
 
-	useEffect(() => {
+	function navigateToNext() {
+		if (activeItem?.index < story?.items?.length - 1) {
+			setActiveItem((prev) => ({
+				index: prev?.index + 1,
+				item: story?.items[prev?.index + 1],
+			}));
+		} else {
+			handleNext();
+		}
+	}
+	function navigateToPrev() {
+		if (activeItem?.index > 0) {
+			setActiveItem((prev) => ({
+				index: prev?.index - 1,
+				item: story?.items[prev?.index - 1],
+			}));
+		} else {
+			handlePrev();
+		}
+	}
+
+	useLayoutEffect(() => {
 		const initialItem = findInitialItem(story);
 		console.log({ initialItem });
 		setActiveItem(initialItem);
 	}, [story]);
+
+	//handling video play pause based on active item
+	useEffect(() => {
+		if (!isActive && activeItem?.item?.fileType === commonMediaTypes.VIDEO) {
+			videoRef.current.pause();
+			videoRef.current.currentTime = 0;
+			setIsPlaying(false);
+		} else if (
+			isActive &&
+			activeItem?.item?.fileType === commonMediaTypes.VIDEO
+		) {
+			restartVideo();
+			setIsPlaying(true);
+		}
+	}, [isActive, activeItem, videoRef]);
 
 	return (
 		<Box
@@ -89,11 +153,21 @@ const StoryLG = forwardRef(function Story(
 				{...others}
 			>
 				{/* Header */}
-				{isActive && <StoryHeader story={story} />}
+				{isActive && (
+					<StoryHeader
+						story={story}
+						activeItem={activeItem}
+						isPlaying={isPlaying}
+						isMuted={isMuted}
+						isVideo={activeItem?.item?.fileType === commonMediaTypes.VIDEO}
+						togglePlayPause={togglePlayPause}
+						toggleMute={toggleMute}
+					/>
+				)}
 				{/* content section */}
-				{story?.items[0]?.fileType === commonMediaTypes.IMAGE && (
+				{activeItem?.item?.fileType === commonMediaTypes.IMAGE && (
 					<Image
-						src={story?.items[0]?.fileUrl}
+						src={activeItem?.item?.fileUrl}
 						draggable={false}
 						style={{
 							display: "block",
@@ -103,13 +177,14 @@ const StoryLG = forwardRef(function Story(
 						}}
 					/>
 				)}
-				{story?.items[0]?.fileType === commonMediaTypes.VIDEO && (
+				{activeItem?.item?.fileType === commonMediaTypes.VIDEO && (
 					<Video
-						src={story?.items[0]?.fileUrl}
+						ref={videoRef}
+						src={activeItem?.item?.fileUrl}
 						draggable={false}
 						controls={false}
 						playsInline
-						autoPlay
+						// autoPlay
 						style={{
 							display: "block",
 							width: "100%",
@@ -157,7 +232,7 @@ const StoryLG = forwardRef(function Story(
 			{/* controle btns */}
 			{isActive && (
 				<>
-					{!isStart && (
+					{((isStart && activeItem?.index > 0) || !isStart) && (
 						<IconButton
 							disableRipple
 							size="small"
@@ -172,14 +247,16 @@ const StoryLG = forwardRef(function Story(
 									backgroundColor: theme.palette.background.paper,
 								},
 							}}
-							onClick={handlePrev}
+							onClick={navigateToPrev}
+							// onClick={handlePrev}
 						>
 							<ReactIcons.MdNavigateBefore
 								style={{ color: theme.palette.common.black }}
 							/>
 						</IconButton>
 					)}
-					{!isEnd && (
+					{((isEnd && activeItem?.index < story?.items?.length - 1) ||
+						!isEnd) && (
 						<IconButton
 							disableRipple
 							size="small"
@@ -194,7 +271,8 @@ const StoryLG = forwardRef(function Story(
 									backgroundColor: theme.palette.background.paper,
 								},
 							}}
-							onClick={handleNext}
+							onClick={navigateToNext}
+							// onClick={handleNext}
 						>
 							<ReactIcons.MdNavigateNext
 								style={{ color: theme.palette.common.black }}

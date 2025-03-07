@@ -75,7 +75,7 @@ import {
 	IoMdExpand,
 	IoMdMic,
 	IoMdMicOff,
-	IoMdSend
+	IoMdSend,
 } from "react-icons/io";
 import {
 	LuSend,
@@ -118,7 +118,7 @@ import {
 import { HiDownload } from "react-icons/hi";
 import { FiShare, FiLock } from "react-icons/fi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-
+import { ImVolumeMute, ImVolumeMute2 } from "react-icons/im";
 
 const ReactIcons = {
 	IoSearchOutline,
@@ -232,6 +232,8 @@ const ReactIcons = {
 	IoMdMicOff,
 	MdCallEnd,
 	IoMdSend,
+	ImVolumeMute,
+	ImVolumeMute2,
 };
 
 export default ReactIcons;
