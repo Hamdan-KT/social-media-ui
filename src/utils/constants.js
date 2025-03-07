@@ -3,6 +3,7 @@ import ReactIcons from "./ReactIcons";
 export const drawerWidth = 250;
 export const defaultSpacing = 2;
 export const defaultStoryDuration = 5; //in seconds
+export const defaultStoryVideoDuration = 60; // in seconds
 
 export const messageSections = {
 	PRIMARY: "Primary",

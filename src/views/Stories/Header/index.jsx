@@ -33,6 +33,7 @@ function StoryHeader({
 	isVideo = false,
 	togglePlayPause = () => {},
 	toggleMute = () => {},
+	progress = 0,
 }) {
 	const theme = useTheme();
 	const navigate = useNavigate();
@@ -70,7 +71,7 @@ function StoryHeader({
 									index < activeItem?.index
 										? "100%"
 										: index === activeItem?.index
-										? "100%"
+										? `${progress}%`
 										: "0%",
 								height: "2px",
 								position: "absolute",
@@ -108,7 +109,7 @@ function StoryHeader({
 					</CommonBox>
 				</CommonBox>
 				<CommonBox sx={{ gap: "1rem", mr: "0.5rem" }}>
-					{isVideo && (
+					{isVideo && !matchDownSm && (
 						<>
 							{isPlaying ? (
 								<ReactIcons.FaPause

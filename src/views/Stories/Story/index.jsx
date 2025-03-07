@@ -130,8 +130,16 @@ function Story({ stories = [] }) {
 										borderRadius: "10px",
 									}}
 									isActive={isActive}
-									handleNext={handleNext}
-									handlePrev={handlePrev}
+									handleNext={() => {
+										if (swiperRef?.current) {
+											swiperRef?.current?.slideNext();
+										}
+									}}
+									handlePrev={() => {
+										if (swiperRef?.current) {
+											swiperRef?.current?.slidePrev();
+										}
+									}}
 								/>
 							)}
 						</SwiperSlide>
