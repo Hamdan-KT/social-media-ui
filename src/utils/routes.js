@@ -21,6 +21,7 @@ export const RoutePath = {
 	NOTIFICATIONS: "notifications",
 	STORY: "story",
 	CREATE: "create",
+	CREATE_STORY: "create-story",
 	CROP: "crop",
 	EDIT: "edit",
 	SHARE: "share",

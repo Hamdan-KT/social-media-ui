@@ -104,7 +104,7 @@ function PostSelect() {
 				type="file"
 				inputProps={{
 					multiple: true,
-					accept: "image/png, image/jpeg, image/jpg, video/*",
+					accept: "image/*, video/*",
 				}}
 			/>
 		</MainBox>

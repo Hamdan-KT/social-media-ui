@@ -17,6 +17,10 @@ function Btn({ children, sx, variant = "contained", color, ...rest }) {
 		borderColor: theme.palette.background.default,
 		"&:hover": {
 			borderColor: theme.palette.background.default,
+			border: "none",
+			background: variant === "contained"
+				? theme.palette.primary.dark
+				: theme.palette.grey[200],
 		},
 	}));
 
@@ -24,6 +28,8 @@ function Btn({ children, sx, variant = "contained", color, ...rest }) {
 		<StyledBtn
 			disableFocusRipple
 			disableElevation
+			disableRipple
+			disableTouchRipple
 			sx={{
 				padding: {
 					xs: variant === "contained" ? "0.35rem 1.7rem" : "0.25rem 1.7rem",

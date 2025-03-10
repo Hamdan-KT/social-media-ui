@@ -1,7 +1,7 @@
 // icons
 import { RoutePath } from "src/utils/routes";
 import ReactIcons from "utils/ReactIcons";
-import { sidebarpopUps } from "utils/constants";
+import { sidebarpopUps } from "src/utils/constants";
 
 export const menuList = [
 	{
@@ -54,8 +54,31 @@ export const menuList = [
 		title: "Create",
 		icon: ReactIcons.RiAddBoxFill,
 		outLinedIcon: ReactIcons.RiAddBoxLine,
-		popup: true,
-		popupType: sidebarpopUps.CREATE,
+		// popup: true,
+		// popupType: sidebarpopUps.POST,
+		items: [
+			{
+				id: "post",
+				title: "Post",
+				icon: ReactIcons.LiaPhotoVideoSolid,
+				popup: true,
+				popupType: sidebarpopUps.POST,
+			},
+			{
+				id: "story",
+				title: "Story",
+				icon: ReactIcons.MdOutlinePhotoFilter,
+				popup: true,
+				popupType: sidebarpopUps.STORY,
+			},
+			{
+				id: "live",
+				title: "Live",
+				icon: ReactIcons.RiLiveLine,
+				popup: true,
+				popupType: sidebarpopUps.LIVE,
+			},
+		],
 	},
 	{
 		id: "profile",

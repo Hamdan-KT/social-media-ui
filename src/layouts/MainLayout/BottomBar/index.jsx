@@ -17,11 +17,12 @@ import { createURLfromImage } from "utils/common";
 import { v4 as uuidv4 } from "uuid";
 // menu list for bottom bar
 import { BottomBarMenuList } from "./MenuList";
-import { RoutePath } from "utils/routes";
+import { RoutePath } from "src/utils/routes";
 import PopOver from "components/common/Popover";
-import ReactIcons from "utils/ReactIcons";
+import ReactIcons from "src/utils/ReactIcons";
 import { loadPosts } from "app/slices/postSlice/postSlice";
 import { memo } from "react";
+import { loadStories } from "src/app/slices/storySlice/storySlice";
 
 const StyledPopoverBox = styled(Box)(({ theme }) => ({
 	width: "auto",
@@ -69,7 +70,7 @@ const BottomBar = memo(function () {
 		}
 	};
 
-	// handle selection of post images
+	// handle selection of post files
 	const handleSelectPostFile = (e) => {
 		const files = e.target.files;
 		const selectedPosts = Object.keys(files).map((key) => {
@@ -107,6 +108,36 @@ const BottomBar = memo(function () {
 		dispatch(loadPosts(selectedPosts));
 		createMenuRef.current?.handleClose();
 		navigate(`/${RoutePath.CREATE}/${RoutePath.CROP}`);
+	};
+
+	// handle selection of story images
+	const handleSelectStoryFile = (e) => {
+		const files = e.target.files;
+		const selectedStories = Object.keys(files).map((key) => {
+			const file = files[key];
+			let fileType = "";
+
+			if (file.type.startsWith("image/")) {
+				fileType = "image";
+			} else if (file.type.startsWith("video/")) {
+				fileType = "video";
+			}
+
+			return {
+				type: fileType,
+				uID: uuidv4(),
+				url: createURLfromImage(file),
+				croppedUrl: "",
+				croppedAreaPixels: {},
+				crop: { x: 0, y: 0 },
+				zoom: 1,
+				rotation: 0,
+				aspectRatio,
+			};
+		});
+		dispatch(loadStories(selectedStories));
+		createMenuRef.current?.handleClose();
+		navigate(`/${RoutePath.CREATE_STORY}`);
 	};
 
 	return (
@@ -168,13 +199,21 @@ const BottomBar = memo(function () {
 												}}
 											/>
 											<StyledTypography
-												onClick={() => {
-													createMenuRef.current?.handleClose();
-												}}
+												component="label"
+												for="mobviewStoryFile"
 											>
 												{"Story"}
 												<ReactIcons.MdOutlineAddCircleOutline size={23} />
 											</StyledTypography>
+											<TextField
+												id="mobviewStoryFile"
+												style={{ display: "none" }}
+												onChange={handleSelectStoryFile}
+												type="file"
+												inputProps={{
+													multiple: true,
+												}}
+											/>
 										</StyledPopoverBox>
 									</PopOver>
 								);

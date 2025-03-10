@@ -1,4 +1,4 @@
-import { sidebarpopUps } from "utils/constants";
+import { sidebarpopUps } from "src/utils/constants";
 import { createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
 
@@ -7,7 +7,9 @@ const initialState = {
 	sideBarPopup: {
 		[sidebarpopUps.SEARCH]: false,
 		[sidebarpopUps.NOTIFICATION]: false,
-		[sidebarpopUps.CREATE]: false,
+		[sidebarpopUps.POST]: false,
+		[sidebarpopUps.STORY]: false,
+		[sidebarpopUps.LIVE]: false,
 	},
 };
 

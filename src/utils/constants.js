@@ -14,13 +14,20 @@ export const messageSections = {
 export const sidebarpopUps = {
 	SEARCH: "search",
 	NOTIFICATION: "notification",
-	CREATE: "create",
+	POST: "POST",
+	STORY: "story",
+	LIVE: "live"
 };
 
 export const postStages = {
 	CROP: "crop",
 	EDIT: "edit",
 	SHARE: "share",
+};
+
+export const storyStages = {
+	CROP: "crop",
+	EDIT: "edit",
 };
 
 export const postRatios = {

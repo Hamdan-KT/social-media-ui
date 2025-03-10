@@ -136,7 +136,7 @@ const StorySM = forwardRef(function Story(
 			const percentage = (videoRef?.current?.currentTime / duration) * 100; // converted to percentage
 			setProgress(percentage);
 			animationRef.current = requestAnimationFrame(updateProgress);
-		} 
+		}
 		// else {
 		// 	const elapsed = Date?.now() - imageDurationStartRef?.current;
 		// 	const percentage = (elapsed / (defaultStoryDuration * 1000)) * 100; // converted to percentage
@@ -164,7 +164,7 @@ const StorySM = forwardRef(function Story(
 		) {
 			restartVideo();
 			animationRef.current = requestAnimationFrame(updateProgress);
-		} 
+		}
 		// else if (
 		// 	isActive &&
 		// 	activeItem?.item?.fileType === commonMediaTypes.IMAGE

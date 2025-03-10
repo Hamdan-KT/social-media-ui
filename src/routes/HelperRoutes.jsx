@@ -7,6 +7,7 @@ import AuthProvider from "src/components/auth/AuthProvider";
 // MAIN ROUTES
 const Story = Loadable(lazy(() => import("views/Stories")));
 const CropPostMobile = Loadable(lazy(() => import("views/CreatePost/Crop")));
+const CreateStoryMobile = Loadable(lazy(() => import("views/CreateStory")));
 const EditPostMobile = Loadable(
 	lazy(() => import("views/CreatePost/FilterAdjustment"))
 );
@@ -62,6 +63,10 @@ const HelperRoutes = () => {
 						element: <PostTaggingMobile />,
 					},
 				],
+			},
+			{
+				path: RoutePath.CREATE_STORY,
+				element: <CreateStoryMobile />,
 			},
 			{ path: RoutePath.NEW_MESSAGE, element: <NewMessage /> },
 			{

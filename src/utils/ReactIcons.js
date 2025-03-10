@@ -19,6 +19,8 @@ import {
 	IoArrowForwardCircleOutline,
 	IoVideocam,
 	IoVideocamOff,
+	IoMusicalNotesOutline,
+	IoText,
 } from "react-icons/io5";
 import {
 	MdOutlineExplore,
@@ -44,6 +46,7 @@ import {
 	MdLock,
 	MdEdit,
 	MdCallEnd,
+	MdOutlinePhotoFilter,
 } from "react-icons/md";
 import { BiMoviePlay, BiSolidMoviePlay, BiBrush } from "react-icons/bi";
 import {
@@ -62,6 +65,7 @@ import {
 	RiLinkM,
 	RiDislikeLine,
 	RiChatOffLine,
+	RiLiveLine
 } from "react-icons/ri";
 import {
 	IoMdImages,
@@ -91,6 +95,7 @@ import {
 	LuHeartOff,
 	LuSendHorizonal,
 	LuScreenShare,
+	LuSticker,
 } from "react-icons/lu";
 import { FaRegImage, FaImages, FaPlay, FaPause } from "react-icons/fa6";
 import {
@@ -234,6 +239,11 @@ const ReactIcons = {
 	IoMdSend,
 	ImVolumeMute,
 	ImVolumeMute2,
+	RiLiveLine,
+	MdOutlinePhotoFilter,
+	LuSticker,
+	IoMusicalNotesOutline,
+	IoText,
 };
 
 export default ReactIcons;

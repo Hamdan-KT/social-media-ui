@@ -7,13 +7,23 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
 import { forwardRef } from "react";
 import StoryBottomBar from "../../BottomBar";
 import StoryHeader from "../../Header";
 import ProfileAvatar from "src/components/common/ProfileAvatar";
 import ReactIcons from "src/utils/ReactIcons";
-import { commonMediaTypes, defaultStoryDuration } from "src/utils/constants";
+import {
+	commonMediaTypes,
+	defaultStoryDuration,
+	defaultStoryVideoDuration,
+} from "src/utils/constants";
 import Video from "src/components/common/Video";
 import { useParams } from "react-router";
 
@@ -46,6 +56,9 @@ const StoryLG = forwardRef(function Story(
 	const videoRef = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isMuted, setIsMuted] = useState(false);
+	const animationRef = useRef(null);
+	const imageDurationStartRef = useRef(0);
+	const [progress, setProgress] = useState(0);
 
 	// handle toggle play / pause
 	function togglePlayPause() {
@@ -63,6 +76,7 @@ const StoryLG = forwardRef(function Story(
 	function restartVideo() {
 		if (videoRef.current) {
 			videoRef.current.currentTime = 0;
+			setProgress(0);
 			videoRef?.current?.play();
 			setIsPlaying(true);
 		}
@@ -112,8 +126,29 @@ const StoryLG = forwardRef(function Story(
 	useLayoutEffect(() => {
 		const initialItem = findInitialItem(story);
 		console.log({ initialItem });
+		setProgress(0);
 		setActiveItem(initialItem);
 	}, [story]);
+
+	const updateProgress = useCallback(() => {
+		if (videoRef.current) {
+			const duration = Math.min(
+				videoRef.current.duration,
+				defaultStoryVideoDuration
+			);
+			const percentage = (videoRef?.current?.currentTime / duration) * 100; // converted to percentage
+			setProgress(percentage);
+			animationRef.current = requestAnimationFrame(updateProgress);
+		}
+		// else {
+		// 	const elapsed = Date?.now() - imageDurationStartRef?.current;
+		// 	const percentage = (elapsed / (defaultStoryDuration * 1000)) * 100; // converted to percentage
+		// 	setProgress(percentage);
+		// 	if (elapsed < defaultStoryDuration * 1000) {
+		// 		animationRef.current = requestAnimationFrame(updateProgress);
+		// 	}
+		// }
+	}, []);
 
 	//handling video play pause based on active item
 	useEffect(() => {
@@ -121,13 +156,27 @@ const StoryLG = forwardRef(function Story(
 			videoRef.current.pause();
 			videoRef.current.currentTime = 0;
 			setIsPlaying(false);
+			cancelAnimationFrame(animationRef?.current);
 		} else if (
 			isActive &&
 			activeItem?.item?.fileType === commonMediaTypes.VIDEO
 		) {
 			restartVideo();
-			setIsPlaying(true);
+			animationRef.current = requestAnimationFrame(updateProgress);
 		}
+		// else if (
+		// 	isActive &&
+		// 	activeItem?.item?.fileType === commonMediaTypes.IMAGE
+		// ) {
+		// 	imageDurationStartRef.current = 0;
+		// 	setProgress(0);
+		// 	animationRef.current = requestAnimationFrame(updateProgress);
+		// }
+
+		return () => {
+			setProgress(0);
+			if (animationRef.current) cancelAnimationFrame(animationRef.current);
+		};
 	}, [isActive, activeItem, videoRef]);
 
 	return (
@@ -162,6 +211,7 @@ const StoryLG = forwardRef(function Story(
 						isVideo={activeItem?.item?.fileType === commonMediaTypes.VIDEO}
 						togglePlayPause={togglePlayPause}
 						toggleMute={toggleMute}
+						progress={progress}
 					/>
 				)}
 				{/* content section */}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import ReactIcons from "utils/ReactIcons";
 import ChatOptions from "../ChatOptions";
-import PopOver from "components/common/Popover";
+import PopOver from "src/components/common/Popover";
 
 const ChatText = styled(Box)(({ theme, chat, user }) => ({
 	display: "flex",

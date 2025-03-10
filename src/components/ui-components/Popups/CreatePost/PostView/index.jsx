@@ -121,7 +121,7 @@ function PostView() {
 	}, []);
 	// handling media Rotation
 	const onRotationChange = (rotation) => {
-		console.log({rotationChange: rotation});
+		console.log({ rotationChange: rotation });
 		dispatch(
 			setRotationVal({
 				uID: postStates.activePost?.uID,

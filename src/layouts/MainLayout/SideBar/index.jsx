@@ -28,7 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { sideBarPopupOpen } from "app/slices/layoutSlice/layoutSlice";
 import CreatePost from "components/ui-components/Popups/CreatePost";
 import { sideBarPopupClose } from "app/slices/layoutSlice/layoutSlice";
-import { sidebarpopUps } from "utils/constants";
+import { sidebarpopUps } from "src/utils/constants";
 import SlideBarPopups from "components/ui-components/Wrappers/slideBarPopups";
 import SearchPopUp from "components/ui-components/Popups/Search";
 import NotificationPopUp from "components/ui-components/Popups/Notification";
@@ -36,6 +36,9 @@ import { memo } from "react";
 import { handleSideBarOpen } from "app/slices/layoutSlice/layoutSlice";
 import Image from "components/common/Image";
 import { RoutePath } from "src/utils/routes";
+import PopOver from "src/components/common/Popover";
+import ReactIcons from "src/utils/ReactIcons";
+import CreateStory from "src/components/ui-components/Popups/CreateStory";
 
 // third-party-libraries
 // import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -111,6 +114,30 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 	minHeight: 48,
 }));
 
+const StyledPopoverBox = styled(Box)(({ theme }) => ({
+	width: "100%",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "center",
+	flexDirection: "column",
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+	width: "100%",
+	display: "flex",
+	alignItems: "center",
+	justifyContent: "space-between",
+	flexDirection: "row",
+	padding: "0.5rem 0.7rem",
+	borderRadius: "7px",
+	cursor: "pointer",
+	fontWeight: "bold",
+	gap: "0.5rem",
+	"&:hover": {
+		background: theme.palette.grey[200],
+	},
+}));
+
 const SideBar = memo(function () {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -151,7 +178,9 @@ const SideBar = memo(function () {
 									src={PngLogo}
 									style={{ display: "block", width: "50%" }}
 								/> */}
-								<Typography variant="logo" sx={{fontSize: "2.3rem"}}>Instogram</Typography>
+								<Typography variant="logo" sx={{ fontSize: "2.3rem" }}>
+									Instogram
+								</Typography>
 							</Box>
 						) : (
 							<Box
@@ -199,74 +228,44 @@ const SideBar = memo(function () {
 							}
 							const Icon = item?.icon;
 							const OutlinedIcon = item?.outLinedIcon;
-							return (
-								<>
-									<ListItem
-										key={item?.id}
-										disablePadding
-										sx={{ display: "block" }}
-										onClick={() =>
-											dispatch(
-												sideBarPopupOpen({
-													type: item?.popupType,
-													value: !popupState[item?.popupType],
-												})
-											)
-										}
-									>
-										<StyledListItemButton
-											{...listItemProps}
+							const ListItemBtn = (
+								<StyledListItemButton
+									{...listItemProps}
+									sx={{
+										justifyContent: open ? "initial" : "center",
+										px: 2.5,
+										ml: 1.2,
+										mr: 1.2,
+										mt: 1,
+										mb: 1,
+									}}
+									selected={pathname.split("/")[1] === item?.id}
+								>
+									{item?.avatar ? (
+										<ListItemAvatar
 											sx={{
-												justifyContent: open ? "initial" : "center",
-												px: 2.5,
-												ml: 1.2,
-												mr: 1.2,
-												mt: 1,
-												mb: 1,
+												minWidth: 0,
+												mr: open ? 2 : 0,
+												justifyContent: "center",
 											}}
-											selected={pathname.split("/")[1] === item?.id}
 										>
-											{item?.avatar ? (
-												<ListItemAvatar
-													sx={{
-														minWidth: 0,
-														mr: open ? 2 : 0,
-														justifyContent: "center",
-													}}
-												>
-													<Avatar
-														src={user?.avatar}
-														sx={{ width: 30, height: 30 }}
-													/>
-												</ListItemAvatar>
-											) : (
-												<ListItemIcon
-													sx={{
-														minWidth: 0,
-														mr: open ? 2 : 0,
-														justifyContent: "center",
-													}}
-												>
-													{item?.badge ? (
-														<Badge badgeContent={4} color="error">
-															{pathname.split("/")[1] ===
-															item?.url?.split("/")[0] ? (
-																<Icon
-																	style={{
-																		fontSize: 28,
-																		color: `${theme.palette.text.dark}`,
-																	}}
-																/>
-															) : (
-																<OutlinedIcon
-																	style={{
-																		fontSize: 28,
-																		color: `${theme.palette.text.dark}`,
-																	}}
-																/>
-															)}
-														</Badge>
-													) : pathname.split("/")[1] === item?.id ? (
+											<Avatar
+												src={user?.avatar}
+												sx={{ width: 30, height: 30 }}
+											/>
+										</ListItemAvatar>
+									) : (
+										<ListItemIcon
+											sx={{
+												minWidth: 0,
+												mr: open ? 2 : 0,
+												justifyContent: "center",
+											}}
+										>
+											{item?.badge ? (
+												<Badge badgeContent={4} color="error">
+													{pathname.split("/")[1] ===
+													item?.url?.split("/")[0] ? (
 														<Icon
 															style={{
 																fontSize: 28,
@@ -281,49 +280,147 @@ const SideBar = memo(function () {
 															}}
 														/>
 													)}
-												</ListItemIcon>
-											)}
-											{open && (
-												<ListItemText
-													primary={item?.title}
-													primaryTypographyProps={{
-														fontFamily: "poppins",
-														fontWeight:
-															pathname.split("/")[1] === item?.id
-																? "bold"
-																: "medium",
-														fontSize: "0.95rem",
+												</Badge>
+											) : pathname.split("/")[1] === item?.id ? (
+												<Icon
+													style={{
+														fontSize: 28,
+														color: `${theme.palette.text.dark}`,
 													}}
-													sx={{
-														opacity: open ? 1 : 0,
+												/>
+											) : (
+												<OutlinedIcon
+													style={{
+														fontSize: 28,
+														color: `${theme.palette.text.dark}`,
 													}}
 												/>
 											)}
-										</StyledListItemButton>
+										</ListItemIcon>
+									)}
+									{open && (
+										<ListItemText
+											primary={item?.title}
+											primaryTypographyProps={{
+												fontFamily: "poppins",
+												fontWeight:
+													pathname.split("/")[1] === item?.id
+														? "bold"
+														: "medium",
+												fontSize: "0.95rem",
+											}}
+											sx={{
+												opacity: open ? 1 : 0,
+											}}
+										/>
+									)}
+								</StyledListItemButton>
+							);
+							return (
+								<>
+									<ListItem
+										key={item?.id}
+										disablePadding
+										sx={{ display: "block" }}
+										onClick={() => {
+											if (item?.popup) {
+												dispatch(
+													sideBarPopupOpen({
+														type: item?.popupType,
+														value: !popupState[item?.popupType],
+													})
+												);
+											}
+										}}
+									>
+										{item?.items?.length > 0 ? (
+											<PopOver
+												// ref={optionsRef}
+												Button={ListItemBtn}
+												anchorOrigin={{
+													vertical: "bottom",
+													horizontal: "left",
+												}}
+												transformOrigin={{
+													vertical: "top",
+													horizontal: "right",
+												}}
+												sx={{
+													"& .MuiPopover-paper": {
+														borderRadius: 4,
+													},
+												}}
+											>
+												<StyledPopoverBox sx={{ width: "180px" }}>
+													<StyledPopoverBox sx={{ padding: "0.5rem" }}>
+														{item?.items?.map((subItem, i) => {
+															const Icon = subItem?.icon;
+															return (
+																<>
+																	<StyledTypography
+																		key={i}
+																		onClick={() => {
+																			if (subItem?.popup) {
+																				dispatch(
+																					sideBarPopupOpen({
+																						type: subItem?.popupType,
+																						value:
+																							!popupState[subItem?.popupType],
+																					})
+																				);
+																			}
+																		}}
+																	>
+																		{subItem?.title}
+																		<Icon size={25} />
+																	</StyledTypography>
+																	{subItem?.popupType ===
+																		sidebarpopUps.POST && (
+																		<CreatePost
+																			open={popupState[subItem?.popupType]}
+																			onClose={() =>
+																				dispatch(
+																					sideBarPopupClose({
+																						type: sidebarpopUps.POST,
+																					})
+																				)
+																			}
+																		/>
+																	)}
+																	{subItem?.popupType ===
+																		sidebarpopUps.STORY && (
+																		<CreateStory
+																			open={popupState[subItem?.popupType]}
+																			onClose={() =>
+																				dispatch(
+																					sideBarPopupClose({
+																						type: sidebarpopUps.STORY,
+																					})
+																				)
+																			}
+																		/>
+																	)}
+																</>
+															);
+														})}
+													</StyledPopoverBox>
+												</StyledPopoverBox>
+											</PopOver>
+										) : (
+											ListItemBtn
+										)}
 									</ListItem>
 									{/* side bar popups */}
 									{item?.popup &&
-									(item?.popupType === sidebarpopUps.SEARCH ||
-										item?.popupType === sidebarpopUps.NOTIFICATION) ? (
-										<SlideBarPopups open={popupState[item?.popupType]}>
-											{item?.popupType === sidebarpopUps.SEARCH && (
-												<SearchPopUp />
-											)}
-											{item?.popupType === sidebarpopUps.NOTIFICATION && (
+										item?.popupType === sidebarpopUps.NOTIFICATION && (
+											<SlideBarPopups open={popupState[item?.popupType]}>
 												<NotificationPopUp />
-											)}
+											</SlideBarPopups>
+										)}
+									{item?.popup && item?.popupType === sidebarpopUps.SEARCH && (
+										<SlideBarPopups open={popupState[item?.popupType]}>
+											<SearchPopUp />
 										</SlideBarPopups>
-									) : (
-										item?.popupType === sidebarpopUps.CREATE && (
-											<CreatePost
-												open={popupState[item?.popupType]}
-												onClose={() =>
-													dispatch(
-														sideBarPopupClose({ type: sidebarpopUps.CREATE })
-													)
-												}
-											/>
-										)
 									)}
 								</>
 							);

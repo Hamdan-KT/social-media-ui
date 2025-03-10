@@ -7,6 +7,7 @@ import messageReducer from "./slices/messageSlice/messageSlice";
 import shareReducer from "./slices/shareSlice/shareSlice";
 import commentReducer from "./slices/commentSlice/commentSlice";
 import socketReducer from "./slices/socketSlice/socketSlice";
+import storyReducer from "./slices/storySlice/storySlice";
 
 export const store = configureStore({
 	reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
 		share: shareReducer,
 		comment: commentReducer,
 		socket: socketReducer,
+		story: storyReducer,
 	},
 });
