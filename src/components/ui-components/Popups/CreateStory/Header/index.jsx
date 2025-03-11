@@ -56,7 +56,6 @@ function StoryHeader({ onClose }) {
 
 	const formattedPostData = async (storyMedias) => {
 		const formData = new FormData();
-		let storyData = {};
 		setLoading(true);
 		await Promise.all(
 			storyMedias?.map(async (media) => {
@@ -64,7 +63,6 @@ function StoryHeader({ onClose }) {
 					[media?.uID],
 					await getEditedImage(media.croppedUrl, media?.customFilters)
 				);
-				storyData[media?.uID] = {};
 			})
 		)
 			.then((result) => {
@@ -72,7 +70,6 @@ function StoryHeader({ onClose }) {
 				for (const key in storyStates?.storyDetails) {
 					formData.append(key, storyStates?.storyDetails[key]);
 				}
-				formData.append("storyData", JSON.stringify(storyData));
 				// Convert FormData to an object
 				const formDataObject = Object.fromEntries(formData.entries());
 				console.log({ formDataObject });

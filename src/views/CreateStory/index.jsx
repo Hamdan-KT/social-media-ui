@@ -91,12 +91,10 @@ function CreateStoryMobile() {
 
 	const formattedStoryData = async (storyMedias) => {
 		const formData = new FormData();
-		let storyData = {};
 		setLoading(true);
 		await Promise.all(
 			storyMedias?.map(async (media) => {
 				formData.append([media?.uID], await getEditedImage(media.croppedUrl));
-				storyData[media?.uID] = {};
 			})
 		)
 			.then((result) => {
@@ -104,7 +102,6 @@ function CreateStoryMobile() {
 				for (const key in storyStates?.storyDetails) {
 					formData.append(key, storyStates?.storyDetails[key]);
 				}
-				formData.append("storyData", JSON.stringify(storyData));
 				// Convert FormData to an object
 				const formDataObject = Object.fromEntries(formData.entries());
 				console.log({ formDataObject });

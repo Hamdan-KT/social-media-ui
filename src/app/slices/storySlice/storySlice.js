@@ -10,12 +10,7 @@ const initialState = {
 		[storyStages.CROP]: true,
 		[storyStages.EDIT]: false,
 	},
-	storyDetails: {
-		caption: "",
-		isDisableComment: false,
-		isHideLikes: false,
-		location: "",
-	},
+	storyDetails: {},
 };
 
 export const storySlice = createSlice({
@@ -40,9 +35,12 @@ export const storySlice = createSlice({
 			state.storyStages[storyStages.CROP] = true;
 		},
 		setStoryDetails: (state, action) => {
-			state.postDetails = {
-				...state.postDetails,
-				[action.payload.key]: action.payload.value,
+			state.storyDetails = {
+				...state.storyDetails,
+				[action.payload.uID]: {
+					...state?.storyDetails?.[action.payload.uID],
+					[action.payload.key]: action.payload.value,
+				},
 			};
 		},
 		setActiveStory: (state, action) => {
