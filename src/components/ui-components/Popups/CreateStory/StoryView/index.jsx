@@ -170,7 +170,7 @@ function StoryView() {
 									video={media.type === "video" ? media.url : ""}
 									crop={storyStates.activeStory?.crop}
 									zoom={storyStates.activeStory?.zoom}
-									rotation={storyStates.activeStory?.rotation}
+									// rotation={storyStates.activeStory?.rotation}
 									aspect={storyStates.aspectRatio}
 									onCropComplete={onCropComplete}
 									onCropChange={(crop) => {
@@ -181,7 +181,7 @@ function StoryView() {
 											})
 										);
 									}}
-									onRotationChange={(rotation) => onRotationChange(rotation)}
+									// onRotationChange={(rotation) => onRotationChange(rotation)}
 									onZoomChange={(zoom) => {
 										dispatch(
 											setStoryZoomVal({

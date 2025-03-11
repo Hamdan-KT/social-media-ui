@@ -6,13 +6,13 @@ import { getCroppedImg, getEditedImage } from "src/utils/common";
 import { useState } from "react";
 import DefaultLoader from "components/common/DefaultLoader";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPost } from "src/api/postAPI";
 import toast from "react-hot-toast";
 import {
 	clearStories,
 	cropStories,
 	setStoryStages,
 } from "src/app/slices/storySlice/storySlice";
+import { createStory } from "src/api/storyAPI";
 
 const StyledHeader = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -64,14 +64,7 @@ function StoryHeader({ onClose }) {
 					[media?.uID],
 					await getEditedImage(media.croppedUrl, media?.customFilters)
 				);
-				storyData[media?.uID] = {
-					tags:
-						media?.tags?.map((tag) => ({
-							x: tag?.x,
-							y: tag?.y,
-							user: tag?.user,
-						})) ?? [],
-				};
+				storyData[media?.uID] = {};
 			})
 		)
 			.then((result) => {
@@ -94,11 +87,11 @@ function StoryHeader({ onClose }) {
 
 	const uploadStory = useMutation({
 		mutationKey: ["createStory"],
-		mutationFn: (userData) => createPost(userData),
+		mutationFn: (userData) => createStory(userData),
 		onSuccess: (data) => {
 			onClose();
 			dispatch(clearStories());
-			queryClient.invalidateQueries({ queryKey: ["get-user-posts"] });
+			queryClient.invalidateQueries({ queryKey: ["get-user-story"] });
 			toast.success(data?.message);
 		},
 		onError: (error) => {

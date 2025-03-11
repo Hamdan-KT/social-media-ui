@@ -18,12 +18,12 @@ import {
 	cropStories,
 	setStoryStages,
 } from "src/app/slices/storySlice/storySlice";
-import { getCroppedImg } from "src/utils/common";
+import { getCroppedImg, getEditedImage } from "src/utils/common";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createPost } from "src/api/postAPI";
 import toast from "react-hot-toast";
 import DefaultLoader from "src/components/common/DefaultLoader";
 import ReactIcons from "src/utils/ReactIcons";
+import { createStory } from "src/api/storyAPI";
 
 const CommonBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -89,12 +89,40 @@ function CreateStoryMobile() {
 			});
 	};
 
+	const formattedStoryData = async (storyMedias) => {
+		const formData = new FormData();
+		let storyData = {};
+		setLoading(true);
+		await Promise.all(
+			storyMedias?.map(async (media) => {
+				formData.append([media?.uID], await getEditedImage(media.croppedUrl));
+				storyData[media?.uID] = {};
+			})
+		)
+			.then((result) => {
+				console.log({ submit: result });
+				for (const key in storyStates?.storyDetails) {
+					formData.append(key, storyStates?.storyDetails[key]);
+				}
+				formData.append("storyData", JSON.stringify(storyData));
+				// Convert FormData to an object
+				const formDataObject = Object.fromEntries(formData.entries());
+				console.log({ formDataObject });
+				setLoading(false);
+				return uploadStory.mutate(formData);
+			})
+			.catch((error) => {
+				console.log(error);
+				setLoading(false);
+			});
+	};
+
 	const uploadStory = useMutation({
 		mutationKey: ["createStory"],
-		mutationFn: (userData) => createPost(userData),
+		mutationFn: (userData) => createStory(userData),
 		onSuccess: (data) => {
 			dispatch(clearStories());
-			queryClient.invalidateQueries({ queryKey: ["get-user-posts"] });
+			queryClient.invalidateQueries({ queryKey: ["get-user-story"] });
 			toast.success(data?.message);
 		},
 		onError: (error) => {
@@ -138,7 +166,10 @@ function CreateStoryMobile() {
 							Mention
 						</>
 					</StyledButton>
-					<StyledButton variant="contained" onClick={() => {}}>
+					<StyledButton
+						variant="contained"
+						onClick={() => formattedStoryData(storyStates?.storyMedias)}
+					>
 						{loading || uploadStory.isPending ? (
 							<DefaultLoader size={23} />
 						) : (
