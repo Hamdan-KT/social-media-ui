@@ -262,8 +262,8 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 						key={like.id}
 						style={{
 							position: "fixed",
-							top: like.y,
-							left: like.x,
+							top: like.y - 60,
+							left: like.x - 60,
 							transform: "translate(-50%, -50%)",
 							pointerEvents: "none",
 							zIndex: 1000,
