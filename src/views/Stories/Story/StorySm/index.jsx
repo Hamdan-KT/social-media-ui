@@ -44,11 +44,12 @@ const StorySM = forwardRef(function Story(
 	const { uId, sId } = useParams(); // userId and storyId from params
 	const [activeItem, setActiveItem] = useState({ item: {}, index: 0 });
 	const videoRef = useRef(null);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const animationRef = useRef(null);
 	const imageDurationStartRef = useRef(0);
-	const holdTimeOut = useRef(null);
-	const [isPlaying, setIsPlaying] = useState(false);
 	const [progress, setProgress] = useState(0);
+	const [vidDuration, setVidDuration] = useState(null);
+	const holdTimeOut = useRef();
 
 	// handle restart video
 	function restartVideo() {
@@ -57,6 +58,12 @@ const StorySM = forwardRef(function Story(
 			setProgress(0);
 			videoRef?.current?.play();
 			setIsPlaying(true);
+		}
+	}
+
+	function handleMetadataLoad() {
+		if (videoRef.current) {
+			setVidDuration(videoRef.current.duration || defaultStoryVideoDuration);
 		}
 	}
 
@@ -108,7 +115,10 @@ const StorySM = forwardRef(function Story(
 		} else {
 			handleNext();
 		}
+		setProgress(0); // Reset progress immediately
+		cancelAnimationFrame(animationRef.current);
 	}
+
 	function navigateToPrev() {
 		if (activeItem?.index > 0) {
 			setActiveItem((prev) => ({
@@ -118,66 +128,72 @@ const StorySM = forwardRef(function Story(
 		} else {
 			handlePrev();
 		}
+		setProgress(0); // Reset progress immediately
+		cancelAnimationFrame(animationRef.current);
 	}
 
 	useLayoutEffect(() => {
 		const initialItem = findInitialItem(story);
-		console.log({ initialItem });
-		setProgress(0);
+		// console.log({ initialItem });
 		setActiveItem(initialItem);
+		setProgress(0);
 	}, [story]);
 
 	const updateProgress = useCallback(() => {
 		if (videoRef.current) {
-			const duration = Math.min(
-				videoRef.current.duration,
-				defaultStoryVideoDuration
-			);
+			const duration = Math.min(vidDuration, defaultStoryVideoDuration);
 			const percentage = (videoRef?.current?.currentTime / duration) * 100; // converted to percentage
 			setProgress(percentage);
-			animationRef.current = requestAnimationFrame(updateProgress);
+			if (percentage < 100) {
+				animationRef.current = requestAnimationFrame(updateProgress);
+			} else {
+				// navigate to next
+				// navigateToNext();
+			}
+		} else {
+			const elapsed = Date?.now() - imageDurationStartRef?.current;
+			const percentage = (elapsed / (defaultStoryDuration * 1000)) * 100; // converted to percentage
+			setProgress(percentage);
+			if (percentage < 100) {
+				animationRef.current = requestAnimationFrame(updateProgress);
+			} else {
+				//navigate to next
+				// navigateToNext();
+			}
 		}
-		// else {
-		// 	const elapsed = Date?.now() - imageDurationStartRef?.current;
-		// 	const percentage = (elapsed / (defaultStoryDuration * 1000)) * 100; // converted to percentage
-		// 	setProgress(percentage);
-		// 	if (elapsed < defaultStoryDuration * 1000) {
-		// 		animationRef.current = requestAnimationFrame(updateProgress);
-		// 	}
-		// }
-	}, []);
-
-	// useEffect(() => {
-	// 	console.log({ progress });
-	// }, [progress]);
+	}, [vidDuration]);
 
 	//handling video play pause based on active item
 	useEffect(() => {
-		if (!isActive && activeItem?.item?.fileType === commonMediaTypes.VIDEO) {
-			videoRef.current.pause();
-			videoRef.current.currentTime = 0;
+		if (!isActive) {
+			// Pause video and reset progress when inactive
+			if (activeItem?.item?.fileType === commonMediaTypes.VIDEO) {
+				videoRef.current.pause();
+				videoRef.current.currentTime = 0;
+			}
 			setIsPlaying(false);
+			setProgress(0);
 			cancelAnimationFrame(animationRef?.current);
-		} else if (
-			isActive &&
-			activeItem?.item?.fileType === commonMediaTypes.VIDEO
-		) {
-			restartVideo();
-			animationRef.current = requestAnimationFrame(updateProgress);
+		} else {
+			if (activeItem?.item?.fileType === commonMediaTypes.VIDEO) {
+				// Restart video and start progress update
+				restartVideo();
+				animationRef.current = requestAnimationFrame(updateProgress);
+			} else if (activeItem?.item?.fileType === commonMediaTypes.IMAGE) {
+				// Update image duration ref while changing
+				imageDurationStartRef.current = Date.now();
+				setProgress(0);
+				setIsPlaying(true);
+				animationRef.current = requestAnimationFrame(updateProgress);
+			}
 		}
-		// else if (
-		// 	isActive &&
-		// 	activeItem?.item?.fileType === commonMediaTypes.IMAGE
-		// ) {
-		// 	imageDurationStartRef.current = 0;
-		// 	setProgress(0);
-		// 	animationRef.current = requestAnimationFrame(updateProgress);
-		// }
 
 		return () => {
+			setProgress(0);
+			setIsPlaying(false);
 			if (animationRef.current) cancelAnimationFrame(animationRef.current);
 		};
-	}, [isActive, activeItem, videoRef]);
+	}, [isActive, activeItem, videoRef, updateProgress]);
 
 	return (
 		<Box
@@ -248,11 +264,7 @@ const StorySM = forwardRef(function Story(
 						draggable={false}
 						controls={false}
 						playsInline
-						onEnded={() => {
-							if (animationRef?.current) {
-								cancelAnimationFrame(animationRef.current);
-							}
-						}}
+						onLoadedMetadata={handleMetadataLoad}
 						style={{
 							display: "block",
 							width: "100%",

@@ -109,7 +109,7 @@ function StoryHeader({
 					</CommonBox>
 				</CommonBox>
 				<CommonBox sx={{ gap: "1rem", mr: "0.5rem" }}>
-					{isVideo && !matchDownSm && (
+					{!matchDownSm && (
 						<>
 							{isPlaying ? (
 								<ReactIcons.FaPause
@@ -122,6 +122,10 @@ function StoryHeader({
 									onClick={togglePlayPause}
 								/>
 							)}
+						</>
+					)}
+					{isVideo && !matchDownSm && (
+						<>
 							{isMuted ? (
 								<ReactIcons.ImVolumeMute
 									style={{ ...defaultStyle(theme), fontSize: "1.3rem" }}
