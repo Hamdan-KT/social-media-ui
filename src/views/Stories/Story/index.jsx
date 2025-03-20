@@ -1,6 +1,12 @@
 import { useMediaQuery } from "@mui/material";
 import { IconButton, styled } from "@mui/material";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -43,12 +49,13 @@ function Story({ stories = [] }) {
 		}
 	}, [uId]);
 
-	const handleNext = () => {
+	const handleNext = useCallback(() => {
 		setActiveSlide((prev) => Math.min(stories.length - 1, prev + 1));
-	};
-	const handlePrev = () => {
+	}, [stories?.length]);
+
+	const handlePrev = useCallback(() => {
 		setActiveSlide((prev) => Math.max(0, prev - 1));
-	};
+	}, []);
 
 	useLayoutEffect(() => {
 		if (!matchDownSm) {

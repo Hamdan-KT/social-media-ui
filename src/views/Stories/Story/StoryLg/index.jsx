@@ -61,26 +61,30 @@ const StoryLG = forwardRef(function Story(
 	const [progress, setProgress] = useState(0);
 	const [vidDuration, setVidDuration] = useState(null);
 
-	// handle toggle play / pause
-	function togglePlayPause() {
-		if (isPlaying) {
-			if (videoRef?.current) {
-				videoRef?.current?.pause();
-			} else {
-				imageDurationStartRef.current =
-					Date.now() - (progress / 100) * (defaultStoryDuration * 1000);
-			}
-			cancelAnimationFrame(animationRef.current);
+	// play video
+	function handlePlay() {
+		if (videoRef?.current) {
+			videoRef?.current?.play();
 		} else {
-			if (videoRef?.current) {
-				videoRef?.current?.play();
-			} else {
-				imageDurationStartRef.current =
-					Date.now() - (progress / 100) * (defaultStoryDuration * 1000);
-			}
-			animationRef.current = requestAnimationFrame(updateProgress);
+			imageDurationStartRef.current =
+				Date.now() - (progress / 100) * (defaultStoryDuration * 1000);
 		}
-		setIsPlaying(!isPlaying);
+		setIsPlaying(true);
+		animationRef.current = requestAnimationFrame(updateProgress);
+	}
+
+	// pause video
+	function handlePause() {
+		if (videoRef?.current) {
+			videoRef?.current?.pause();
+		} else {
+			imageDurationStartRef.current =
+				Date.now() - (progress / 100) * (defaultStoryDuration * 1000);
+		}
+		if (animationRef?.current) {
+			cancelAnimationFrame(animationRef.current);
+		}
+		setIsPlaying(false);
 	}
 
 	// handle restart video
@@ -107,74 +111,77 @@ const StoryLG = forwardRef(function Story(
 		}
 	}
 
-	function findInitialItem(story) {
-		if (!story?.items?.length) return;
-		let itemIndex = sId
-			? story.items.findIndex((item) => item?._id === sId)
-			: -1;
-		if (itemIndex === -1) {
-			itemIndex = story.items.findIndex((item) => item?.seen === false);
-		}
-		itemIndex = itemIndex !== -1 ? itemIndex : 0; // updating latest itemIndex
-		return { item: story.items[itemIndex], index: itemIndex };
-	}
+	const findInitialItem = useCallback(
+		(story) => {
+			if (!story?.items?.length) return;
+			let itemIndex = sId
+				? story.items.findIndex((item) => item?._id === sId)
+				: -1;
+			if (itemIndex === -1) {
+				itemIndex = story.items.findIndex((item) => item?.seen === false);
+			}
+			itemIndex = itemIndex !== -1 ? itemIndex : 0; // updating latest itemIndex
+			return { item: story.items[itemIndex], index: itemIndex };
+		},
+		[sId]
+	);
 
-	function navigateToNext() {
+	// Navigate to next story
+	const navigateToNext = useCallback(() => {
 		if (activeItem?.index < story?.items?.length - 1) {
 			setActiveItem((prev) => ({
-				index: prev?.index + 1,
-				item: story?.items[prev?.index + 1],
+				index: prev.index + 1,
+				item: story?.items[prev.index + 1],
 			}));
 		} else {
 			handleNext();
 		}
 		setProgress(0); // Reset progress immediately
 		cancelAnimationFrame(animationRef.current);
-	}
+	}, [story, activeItem, handleNext]);
 
-	function navigateToPrev() {
+	// Navigate to previous story
+	const navigateToPrev = useCallback(() => {
 		if (activeItem?.index > 0) {
 			setActiveItem((prev) => ({
-				index: prev?.index - 1,
-				item: story?.items[prev?.index - 1],
+				index: prev.index - 1,
+				item: story?.items[prev.index - 1],
 			}));
 		} else {
 			handlePrev();
 		}
 		setProgress(0); // Reset progress immediately
 		cancelAnimationFrame(animationRef.current);
-	}
+	}, [story, activeItem, handlePrev]);
 
 	useLayoutEffect(() => {
 		const initialItem = findInitialItem(story);
-		// console.log({ initialItem });
 		setActiveItem(initialItem);
 		setProgress(0);
-	}, [story]);
+	}, [story, findInitialItem]);
 
+	// progress update for animationFrame
 	const updateProgress = useCallback(() => {
 		if (videoRef.current) {
 			const duration = Math.min(vidDuration, defaultStoryVideoDuration);
-			const percentage = (videoRef?.current?.currentTime / duration) * 100; // converted to percentage
+			const percentage = (videoRef?.current?.currentTime / duration) * 100;
 			setProgress(percentage);
-			if (percentage < 100) {
-				animationRef.current = requestAnimationFrame(updateProgress);
+			if (percentage >= 100) {
+				navigateToNext();
 			} else {
-				// navigate to next
-				// navigateToNext();
+				animationRef.current = requestAnimationFrame(updateProgress);
 			}
 		} else {
 			const elapsed = Date?.now() - imageDurationStartRef?.current;
-			const percentage = (elapsed / (defaultStoryDuration * 1000)) * 100; // converted to percentage
+			const percentage = (elapsed / (defaultStoryDuration * 1000)) * 100;
 			setProgress(percentage);
-			if (percentage < 100) {
-				animationRef.current = requestAnimationFrame(updateProgress);
+			if (percentage >= 100) {
+				navigateToNext();
 			} else {
-				//navigate to next
-				// navigateToNext();
+				animationRef.current = requestAnimationFrame(updateProgress);
 			}
 		}
-	}, [vidDuration]);
+	}, [vidDuration, navigateToNext]);
 
 	//handling video play pause based on active item
 	useEffect(() => {
@@ -201,9 +208,13 @@ const StoryLG = forwardRef(function Story(
 			}
 		}
 
+		// useEffect clean up
 		return () => {
 			setProgress(0);
 			setIsPlaying(false);
+			if (videoRef.current) {
+				videoRef.current.pause();
+			}
 			if (animationRef.current) cancelAnimationFrame(animationRef.current);
 		};
 	}, [isActive, activeItem, videoRef, updateProgress]);
@@ -238,7 +249,7 @@ const StoryLG = forwardRef(function Story(
 						isPlaying={isPlaying}
 						isMuted={isMuted}
 						isVideo={activeItem?.item?.fileType === commonMediaTypes.VIDEO}
-						togglePlayPause={togglePlayPause}
+						togglePlayPause={isPlaying ? handlePause : handlePlay}
 						toggleMute={toggleMute}
 						progress={progress}
 					/>

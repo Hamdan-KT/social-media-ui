@@ -100,8 +100,8 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2ce",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199825/AdobeStock_1083774542_Preview_au2mme.jpg",
-				fileType: commonMediaTypes.IMAGE,
+					"https://res.cloudinary.com/instogram-media/video/upload/v1742455981/AdobeStock_548263057_Video_HD_Preview_qxdags.mp4",
+				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2cd",
 				views: [
@@ -117,6 +117,7 @@ export const dummyStories = [
 				],
 				mentions: ["65f7f8a7b2f3a1c9d8a1b2d6", "65f7f8a7b2f3a1c9d8a1b2d7"],
 				music: "Pop Song",
+				duration: 30,
 				viewsCount: 4,
 				likesCount: 3,
 				seen: true,

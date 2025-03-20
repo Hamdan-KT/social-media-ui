@@ -5,7 +5,7 @@ import MinimalLayout from "../layouts/MinimalLayout";
 import AuthProvider from "src/components/auth/AuthProvider";
 
 // MAIN ROUTES
-const Story = Loadable(lazy(() => import("views/Stories")));
+import Story from "views/Stories";
 const CropPostMobile = Loadable(lazy(() => import("views/CreatePost/Crop")));
 const CreateStoryMobile = Loadable(lazy(() => import("views/CreateStory")));
 const EditPostMobile = Loadable(
