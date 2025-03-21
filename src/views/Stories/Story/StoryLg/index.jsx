@@ -257,6 +257,8 @@ const StoryLG = forwardRef(function Story(
 				{/* content section */}
 				{activeItem?.item?.fileType === commonMediaTypes.IMAGE && (
 					<Image
+						id={activeItem?.index}
+						key={activeItem?.index}
 						src={activeItem?.item?.fileUrl}
 						draggable={false}
 						style={{

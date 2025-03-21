@@ -303,6 +303,8 @@ const StorySM = forwardRef(function Story(
 				{/* content section */}
 				{activeItem?.item?.fileType === commonMediaTypes.IMAGE && (
 					<Image
+						id={activeItem?.index}
+						key={activeItem?.index}
 						src={activeItem?.item?.fileUrl}
 						draggable={false}
 						style={{
@@ -315,6 +317,8 @@ const StorySM = forwardRef(function Story(
 				)}
 				{activeItem?.item?.fileType === commonMediaTypes.VIDEO && (
 					<Video
+						id={activeItem?.index}
+						key={activeItem?.index}
 						ref={videoRef}
 						src={activeItem?.item?.fileUrl}
 						draggable={false}
