@@ -237,6 +237,7 @@ const StoryLG = forwardRef(function Story(
 					borderRadius: "10px",
 					cursor: !isActive && "pointer",
 					aspectRatio: "9/16",
+					userSelect: "none",
 					...sx,
 				}}
 				{...others}

@@ -47,7 +47,7 @@ function Story({ stories = [] }) {
 				swiperRef.current?.slideTo(userStoryIndex, 0, false);
 			}
 		}
-	}, [uId]);
+	}, [uId, matchDownSm, stories]);
 
 	const handleNext = useCallback(() => {
 		setActiveSlide((prev) => Math.min(stories.length - 1, prev + 1));

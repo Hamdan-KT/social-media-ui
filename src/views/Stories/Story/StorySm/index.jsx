@@ -221,6 +221,7 @@ const StorySM = forwardRef(function Story(
 	// Handle touch start
 	const handleTouchStart = (e) => {
 		e.preventDefault();
+		// e.stopPropagation();
 		setIsPressed(true);
 		if (!touchHoldAnimationRef.current) {
 			touchHoldAnimationRef.current = requestAnimationFrame(
@@ -272,6 +273,7 @@ const StorySM = forwardRef(function Story(
 				alignItems: "center",
 				justifyContent: "start",
 				background: theme.palette.common.black,
+				userSelect: "none",
 				...containerSx,
 			}}
 		>
@@ -288,6 +290,7 @@ const StorySM = forwardRef(function Story(
 					flexDirection: "column",
 					position: "relative",
 					mt: 2,
+					userSelect: "none",
 					...sx,
 				}}
 				{...others}
