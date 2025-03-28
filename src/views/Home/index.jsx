@@ -1,7 +1,7 @@
 import { useTheme } from "@mui/material/styles";
 import { Box, Grid, styled, useMediaQuery } from "@mui/material";
 import { defaultSpacing } from "utils/constants";
-import StorySlider from "components/ui-components/StorySlider";
+import StorySlider from "src/components/ui-components/StorySlider";
 import Suggessions from "components/ui-components/ProfileAndSuggession";
 import PostMobile from "components/ui-components/Post/mobile";
 import { Virtuoso } from "react-virtuoso";

@@ -227,6 +227,7 @@ const StoryLG = forwardRef(function Story(
 				borderRadius: "10px",
 				position: "relative",
 				zIndex: 9,
+				userSelect: "none",
 				...containerSx,
 			}}
 		>

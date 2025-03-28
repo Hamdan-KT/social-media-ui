@@ -22,7 +22,7 @@ import { dummyStories } from "src/views/Stories/dummy";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
-	height: "16vh",
+	height: "auto",
 	[theme.breakpoints.down("sm")]: {
 		height: "auto",
 		marginTop: "-0.5rem",
@@ -34,6 +34,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 	position: "relative",
 	[theme.breakpoints.not("xs")]: {
 		padding: "0rem 1rem",
+		paddingTop: "1rem",
 		"&::before": {
 			content: `""`,
 			position: "absolute",

@@ -342,6 +342,7 @@ const StorySM = forwardRef(function Story(
 						position: "absolute",
 						inset: 0,
 						display: "flex",
+						userSelect: "none",
 					}}
 				>
 					<div
