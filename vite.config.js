@@ -53,6 +53,7 @@ export default defineConfig({
 				orientation: "portrait",
 			},
 			workbox: {
+				skipWaiting: true,
 				runtimeCaching: [
 					{
 						urlPattern: ({ request }) => {
