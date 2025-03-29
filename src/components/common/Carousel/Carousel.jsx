@@ -124,7 +124,9 @@ const Slider = ({
 					{activeIndex > 0 && (
 						<SlideButton
 							direction="left"
-							onClick={() => {
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
 								setActiveIndex((pv) => pv - 1);
 							}}
 						>
@@ -134,7 +136,9 @@ const Slider = ({
 					{activeIndex < childrenArray?.length - 1 && (
 						<SlideButton
 							direction="right"
-							onClick={() => {
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
 								setActiveIndex((pv) => pv + 1);
 							}}
 						>

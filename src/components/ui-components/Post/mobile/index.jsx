@@ -141,6 +141,8 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 	};
 
 	const handleLike = (event) => {
+		event.preventDefault();
+		event.stopPropagation();
 		if (data?.isLiked === false) {
 			data.likes = data?.likes + 1;
 			data.isLiked = true;
@@ -288,7 +290,10 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 						<LikeSvg />
 					</motion.div>
 				))}
-				<Slider controllButtons={false} sx={{ position: "relative" }}>
+				<Slider
+					controllButtons={!matchDownSm ? true : false}
+					sx={{ position: "relative" }}
+				>
 					{Array.isArray(data?.files) &&
 						data?.files?.map((file, ind) => (
 							<Slide key={ind} sx={{ position: "relative" }}>

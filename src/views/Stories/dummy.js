@@ -49,13 +49,13 @@ export const dummyStories = [
 		userName: "elizabeth.olsen_official",
 		name: "Elizabeth Olsen",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199827/AdobeStock_1291121241_Preview_pgvcn5.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199827/AdobeStock_1291121241_Preview_pgvcn5.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2c2",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199826/AdobeStock_787159418_Preview_lwcm0i.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199826/AdobeStock_787159418_Preview_lwcm0i.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2c1",
@@ -70,7 +70,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2c7",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_1307647179_Video_HD_Preview_idieyj.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_1307647179_Video_HD_Preview_idieyj.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2c1",
@@ -94,13 +94,13 @@ export const dummyStories = [
 		userName: "chris.hemsworth",
 		name: "Chris Hemsworth",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199826/AdobeStock_1192975843_Preview_ccmkc6.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199826/AdobeStock_1192975843_Preview_ccmkc6.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2ce",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1742455981/AdobeStock_548263057_Video_HD_Preview_qxdags.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1742455981/AdobeStock_548263057_Video_HD_Preview_qxdags.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2cd",
@@ -125,7 +125,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2d8",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2cd",
@@ -141,7 +141,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2da",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199825/AdobeStock_1192979343_Preview_r1bchw.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199825/AdobeStock_1192979343_Preview_r1bchw.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2cd",
@@ -160,13 +160,13 @@ export const dummyStories = [
 		userName: "robertdowneyjr",
 		name: "Robert Downey Jr.",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199825/AdobeStock_1192975735_Preview_vs4z98.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199825/AdobeStock_1192975735_Preview_vs4z98.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2dc",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2db",
@@ -192,13 +192,13 @@ export const dummyStories = [
 		userName: "scarlett.johansson.off",
 		name: "Scarlett Johansson",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199822/AdobeStock_923609670_Preview_ais7by.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199822/AdobeStock_923609670_Preview_ais7by.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2e6",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199822/AdobeStock_787158536_Preview_krvll2.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199822/AdobeStock_787158536_Preview_krvll2.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2e5",
@@ -213,7 +213,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2e7",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2e5",
@@ -239,7 +239,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2f2",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199822/AdobeStock_1000903974_Preview_mhxuqp.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199822/AdobeStock_1000903974_Preview_mhxuqp.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2e5",
@@ -254,7 +254,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2f3",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199495/AdobeStock_833500833_Video_HD_Preview_ie50ki.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199495/AdobeStock_833500833_Video_HD_Preview_ie50ki.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2e5",
@@ -274,13 +274,13 @@ export const dummyStories = [
 		userName: "tomholland2013",
 		name: "Tom Holland",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199822/AdobeStock_787159115_Preview_icosl3.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199822/AdobeStock_787159115_Preview_icosl3.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2f5",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199821/AdobeStock_1000904156_Preview_sedi9i.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199821/AdobeStock_1000904156_Preview_sedi9i.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2f4",
@@ -308,7 +308,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2f6",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199495/AdobeStock_833500833_Video_HD_Preview_ie50ki.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199495/AdobeStock_833500833_Video_HD_Preview_ie50ki.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2f4",
@@ -328,13 +328,13 @@ export const dummyStories = [
 		userName: "zendaya",
 		name: "Zendaya",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199821/AdobeStock_650877786_Preview_lq5lb9.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199821/AdobeStock_650877786_Preview_lq5lb9.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2f8",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_1307647179_Video_HD_Preview_idieyj.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_1307647179_Video_HD_Preview_idieyj.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2f7",
@@ -358,13 +358,13 @@ export const dummyStories = [
 		userName: "prattprattpratt",
 		name: "Chris Pratt",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199821/AdobeStock_787159569_Preview_osa2xw.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199821/AdobeStock_787159569_Preview_osa2xw.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b2ff",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199821/AdobeStock_716047777_Preview_dntaku.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199821/AdobeStock_716047777_Preview_dntaku.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2fe",
@@ -379,7 +379,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b300",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2fe",
@@ -409,7 +409,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b301",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199821/AdobeStock_651654270_Preview_dqsjfs.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199821/AdobeStock_651654270_Preview_dqsjfs.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b2fe",
@@ -428,13 +428,13 @@ export const dummyStories = [
 		userName: "brielarson",
 		name: "Brie Larson",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199820/AdobeStock_651658691_Preview_kepgcu.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199820/AdobeStock_651658691_Preview_kepgcu.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b303",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199820/AdobeStock_886844411_Preview_v5xctl.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199820/AdobeStock_886844411_Preview_v5xctl.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b302",
@@ -464,13 +464,13 @@ export const dummyStories = [
 		userName: "renner4real",
 		name: "Jeremy Renner",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199820/AdobeStock_651676466_Preview_wdnbbh.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199820/AdobeStock_651676466_Preview_wdnbbh.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b30e",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b30d",
@@ -486,7 +486,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b30f",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199820/AdobeStock_1080032052_Preview_vk3ugz.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199820/AdobeStock_1080032052_Preview_vk3ugz.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b30d",
@@ -509,13 +509,13 @@ export const dummyStories = [
 		userName: "markruffalo",
 		name: "Mark Ruffalo",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199820/AdobeStock_680043482_Preview_tufch9.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199820/AdobeStock_680043482_Preview_tufch9.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b311",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199820/AdobeStock_716558290_Preview_tnkara.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199820/AdobeStock_716558290_Preview_tnkara.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b310",
@@ -534,13 +534,13 @@ export const dummyStories = [
 		userName: "doncheadle",
 		name: "Don Cheadle",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199819/AdobeStock_651660499_Preview_n62bgn.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199819/AdobeStock_651660499_Preview_n62bgn.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b313",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b312",
@@ -564,7 +564,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b314",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199819/AdobeStock_716047690_Preview_gkveh5.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199819/AdobeStock_716047690_Preview_gkveh5.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b312",
@@ -583,13 +583,13 @@ export const dummyStories = [
 		userName: "chadwickboseman",
 		name: "Chadwick Boseman",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199819/AdobeStock_1080080687_Preview_emql8r.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199819/AdobeStock_1080080687_Preview_emql8r.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b316",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199819/AdobeStock_886838468_Preview_uaz1qu.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199819/AdobeStock_886838468_Preview_uaz1qu.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b315",
@@ -608,7 +608,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b317",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b315",
@@ -628,13 +628,13 @@ export const dummyStories = [
 		userName: "paulrudd",
 		name: "Paul Rudd",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199819/AdobeStock_680008826_Preview_c2bpku.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199819/AdobeStock_680008826_Preview_c2bpku.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b319",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b318",
@@ -665,13 +665,13 @@ export const dummyStories = [
 		userName: "evangeline.lilly",
 		name: "Evangeline Lilly",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199818/AdobeStock_654869372_Preview_l4yy5h.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199818/AdobeStock_654869372_Preview_l4yy5h.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b31b",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199818/AdobeStock_999380076_Preview_c9r6v3.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199818/AdobeStock_999380076_Preview_c9r6v3.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b31a",
@@ -686,7 +686,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b31c",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b31a",
@@ -715,13 +715,13 @@ export const dummyStories = [
 		userName: "pom.klementieff",
 		name: "Pom Klementieff",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199818/AdobeStock_787159437_Preview_pd20nx.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199818/AdobeStock_787159437_Preview_pd20nx.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b31e",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199818/AdobeStock_787158615_Preview_qnl0uo.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199818/AdobeStock_787158615_Preview_qnl0uo.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b31d",
@@ -745,7 +745,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b31f",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_1307647179_Video_HD_Preview_idieyj.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_1307647179_Video_HD_Preview_idieyj.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b31d",
@@ -765,13 +765,13 @@ export const dummyStories = [
 		userName: "karengillan",
 		name: "Karen Gillan",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199818/AdobeStock_999322575_Preview_cpwabv.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199818/AdobeStock_999322575_Preview_cpwabv.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b321",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b320",
@@ -795,13 +795,13 @@ export const dummyStories = [
 		userName: "vindiesel",
 		name: "Vin Diesel",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199818/AdobeStock_999322806_Preview_vtgio7.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199818/AdobeStock_999322806_Preview_vtgio7.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b323",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199818/AdobeStock_787159437_Preview_pd20nx.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199818/AdobeStock_787159437_Preview_pd20nx.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b322",
@@ -816,7 +816,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b324",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b322",
@@ -843,13 +843,13 @@ export const dummyStories = [
 		userName: "zoesaldana",
 		name: "Zoe Saldana",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199827/AdobeStock_1291121241_Preview_pgvcn5.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199827/AdobeStock_1291121241_Preview_pgvcn5.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b326",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199826/AdobeStock_787159418_Preview_lwcm0i.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199826/AdobeStock_787159418_Preview_lwcm0i.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b325",
@@ -873,7 +873,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b327",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_683939000_Video_HD_Preview_qxwrhw.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b325",
@@ -893,13 +893,13 @@ export const dummyStories = [
 		userName: "chrispaul",
 		name: "Chris Paul",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199826/AdobeStock_1192975843_Preview_ccmkc6.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199826/AdobeStock_1192975843_Preview_ccmkc6.jpg",
 		isVerified: true,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b329",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199496/AdobeStock_681706561_Video_HD_Preview_myswl0.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b328",
@@ -928,13 +928,13 @@ export const dummyStories = [
 		userName: "lebronjames",
 		name: "LeBron James",
 		avatar:
-			"https://res.cloudinary.com/instogram-media/image/upload/v1741199826/AdobeStock_1192975843_Preview_ccmkc6.jpg",
+			"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199826/AdobeStock_1192975843_Preview_ccmkc6.jpg",
 		isVerified: false,
 		items: [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b32b",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/image/upload/v1741199825/AdobeStock_1083774542_Preview_au2mme.jpg",
+					"https://res.cloudinary.com/instogram-media/image/upload/q_auto/f_auto/v1741199825/AdobeStock_1083774542_Preview_au2mme.jpg",
 				fileType: commonMediaTypes.IMAGE,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b32a",
@@ -949,7 +949,7 @@ export const dummyStories = [
 			{
 				_id: "65f7f8a7b2f3a1c9d8a1b32c",
 				fileUrl:
-					"https://res.cloudinary.com/instogram-media/video/upload/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
+					"https://res.cloudinary.com/instogram-media/video/upload/q_auto/f_auto/v1741199495/AdobeStock_620561477_Video_HD_Preview_q517ql.mp4",
 				fileType: commonMediaTypes.VIDEO,
 				aspectRatio: 0.5625,
 				user: "65f7f8a7b2f3a1c9d8a1b32a",
