@@ -9,6 +9,10 @@ import PngLogo from "assets/images/logoText.png";
 import { useNavigate } from "react-router";
 import ReactIcons from "utils/ReactIcons";
 import Image from "components/common/Image";
+import { useMutation } from "@tanstack/react-query";
+import { sendNotification } from "src/api/notificationAPI";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	display: "flex",
@@ -23,7 +27,19 @@ const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 function MobileHeader() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
+	const user = useSelector((state) => state.user?.user);
 	const navigate = useNavigate();
+
+	const handleSendNotification = useMutation({
+		mutationKey: ["sendNotification"],
+		mutationFn: sendNotification({
+			userId: user?._id,
+			message: "Test Push Notification",
+		}),
+		onSuccess: (data) => {
+			toast.success(data?.data?.message || "Notification sent successfully");
+		},
+	});
 
 	return (
 		<>
@@ -37,7 +53,9 @@ function MobileHeader() {
 							height: "2.7rem",
 							alignItems: "center",
 							justifyContent: "start",
+							cursor: "pointer",
 						}}
+						onClick={() => handleSendNotification.mutate()}
 					>
 						{/* <Image
 							src={PngLogo}

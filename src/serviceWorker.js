@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Workbox } from "workbox-window";
 import { apiClient } from "./api/axios";
+import { subscribeNotification } from "./api/notificationAPI";
 
 // service worker registration
 export const registerSW = () => {
@@ -23,7 +24,7 @@ export const registerPushNotification = async () => {
 		"serviceWorker" in navigator &&
 		"PushManager" in window
 	) {
-		const subscribeNotification = async () => {
+		const handlesubscribeNotification = async () => {
 			await navigator.serviceWorker.ready.then(async (registration) => {
 				// Check if the user is already subscribed
 				const existingSubscription =
@@ -36,19 +37,17 @@ export const registerPushNotification = async () => {
 					userVisibleOnly: true,
 					applicationServerKey: import.meta.env.VITE_PUBLIC_VAPID_KEY,
 				});
-				await apiClient
-					.post("/notification/subscribe", { subscription })
-					.then((res) => {
-						console.log("user subscribed to notification.");
-					});
+				await subscribeNotification(subscription).then((response) => {
+					console.log("user subscribed to notification.");
+				});
 			});
 		};
 		if (Notification.permission === "granted") {
-			return subscribeNotification();
+			return handlesubscribeNotification();
 		} else if (Notification.permission === "default") {
 			Notification.requestPermission().then((permission) => {
 				if (permission === "granted") {
-					return subscribeNotification();
+					return handlesubscribeNotification();
 				} else {
 					console.warn("push notifications permission denied.");
 				}
