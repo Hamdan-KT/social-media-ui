@@ -9,6 +9,7 @@ self.addEventListener("push", (event) => {
 			image: notificationData.image || undefined,
 			data: { url: notificationData?.url || "/" },
 		};
+		event.waitUntil(self.registration.showNotification(title, options));
 	}
 });
 
