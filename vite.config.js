@@ -14,6 +14,10 @@ export default defineConfig({
 				"apple-touch-icon.png",
 				"maskable_icon.svg",
 			],
+			devOptions: {
+				enabled: true,
+				type: "module",
+			},
 			manifest: {
 				name: "Instogram",
 				short_name: "Instogram",
@@ -21,14 +25,14 @@ export default defineConfig({
 					"It is clone application of Instagram application, not included all features",
 				icons: [
 					{
-						src: "/pwa-192x192.png",
-						sizes: "192x192",
+						src: "/pwa-512x512.png",
+						sizes: "512x512",
 						type: "image/png",
 						purpose: "any",
 					},
 					{
-						src: "/pwa-512x512.png",
-						sizes: "512x512",
+						src: "/pwa-192x192.png",
+						sizes: "192x192",
 						type: "image/png",
 						purpose: "any",
 					},
@@ -45,7 +49,7 @@ export default defineConfig({
 						purpose: "maskable",
 					},
 				],
-				theme_color: "#171717",
+				theme_color: "#ffffff",
 				background_color: "#ffffff",
 				display: "standalone",
 				scope: "/",
@@ -53,7 +57,6 @@ export default defineConfig({
 				orientation: "portrait",
 			},
 			workbox: {
-				skipWaiting: true,
 				runtimeCaching: [
 					{
 						urlPattern: ({ request }) => {
