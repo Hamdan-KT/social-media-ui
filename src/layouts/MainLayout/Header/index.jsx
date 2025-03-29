@@ -32,12 +32,13 @@ function MobileHeader() {
 
 	const handleSendNotification = useMutation({
 		mutationKey: ["sendNotification"],
-		mutationFn: sendNotification({
-			userId: user?._id,
-			message: "Test Push Notification",
-		}),
+		mutationFn: () =>
+			sendNotification({
+				userId: user?._id,
+				message: "Test Push Notification",
+			}),
 		onSuccess: (data) => {
-			toast.success(data?.data?.message || "Notification sent successfully");
+			toast.success(data?.message || "Notification sent successfully");
 		},
 	});
 
@@ -55,7 +56,7 @@ function MobileHeader() {
 							justifyContent: "start",
 							cursor: "pointer",
 						}}
-						onClick={() => handleSendNotification.mutate()}
+						onClick={handleSendNotification.mutate}
 					>
 						{/* <Image
 							src={PngLogo}
