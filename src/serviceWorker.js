@@ -38,6 +38,7 @@ export const registerPushNotification = async () => {
 					applicationServerKey: import.meta.env.VITE_PUBLIC_VAPID_KEY,
 				});
 				await subscribeNotification(subscription).then((response) => {
+					console.log(response);
 					console.log("user subscribed to notification.");
 				});
 			});
