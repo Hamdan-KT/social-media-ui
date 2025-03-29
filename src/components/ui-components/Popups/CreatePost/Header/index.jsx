@@ -78,6 +78,7 @@ function CreateHeader({ onClose }) {
 				for (const key in postStates?.postDetails) {
 					formData.append(key, postStates?.postDetails[key]);
 				}
+				formData.append("aspectRatio", postStates?.aspectRatio);
 				formData.append("postData", JSON.stringify(postData));
 				// Convert FormData to an object
 				const formDataObject = Object.fromEntries(formData.entries());

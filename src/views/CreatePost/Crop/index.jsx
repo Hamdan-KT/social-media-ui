@@ -26,7 +26,7 @@ import {
 	setCropVal,
 	setZoomVal,
 } from "app/slices/postSlice/postSlice";
-import { postStages as ps, postRatios } from "utils/constants";
+import { postStages as ps, postRatios } from "src/utils/constants";
 import { useNavigate } from "react-router";
 import { RoutePath } from "utils/routes";
 import { getCroppedImg } from "utils/common";

@@ -253,7 +253,11 @@ const PostMobile = React.forwardRef(({ data, divider = false }, ref) => {
 			/>
 			{/* images sections */}
 			<CardMedia
-				sx={{ padding: 0, position: "relative" }}
+				sx={{
+					padding: 0,
+					position: "relative",
+					aspectRatio: data?.aspectRatio,
+				}}
 				alt="Not Found"
 				onDoubleClick={handleLike}
 			>

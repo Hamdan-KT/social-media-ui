@@ -109,6 +109,7 @@ function Home() {
 										divider={true}
 									/>
 								)}
+								overscan={5}
 							/>
 						</>
 					)}
