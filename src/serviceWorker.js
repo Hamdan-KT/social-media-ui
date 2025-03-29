@@ -6,7 +6,7 @@ import { subscribeNotification } from "./api/notificationAPI";
 // service worker registration
 export const registerSW = () => {
 	if ("serviceWorker" in navigator) {
-		const wb = new Workbox("/sw.js");
+		const wb = new Workbox("../public/sw.js");
 
 		wb.register().then((registration) => {
 			console.log("Service Worker registered with scope:", registration.scope);

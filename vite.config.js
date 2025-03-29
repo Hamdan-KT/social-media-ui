@@ -57,7 +57,7 @@ export default defineConfig({
 				orientation: "portrait",
 			},
 			workbox: {
-				swDest: "dist/sw.js",
+				// swDest: "dist/sw.js",
 				runtimeCaching: [
 					{
 						urlPattern: ({ request }) => {

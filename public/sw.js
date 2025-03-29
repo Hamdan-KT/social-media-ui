@@ -5,7 +5,7 @@ self.addEventListener("push", (event) => {
 		const title = notificationData.title || "New Notification";
 		const options = {
 			body: notificationData.body || "You have a new notification.",
-			icon: "/pwa-512x512.png",
+			icon: "./pwa-512x512.png",
 			image: notificationData.image || undefined,
 			data: { url: notificationData?.url || "/" },
 		};
