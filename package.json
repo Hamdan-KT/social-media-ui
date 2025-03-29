@@ -41,6 +41,7 @@
 		"swiper": "^11.2.2",
 		"uuid": "^10.0.0",
 		"wavesurfer.js": "^7.8.2",
+		"workbox-window": "^7.3.0",
 		"yup": "^1.4.0"
 	},
 	"devDependencies": {

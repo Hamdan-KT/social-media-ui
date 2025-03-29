@@ -24,9 +24,20 @@ import CreatePost from "components/ui-components/Popups/CreatePost";
 import ShareWindow from "components/ui-components/Popups/ShareWindow";
 import AuthProvider from "./components/auth/AuthProvider";
 import TaggedUserWindow from "./components/ui-components/Popups/TaggedUsers";
+import { registerPushNotification, registerSW } from "./serviceWorker";
+import { useEffect } from "react";
 
 function App() {
 	const customization = useSelector((state) => state.customization);
+	const user = useSelector((state) => state.user?.user);
+
+	//register swc
+	useEffect(() => {
+		if (user?._id) {
+			registerSW();
+			registerPushNotification();
+		}
+	}, [user]);
 
 	return (
 		<StyledEngineProvider injectFirst>
@@ -36,18 +47,18 @@ function App() {
 				<CssBaseline />
 				{/* navigation Scroll component */}
 				{/* <NavigationScroll> */}
-					{/* routes */}
-					<AppRouting />
-					{/* toaster component */}
-					<Toaster />
-					{/* test comps */}
-					{/* <ViewPost /> */}
-					{/* <Comments /> */}
+				{/* routes */}
+				<AppRouting />
+				{/* toaster component */}
+				<Toaster />
+				{/* test comps */}
+				{/* <ViewPost /> */}
+				{/* <Comments /> */}
 
-					{/* common popup windows */}
-					<ShareWindow />
-					<Comments />
-					<TaggedUserWindow />
+				{/* common popup windows */}
+				<ShareWindow />
+				<Comments />
+				<TaggedUserWindow />
 				{/* </NavigationScroll> */}
 			</ThemeProvider>
 		</StyledEngineProvider>
