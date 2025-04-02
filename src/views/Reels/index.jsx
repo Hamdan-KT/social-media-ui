@@ -130,7 +130,8 @@ const Reels = () => {
 							<Video
 								src={video}
 								controls={false}
-								autoPlay={index === currentIndex}
+								autoPlay={true}
+								loop={true}
 								playsInline
 								// onLoadedMetadata={handleMetadataLoad}
 								draggable={false}
