@@ -95,6 +95,7 @@ function ChangeAvatar({ open = false, onClose = () => {}, imgUrl = "" }) {
 							variant="body"
 							sx={{
 								// userSelect: "none",
+								zIndex: 10,
 								padding: "0 0.3rem",
 								fontWeight: 600,
 								// "&:hover": { color: theme.palette.text.primary },
