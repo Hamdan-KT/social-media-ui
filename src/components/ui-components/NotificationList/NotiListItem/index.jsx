@@ -76,6 +76,7 @@ function NotiListItem({
 					typeof onClick === "function" && onClick();
 					urlPrefix && navigateId && navigate(`${urlPrefix}/${navigateId}`);
 				}}
+				sx={{ padding: "0.3rem 0.5rem" }}
 			>
 				<ListItemAvatar sx={{ display: "flex" }}>
 					<ProfileAvatar

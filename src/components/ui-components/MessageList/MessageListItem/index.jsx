@@ -157,7 +157,7 @@ const MessageListItem = forwardRef(
 							pathname !== `${urlPrefix}/${navigateId}` &&
 							navigate(`${urlPrefix}/${navigateId}`);
 					}}
-					sx={{padding: "0.3rem"}}
+					sx={{padding: "0.3rem 0.5rem"}}
 					disableGutters
 				>
 					<ListItemAvatar>

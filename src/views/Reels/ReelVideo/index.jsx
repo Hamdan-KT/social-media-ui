@@ -59,7 +59,7 @@ const ReelVideo = ({
 		}
 	}
 
-  // handling auto play
+	// handling auto play
 	useEffect(() => {
 		if (isActive) {
 			handlePlay();

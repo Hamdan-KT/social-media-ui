@@ -26,7 +26,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 	[theme.breakpoints.down("sm")]: {
 		height: "auto",
 		marginTop: "-0.5rem",
-		padding: "0 0.3rem"
+		padding: "0 0.3rem",
 	},
 	display: "flex",
 	alignItems: "center",
@@ -35,7 +35,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 	position: "relative",
 	[theme.breakpoints.not("xs")]: {
 		padding: "0rem 1rem",
-		paddingTop: "1rem",
+		paddingTop: "0.5rem",
 		"&::before": {
 			content: `""`,
 			position: "absolute",
