@@ -6,7 +6,7 @@ import PhotoType from "./MediaTypes/PhotoType";
 import VideoType from "./MediaTypes/VideoType";
 import ReplyChat from "./ReplyChat";
 import DragBox from "components/common/DragBox";
-import ImageViewer from "components/ui-components/ImageViewer";
+import ImageViewer from "src/components/ui-components/ImageViewer";
 import { updateAttachment } from "app/slices/messageSlice/messageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ReactIcons from "utils/ReactIcons";
@@ -106,6 +106,7 @@ function MediaChat({ chat, options = true, user }) {
 									item
 									xs={5.5}
 									sx={{ position: index === 3 && "relative" }}
+									height={150}
 								>
 									{index <= 3 &&
 										(() => {

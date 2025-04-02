@@ -23,8 +23,8 @@ const MainBox = styled(Box)(({ theme }) => ({
 const ViewBox = styled(Box)({
 	display: "flex",
 	minWidth: "100%",
-	height: "100%",
-	maxHeight: "100%",
+	height: "auto",
+	maxHeight: "auto",
 	alignItems: "center",
 	justifyContent: "center",
 });
@@ -62,6 +62,7 @@ function MobileImageView({ medias = [] }) {
 												setMainViewOpen(true);
 											}
 										}}
+										// sx={{background: "red"}}
 									>
 										{media?.type === messageMediaTypes.IMAGE && (
 											<Image
@@ -71,7 +72,7 @@ function MobileImageView({ medias = [] }) {
 													display: "block",
 													width: "100%",
 													userSelect: "none",
-													objectFit: "contain",
+													objectFit: "cover",
 													borderRadius: "15px",
 												}}
 												loading="lazy"
@@ -86,7 +87,7 @@ function MobileImageView({ medias = [] }) {
 													display: "block",
 													width: "100%",
 													userSelect: "none",
-													objectFit: "contain",
+													objectFit: "cover",
 													borderRadius: "15px",
 												}}
 												loading="lazy"

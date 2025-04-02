@@ -187,14 +187,29 @@ function DefaultImageView({ medias = [] }) {
 										handleSlideBtnClick(ind);
 									}}
 								>
-									<Image
-										style={{
-											display: "block",
-											width: "100%",
-											objectFit: "contain",
-										}}
-										src={media?.url}
-									/>
+									{media?.type === messageMediaTypes.IMAGE && (
+										<Image
+											style={{
+												display: "block",
+												width: "100%",
+												objectFit: "contain",
+											}}
+											src={media?.url}
+											draggable={false}
+										/>
+									)}
+									{media?.type === messageMediaTypes.VIDEO && (
+										<Video
+											controls={false}
+											style={{
+												display: "block",
+												width: "100%",
+												objectFit: "contain",
+											}}
+											src={media?.url}
+											draggable={false}
+										/>
+									)}
 								</Box>
 							))}
 						</ImageSelector>
