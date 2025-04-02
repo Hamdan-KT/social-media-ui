@@ -12,13 +12,6 @@ const ONE_SECOND = 1000;
 const AUTO_DELAY = ONE_SECOND * 3;
 const DRAG_BUFFER = 30;
 
-const SPRING_OPTIONS = {
-	type: "tween",
-	mass: 10,
-	stiffness: 400,
-	damping: 50,
-};
-
 // Slider Button
 const SlideButton = styled(IconButton)(({ direction }) => ({
 	display: "flex",
@@ -112,7 +105,9 @@ const Slider = ({
 				animate={{
 					translateX: `-${activeIndex * 100}%`,
 				}}
-				transition={SPRING_OPTIONS}
+				transition={{
+					x: { type: "spring", stiffness: 300, damping: 30 },
+				}}
 				onDragEnd={!disableDrag && onDragEnd}
 			>
 				{childrenArray}

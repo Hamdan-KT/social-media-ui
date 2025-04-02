@@ -26,7 +26,7 @@ const UserListSkeleton = ({ count = 10, sx = {}, actionButton = false }) => {
 					sx={{
 						display: "flex",
 						alignItems: "center",
-						padding: "0.5rem 0",
+						padding: "0.5rem 0.5rem",
 					}}
 				>
 					<ListItemAvatar>

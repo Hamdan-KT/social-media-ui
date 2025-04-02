@@ -103,7 +103,9 @@ const Reels = () => {
 				}}
 				drag="y"
 				animate={{ translateY: `-${currentIndex * (matchDownSm ? 92 : 96)}vh` }}
-				transition={{ type: "spring", stiffness: 300, damping: 30 }}
+				transition={{
+					y: { type: "spring", stiffness: 300, damping: 30 },
+				}}
 				onDragEnd={onDragEnd}
 				dragConstraints={{ top: 0, bottom: 0 }}
 			>

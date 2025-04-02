@@ -30,6 +30,7 @@ function ExploreSearch() {
 				sx={{
 					justifyContent: "space-between",
 					gap: "0.1rem",
+					padding: "0.3rem"
 				}}
 			>
 				<SearchInput value={value} setValue={setValue} ref={inputRef} />

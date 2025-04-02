@@ -191,7 +191,7 @@ function ChatLayout() {
 										: `calc(100vh - 20vh)`,
 								},
 								overflowY: { md: "scroll" },
-								p: { xs: 0.5, sm: 1 },
+								p: { xs: 1, sm: 1 },
 								mb: {
 									xs: messageState?.attachment?.message?._id ? 8 : 0.7,
 									sm: messageState?.attachment?.message?._id ? 13.5 : 7,

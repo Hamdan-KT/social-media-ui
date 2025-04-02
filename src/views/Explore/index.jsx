@@ -38,7 +38,14 @@ function Explore() {
 	return (
 		<Grid container>
 			{matchDownSm && (
-				<Grid item xs={12} md={12} sm={12} lg={12}>
+				<Grid
+					item
+					xs={12}
+					md={12}
+					sm={12}
+					lg={12}
+					sx={{ padding: { xs: "0 0.3rem" } }}
+				>
 					<SearchInput
 						onClick={() => navigate(`/${RoutePath.EXPLORE_SEARCH}`)}
 					/>

@@ -37,9 +37,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchInput = forwardRef(
-	({ value = "", setValue = () => {}, ...others }, ref) => {
+	({ value = "", setValue = () => {}, wrapperXs, ...others }, ref) => {
 		return (
-			<Search>
+			<Search sx={wrapperXs}>
 				<SearchIconWrapper>
 					<ReactIcons.IoSearchSharp size={20} />
 				</SearchIconWrapper>

@@ -92,7 +92,11 @@ function Messages() {
 							mt: 6,
 						}}
 					>
-						<SearchInput value={value} setValue={setValue} />
+						<SearchInput
+							value={value}
+							setValue={setValue}
+							wrapperXs={{ margin: { xs: "0 0.3rem", width: "auto" } }}
+						/>
 						{value !== "" ? (
 							<MsgUserSearchList value={debouncedValue} setValue={setValue} />
 						) : (
@@ -100,7 +104,7 @@ function Messages() {
 								<Box
 									sx={{
 										height: "max-content",
-										p: 0,
+										padding: { xs: "0 0.3rem" },
 										mt: 1,
 										gap: "0.5rem",
 										width: "100%",

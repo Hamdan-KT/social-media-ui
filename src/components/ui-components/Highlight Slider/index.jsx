@@ -24,6 +24,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 	[theme.breakpoints.down("sm")]: {
 		height: "auto",
 		marginTop: "-0.5rem",
+		padding: "0 0.3rem",
 	},
 	display: "flex",
 	alignItems: "center",

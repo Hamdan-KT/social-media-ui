@@ -4,17 +4,24 @@ import { apiClient } from "./api/axios";
 import { subscribeNotification } from "./api/notificationAPI";
 
 // service worker registration
-export const registerSW = () => {
+export const registerSW = (mount = true) => {
 	if ("serviceWorker" in navigator) {
 		const wb = new Workbox("/sw.js");
-
-		wb.register().then((registration) => {
-			console.log("Service Worker registered with scope:", registration.scope);
-		});
-
-		wb.addEventListener("waiting", () => {
-			console.log("New version available. Please refresh the page.");
-		});
+		if (mount) {
+			wb.register().then((registration) => {
+				console.log(
+					"Service Worker registered with scope:",
+					registration.scope
+				);
+			});
+			wb.addEventListener("waiting", () => {
+				console.log("New version available. Please refresh the page.");
+			});
+		} else {
+			wb.removeEventListener("waiting", () => {
+				console.log("event removed!");
+			});
+		}
 	}
 };
 

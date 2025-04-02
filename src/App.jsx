@@ -37,6 +37,10 @@ function App() {
 			registerSW();
 			registerPushNotification();
 		}
+
+		return () => {
+			registerSW(false);
+		};
 	}, [user]);
 
 	return (
