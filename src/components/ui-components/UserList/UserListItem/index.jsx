@@ -60,6 +60,8 @@ const UserListItem = forwardRef(
 						typeof onClick === "function" && onClick(data);
 						urlPrefix && navigateId && navigate(`${urlPrefix}/${navigateId}`);
 					}}
+					sx={{ padding: "0.3rem" }}
+					disableGutters
 				>
 					<ListItemAvatar>
 						<ProfileAvatar

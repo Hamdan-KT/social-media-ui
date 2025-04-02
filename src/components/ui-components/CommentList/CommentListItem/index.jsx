@@ -98,13 +98,17 @@ const CommentListItem = React.forwardRef(
 		};
 
 		const handleReplyFetch = () => {
-			if (showReply === false) {
-				refetch();
-			} else {
-				fetchNextPage();
-			}
+			// if (showReply === false) {
+			// 	refetch();
+			// } else {
+			fetchNextPage();
 			setShowReply(true);
+			// }
 		};
+
+		useEffect(() => {
+			console.log({ isSuccess }), console.log({ hasNextPage });
+		}, [isSuccess, hasNextPage]);
 
 		return (
 			<>
@@ -113,7 +117,7 @@ const CommentListItem = React.forwardRef(
 					dense
 					disableGutters
 					disablePadding
-					sx={{ p: "0.9rem 2rem 0.2rem 0.5rem", userSelect: "none" }}
+					sx={{ p: "0rem 0rem 0rem 0.3rem", mb: 1, userSelect: "none" }}
 					alignItems="flex-start"
 					secondaryAction={
 						<Box
@@ -155,11 +159,12 @@ const CommentListItem = React.forwardRef(
 						</Box>
 					}
 				>
-					<ListItemAvatar>
+					<ListItemAvatar
+					>
 						<Avatar sx={{ width: 33, height: 33 }} src={data?.user?.avatar} />
 					</ListItemAvatar>
 					<ListItemText
-						sx={{ width: "100%" }}
+						sx={{ width: "100%"}}
 						primaryTypographyProps={{
 							fontSize: 13,
 							fontWeight: "bold",
@@ -242,16 +247,16 @@ const CommentListItem = React.forwardRef(
 							}}
 						>
 							<>
-								{showReply && !hasNextPage ? (
+								{showReply ? (
 									<Typography
 										variant="caption"
-										sx={{ cursor: "pointer", mt: 0.5, fontWeight: "bold" }}
+										sx={{ cursor: "pointer", mt: 0.2, fontWeight: "bold" }}
 										onClick={() => setShowReply(false)}
 									>{`--- Hide replies`}</Typography>
 								) : (
 									<Typography
 										variant="caption"
-										sx={{ cursor: "pointer", mt: 0.5, fontWeight: "bold" }}
+										sx={{ cursor: "pointer", mt: 0.2, fontWeight: "bold" }}
 										onClick={handleReplyFetch}
 									>{`--- View replies(${data?.repliesCount})`}</Typography>
 								)}
