@@ -28,7 +28,8 @@ function ReelSlide({ reel = "", isActive = false }) {
 	return (
 		<CommonBox
 			sx={{
-				width: { xs: "100%", sm: "auto" },
+				width: { xs: "auto", sm: "auto" },
+				maxWidth: {xs: "100%", sm: "auto"},
 				height: { xs: "92vh", sm: "96vh" },
 				aspectRatio: "9/16",
 				borderRadius: "8px",
@@ -40,8 +41,8 @@ function ReelSlide({ reel = "", isActive = false }) {
 				sx={{
 					gap: "0.5rem",
 					position: "absolute",
-					left: { xs: "15px", sm: "30px" },
-					bottom: { xs: "15px", sm: "30px" },
+					left: { xs: "15px", sm: "15px" },
+					bottom: { xs: "15px", sm: "15px" },
 				}}
 			>
 				<ProfileAvatar
