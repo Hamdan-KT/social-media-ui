@@ -13,6 +13,7 @@ const BottomSheetHeader = styled(Box)(({ theme }) => ({
 	flexDirection: "column",
 	cursor: "grab",
 	position: "relative",
+	zIndex: 5
 }));
 
 const DragHandle = styled(Box)(({ theme }) => ({
