@@ -47,10 +47,11 @@ const MainBox = styled(Box)(({ theme }) => ({
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-	borderRadius: 20,
+	borderRadius: "30px",
 	width: "100%",
 	background: theme.palette.grey[800],
 	color: theme.palette.common.white,
+	padding: "0.6rem",
 	// fontWeight: "bold",
 	"&:hover": {
 		background: theme.palette.grey[500],

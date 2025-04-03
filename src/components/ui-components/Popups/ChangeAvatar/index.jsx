@@ -102,8 +102,9 @@ function ChangeAvatar({ open = false, onClose = () => {}, imgUrl = "" }) {
 							}}
 							color={theme.palette.primary.main}
 							onClick={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
+								console.log("avatar change...");
+								// e.preventDefault();
+								// e.stopPropagation();
 								changeProfileAvatar.mutate(imgUrl);
 							}}
 						>
