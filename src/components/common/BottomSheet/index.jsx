@@ -119,20 +119,20 @@ const BottomSheet = forwardRef(function (
 			e.stopPropagation();
 		};
 
+		header?.addEventListener("mousedown", dragStart);
 		document.addEventListener("mousemove", dragging);
 		document.addEventListener("mouseup", dragEnd);
-		header?.addEventListener("mousedown", dragStart);
 		header?.addEventListener("touchstart", dragStart);
 		header?.addEventListener("touchmove", dragging);
 		header?.addEventListener("touchend", dragEnd);
 
 		return () => {
 			header?.removeEventListener("mousedown", dragStart);
+			document.removeEventListener("mousemove", dragging);
+			document.removeEventListener("mouseup", dragEnd);
 			header?.removeEventListener("touchstart", dragStart);
 			header?.removeEventListener("touchmove", dragging);
 			header?.removeEventListener("touchend", dragEnd);
-			document.removeEventListener("mousemove", dragging);
-			document.removeEventListener("mouseup", dragEnd);
 		};
 	}, []);
 
@@ -154,7 +154,8 @@ const BottomSheet = forwardRef(function (
 				alignItems: "center",
 				justifyContent: "end",
 				overflow: "hidden",
-				zIndex: (theme) => theme.zIndex.drawer + 1,
+				// zIndex: (theme) => theme.zIndex.drawer + 1,
+				zIndex: 5
 			}}
 			open={open}
 		>
