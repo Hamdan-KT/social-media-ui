@@ -13,7 +13,6 @@ const BottomSheetHeader = styled(Box)(({ theme }) => ({
 	flexDirection: "column",
 	cursor: "grab",
 	position: "relative",
-	zIndex: 5
 }));
 
 const DragHandle = styled(Box)(({ theme }) => ({
@@ -156,7 +155,7 @@ const BottomSheet = forwardRef(function (
 				justifyContent: "end",
 				overflow: "hidden",
 				// zIndex: (theme) => theme.zIndex.drawer + 1,
-				zIndex: 5
+				zIndex: 5,
 			}}
 			open={open}
 		>
