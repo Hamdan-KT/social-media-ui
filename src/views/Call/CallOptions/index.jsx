@@ -18,7 +18,7 @@ function CallOptions() {
 				position: "absolute",
 				bottom: 30,
 				width: "auto",
-				background: "rgba(0,0,0,0.5)",
+				background: "rgba(0,0,0,0.3)",
 				left: "50%",
 				transform: "translateX(-50%)",
 				borderRadius: "40px",
@@ -41,7 +41,7 @@ function CallOptions() {
 						<ReactIcons.LuScreenShare
 							style={{
 								color: theme.palette.common.white,
-								fontSize: 28,
+								fontSize: 33,
 							}}
 						/>
 					}
@@ -49,7 +49,7 @@ function CallOptions() {
 						<ReactIcons.LuScreenShare
 							style={{
 								color: `${theme.palette.text.primary}`,
-								fontSize: 28,
+								fontSize: 33,
 							}}
 						/>
 					}
@@ -69,7 +69,7 @@ function CallOptions() {
 						<ReactIcons.IoVideocam
 							style={{
 								color: theme.palette.common.white,
-								fontSize: 28,
+								fontSize: 33,
 							}}
 						/>
 					}
@@ -77,7 +77,7 @@ function CallOptions() {
 						<ReactIcons.IoVideocamOff
 							style={{
 								color: `${theme.palette.text.primary}`,
-								fontSize: 28,
+								fontSize: 33,
 							}}
 						/>
 					}
@@ -97,7 +97,7 @@ function CallOptions() {
 						<ReactIcons.IoMdMic
 							style={{
 								color: theme.palette.common.white,
-								fontSize: 28,
+								fontSize: 33,
 							}}
 						/>
 					}
@@ -105,7 +105,7 @@ function CallOptions() {
 						<ReactIcons.IoMdMicOff
 							style={{
 								color: `${theme.palette.text.primary}`,
-								fontSize: 28,
+								fontSize: 33,
 							}}
 						/>
 					}
@@ -121,7 +121,7 @@ function CallOptions() {
 					<ReactIcons.MdCallEnd
 						style={{
 							color: `${theme.palette.common.white}`,
-							fontSize: 28,
+							fontSize: 33,
 						}}
 					/>
 				</IconButton>

@@ -132,13 +132,13 @@ function MediaChat({ chat, options = true, user }) {
 										</StyledOverlay>
 									)}
 								</Grid>
-								{index === 0 && (
+								{/* {index === 0 && ( */}
 									<ImageViewer
 										medias={mediaArr}
 										open={viewOpen}
 										onClose={() => setViewOpen(false)}
 									/>
-								)}
+								{/* )} */}
 							</>
 						) : (
 							<>

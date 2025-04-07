@@ -57,6 +57,7 @@ function CallHeader() {
 		<StyledToolBar>
 			<CommonBox sx={{ width: "auto" }}>
 				<Avatar
+					sx={{ width: 35, height: 35 }}
 					alt={
 						selectedChat?.isGroupChat
 							? selectedChat?.groupName

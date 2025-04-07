@@ -41,7 +41,7 @@ function DragBox({
 	return (
 		<motion.div
 			style={{
-				position:"relative",
+				position: "relative",
 				display: "flex",
 				width: "max-content",
 				x: !disableDrag && direction === "x" ? dragValue : 0,

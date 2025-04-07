@@ -27,7 +27,8 @@ import {
 	defaultStoryVideoDuration,
 	storyTouchHoldDurationInframe,
 } from "src/utils/constants";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import DragBox from "src/components/common/DragBox";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -53,6 +54,7 @@ const StorySM = forwardRef(function Story(
 	const [progress, setProgress] = useState(0);
 	const [vidDuration, setVidDuration] = useState(null);
 	const [isPressed, setIsPressed] = useState(false);
+	const navigate = useNavigate();
 
 	// play video
 	const handlePlay = () => {
@@ -261,7 +263,9 @@ const StorySM = forwardRef(function Story(
 	);
 
 	return (
-		<Box
+		<DragBox
+			direction="y"
+			onDragEnd={() => navigate(-1)}
 			ref={ref}
 			sx={{
 				borderRadius: "10px",
@@ -364,7 +368,7 @@ const StorySM = forwardRef(function Story(
 				story={story}
 				sx={{ position: "relative", padding: "0.5rem" }}
 			/>
-		</Box>
+		</DragBox>
 	);
 });
 

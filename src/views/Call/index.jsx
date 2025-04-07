@@ -137,8 +137,8 @@ function Call() {
 							>
 								<Avatar
 									sx={{
-										width: { xs: 80, md: 110 },
-										height: { xs: 80, md: 110 },
+										width: { xs: 50, md: 110 },
+										height: { xs: 50, md: 110 },
 									}}
 									alt={participant?.userName}
 									src={participant?.avatar}

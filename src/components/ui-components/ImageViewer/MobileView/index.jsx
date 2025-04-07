@@ -23,8 +23,8 @@ const MainBox = styled(Box)(({ theme }) => ({
 const ViewBox = styled(Box)({
 	display: "flex",
 	minWidth: "100%",
-	height: "auto",
-	maxHeight: "auto",
+	height: "100%",
+	maxHeight: "100%",
 	alignItems: "center",
 	justifyContent: "center",
 });
@@ -70,7 +70,9 @@ function MobileImageView({ medias = [] }) {
 												alt="Not Found"
 												style={{
 													display: "block",
-													width: "100%",
+													width: "auto",
+													maxWidth: "100%",
+													maxHeight: "92vh",
 													userSelect: "none",
 													objectFit: "cover",
 													borderRadius: "15px",
@@ -85,7 +87,9 @@ function MobileImageView({ medias = [] }) {
 												alt="Not Found"
 												style={{
 													display: "block",
-													width: "100%",
+													width: "auto",
+													maxWidth: "100%",
+													maxHeight: "92vh",
 													userSelect: "none",
 													objectFit: "cover",
 													borderRadius: "15px",
@@ -117,13 +121,18 @@ function MobileImageView({ medias = [] }) {
 								>
 									{Array.isArray(medias) &&
 										medias?.map((media, ind) => (
-											<Slide key={ind} sx={{ padding: "0.4rem" }}>
+											<Slide
+												key={ind}
+												sx={{ padding: "0.4rem", justifyContent: "center" }}
+											>
 												{media?.type === messageMediaTypes.IMAGE && (
 													<Image
 														style={{
 															display: "block",
 															objectFit: "cover",
-															width: "100%",
+															width: "auto",
+															maxWidth: "100%",
+															maxHeight: "92vh",
 															borderRadius: "15px",
 														}}
 														alt="Not found!"
@@ -142,7 +151,9 @@ function MobileImageView({ medias = [] }) {
 														style={{
 															display: "block",
 															objectFit: "cover",
-															width: "100%",
+															width: "auto",
+															maxWidth: "100%",
+															maxHeight: "92vh",
 															borderRadius: "15px",
 														}}
 														loading="lazy"
