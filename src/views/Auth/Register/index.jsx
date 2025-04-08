@@ -18,7 +18,7 @@ import PngLogo from "assets/images/logoText.png";
 import AppStore from "assets/images/appstore.png";
 import PlayStore from "assets/images/playstore.png";
 import { useNavigate } from "react-router";
-import { RoutePath } from "utils/routes";
+import { RoutePath } from "src/utils/routes";
 import Image from "components/common/Image";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "src/api/authAPI";
@@ -87,7 +87,7 @@ function Register() {
 		mutationFn: (userData) => registerUser(userData),
 		onSuccess: (data) => {
 			toast.success(data?.message);
-			navigate(`/${RoutePath.AUTH}/${RoutePath.REGISTER}`);
+			navigate(`/${RoutePath.AUTH}/${RoutePath.LOGIN}`);
 		},
 		onError: (error) => {
 			toast.error(error.message);
