@@ -157,7 +157,7 @@ const MessageListItem = forwardRef(
 							pathname !== `${urlPrefix}/${navigateId}` &&
 							navigate(`${urlPrefix}/${navigateId}`);
 					}}
-					sx={{padding: "0.3rem 0.5rem"}}
+					sx={{ padding: "0.3rem 0.5rem" }}
 					disableGutters
 				>
 					<ListItemAvatar>
@@ -183,8 +183,8 @@ const MessageListItem = forwardRef(
 							mr: actionButton || customButton ? 5 : 0,
 						}}
 						secondaryTypographyProps={{
-							noWrap: true,
 							fontSize: 12,
+							noWrap: true,
 							mr: {
 								xs: actionButton || customButton ? 3 : 0,
 								sm: actionButton || customButton ? 3 : 0,

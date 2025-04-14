@@ -32,6 +32,7 @@ function MsgPrimary() {
 	const primaryChatList = useSelector(
 		(state) => state.message?.primaryChatList
 	);
+	const messageState = useSelector((state) => state.message);
 	const { ref, inView } = useInView();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -43,7 +44,7 @@ function MsgPrimary() {
 		</IconButton>
 	);
 
-	const mergeChatLists = (currentList, newChats) => {
+	const mergeChatLists = useCallback((currentList = [], newChats = []) => {
 		const chatMap = new Map();
 		// Add existing chats to the map (use _id as the key)
 		currentList.forEach((chat) => chatMap.set(chat._id, chat));
@@ -54,7 +55,7 @@ function MsgPrimary() {
 			(a, b) =>
 				new Date(b.lastMessage?.createdAt) - new Date(a.lastMessage?.createdAt)
 		);
-	};
+	}, []);
 
 	const {
 		fetchNextPage,
@@ -64,6 +65,7 @@ function MsgPrimary() {
 		isLoading,
 		isFetching,
 		data,
+		isFetchedAfterMount,
 	} = useInfiniteQuery({
 		queryKey: ["get-general-messages"],
 		queryFn: ({ pageParam = 1 }) => fetchUserChats(pageParam, 10),
@@ -84,38 +86,73 @@ function MsgPrimary() {
 
 	//updating chats based on paginated data
 	useEffect(() => {
-		if (isSuccess) {
+		if (isSuccess && isFetchedAfterMount) {
+			console.log("|||||||||||||| fetched chats ||||||||||||||||||||");
 			console.log({ chatlist: data?.pages?.flatMap((page) => page?.data) });
 			console.log({ primaryChatList });
 			const updatedChatlist = mergeChatLists(
+				data?.pages?.flatMap((page) => page?.data) ?? [],
 				primaryChatList,
-				data?.pages?.flatMap((page) => page?.data) ?? []
 			);
 			console.log({ updatedChatlist });
 			dispatch(setPrimaryChatList(updatedChatlist));
 		}
-	}, [data, dispatch, isSuccess]);
+	}, [data, dispatch, isSuccess, isFetchedAfterMount]);
 
 	//listed to chat updates
 	useEffect(() => {
 		// update chatlist based on new message
-		socket?.on(messageEvents.CHATLIST_UPDATED, (newChat) => {
-			console.log({ newChat });
-			const updatedChatlist = mergeChatLists(primaryChatList, [newChat]);
+		socket?.on(messageEvents.CHATLIST_UPDATED, ({ chat, inc }) => {
+			console.log("updating chat list.......");
+			console.log("||||||||||=========||||||||||||");
+			console.log({ chat, inc });
+			if (inc) {
+				console.log("increment exist --> " + inc);
+			}
+			// find new chat updated chat from chatlist
+			const updatedChat = primaryChatList.find(
+				(chatItem) => chatItem?._id === chat?._id
+			);
+
+			console.log({ updatedChat });
+
+			console.log({
+				selectedChat: chat?._id !== messageState?.selectedChat?._id,
+			});
+
+			const updatedChatlist = mergeChatLists(primaryChatList, [
+				{
+					...chat,
+					receiver: updatedChat?.receiver,
+					unreadMessagesCount:
+						chat?.lastMessage?.sender !== user?._id &&
+						chat?._id !== messageState?.selectedChat?._id &&
+						inc
+							? updatedChat?.unreadMessagesCount + inc
+							: 0,
+				},
+			]);
 			dispatch(setPrimaryChatList(updatedChatlist));
 		});
 
 		return () => {
 			socket?.off(messageEvents.CHATLIST_UPDATED);
 		};
-	}, [socket, dispatch, primaryChatList]);
+	}, [
+		socket,
+		dispatch,
+		primaryChatList,
+		messageState?.selectedChat?._id,
+		user?._id,
+		mergeChatLists,
+	]);
 
 	// click handler
 	const onChatClick = (chat) => {
 		console.log({ chat });
 		dispatch(setSelectedChat(chat));
 		const route = `/${RoutePath.MESSAGES}/${chat?._id}`;
-		pathname !== route && navigate(route);
+		pathname !== route && navigate(route, { replace: true });
 	};
 
 	return (

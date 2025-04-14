@@ -9,6 +9,7 @@ import PopOver from "src/components/common/Popover";
 
 const ChatText = styled(Box)(({ theme, chat, user }) => ({
 	display: "flex",
+	height: "auto",
 	maxWidth: "100%",
 	alignItems: "center",
 	justifyContent: "center",
@@ -56,7 +57,7 @@ function TextChat({
 	dragBoxStyle = {},
 	disableDrag = false,
 	options = true,
-	user = {}
+	user = {},
 }) {
 	const theme = useTheme();
 	const dispatch = useDispatch();
@@ -101,7 +102,14 @@ function TextChat({
 			<ChatText chat={chat} user={user}>
 				<Typography
 					variant="body2"
-					sx={{ userSelect: "none" }}
+					sx={{
+						userSelect: "none",
+						display: "block",
+						width: "100%",
+						wordBreak: "break-word",
+						overflowWrap: "break-word",
+						whiteSpace: "pre-wrap",
+					}}
 					color={theme.palette.background.paper}
 				>
 					{chat.content}

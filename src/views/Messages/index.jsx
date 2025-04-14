@@ -151,7 +151,7 @@ function Messages() {
 					</Box>
 				</Grid>
 			)}
-			<Grid item xs={12} sm={12} md={8} lg={8.5}>
+			<Grid item xs={12} sm={12} md={8} lg={8.5} >
 				<Box
 					sx={{
 						ml: { md: 1 },
@@ -173,6 +173,7 @@ function Messages() {
 								display: "flex",
 								flexDirection: "column",
 								gap: "0.5rem",
+								
 							}}
 						>
 							<IoChatbubblesOutline style={{ fontSize: "6rem" }} />

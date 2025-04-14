@@ -22,7 +22,6 @@ function ChatLayout() {
 	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
 	const messageState = useSelector((state) => state.message);
 	const socket = useSelector((state) => state?.socket?.socket);
-	// const bottomDivRef = useRef();
 	const containerRef = useRef(null);
 	const dispatch = useDispatch();
 	const inputRef = useRef();
@@ -31,11 +30,15 @@ function ChatLayout() {
 	const [isTyping, setIsTyping] = useState(false);
 	const [msgInfoOpen, setMsgInfoOpen] = useState(false);
 
+	//auto scroll to last message view
 	useEffect(() => {
-		if (containerRef.current) {
-			containerRef.current.scrollTop = containerRef.current.scrollHeight;
+		const chatContainerMd = document.getElementById("chat-container");
+		if (matchDownMd) {
+			window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+		} else {
+			chatContainerMd.scrollTop = chatContainerMd.scrollHeight;
 		}
-	}, [messageState, isTyping]);
+	}, [messageState?.chatMessages, matchDownMd, isTyping]);
 
 	const {
 		fetchNextPage,
@@ -77,16 +80,18 @@ function ChatLayout() {
 	useEffect(() => {
 		// Listen for incoming messages
 		socket?.on(messageEvents.RECEIVE, (newMessage) => {
-			socket?.emit(messageEvents.CHAT_READ, {
-				chatId: messageState?.selectedChat?._id,
-				receiverId: messageState?.selectedChat?.receiver?._id,
-			});
 			if (newMessage.chat === messageState?.selectedChat?._id) {
+				socket?.emit(messageEvents.CHAT_READ, {
+					chatId: messageState?.selectedChat?._id,
+					receiverId: messageState?.selectedChat?.receiver?._id,
+				});
 				dispatch(
 					setChatMessages([...(messageState?.chatMessages ?? []), newMessage])
 				);
 			}
 		});
+
+		// listen for deleted messages
 		socket?.on(messageEvents.MESSAGE_DELETED, (messageId) => {
 			const updatedMessages = messageState?.chatMessages.filter(
 				(message) => message._id !== messageId
@@ -103,11 +108,13 @@ function ChatLayout() {
 		messageState?.selectedChat?._id,
 		messageState?.chatMessages,
 		messageState?.selectedChat?.receiver?._id,
+		messageState?.selectedChat?.unreadMessagesCount,
 		dispatch,
 	]);
 
 	useEffect(() => {
 		if (outSide) {
+			console.log({ outSide });
 			socket?.emit(messageEvents.TYPING, {
 				chatId: messageState?.selectedChat?._id,
 				isTyping: false,
@@ -133,16 +140,19 @@ function ChatLayout() {
 	//handle read functionality
 	useEffect(() => {
 		// Listen for updated chat
-		socket?.emit(messageEvents.CHAT_READ, {
-			chatId: messageState?.selectedChat?._id,
-			receiverId: messageState?.selectedChat?.receiver?._id,
-		});
+		if (messageState?.selectedChat?.unreadMessagesCount) {
+			socket?.emit(messageEvents.CHAT_READ, {
+				chatId: messageState?.selectedChat?._id,
+				receiverId: messageState?.selectedChat?.receiver?._id,
+			});
+		}
 		return () => {
 			socket?.off(messageEvents.CHAT_READ);
 		};
 	}, [
 		socket,
 		messageState?.selectedChat?._id,
+		messageState?.selectedChat?.unreadMessagesCount,
 		messageState?.selectedChat?.receiver?._id,
 	]);
 
@@ -199,6 +209,7 @@ function ChatLayout() {
 								},
 								width: "100%",
 							}}
+							id="chat-container"
 						>
 							{isFetchingNextPage && (
 								<Box
@@ -219,16 +230,6 @@ function ChatLayout() {
 								isLoading={isLoading}
 							/>
 							{isTyping && <TypingIndicator isVisible={isTyping} />}
-							<Box
-								sx={{
-									height: 0,
-									margin: 0,
-									padding: 0,
-									width: 0,
-									boxSizing: "border-box",
-								}}
-								// ref={bottomDivRef}
-							></Box>
 						</Box>
 					</Grid>
 					<Grid item xs={12}>

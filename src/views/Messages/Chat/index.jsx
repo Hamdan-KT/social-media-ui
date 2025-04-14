@@ -1,6 +1,12 @@
 /* eslint-disable react/display-name */
-import { Box, styled, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import {
+	Box,
+	styled,
+	Typography,
+	useMediaQuery,
+	useTheme,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { forwardRef } from "react";
 
 // chat type components
@@ -13,10 +19,14 @@ import {
 	messageStatusTypes,
 	messageTypes,
 } from "src/utils/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ChatMessagesSkeleton from "./skelton";
 import DragBox from "src/components/common/DragBox";
 import ReactIcons from "src/utils/ReactIcons";
+import {
+	setChatMessages,
+	setSelectedChat,
+} from "src/app/slices/messageSlice/messageSlice";
 
 const StyledBox = styled(Box)(({ theme, chat, user }) => ({
 	display: "flex",
@@ -51,9 +61,20 @@ const GeneralMessageTypes = ({ chat, user }) => {
 	}
 };
 
-const Chat = forwardRef(({ data, isLoading = false }, ref) => {
+const Chat = forwardRef(({ data = [], isLoading = false }, ref) => {
 	const user = useSelector((state) => state?.user?.user);
 	const theme = useTheme();
+	const dispatch = useDispatch();
+	const matchDownMd = useMediaQuery(theme.breakpoints.down("md"));
+
+	// useEffect(() => {
+	// 	return () => {
+	// 		if (matchDownMd) {
+	// 			dispatch(setSelectedChat(null));
+	// 			dispatch(setChatMessages([]));
+	// 		}
+	// 	};
+	// }, [dispatch, matchDownMd]);
 
 	if (isLoading || !data) {
 		return <ChatMessagesSkeleton />;

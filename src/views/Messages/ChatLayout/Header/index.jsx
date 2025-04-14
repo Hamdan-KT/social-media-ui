@@ -63,7 +63,7 @@ function ChatHeader({ msgInfoOpen = false, setMsgInfoOpen = () => {} }) {
 		if (isSuccess) {
 			dispatch(setSelectedChat(data?.data));
 		}
-	}, [isSuccess, data]);
+	}, [isSuccess, data, dispatch]);
 
 	return (
 		<StyledToolBar disableGutters>
@@ -124,18 +124,14 @@ function ChatHeader({ msgInfoOpen = false, setMsgInfoOpen = () => {} }) {
 					<IconButton
 						size="medium"
 						color="inherit"
-						onClick={() =>
-							navigate(`/${RoutePath.CALL}`)
-						}
+						onClick={() => navigate(`/${RoutePath.CALL}`)}
 					>
 						<ReactIcons.IoCallOutline />
 					</IconButton>
 					<IconButton
 						size="medium"
 						color="inherit"
-						onClick={() =>
-							navigate(`/${RoutePath.CALL}`)
-						}
+						onClick={() => navigate(`/${RoutePath.CALL}`)}
 					>
 						<ReactIcons.IoVideocamOutline />
 					</IconButton>
