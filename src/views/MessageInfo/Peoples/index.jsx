@@ -46,7 +46,6 @@ function MessageInfoPeoples({ count = true }) {
 				sx={{ maxWidth: "100%" }}
 				onClick={(info) => handleClick(info)}
 				profileNavigation={false}
-				seco
 				// customButton={
 				// 	initialChat.isPending ? <DefaultLoader size={25} /> : null
 				// }

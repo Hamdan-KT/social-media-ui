@@ -1,5 +1,7 @@
 import ReactIcons from "utils/ReactIcons";
 import {
+	Avatar,
+	Badge,
 	Box,
 	Button,
 	Grid,
@@ -201,30 +203,63 @@ function NewMessageListSection({ onClose = () => {} }) {
 						justifyContent: "start",
 					}}
 				>
-					{showingSelectionUsers?.map((user, index) => (
-						<Typography
-							key={user?._id}
-							variant="subtitle1"
-							sx={{
-								fontWeight: "bold",
-								padding: "0rem 0.4rem",
-								color: theme.palette.primary.dark,
-								background: theme.palette.primary.light,
-								borderRadius: "10rem",
-								display: "flex",
-								alignItems: "center",
-								justifyContent: "center",
-								gap: "0.2rem",
-								userSelect: "none",
-							}}
-						>
-							{user?.userName}
-							<ReactIcons.IoClose
-								style={{ cursor: "pointer" }}
+					{showingSelectionUsers?.map((user, index) =>
+						matchDownSm ? (
+							<Badge
+								key={user?._id}
+								overlap="circular"
+								anchorOrigin={{ vertical: "top", horizontal: "right" }}
+								badgeContent={
+									<CommonBox
+										sx={{
+											background: theme.palette.common.black,
+											borderRadius: "50%",
+											border: `2px solid ${theme.palette.background.paper}`,
+										}}
+									>
+										<ReactIcons.IoClose
+											size={25}
+											style={{ color: theme.palette.background.paper }}
+										/>
+									</CommonBox>
+								}
 								onClick={() => handleSelection(user)}
-							/>
-						</Typography>
-					))}
+							>
+								<Avatar
+									src={user?.avatar}
+									alt={user?.userName}
+									sx={{
+										width: { xs: 79, sm: 59 },
+										height: { xs: 79, sm: 59 },
+										border: "1.5px solid #ffff",
+									}}
+								/>
+							</Badge>
+						) : (
+							<Typography
+								key={user?._id}
+								variant="subtitle1"
+								sx={{
+									fontWeight: "bold",
+									padding: "0rem 0.4rem",
+									color: theme.palette.primary.dark,
+									background: theme.palette.primary.light,
+									borderRadius: "10rem",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									gap: "0.2rem",
+									userSelect: "none",
+								}}
+							>
+								{user?.userName}
+								<ReactIcons.IoClose
+									style={{ cursor: "pointer" }}
+									onClick={() => handleSelection(user)}
+								/>
+							</Typography>
+						)
+					)}
 				</CommonBox>
 			)}
 			{Object.keys(selectedUsers).length > 1 && (
@@ -245,8 +280,8 @@ function NewMessageListSection({ onClose = () => {} }) {
 						? `${
 								!_.isEmpty(selectedUsers)
 									? Object.keys(selectedUsers).length > 1
-										? "calc(100vh - 11.6rem)"
-										: "calc(100vh - 9rem)"
+										? "calc(100vh - 15rem)"
+										: "calc(100vh - 12.4rem)"
 									: "calc(100vh - 6.3rem)"
 						  }`
 						: `${
