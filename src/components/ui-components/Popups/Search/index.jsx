@@ -112,8 +112,14 @@ function SearchPopUp() {
 						className="scrollbar-hide"
 					>
 						{!_.isEmpty(value) ? (
-							<Box sx={{width: "100%", display: "flex", flexDirection: "column"}}>
-								<UserList ref={ref} sx={{ maxWidth: "100%" }} data={data} />
+							<Box
+								sx={{ width: "100%", display: "flex", flexDirection: "column" }}
+							>
+								<UserList
+									ref={ref}
+									sx={{ maxWidth: "100%" }}
+									data={data?.pages?.flatMap((page) => page?.data) ?? []}
+								/>
 								{(isFetchingNextPage || isLoading) && (
 									<Box
 										sx={{

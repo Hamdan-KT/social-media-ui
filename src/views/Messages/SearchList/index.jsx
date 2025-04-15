@@ -87,7 +87,7 @@ function MsgUserSearchList({ value = "", setValue = () => {} }) {
 			>
 				<UserList
 					ref={ref}
-					data={data}
+					data={data?.pages?.flatMap((page) => page?.data) ?? []}
 					sx={{ maxWidth: "100%" }}
 					onClick={(info) => handleClick(info)}
 					profileNavigation={false}

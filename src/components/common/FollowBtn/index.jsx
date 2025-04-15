@@ -6,10 +6,31 @@ import { relationStatus } from "src/utils/constants";
 import { useMutation } from "@tanstack/react-query";
 import { followUser, unfollowUser } from "src/api/userAPI";
 
+const StyledBtn = styled(Button)(({ theme, variant, color }) => ({
+	display: "flex",
+	borderRadius: "8px",
+	fontWeight: "bold",
+	backgroundColor:
+		variant === "contained"
+			? theme.palette.primary.dark
+			: theme.palette.grey[200],
+	color:
+		variant === "contained"
+			? color ?? theme.palette.background.default
+			: color ?? theme.palette.text.primary,
+	borderColor: theme.palette.background.default,
+	"&:hover": {
+		borderColor: theme.palette.background.default,
+		backgroundColor:
+			variant === "contained"
+				? theme.palette.primary.main
+				: theme.palette.grey[300],
+	},
+}));
+
 function FollowBtn({
 	children,
 	sx,
-	// variant = "contained",
 	color,
 	isPublic,
 	isFollowing,
@@ -17,28 +38,6 @@ function FollowBtn({
 	userID,
 	...rest
 }) {
-	const StyledBtn = styled(Button)(({ theme, variant }) => ({
-		display: "flex",
-		borderRadius: "8px",
-		fontWeight: "bold",
-		backgroundColor:
-			variant === "contained"
-				? theme.palette.primary.dark
-				: theme.palette.grey[200],
-		color:
-			variant === "contained"
-				? color ?? theme.palette.background.default
-				: color ?? theme.palette.text.primary,
-		borderColor: theme.palette.background.default,
-		"&:hover": {
-			borderColor: theme.palette.background.default,
-			backgroundColor:
-				variant === "contained"
-					? theme.palette.primary.main
-					: theme.palette.grey[300],
-		},
-	}));
-
 	const [isFollowinUser, setIsFollowingUser] = useState(isFollowing);
 	const [userFollowingStatus, setUserFollowingStatus] =
 		useState(followingStatus);
@@ -72,13 +71,14 @@ function FollowBtn({
 
 	return (
 		<StyledBtn
+			color={color}
 			disableFocusRipple
 			disableElevation
 			disableRipple
 			sx={{
 				padding: {
 					xs: isFollowinUser ? "0.25rem 1.7rem" : "0.25rem 1.7rem",
-					sm: isFollowinUser ? "0.25rem 0.4rem" : "0.14rem 0.4rem",
+					sm: isFollowinUser ? "0.25rem 0.4rem" : "0.25rem 0.4rem",
 				},
 				fontSize: { xs: "0.83rem", sm: "0.75" },
 				...sx,

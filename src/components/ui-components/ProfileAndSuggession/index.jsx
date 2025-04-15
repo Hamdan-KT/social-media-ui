@@ -81,7 +81,6 @@ const ProfileBox = styled(Box)(({ theme }) => ({
 function Suggessions() {
 	const navigate = useNavigate();
 	const user = useSelector((state) => state.user?.user);
-
 	const { ref, inView } = useInView();
 
 	const {
@@ -168,7 +167,7 @@ function Suggessions() {
 					>
 						<UserList
 							sx={{ maxWidth: "100%" }}
-							data={data}
+							data={data?.pages?.flatMap((page) => page?.data) ?? []}
 							ref={ref}
 							buttonState="following"
 							actionButton={true}

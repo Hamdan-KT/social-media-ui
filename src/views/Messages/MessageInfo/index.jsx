@@ -7,12 +7,18 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MessageInfoPeoples from "src/views/MessageInfo/Peoples";
 import MUISwitch from "src/components/common/FormInputs/Switch";
 import Btn from "src/components/common/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NewMessageWindow from "src/components/ui-components/Popups/NewMessage";
+import { useInView } from "react-intersection-observer";
+import { useNavigate } from "react-router";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchChatMembers } from "src/api/messageAPI";
+import ChangeGroupDetails from "src/components/ui-components/Popups/ChangeGroupDetails";
+import AddPeopleToChatWindow from "src/components/ui-components/Popups/AddPeopleToChat";
 
 const StyledToolBar = styled(Toolbar)(({ theme }) => ({
 	display: "flex",
@@ -65,7 +71,8 @@ const CommonBox = styled("div")(({ theme }) => ({
 function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 	const theme = useTheme();
 	const selectedChat = useSelector((state) => state?.message?.selectedChat);
-	const [newMessageWindowOpen, setNewMessageWindowOpen] = useState(false);
+	const [addPeopleWindowOpen, setAddPeopleWindowOpen] = useState(false);
+	const [openEditWindow, setOpenEditWindow] = useState(false);
 
 	return (
 		<CommonBox
@@ -105,10 +112,14 @@ function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 			>
 				{selectedChat?.isGroupChat && (
 					<CommonBox sx={{ width: "100%", justifyContent: "space-between" }}>
-						<Typography variant="body" sx={{ fontWeight: "medium" }}>
-							Change group name
+						<Typography variant="subtitle" sx={{ fontWeight: "medium" }}>
+							Change group Details
 						</Typography>
-						<Btn variant="outlined" size="small">
+						<Btn
+							variant="outlined"
+							size="small"
+							onClick={() => setOpenEditWindow(true)}
+						>
 							Change
 						</Btn>
 					</CommonBox>
@@ -143,7 +154,7 @@ function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 							fontWeight: "bold",
 						}}
 						color={theme.palette.primary.main}
-						onClick={() => setNewMessageWindowOpen(true)}
+						onClick={() => setAddPeopleWindowOpen(true)}
 					>
 						Add People
 					</Typography>
@@ -160,9 +171,7 @@ function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 					justifyContent: "start",
 				}}
 			>
-				{Array.from({ length: 100 }).map((_, i) => (
-					<MessageInfoPeoples key={i} />
-				))}
+				<MessageInfoPeoples chat={selectedChat} count={false}/>
 			</CommonBox>
 			<CommonBox
 				sx={{
@@ -171,6 +180,7 @@ function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 					flexDirection: "column",
 					p: 1,
 					gap: 0,
+					mt: "auto",
 				}}
 			>
 				{selectedChat?.isGroupChat && (
@@ -183,22 +193,26 @@ function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 						</CommonBox>
 					</ItemsWrapper>
 				)}
-				<ItemsWrapper hoverEffect={true}>
-					<CommonBox sx={{ width: "auto", color: theme.palette.error.main }}>
-						<ReactIcons.MdBlockFlipped size={26} />
-						<Typography variant="body" sx={{ fontWeight: "medium" }}>
-							Block
-						</Typography>
-					</CommonBox>
-				</ItemsWrapper>
-				<ItemsWrapper hoverEffect={true}>
-					<CommonBox sx={{ width: "auto", color: theme.palette.error.main }}>
-						<ReactIcons.TbMessageReport size={26} />
-						<Typography variant="body" sx={{ fontWeight: "medium" }}>
-							Report
-						</Typography>
-					</CommonBox>
-				</ItemsWrapper>
+				{!selectedChat?.isGroupChat && (
+					<ItemsWrapper hoverEffect={true}>
+						<CommonBox sx={{ width: "auto", color: theme.palette.error.main }}>
+							<ReactIcons.MdBlockFlipped size={26} />
+							<Typography variant="body" sx={{ fontWeight: "medium" }}>
+								Block
+							</Typography>
+						</CommonBox>
+					</ItemsWrapper>
+				)}
+				{!selectedChat?.isGroupChat && (
+					<ItemsWrapper hoverEffect={true}>
+						<CommonBox sx={{ width: "auto", color: theme.palette.error.main }}>
+							<ReactIcons.TbMessageReport size={26} />
+							<Typography variant="body" sx={{ fontWeight: "medium" }}>
+								Report
+							</Typography>
+						</CommonBox>
+					</ItemsWrapper>
+				)}
 				<ItemsWrapper hoverEffect={true}>
 					<CommonBox sx={{ width: "auto", color: theme.palette.error.main }}>
 						<ReactIcons.LuTrash size={26} />
@@ -208,9 +222,13 @@ function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 					</CommonBox>
 				</ItemsWrapper>
 			</CommonBox>
-			<NewMessageWindow
-				open={newMessageWindowOpen}
-				onClose={() => setNewMessageWindowOpen(false)}
+			<AddPeopleToChatWindow
+				open={addPeopleWindowOpen}
+				onClose={() => setAddPeopleWindowOpen(false)}
+			/>
+			<ChangeGroupDetails
+				open={openEditWindow}
+				onClose={() => setOpenEditWindow(false)}
 			/>
 		</CommonBox>
 	);

@@ -9,11 +9,12 @@ import {
 	useTheme,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import ReactIcons from "src/utils/ReactIcons";
 import { RoutePath } from "src/utils/routes";
+import ChangeGroupDetails from "src/components/ui-components/Popups/ChangeGroupDetails";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -63,6 +64,7 @@ function MessageInfoView() {
 	const { chatId } = useParams();
 	const theme = useTheme();
 	const navigate = useNavigate();
+	const [openEditWindow, setOpenEditWindow] = useState(false);
 
 	return (
 		<CommonBox
@@ -88,29 +90,51 @@ function MessageInfoView() {
 					}
 				/>
 				<Typography variant="userName" sx={{ fontSize: "1rem" }}>
-					{selectedChat?.receiver?.userName ?? "Instogram user"}
+					{selectedChat?.isGroupChat
+						? selectedChat?.groupName
+						: selectedChat?.receiver?.userName
+						? selectedChat?.receiver?.userName
+						: "Instogram user"}
 				</Typography>
+				{selectedChat?.isGroupChat && (
+					<CommonBox
+						sx={{ width: "100%", justifyContent: "center" }}
+						onClick={() => setOpenEditWindow(true)}
+					>
+						<Typography
+							variant="caption"
+							sx={{ fontWeight: "bold", color: theme.palette.primary.main }}
+						>
+							Change group Details
+						</Typography>
+					</CommonBox>
+				)}
 			</CommonBox>
 			<CommonBox sx={{ gap: "1.5rem", mt: 1 }}>
 				{selectedChat?.isGroupChat && (
 					<CommonBox sx={{ width: "auto", gap: 0, flexDirection: "column" }}>
-						<IconButton sx={{ color: theme.palette.text.primary }}>
+						<IconButton
+							sx={{ color: theme.palette.text.primary }}
+							onClick={() => navigate(`/${RoutePath.ADD_PEOPLE}/${chatId}`)}
+						>
 							<ReactIcons.BsPersonAdd />
 						</IconButton>
 						<Typography variant="commonText">Add</Typography>
 					</CommonBox>
 				)}
-				<CommonBox sx={{ width: "auto", gap: 0, flexDirection: "column" }}>
-					<IconButton
-						sx={{ color: theme.palette.text.primary }}
-						onClick={() =>
-							navigate(`/${RoutePath.PROFILE}/${selectedChat?.receiver?._id}`)
-						}
-					>
-						<ReactIcons.RiAccountCircleLine />
-					</IconButton>
-					<Typography variant="commonText">Profile</Typography>
-				</CommonBox>
+				{!selectedChat?.isGroupChat && (
+					<CommonBox sx={{ width: "auto", gap: 0, flexDirection: "column" }}>
+						<IconButton
+							sx={{ color: theme.palette.text.primary }}
+							onClick={() =>
+								navigate(`/${RoutePath.PROFILE}/${selectedChat?.receiver?._id}`)
+							}
+						>
+							<ReactIcons.RiAccountCircleLine />
+						</IconButton>
+						<Typography variant="commonText">Profile</Typography>
+					</CommonBox>
+				)}
 				<CommonBox sx={{ width: "auto", gap: 0, flexDirection: "column" }}>
 					<IconButton sx={{ color: theme.palette.text.primary }}>
 						<ReactIcons.IoSearchOutline />
@@ -123,12 +147,14 @@ function MessageInfoView() {
 					</IconButton>
 					<Typography variant="commonText">Mute</Typography>
 				</CommonBox>
-				<CommonBox sx={{ width: "auto", gap: 0, flexDirection: "column" }}>
-					<IconButton sx={{ color: theme.palette.text.primary }}>
-						<ReactIcons.MdMoreHoriz />
-					</IconButton>
-					<Typography variant="commonText">Options</Typography>
-				</CommonBox>
+				{!selectedChat?.isGroupChat && (
+					<CommonBox sx={{ width: "auto", gap: 0, flexDirection: "column" }}>
+						<IconButton sx={{ color: theme.palette.text.primary }}>
+							<ReactIcons.MdMoreHoriz />
+						</IconButton>
+						<Typography variant="commonText">Options</Typography>
+					</CommonBox>
+				)}
 				{selectedChat?.isGroupChat && (
 					<CommonBox sx={{ width: "auto", gap: 0, flexDirection: "column" }}>
 						<IconButton sx={{ color: theme.palette.text.primary }}>
@@ -159,7 +185,6 @@ function MessageInfoView() {
 					</CommonBox>
 					<ReactIcons.MdNavigateNext size={26} />
 				</ItemsWrapper>
-
 				{infoOptions.map((option, index) => (
 					<ItemsWrapper
 						hoverEffect={true}
@@ -180,6 +205,11 @@ function MessageInfoView() {
 					</ItemsWrapper>
 				))}
 			</CommonBox>
+			{/* edit details window */}
+			<ChangeGroupDetails
+				open={openEditWindow}
+				onClose={() => setOpenEditWindow(false)}
+			/>
 		</CommonBox>
 	);
 }

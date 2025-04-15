@@ -39,7 +39,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 	gap: "1rem",
 }));
 
-const BottomSheet = forwardRef(function (
+const BottomSheet = forwardRef(function BottomSheet(
 	{
 		children,
 		open,
@@ -154,8 +154,7 @@ const BottomSheet = forwardRef(function (
 				alignItems: "center",
 				justifyContent: "end",
 				overflow: "hidden",
-				// zIndex: (theme) => theme.zIndex.drawer + 1,
-				zIndex: 5,
+				zIndex: (theme) => theme.zIndex.drawer + 1,
 			}}
 			open={open}
 		>

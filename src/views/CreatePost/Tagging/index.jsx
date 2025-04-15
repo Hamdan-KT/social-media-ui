@@ -366,7 +366,7 @@ function PostTaggingMobile() {
 								>
 									<UserList
 										sx={{ maxWidth: "100%" }}
-										data={data}
+										data={data?.pages?.flatMap((page) => page?.data) ?? []}
 										ref={ref}
 										profileNavigation={false}
 										onClick={handleTagSelection}

@@ -75,7 +75,7 @@ function TaggedListView() {
 			)}
 			<UserList
 				sx={{ maxWidth: "100%" }}
-				data={data}
+				data={data?.pages?.flatMap((page) => page?.data) ?? []}
 				ref={ref}
 				actionButton={true}
 				profileNavigation={false}

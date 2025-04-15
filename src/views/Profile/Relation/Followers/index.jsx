@@ -71,7 +71,7 @@ function FollowersRel() {
 				<CommonBox sx={{ flexDirection: "column", gap: "1rem" }}>
 					<UserList
 						sx={{ maxWidth: "100%" }}
-						data={data}
+						data={data?.pages?.flatMap((page) => page?.data) ?? []}
 						ref={ref}
 						actionButton={true}
 					/>

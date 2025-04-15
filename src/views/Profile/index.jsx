@@ -8,7 +8,7 @@ import {
 	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import Btn from "components/common/Button";
+import Btn from "src/components/common/Button";
 import HighlightSlider from "components/ui-components/Highlight Slider";
 import AvatarSet from "components/common/AvatarSet";
 import ProfileHeader from "./ProfileHeader";
@@ -194,7 +194,7 @@ function Profile() {
 															<Btn
 																variant="outlined"
 																sx={{
-																	padding: "0.14rem 1.2rem",
+																	padding: "0rem 1.2rem",
 																	fontSize: "0.9rem",
 																}}
 																onClick={() =>
@@ -213,7 +213,7 @@ function Profile() {
 														<Btn
 															variant="outlined"
 															sx={{
-																padding: "0.2rem 1rem",
+																padding: "0rem 1rem",
 																fontSize: "0.9rem",
 															}}
 															onClick={() =>
@@ -225,7 +225,7 @@ function Profile() {
 														<Btn
 															variant="outlined"
 															sx={{
-																padding: "0.14rem 1.2rem",
+																padding: "0rem 1.2rem",
 																fontSize: "0.9rem",
 															}}
 														>

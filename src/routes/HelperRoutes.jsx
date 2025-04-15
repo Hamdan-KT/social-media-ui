@@ -6,6 +6,7 @@ import AuthProvider from "src/components/auth/AuthProvider";
 
 // MAIN ROUTES
 import Story from "views/Stories";
+import AddPeopleToChat from "src/views/MessageInfo/AddPeople";
 const CropPostMobile = Loadable(lazy(() => import("views/CreatePost/Crop")));
 const CreateStoryMobile = Loadable(lazy(() => import("views/CreateStory")));
 const EditPostMobile = Loadable(
@@ -85,8 +86,13 @@ const HelperRoutes = () => {
 						path: `/${RoutePath.MESSAGE_INFO_PRIVACY_SAFETY}/:chatId`,
 						element: <MessagePrivacyAndSafety />,
 					},
+					{
+						path: `/${RoutePath.ADD_PEOPLE}/:chatId`,
+						element: <AddPeopleToChat />,
+					},
 				],
 			},
+
 			{
 				path: `${RoutePath.CALL}`,
 				element: <Call />,

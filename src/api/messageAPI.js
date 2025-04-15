@@ -6,9 +6,9 @@ export const getChatSearchUsers = async (params = {}, page, limit) => {
 	try {
 		const { data } = await apiClient.get("/message/search-users", {
 			params: {
-				...params,
 				page,
 				limit,
+				...params,
 			},
 		});
 		return data;
@@ -20,10 +20,7 @@ export const getChatSearchUsers = async (params = {}, page, limit) => {
 // start a new conversation if chat is not already exist
 export const inintializeChat = async (body = {}) => {
 	try {
-		const { data } = await apiClient.post(
-			`/message/initialize-chat`,
-			body
-		);
+		const { data } = await apiClient.post(`/message/initialize-chat`, body);
 		return data;
 	} catch (error) {
 		handleApiCallError(error);
@@ -75,6 +72,19 @@ export const uploadMessageMedias = async (medias) => {
 	try {
 		const { data } = await apiClient.post("/message/upload-media", medias, {
 			headers: { "Content-Type": "multipart/form-data" },
+		});
+		return data;
+	} catch (error) {
+		handleApiCallError(error);
+	}
+};
+
+export const fetchChatMembers = async (chatId, params = {}) => {
+	try {
+		const { data } = await apiClient.get(`/message/members/${chatId}`, {
+			params: {
+				...params,
+			},
 		});
 		return data;
 	} catch (error) {

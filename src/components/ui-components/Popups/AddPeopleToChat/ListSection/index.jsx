@@ -29,6 +29,7 @@ import { setSelectedChat } from "src/app/slices/messageSlice/messageSlice";
 import { RoutePath } from "src/utils/routes";
 import { useLocation, useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import AddPeopleHeader from "../header";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -38,7 +39,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 	width: "100%",
 }));
 
-function NewMessageListSection({ onClose = () => {} }) {
+function AddPeopleToChatListSection({ onClose = () => {} }) {
 	const theme = useTheme();
 	const { ref, inView } = useInView();
 	const { ref: shareListRef, inView: shareListInView } = useInView();
@@ -63,7 +64,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 		isFetching,
 		data,
 	} = useInfiniteQuery({
-		queryKey: ["get-sharing-users", debouncedValue],
+		queryKey: ["get-all-users", debouncedValue],
 		queryFn: ({ pageParam = 1 }) => getUsers({ search: value }, pageParam, 10),
 		initialPageParam: 1,
 		enabled: !!debouncedValue,
@@ -93,7 +94,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 		isFetching: shareListisFetching,
 		data: shareListdata,
 	} = useInfiniteQuery({
-		queryKey: ["get-all-users"],
+		queryKey: ["get-sharing-users"],
 		queryFn: ({ pageParam = 1 }) => getUsers({}, pageParam, 10),
 		initialPageParam: 1,
 		getNextPageParam: (lastPage, allPages) => {
@@ -182,7 +183,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 				mt: matchDownSm ? "3rem" : 0,
 			}}
 		>
-			{!matchDownSm && <NewMessageHeader onClose={onClose} />}
+			{!matchDownSm && <AddPeopleHeader onClose={onClose} />}
 			<CommonBox sx={{ p: 1 }}>
 				<SearchInput value={value} setValue={setValue} />
 			</CommonBox>
@@ -261,61 +262,31 @@ function NewMessageListSection({ onClose = () => {} }) {
 					container
 					sx={{ mb: matchDownSm && !_.isEmpty(selectedUsers) ? 6 : 0 }}
 				>
-					{_.isEmpty(value) ? (
-						<React.Fragment>
-							<SelectionList
-								ref={shareListRef}
-								data={shareListdata}
+					<ScrollBox sx={{ mt: 0, height: "auto", flexDirection: "column" }}>
+						<SelectionList
+							ref={ref}
+							data={data}
+							sx={{ maxWidth: "100%" }}
+							selection={selectedUsers}
+							setSelection={setSelectedUsers}
+							onClick={handleSelection}
+							onChange={handleSelection}
+							dataTag="_id"
+							secondaryText="name"
+						/>
+						{isFetchingNextPage && (
+							<Box
 								sx={{
-									maxWidth: "100%",
+									width: "100%",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
 								}}
-								selection={selectedUsers}
-								setSelection={setSelectedUsers}
-								onClick={handleSelection}
-								onChange={handleSelection}
-								dataTag="_id"
-								secondaryText="name"
-							/>
-							{shareListisFetchingNextPage && (
-								<Box
-									sx={{
-										width: "100%",
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
-									}}
-								>
-									<DefaultLoader />
-								</Box>
-							)}
-						</React.Fragment>
-					) : (
-						<ScrollBox sx={{ mt: 0, height: "auto", flexDirection: "column" }}>
-							<SelectionList
-								ref={ref}
-								data={data}
-								sx={{ maxWidth: "100%" }}
-								selection={selectedUsers}
-								setSelection={setSelectedUsers}
-								onClick={handleSelection}
-								onChange={handleSelection}
-								dataTag="_id"
-								secondaryText="name"
-							/>
-							{isFetchingNextPage && (
-								<Box
-									sx={{
-										width: "100%",
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
-									}}
-								>
-									<DefaultLoader />
-								</Box>
-							)}
-						</ScrollBox>
-					)}
+							>
+								<DefaultLoader />
+							</Box>
+						)}
+					</ScrollBox>
 				</Grid>
 			</CommonBox>
 			{!_.isEmpty(selectedUsers) && (
@@ -345,4 +316,4 @@ function NewMessageListSection({ onClose = () => {} }) {
 	);
 }
 
-export default NewMessageListSection;
+export default AddPeopleToChatListSection;

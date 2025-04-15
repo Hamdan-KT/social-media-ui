@@ -23,7 +23,7 @@ const UserList = React.forwardRef(
 		const theme = useTheme();
 
 		if (data?.length === 0) {
-			return <UserListSkeleton sx={skeltonSx} actionButton={actionButton}/>;
+			return <UserListSkeleton sx={skeltonSx} actionButton={actionButton} />;
 		}
 
 		return (
@@ -37,29 +37,20 @@ const UserList = React.forwardRef(
 					...sx,
 				}}
 			>
-				{data?.pages?.map((page, pageIndex, pageArr) => (
-					<React.Fragment key={pageIndex}>
-						{page?.data?.map((user, userIndex, userArr) => (
-							<UserListItem
-								ref={
-									pageIndex === pageArr.length - 1 &&
-									userIndex === userArr.length - 1
-										? ref
-										: undefined
-								}
-								key={userIndex}
-								data={user}
-								primaryText={user?.userName}
-								// secondaryText={user?.name}
-								customButtonProps={customButtonProps}
-								actionButton={actionButton}
-								onClick={onClick}
-								onButtonClick={onButtonClick}
-								customButton={customButton}
-								profileNavigation={profileNavigation}
-							/>
-						))}
-					</React.Fragment>
+				{data?.map((user, userIndex, userArr) => (
+					<UserListItem
+						ref={userIndex === userArr.length - 1 ? ref : undefined}
+						key={userIndex}
+						data={user}
+						primaryText={user?.userName}
+						secondaryText={user?.name}
+						customButtonProps={customButtonProps}
+						actionButton={actionButton}
+						onClick={onClick}
+						onButtonClick={onButtonClick}
+						customButton={customButton}
+						profileNavigation={profileNavigation}
+					/>
 				))}
 			</List>
 		);

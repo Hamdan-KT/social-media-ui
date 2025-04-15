@@ -188,7 +188,7 @@ function TagView({ media }) {
 						top: taggedUser?.y,
 						zIndex: 4,
 						background: theme.palette.common.black,
-						color: theme.palette.common.white
+						color: theme.palette.common.white,
 					}}
 				>
 					<Typography>{taggedUser?.userName}</Typography>
@@ -277,7 +277,7 @@ function TagView({ media }) {
 					>
 						<UserList
 							sx={{ maxWidth: "100%" }}
-							data={data}
+							data={data?.pages?.flatMap((page) => page?.data) ?? []}
 							ref={ref}
 							profileNavigation={false}
 							onClick={handleTagSelection}

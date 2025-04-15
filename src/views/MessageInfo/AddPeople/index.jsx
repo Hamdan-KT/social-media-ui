@@ -1,11 +1,13 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect } from "react";
-import NewMessageHeader from "./NewMessageHeader";
+import NewMessageHeader from "./AddPeopleHeader";
 import NewMessageListSection from "src/components/ui-components/Popups/NewMessage/ListSection";
 import { useNavigate } from "react-router";
 import { RoutePath } from "src/utils/routes";
+import AddPeopleHeader from "./AddPeopleHeader";
+import AddPeopleToChatListSection from "src/components/ui-components/Popups/AddPeopleToChat/ListSection";
 
-function NewMessage() {
+function AddPeopleToChat() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
@@ -32,10 +34,10 @@ function NewMessage() {
 			}}
 			className="scrollbar-hide"
 		>
-			<NewMessageHeader title="New Message" />
-			<NewMessageListSection />
+			{/* <AddPeopleHeader title="Add People" /> */}
+			<AddPeopleToChatListSection />
 		</Box>
 	);
 }
 
-export default NewMessage;
+export default AddPeopleToChat;

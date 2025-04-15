@@ -152,7 +152,7 @@ function MsgPrimary() {
 		console.log({ chat });
 		dispatch(setSelectedChat(chat));
 		const route = `/${RoutePath.MESSAGES}/${chat?._id}`;
-		pathname !== route && navigate(route, { replace: true });
+		pathname !== route && navigate(route);
 	};
 
 	return (
