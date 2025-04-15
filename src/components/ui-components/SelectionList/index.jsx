@@ -30,29 +30,24 @@ const SelectionList = React.forwardRef(
 					...sx,
 				}}
 			>
-				{data?.pages?.map((page, pageIndex, pageArr) => (
-					<React.Fragment key={pageIndex}>
-						{page?.data?.map((user, userIndex, userArr) => (
-							<SelectionListItem
-								ref={
-									pageIndex === pageArr.length - 1 &&
-									userIndex === userArr.length - 1
-										? ref
-										: undefined
-								}
-								key={userIndex}
-								data={user}
-								primaryText={user?.userName}
-								onClick={onClick}
-								selection={selection}
-								setSelection={setSelection}
-								dataTag={dataTag}
-								index={userIndex}
-								onChange={onChange}
-								secondaryText={secondaryText}
-							/>
-						))}
-					</React.Fragment>
+				{data?.map((user, userIndex, userArr) => (
+					<SelectionListItem
+						ref={
+							userIndex === userArr.length - 1
+								? ref
+								: undefined
+						}
+						key={userIndex}
+						data={user}
+						primaryText={user?.userName}
+						onClick={onClick}
+						selection={selection}
+						setSelection={setSelection}
+						dataTag={dataTag}
+						index={userIndex}
+						onChange={onChange}
+						secondaryText={secondaryText}
+					/>
 				))}
 			</List>
 		);

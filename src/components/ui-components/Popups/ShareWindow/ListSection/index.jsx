@@ -234,7 +234,7 @@ function ListSection({ onClose = () => {} }) {
 						<ScrollBox sx={{ mt: 0, height: "auto", flexDirection: "column" }}>
 							<SelectionList
 								ref={ref}
-								data={data}
+								data={data?.pages?.flatMap((page) => page?.data) ?? []}
 								sx={{ maxWidth: "100%" }}
 								selection={selectedUsers}
 								setSelection={setSelectedUsers}

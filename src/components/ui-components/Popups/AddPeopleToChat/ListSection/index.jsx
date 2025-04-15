@@ -19,12 +19,16 @@ import ScrollBox from "components/ui-components/Wrappers/ScrollBox";
 import SelectionList from "src/components/ui-components/SelectionList";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "src/api/userAPI";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import {
+	useInfiniteQuery,
+	useMutation,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import DefaultLoader from "src/components/common/DefaultLoader";
 import { useDebounceValue } from "src/hooks/useDebounce";
 import NewMessageHeader from "../header";
-import { inintializeChat } from "src/api/messageAPI";
+import { addPeoplesToChat, inintializeChat } from "src/api/messageAPI";
 import { setSelectedChat } from "src/app/slices/messageSlice/messageSlice";
 import { RoutePath } from "src/utils/routes";
 import { useLocation, useNavigate } from "react-router";
@@ -46,15 +50,19 @@ function AddPeopleToChatListSection({ onClose = () => {} }) {
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const dispatch = useDispatch();
 	const selectedChat = useSelector((state) => state?.message?.selectedChat);
-	const [showingSelectionUsers, setShowingSelectionUsers] = useState([
-		...(selectedChat?.receiver ? [selectedChat?.receiver] : []),
-	]);
+	const [showingSelectionUsers, setShowingSelectionUsers] = useState(
+		[]
+		// selectedChat?.participants ?? []
+	);
 	const [selectedUsers, setSelectedUsers] = useState({
-		...(selectedChat?.receiver ? { [selectedChat?.receiver?._id]: true } : {}),
+		// ...(selectedChat?.participants?.reduce((acc, user) => {
+		// 	acc[user?._id] = true;
+		// 	return acc;
+		// }, {}) || {}),
 	});
 	const { debouncedValue, value, setValue } = useDebounceValue("", 500);
-	const [groupName, setGroupName] = useState("");
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 
 	const {
 		fetchNextPage,
@@ -150,27 +158,17 @@ function AddPeopleToChatListSection({ onClose = () => {} }) {
 		}
 	};
 
-	const initialChat = useMutation({
-		mutationKey: ["initial-new-chat"],
+	const addToChat = useMutation({
+		mutationKey: ["add-users-to-chat"],
 		mutationFn: (info) => {
-			if (Object.keys(selectedUsers).length > 1 && groupName === "") {
-				toast.error("group name is required!");
-				throw new Error("group name is required!");
-			}
-			return inintializeChat({
+			return addPeoplesToChat({
+				chat: selectedChat?._id,
 				participants: [...Object.keys(selectedUsers)],
-				isGroupChat: Object.keys(selectedUsers).length > 1 ? true : false,
-				groupName: Object.keys(selectedUsers).length > 1 ? groupName : null,
 			});
 		},
 		onSuccess: (data) => {
-			console.log({ chatInitialData: data });
-			if (data) {
-				setGroupName("");
-				dispatch(setSelectedChat(data?.data));
-				onClose();
-				navigate(`/${RoutePath.MESSAGES}/${data?.data?._id}`);
-			}
+			queryClient.invalidateQueries(["get-chat-members"]);
+			onClose();
 		},
 	});
 
@@ -223,33 +221,18 @@ function AddPeopleToChatListSection({ onClose = () => {} }) {
 					))}
 				</CommonBox>
 			)}
-			{Object.keys(selectedUsers).length > 1 && (
-				<CommonBox sx={{ padding: "0rem 0.5rem 0.3rem 0.5rem" }}>
-					<TextField
-						fullWidth
-						size="small"
-						value={groupName}
-						onChange={(e) => setGroupName(e.target.value)}
-						placeholder="Group name (optional)"
-					/>
-				</CommonBox>
-			)}
 			<CommonBox
 				className="scrollbar-hide"
 				sx={{
 					height: matchDownSm
 						? `${
 								!_.isEmpty(selectedUsers)
-									? Object.keys(selectedUsers).length > 1
-										? "calc(100vh - 11.6rem)"
-										: "calc(100vh - 9rem)"
+									? "calc(100vh - 9rem)"
 									: "calc(100vh - 6.3rem)"
 						  }`
 						: `${
 								!_.isEmpty(selectedUsers)
-									? Object.keys(selectedUsers).length > 1
-										? "calc(100% - 13.5rem)"
-										: "calc(100% - 11.2rem)"
+									? "calc(100% - 11.2rem)"
 									: "calc(100% - 6rem)"
 						  }`,
 					overflowY: "scroll",
@@ -262,31 +245,61 @@ function AddPeopleToChatListSection({ onClose = () => {} }) {
 					container
 					sx={{ mb: matchDownSm && !_.isEmpty(selectedUsers) ? 6 : 0 }}
 				>
-					<ScrollBox sx={{ mt: 0, height: "auto", flexDirection: "column" }}>
-						<SelectionList
-							ref={ref}
-							data={data}
-							sx={{ maxWidth: "100%" }}
-							selection={selectedUsers}
-							setSelection={setSelectedUsers}
-							onClick={handleSelection}
-							onChange={handleSelection}
-							dataTag="_id"
-							secondaryText="name"
-						/>
-						{isFetchingNextPage && (
-							<Box
+					{_.isEmpty(value) ? (
+						<React.Fragment>
+							<SelectionList
+								ref={shareListRef}
+								data={shareListdata?.pages?.flatMap((page) => page?.data) ?? []}
 								sx={{
-									width: "100%",
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
+									maxWidth: "100%",
 								}}
-							>
-								<DefaultLoader />
-							</Box>
-						)}
-					</ScrollBox>
+								selection={selectedUsers}
+								setSelection={setSelectedUsers}
+								onClick={handleSelection}
+								onChange={handleSelection}
+								dataTag="_id"
+								secondaryText="name"
+							/>
+							{shareListisFetchingNextPage && (
+								<Box
+									sx={{
+										width: "100%",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									<DefaultLoader />
+								</Box>
+							)}
+						</React.Fragment>
+					) : (
+						<ScrollBox sx={{ mt: 0, height: "auto", flexDirection: "column" }}>
+							<SelectionList
+								ref={ref}
+								data={data?.pages?.flatMap((page) => page?.data) ?? []}
+								sx={{ maxWidth: "100%" }}
+								selection={selectedUsers}
+								setSelection={setSelectedUsers}
+								onClick={handleSelection}
+								onChange={handleSelection}
+								dataTag="_id"
+								secondaryText="name"
+							/>
+							{isFetchingNextPage && (
+								<Box
+									sx={{
+										width: "100%",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									<DefaultLoader />
+								</Box>
+							)}
+						</ScrollBox>
+					)}
 				</Grid>
 			</CommonBox>
 			{!_.isEmpty(selectedUsers) && (
@@ -306,9 +319,9 @@ function AddPeopleToChatListSection({ onClose = () => {} }) {
 						sx={{ fontWeight: "bold", borderRadius: 2 }}
 						fullWidth
 						disableElevation
-						onClick={() => initialChat.mutate()}
+						onClick={() => addToChat.mutate()}
 					>
-						Chat
+						{addToChat.isPending ? <DefaultLoader size={24} /> : "Add"}
 					</Button>
 				</Box>
 			)}

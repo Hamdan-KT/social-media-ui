@@ -163,15 +163,13 @@ function MessageInfoLarge({ open = false, setOpen = () => {} }) {
 			<CommonBox
 				sx={{
 					width: "100%",
-					maxHeight: selectedChat?.isGroupChat
-						? "calc(60vh - 5rem)"
-						: "calc(61vh)",
+					maxHeight: selectedChat?.isGroupChat ? "calc(60vh)" : "calc(60vh)",
 					overflowY: "scroll",
 					flexDirection: "column",
 					justifyContent: "start",
 				}}
 			>
-				<MessageInfoPeoples chat={selectedChat} count={false}/>
+				<MessageInfoPeoples chat={selectedChat} count={false} />
 			</CommonBox>
 			<CommonBox
 				sx={{

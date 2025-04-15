@@ -54,9 +54,10 @@ function MessageInfo() {
 
 	useEffect(() => {
 		if (isSuccess) {
+			console.log({ currentChat: data?.data });
 			dispatch(setSelectedChat(data?.data));
 		}
-	}, [isSuccess, data]);
+	}, [isSuccess, data, dispatch]);
 
 	return (
 		<Box

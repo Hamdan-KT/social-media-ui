@@ -10,7 +10,7 @@ export const RoutePath = {
 	MESSAGE_INFO: "message-info",
 	MESSAGE_INFO_VIEW: "message-info/view",
 	MESSAGE_INFO_PEOPLES: "message-info/peoples",
-	ADD_PEOPLE: "message-info/add-peoples",
+	ADD_PEOPLE: "add-peoples",
 	MESSAGE_INFO_PRIVACY_SAFETY: "message-info/privacy-safety",
 	REELS: "reels",
 	PROFILE: "profile",

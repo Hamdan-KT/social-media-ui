@@ -6,7 +6,6 @@ import AuthProvider from "src/components/auth/AuthProvider";
 
 // MAIN ROUTES
 import Story from "views/Stories";
-import AddPeopleToChat from "src/views/MessageInfo/AddPeople";
 const CropPostMobile = Loadable(lazy(() => import("views/CreatePost/Crop")));
 const CreateStoryMobile = Loadable(lazy(() => import("views/CreateStory")));
 const EditPostMobile = Loadable(
@@ -24,6 +23,9 @@ const MessagePrivacyAndSafety = Loadable(
 );
 const MessageInfoPeoples = Loadable(
 	lazy(() => import("views/MessageInfo/Peoples"))
+);
+const AddPeopleToChat = Loadable(
+	lazy(() => import("src/views/MessageInfo/AddPeople"))
 );
 const Call = Loadable(lazy(() => import("views/Call")));
 
@@ -86,13 +88,12 @@ const HelperRoutes = () => {
 						path: `/${RoutePath.MESSAGE_INFO_PRIVACY_SAFETY}/:chatId`,
 						element: <MessagePrivacyAndSafety />,
 					},
-					{
-						path: `/${RoutePath.ADD_PEOPLE}/:chatId`,
-						element: <AddPeopleToChat />,
-					},
 				],
 			},
-
+			{
+				path: `/${RoutePath.ADD_PEOPLE}/:chatId`,
+				element: <AddPeopleToChat />,
+			},
 			{
 				path: `${RoutePath.CALL}`,
 				element: <Call />,

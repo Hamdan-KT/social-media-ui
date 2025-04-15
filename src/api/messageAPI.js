@@ -91,3 +91,12 @@ export const fetchChatMembers = async (chatId, params = {}) => {
 		handleApiCallError(error);
 	}
 };
+
+export const addPeoplesToChat = async (body) => {
+	try {
+		const { data } = await apiClient.post(`/message/add-members`, body);
+		return data;
+	} catch (error) {
+		handleApiCallError(error);
+	}
+};

@@ -61,6 +61,7 @@ function ChatHeader({ msgInfoOpen = false, setMsgInfoOpen = () => {} }) {
 
 	useEffect(() => {
 		if (isSuccess) {
+			console.log(data?.data);
 			dispatch(setSelectedChat(data?.data));
 		}
 	}, [isSuccess, data, dispatch]);

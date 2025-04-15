@@ -45,12 +45,17 @@ function NewMessageListSection({ onClose = () => {} }) {
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const dispatch = useDispatch();
 	const selectedChat = useSelector((state) => state?.message?.selectedChat);
-	const [showingSelectionUsers, setShowingSelectionUsers] = useState([
-		...(selectedChat?.receiver ? [selectedChat?.receiver] : []),
-	]);
+	const [showingSelectionUsers, setShowingSelectionUsers] = useState(
+		selectedChat?.participants ?? []
+	);
 	const [selectedUsers, setSelectedUsers] = useState({
-		...(selectedChat?.receiver ? { [selectedChat?.receiver?._id]: true } : {}),
+		...(selectedChat?.participants?.reduce((acc, user) => {
+			acc[user?._id] = true;
+			return acc;
+		}, {}) || {}),
 	});
+
+	console.log({ selectedChat });
 	const { debouncedValue, value, setValue } = useDebounceValue("", 500);
 	const [groupName, setGroupName] = useState("");
 	const navigate = useNavigate();
@@ -63,7 +68,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 		isFetching,
 		data,
 	} = useInfiniteQuery({
-		queryKey: ["get-sharing-users", debouncedValue],
+		queryKey: ["get-all-users", debouncedValue],
 		queryFn: ({ pageParam = 1 }) => getUsers({ search: value }, pageParam, 10),
 		initialPageParam: 1,
 		enabled: !!debouncedValue,
@@ -93,7 +98,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 		isFetching: shareListisFetching,
 		data: shareListdata,
 	} = useInfiniteQuery({
-		queryKey: ["get-all-users"],
+		queryKey: ["get-sharing-users"],
 		queryFn: ({ pageParam = 1 }) => getUsers({}, pageParam, 10),
 		initialPageParam: 1,
 		getNextPageParam: (lastPage, allPages) => {
@@ -265,7 +270,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 						<React.Fragment>
 							<SelectionList
 								ref={shareListRef}
-								data={shareListdata}
+								data={shareListdata?.pages?.flatMap((page) => page?.data) ?? []}
 								sx={{
 									maxWidth: "100%",
 								}}
@@ -293,7 +298,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 						<ScrollBox sx={{ mt: 0, height: "auto", flexDirection: "column" }}>
 							<SelectionList
 								ref={ref}
-								data={data}
+								data={data?.pages?.flatMap((page) => page?.data) ?? []}
 								sx={{ maxWidth: "100%" }}
 								selection={selectedUsers}
 								setSelection={setSelectedUsers}
@@ -337,7 +342,7 @@ function NewMessageListSection({ onClose = () => {} }) {
 						disableElevation
 						onClick={() => initialChat.mutate()}
 					>
-						Chat
+						{initialChat.isPending ? <DefaultLoader size={24} /> : "Chat"}
 					</Button>
 				</Box>
 			)}
