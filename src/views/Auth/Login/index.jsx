@@ -88,11 +88,12 @@ function Login() {
 		mutationFn: (userData) => loginUser(userData),
 		onSuccess: (data) => {
 			console.log({ data });
-			const { accessToken, user } = data.data;
+			const { accessToken, user, refreshToken } = data.data;
 			console.log({ accessToken, user });
 			dispatch(saveUser(user));
 			dispatch(setToken(accessToken));
 			setLocalStorage("accessToken", accessToken); // for temporary
+			setLocalStorage("refreshToken", refreshToken); // for temporary
 			toast.success(data?.message);
 			navigate(RoutePath.HOME, { replace: true });
 		},

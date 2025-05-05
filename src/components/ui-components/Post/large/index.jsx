@@ -234,6 +234,7 @@ function PostLarge({ data }) {
 			sx={{
 				...commonStyle,
 				height: "90vh",
+				borderRadius: "27px",
 				// bgcolor: "red",
 				width: "max-content",
 				display: "flex",

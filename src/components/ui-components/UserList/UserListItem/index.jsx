@@ -50,6 +50,7 @@ const UserListItem = forwardRef(
 							isFollowing={data?.isFollowing}
 							followingStatus={data?.followingStatus}
 							userID={data?._id}
+							// sx={{padding: "0.2rem"}}
 						/>
 					) : null
 				}

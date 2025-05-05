@@ -10,6 +10,22 @@ const StyledBtn = styled(Button)(({ theme, variant, color }) => ({
 	display: "flex",
 	borderRadius: "8px",
 	fontWeight: "bold",
+	// backgroundColor:
+	// 	variant === "contained"
+	// 		? theme.palette.primary.dark
+	// 		: theme.palette.grey[200],
+	// color:
+	// 	variant === "contained"
+	// 		? color ?? theme.palette.background.default
+	// 		: color ?? theme.palette.text.primary,
+	// borderColor: theme.palette.background.default,
+	// "&:hover": {
+	// 	borderColor: theme.palette.background.default,
+	// 	backgroundColor:
+	// 		variant === "contained"
+	// 			? theme.palette.primary.main
+	// 			: theme.palette.grey[300],
+	// },
 	backgroundColor:
 		variant === "contained"
 			? theme.palette.primary.dark
@@ -18,9 +34,15 @@ const StyledBtn = styled(Button)(({ theme, variant, color }) => ({
 		variant === "contained"
 			? color ?? theme.palette.background.default
 			: color ?? theme.palette.text.primary,
-	borderColor: theme.palette.background.default,
+	border:
+		variant === "contained"
+			? "none"
+			: `1.5px solid ${theme.palette.common.black}`,
 	"&:hover": {
-		borderColor: theme.palette.background.default,
+		border:
+			variant === "contained"
+				? "none"
+				: `1.5px solid ${theme.palette.common.black}`,
 		backgroundColor:
 			variant === "contained"
 				? theme.palette.primary.main
@@ -76,11 +98,15 @@ function FollowBtn({
 			disableElevation
 			disableRipple
 			sx={{
+				fontSize: { xs: "0.83rem", sm: "0.75rem" },
 				padding: {
-					xs: isFollowinUser ? "0.25rem 1.7rem" : "0.25rem 1.7rem",
-					sm: isFollowinUser ? "0.25rem 0.4rem" : "0.25rem 0.4rem",
+					xs: isFollowinUser
+						? "calc(0.25rem - 1.5px) 1.7rem"
+						: "0.25rem 1.7rem",
+					sm: isFollowinUser
+					? "calc(0.25rem - 1.5px) 0.4rem"
+					: "0.25rem 0.4rem",
 				},
-				fontSize: { xs: "0.83rem", sm: "0.75" },
 				...sx,
 			}}
 			variant={

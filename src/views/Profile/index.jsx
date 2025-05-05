@@ -19,15 +19,18 @@ import ProfileAvatar from "components/common/ProfileAvatar";
 import { RoutePath } from "src/utils/routes";
 import ReactIcons from "src/utils/ReactIcons";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getUser } from "src/api/userAPI";
 import FollowBtn from "src/components/common/FollowBtn";
 import ImgWrapper from "src/components/common/ImgWrapper";
 import Image from "src/components/common/Image";
 import verifiedBadge from "assets/images/verifiedBadge.png";
 import ProfileSkeleton from "./skelton";
+import { inintializeChat } from "src/api/messageAPI";
+import { setSelectedChat } from "src/app/slices/messageSlice/messageSlice";
+import DefaultLoader from "src/components/common/DefaultLoader";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -41,6 +44,7 @@ function Profile() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user?.user);
 	const { uid } = useParams();
 	const location = useLocation();
@@ -49,6 +53,27 @@ function Profile() {
 		queryKey: ["get-user-profile", uid],
 		queryFn: () => getUser(uid),
 	});
+
+	const initialChat = useMutation({
+		mutationKey: ["initial-chat"],
+		mutationFn: (info) =>
+			inintializeChat({ participants: [info?._id], isGroupChat: false }),
+		onSuccess: (data) => {
+			console.log(data);
+			dispatch(setSelectedChat(data?.data));
+			navigate(`/${RoutePath.MESSAGES}/${data?.data?._id}`);
+		},
+	});
+
+	const handleClickMessage = async (info) => {
+		console.log({ info });
+		if (info?.chat?._id) {
+			dispatch(setSelectedChat(info?.chat));
+			return navigate(`/${RoutePath.MESSAGES}/${info?.chat?._id}`);
+		} else {
+			return initialChat.mutate(info);
+		}
+	};
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -67,7 +92,7 @@ function Profile() {
 				{/* profile header */}
 				<ProfileHeader data={data?.data} />
 
-				{!data ? (
+				{!data || isLoading ? (
 					<ProfileSkeleton />
 				) : (
 					<>
@@ -197,13 +222,16 @@ function Profile() {
 																	padding: "0rem 1.2rem",
 																	fontSize: "0.9rem",
 																}}
-																onClick={() =>
-																	navigate(
-																		`/${RoutePath.MESSAGES}/${data?.data?._id}`
-																	)
-																}
+																onClick={() => handleClickMessage(data?.data)}
 															>
-																Message
+																{initialChat.isPending ? (
+																	<DefaultLoader
+																		size={16}
+																		sx={{ margin: "0.3rem" }}
+																	/>
+																) : (
+																	"Message"
+																)}
 															</Btn>
 														)}
 													</>
@@ -340,11 +368,16 @@ function Profile() {
 															sx={{
 																width: "100%",
 															}}
-															onClick={() =>
-																navigate(`/${RoutePath.MESSAGES}/${user?._id}`)
-															}
+															onClick={() => handleClickMessage(data?.data)}
 														>
-															Message
+															{initialChat.isPending ? (
+																<DefaultLoader
+																	size={16}
+																	sx={{ margin: "0.3rem" }}
+																/>
+															) : (
+																"Message"
+															)}
 														</Btn>
 													)}
 												</>

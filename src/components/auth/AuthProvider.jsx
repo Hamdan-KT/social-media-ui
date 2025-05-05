@@ -114,7 +114,8 @@ function AuthProvider({ children }) {
 					error?.response?.data === "Unauthorized"
 				) {
 					try {
-						const response = await refreshAuthToken();
+						const refreshToken = getLocalStorage("refreshToken");
+						const response = await refreshAuthToken(refreshToken);
 						//setting new access token
 						dispatch(setToken(response.data));
 						// setting new access token in local storage
