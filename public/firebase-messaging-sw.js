@@ -1,5 +1,10 @@
-import { initializeApp } from "firebase/app";
-import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+// Use importScripts instead of import
+importScripts(
+	"https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"
+);
+importScripts(
+	"https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging-compat.js"
+);
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCxOzLhnc5BHEGB9ViORxVvhGXlOjsmz2o",
@@ -9,13 +14,18 @@ const firebaseConfig = {
 	appId: "1:21381023072:web:3cdf146b1825d34f2b0a05",
 };
 
-initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-const messaging = getMessaging();
+const messaging = firebase.messaging();
 
-onBackgroundMessage(messaging, (payload) => {
+messaging.onBackgroundMessage(function (payload) {
+	console.log(
+		"[firebase-messaging-sw.js] Received background message ",
+		payload
+	);
 	const { title, body } = payload.notification;
-	console.log("got notification ....______d-----df-_")
+
+	console.log("got notification ....______d-----df-_");
 	console.log(
 		"[firebase-messaging-sw.js] Received background message ",
 		payload
