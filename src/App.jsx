@@ -26,6 +26,9 @@ import AuthProvider from "./components/auth/AuthProvider";
 import TaggedUserWindow from "./components/ui-components/Popups/TaggedUsers";
 import { registerPushNotification, registerSW } from "./serviceWorker";
 import { useEffect } from "react";
+import { sendFCMToken } from "./api/notificationAPI";
+import { onMessage } from "firebase/messaging";
+import { messaging } from "src/utils/firebase";
 
 function App() {
 	const customization = useSelector((state) => state.customization);
@@ -36,11 +39,17 @@ function App() {
 		if (user?._id) {
 			registerSW();
 			registerPushNotification();
+			// sendFCMToken();
 		}
 
-		return () => {
-			registerSW(false);
-		};
+		onMessage(messaging, (payload) => {
+			console.log("Message received. ", payload);
+			alert(payload.notification?.title + ": " + payload.notification?.body);
+		});
+
+		// return () => {
+		// 	registerSW(false);
+		// };
 	}, [user]);
 
 	return (

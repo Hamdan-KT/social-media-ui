@@ -25,7 +25,7 @@ const StyledProfile = styled(Paper)(({ theme }) => ({
 	background: theme.palette.background.default,
 	minHeight: "10vh",
 	padding: "0.8rem",
-	borderRadius: `${theme?.customization?.borderRadius}px`,
+	borderRadius: `30px`,
 }));
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -34,8 +34,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 	padding: "1rem 0.5rem",
 	background: theme.palette.background.default,
 	height: "80vh",
-	borderRadius: `${theme?.customization?.borderRadius}px`,
+	borderRadius: `30px`,
 	position: "relative",
+	overflow: "hidden",
 	"&::before": {
 		content: `""`,
 		position: "absolute",
@@ -46,7 +47,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 		top: 2,
 		left: 0,
 		zIndex: 7,
-		borderRadius: `${theme?.customization?.borderRadius}px`,
+		borderRadius: `30px`,
 	},
 	"&::after": {
 		content: `""`,
@@ -57,7 +58,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 		padding: "1rem",
 		bottom: 2,
 		left: 0,
-		borderRadius: `${theme?.customization?.borderRadius}px`,
+		borderRadius: `30px`,
 	},
 }));
 

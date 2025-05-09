@@ -14,10 +14,10 @@ export default defineConfig({
 				"apple-touch-icon.png",
 				"maskable_icon.svg",
 			],
-			// devOptions: {
-			// 	enabled: true,
-			// 	type: "module",
-			// },
+			devOptions: {
+				enabled: true,
+				type: "module",
+			},
 			manifest: {
 				name: "Instogram",
 				short_name: "Instogram",
