@@ -88,7 +88,7 @@ function AuthProvider({ children }) {
 
 	// adding request interceptors to api
 	useLayoutEffect(() => {
-		const authInterceptor = apiClient.interceptors.request.use((config) => {
+		const requestInterceptor = apiClient.interceptors.request.use((config) => {
 			config.headers.Authorization =
 				!config._retry && token
 					? `Bearer ${token}`
@@ -98,13 +98,13 @@ function AuthProvider({ children }) {
 
 		// clean up function
 		return () => {
-			apiClient.interceptors.request.eject(authInterceptor);
+			apiClient.interceptors.request.eject(requestInterceptor);
 		};
 	}, [token]);
 
 	// add response interceptors to refresh token
 	useLayoutEffect(() => {
-		const refreshInterceptor = apiClient.interceptors.response.use(
+		const responseInterceptor = apiClient.interceptors.response.use(
 			(response) => response,
 			async (error) => {
 				const originalRequest = error.config;
@@ -140,7 +140,7 @@ function AuthProvider({ children }) {
 		);
 
 		return () => {
-			apiClient.interceptors.response.eject(refreshInterceptor);
+			apiClient.interceptors.response.eject(responseInterceptor);
 		};
 	}, [token, dispatch, navigate]);
 

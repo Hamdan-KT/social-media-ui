@@ -13,6 +13,7 @@ import ReactIcons from "utils/ReactIcons";
 import PopOver from "components/common/Popover";
 import ChatOptions from "../ChatOptions";
 import { messageMediaTypes } from "src/utils/constants";
+import { RiLightbulbLine } from "react-icons/ri";
 
 const StyledMedia = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -97,50 +98,82 @@ function MediaChat({ chat, options = true, user }) {
 					chat.sender?._id !== user?._id ? "flex-start" : "flex-end"
 				}
 			>
-				{chat?.media?.map((mediaItem, index, mediaArr) => (
-					<>
-						{mediaArr.length > 3 ? (
-							<>
-								<Grid
+				{chat.media?.length > 1 ? (
+					<Box
+						sx={{
+							width: 250,
+							height: 200,
+							position: "relative",
+							borderRadius: 2,
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							cursor: "pointer",
+						}}
+					>
+						{chat?.media?.map((mediaItem, index, mediaArr) => {
+							// scatter positions
+							const positions = [
+								{ bottom: 10, right: 10, rotateDeg: 10, zIndex: 3 },
+								{ bottom: 25, right: 30, rotateDeg: 0, zIndex: 2 },
+								{ bottom: 40, right: 60, rotateDeg: -10, zIndex: 1 },
+								{ bottom: 15, right: 100, rotateDeg: -10, zIndex: 0 },
+							];
+
+							const pos = positions[index] || {
+								top: index * 10,
+								left: index * 20,
+								zIndex: 0,
+							};
+
+							return (
+								<Box
+									key={index}
 									onClick={() => setViewOpen(true)}
-									item
-									xs={5.5}
-									sx={{ position: index === 3 && "relative" }}
-									height={150}
+									sx={{
+										position: "absolute",
+										transform: `rotate(${pos.rotateDeg}deg)`,
+										bottom: pos.bottom,
+										right: pos.right,
+										zIndex: pos.zIndex,
+										width: 130,
+										height: 150,
+										borderRadius: "10px",
+										overflow: "hidden",
+										boxShadow: 3,
+										cursor: "pointer",
+									}}
 								>
-									{index <= 3 &&
-										(() => {
-											switch (mediaItem?.type) {
-												case messageMediaTypes.IMAGE:
-													return (
-														<PhotoType mediaItem={mediaItem} chat={chat} />
-													);
-												case messageMediaTypes.VIDEO:
-													return (
-														<VideoType mediaItem={mediaItem} chat={chat} />
-													);
-											}
-										})()}
-									{index === 3 && (
-										<StyledOverlay>
-											<Typography
-												variant="h3"
-												color={theme.palette.background.default}
-											>
-												{Number(mediaArr?.length - 3) + "+"}
-											</Typography>
-										</StyledOverlay>
-									)}
-								</Grid>
-								{/* {index === 0 && ( */}
-									<ImageViewer
-										medias={mediaArr}
-										open={viewOpen}
-										onClose={() => setViewOpen(false)}
-									/>
-								{/* )} */}
-							</>
-						) : (
+									{(() => {
+										switch (mediaItem?.type) {
+											case messageMediaTypes.IMAGE:
+												return <PhotoType mediaItem={mediaItem} chat={chat} sx={{borderRadius: "10px"}}/>;
+											case messageMediaTypes.VIDEO:
+												return (
+													<VideoType
+														mediaItem={mediaItem}
+														chat={chat}
+														sx={{ borderRadius: "10px" }}
+													/>
+												);
+											default:
+												return null;
+										}
+									})()}
+								</Box>
+							);
+						})}
+
+						{/* Image Viewer */}
+						<ImageViewer
+							medias={chat?.media}
+							open={viewOpen}
+							onClose={() => setViewOpen(false)}
+						/>
+					</Box>
+				) : (
+					<>
+						{chat?.media?.map((mediaItem, index, mediaArr) => (
 							<>
 								<Grid item xs={12} md={12}>
 									<DragBox
@@ -231,7 +264,7 @@ function MediaChat({ chat, options = true, user }) {
 								{mediaItem?.type ===
 									(messageMediaTypes.IMAGE || messageMediaTypes.VIDEO) && (
 									<ImageViewer
-										medias={mediaArr}
+										medias={[mediaArr[index]]}
 										open={viewOpen}
 										onClose={() => {
 											setViewOpen(false);
@@ -239,9 +272,9 @@ function MediaChat({ chat, options = true, user }) {
 									/>
 								)}
 							</>
-						)}
+						))}
 					</>
-				))}
+				)}
 			</Grid>
 		</StyledMedia>
 	);
