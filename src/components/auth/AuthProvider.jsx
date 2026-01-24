@@ -43,7 +43,7 @@ function AuthProvider({ children }) {
 		refetchOnWindowFocus: true,
 		// enabled: !!token,
 	});
-
+	
 	useEffect(() => {
 		if (!_.isEmpty(user)) {
 			initSocket(

@@ -97,6 +97,7 @@ export default defineConfig({
 	server: {
 		port: 5173,
 		host: true,
+		allowedHosts: ["instogram.dev"],
 	},
 	build: {
 		outDir: "dist",

@@ -30,7 +30,7 @@ function MsgPrimary() {
 	const user = useSelector((state) => state.user?.user);
 	const socket = useSelector((state) => state?.socket?.socket);
 	const primaryChatList = useSelector(
-		(state) => state.message?.primaryChatList
+		(state) => state.message?.primaryChatList,
 	);
 	const messageState = useSelector((state) => state.message);
 	const { ref, inView } = useInView();
@@ -53,7 +53,7 @@ function MsgPrimary() {
 		// Convert the map back to an array and sort by createdAt
 		return Array.from(chatMap.values()).sort(
 			(a, b) =>
-				new Date(b.lastMessage?.createdAt) - new Date(a.lastMessage?.createdAt)
+				new Date(b.lastMessage?.createdAt) - new Date(a.lastMessage?.createdAt),
 		);
 	}, []);
 
@@ -102,38 +102,45 @@ function MsgPrimary() {
 	//listed to chat updates
 	useEffect(() => {
 		// update chatlist based on new message
-		socket?.on(messageEvents.CHATLIST_UPDATED, ({ chat, inc }) => {
-			console.log("updating chat list.......");
-			console.log("||||||||||=========||||||||||||");
-			console.log({ chat, inc });
-			if (inc) {
-				console.log("increment exist --> " + inc);
-			}
-			// find new chat updated chat from chatlist
-			const updatedChat = primaryChatList.find(
-				(chatItem) => chatItem?._id === chat?._id
-			);
+		socket?.on(
+			messageEvents.CHATLIST_UPDATED,
+			({ chatId, lastMessage, readBy, inc }) => {
+				console.log("updating chat list.......");
+				console.log("||||||||||=========||||||||||||");
+				console.log({ chatId, readBy, lastMessage, inc });
+				if (inc) {
+					console.log("increment exist --> " + inc);
+				}
+				// find new chat updated chat from chatlist
+				const updatedChat = primaryChatList.find(
+					(chatItem) => chatItem?._id === chatId,
+				);
 
-			console.log({ updatedChat });
+				console.log({ updatedChat });
 
-			console.log({
-				selectedChat: chat?._id !== messageState?.selectedChat?._id,
-			});
+				console.log({
+					selectedChat: chatId !== messageState?.selectedChat?._id,
+				});
 
-			const updatedChatlist = mergeChatLists(primaryChatList, [
-				{
-					...chat,
-					receiver: updatedChat?.receiver,
-					unreadMessagesCount:
-						chat?.lastMessage?.sender !== user?._id &&
-						chat?._id !== messageState?.selectedChat?._id &&
-						inc
-							? updatedChat?.unreadMessagesCount + inc
-							: 0,
-				},
-			]);
-			dispatch(setPrimaryChatList(updatedChatlist));
-		});
+				const updatedChatlist = mergeChatLists(primaryChatList, [
+					{
+						...updatedChat,
+						lastMessage: {
+							...(lastMessage ?? updatedChat?.lastMessage),
+							...(readBy ? { readBy } : {}),
+						},
+						receiver: updatedChat?.receiver,
+						unreadMessagesCount:
+							lastMessage?.sender !== user?._id &&
+							chatId !== messageState?.selectedChat?._id &&
+							inc
+								? updatedChat?.unreadMessagesCount + inc
+								: 0,
+					},
+				]);
+				dispatch(setPrimaryChatList(updatedChatlist));
+			},
+		);
 
 		return () => {
 			socket?.off(messageEvents.CHATLIST_UPDATED);

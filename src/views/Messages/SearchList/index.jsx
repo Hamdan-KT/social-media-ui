@@ -95,6 +95,16 @@ function MsgUserSearchList({ value = "", setValue = () => {} }) {
 						initialChat.isPending ? <DefaultLoader size={25} /> : null
 					}
 				/>
+				{/* <MessageList
+					isLoading={isLoading}
+					data={data?.pages?.flatMap((page) => page?.data) ?? []}
+					ref={ref}
+					onClick={(info) => handleClick(info)}
+					sx={{ maxWidth: "100%" }}
+					customButton={
+						initialChat.isPending ? <DefaultLoader size={25} /> : null
+					}
+				/> */}
 				{(isFetchingNextPage || isLoading) && (
 					<Box
 						sx={{

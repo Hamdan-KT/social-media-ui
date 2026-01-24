@@ -25,6 +25,8 @@ const MessageList = React.forwardRef(
 	) => {
 		const theme = useTheme();
 
+		console.log({ data });
+
 		if (!isLoading && data?.length === 0) {
 			return null;
 		}

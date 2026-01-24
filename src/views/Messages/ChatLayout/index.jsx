@@ -72,10 +72,19 @@ function ChatLayout() {
 		if (isSuccess) {
 			console.log({ list: data?.pages?.flatMap((page) => page?.data) });
 			dispatch(
-				setChatMessages(data?.pages?.flatMap((page) => page?.data) || [])
+				setChatMessages(data?.pages?.flatMap((page) => page?.data) || []),
 			);
 		}
 	}, [data, dispatch, isSuccess]);
+
+	useEffect(() => {
+		// Join chat room when selectedChat changes
+		if (messageState?.selectedChat?._id) {
+			socket?.emit(messageEvents.JOIN_CHAT, {
+				chatId: messageState?.selectedChat?._id,
+			});
+		}
+	}, [socket, messageState?.selectedChat?._id]);
 
 	useEffect(() => {
 		// Listen for incoming messages
@@ -86,7 +95,7 @@ function ChatLayout() {
 					receiverId: messageState?.selectedChat?.receiver?._id,
 				});
 				dispatch(
-					setChatMessages([...(messageState?.chatMessages ?? []), newMessage])
+					setChatMessages([...(messageState?.chatMessages ?? []), newMessage]),
 				);
 			}
 		});
@@ -94,7 +103,7 @@ function ChatLayout() {
 		// listen for deleted messages
 		socket?.on(messageEvents.MESSAGE_DELETED, (messageId) => {
 			const updatedMessages = messageState?.chatMessages.filter(
-				(message) => message._id !== messageId
+				(message) => message._id !== messageId,
 			);
 			dispatch(setChatMessages(updatedMessages));
 		});

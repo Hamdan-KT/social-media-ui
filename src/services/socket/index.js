@@ -1,4 +1,5 @@
 import { io } from "socket.io-client";
+import { messageEvents } from "./events";
 
 let socket;
 
@@ -6,13 +7,12 @@ export const initSocket = (onConnect, onDisconnect, options = {}) => {
 	const HOST = import.meta.env.VITE_API_URL;
 	socket = io(HOST, {
 		withCredentials: true,
-		// query: { userId },
-		// transports: ["websocket", "polling"],
 		...options,
 	});
 
 	socket.on("connect", () => {
 		console.log("Connected to socket server");
+		socket.emit(messageEvents.JOIN, { userId: options.query?.userId });
 		if (onConnect) onConnect(socket);
 	});
 
