@@ -83,7 +83,18 @@ function ChatLayout() {
 			socket?.emit(messageEvents.JOIN_CHAT, {
 				chatId: messageState?.selectedChat?._id,
 			});
+			if (messageState?.selectedChat?.chatMeta?.unreadMessagesCount > 0) {
+				socket?.emit(messageEvents.CHAT_READ, {
+					chatId: messageState?.selectedChat?._id,
+				});
+			}
 		}
+
+		return () => {
+			socket?.emit(messageEvents.LEAVE_CHAT, {
+				chatId: messageState?.selectedChat?._id,
+			});
+		};
 	}, [socket, messageState?.selectedChat?._id]);
 
 	useEffect(() => {
@@ -92,7 +103,6 @@ function ChatLayout() {
 			if (newMessage.chat === messageState?.selectedChat?._id) {
 				socket?.emit(messageEvents.CHAT_READ, {
 					chatId: messageState?.selectedChat?._id,
-					receiverId: messageState?.selectedChat?.receiver?._id,
 				});
 				dispatch(
 					setChatMessages([...(messageState?.chatMessages ?? []), newMessage]),
@@ -102,6 +112,8 @@ function ChatLayout() {
 
 		// listen for deleted messages
 		socket?.on(messageEvents.MESSAGE_DELETED, (messageId) => {
+			console.log("logging deleted messages.....");
+			console.log({ messageId });
 			const updatedMessages = messageState?.chatMessages.filter(
 				(message) => message._id !== messageId,
 			);
@@ -121,6 +133,7 @@ function ChatLayout() {
 		dispatch,
 	]);
 
+	//handle typing functionality
 	useEffect(() => {
 		if (outSide) {
 			console.log({ outSide });

@@ -23,6 +23,12 @@ import { RoutePath } from "src/utils/routes";
 import DefaultLoader from "src/components/common/DefaultLoader";
 import { messageEvents } from "src/services/socket/events";
 
+const CustomButton = (props) => (
+	<IconButton size="medium" color="inherit" {...props}>
+		<CameraAltOutlinedIcon />
+	</IconButton>
+);
+
 function MsgPrimary() {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -37,12 +43,6 @@ function MsgPrimary() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
-
-	const CustomButton = (props) => (
-		<IconButton size="medium" color="inherit" {...props}>
-			<CameraAltOutlinedIcon />
-		</IconButton>
-	);
 
 	const mergeChatLists = useCallback((currentList = [], newChats = []) => {
 		const chatMap = new Map();
@@ -130,12 +130,15 @@ function MsgPrimary() {
 							...(readBy ? { readBy } : {}),
 						},
 						receiver: updatedChat?.receiver,
-						unreadMessagesCount:
-							lastMessage?.sender !== user?._id &&
-							chatId !== messageState?.selectedChat?._id &&
-							inc
-								? updatedChat?.unreadMessagesCount + inc
-								: 0,
+						chatMeta: {
+							...updatedChat?.chatMeta,
+							unreadMessagesCount:
+								lastMessage?.sender !== user?._id &&
+								chatId !== messageState?.selectedChat?._id &&
+								inc
+									? updatedChat?.chatMeta?.unreadMessagesCount + inc
+									: 0,
+						},
 					},
 				]);
 				dispatch(setPrimaryChatList(updatedChatlist));

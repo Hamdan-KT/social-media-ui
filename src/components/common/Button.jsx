@@ -11,17 +11,11 @@ const StyledBtn = styled(Button)(({ theme, color, variant }) => ({
 			: theme.palette.grey[200],
 	color:
 		variant === "contained"
-			? color ?? theme.palette.background.default
-			: color ?? theme.palette.text.primary,
-	border:
-		variant === "contained"
-			? "none"
-			: `1.5px solid ${theme.palette.common.black}`,
+			? (color ?? theme.palette.background.default)
+			: (color ?? theme.palette.text.primary),
+	border: "none",
 	"&:hover": {
-		border:
-			variant === "contained"
-				? "none"
-				: `1.5px solid ${theme.palette.common.black}`,
+		border: "none",
 		backgroundColor:
 			variant === "contained"
 				? theme.palette.primary.main
@@ -40,7 +34,7 @@ function Btn({ children, sx, variant = "contained", color, ...rest }) {
 			disableTouchRipple
 			sx={{
 				padding: {
-					xs: variant === "contained" ? "0.35rem 1.7rem" : "0.15rem 1.7rem",
+					xs: variant === "contained" ? "0.15rem 1.7rem" : "0.15rem 1.7rem",
 					sm: variant === "contained" ? "0.25rem 0.4rem" : "0.25rem 0.4rem",
 				},
 				fontSize: { xs: "0.85rem", sm: "0.75" },

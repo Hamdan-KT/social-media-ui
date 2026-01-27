@@ -219,7 +219,7 @@ function Profile() {
 															<Btn
 																variant="outlined"
 																sx={{
-																	padding: "0rem 1.2rem",
+																	padding: "0.1rem 1.2rem",
 																	fontSize: "0.9rem",
 																}}
 																onClick={() => handleClickMessage(data?.data)}

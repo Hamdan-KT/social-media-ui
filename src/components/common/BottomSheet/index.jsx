@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, forwardRef } from "react";
+import React, { useEffect, useRef, forwardRef, useReducer } from "react";
 import { Backdrop, Box, Typography, styled } from "@mui/material";
 import useOutSlideClick from "hooks/useOutSlideClick";
 import DefaultLoader from "../DefaultLoader";

@@ -43,14 +43,16 @@ const RenderSecondayText = ({ chat }) => {
 		}
 	}
 
-	if (chat?.unreadMessagesCount > 0) {
+	if (chat?.chatMeta?.unreadMessagesCount > 0) {
 		return (
 			<Typography>
 				<Typography variant="userName">
-					{chat?.unreadMessagesCount > 4
+					{chat?.chatMeta?.unreadMessagesCount > 4
 						? `${4}+`
-						: `${chat?.unreadMessagesCount}`}{" "}
-					{chat?.unreadMessagesCount > 1 ? "New Messages" : "New Message"}{" "}
+						: `${chat?.chatMeta?.unreadMessagesCount}`}{" "}
+					{chat?.chatMeta?.unreadMessagesCount > 1
+						? "New Messages"
+						: "New Message"}{" "}
 					&#183;{" "}
 				</Typography>
 				<Typography variant="greyTagsXs" sx={{ fontWeight: "medium" }}>
@@ -92,7 +94,7 @@ const MessageListItem = forwardRef(
 			actionButton = false,
 			customButtonProps,
 		},
-		ref
+		ref,
 	) => {
 		const navigate = useNavigate();
 		const { pathname } = useLocation();
@@ -104,11 +106,13 @@ const MessageListItem = forwardRef(
 			React.cloneElement(child, {
 				onClick: () => onButtonClick(data),
 				...customButtonProps,
-			})
+			}),
 		);
 
 		useEffect(() => {
 			socket?.on(messageEvents.USERLIST_TYPING, ({ chatId, isTyping }) => {
+				console.log({ chat: data });
+				console.log("chatId", chatId);
 				if (data?._id === chatId) {
 					setIsTyping(isTyping);
 				}
@@ -194,13 +198,13 @@ const MessageListItem = forwardRef(
 						secondary={
 							isTyping
 								? "Typing..."
-								: secondaryText ?? <RenderSecondayText chat={data} />
+								: (secondaryText ?? <RenderSecondayText chat={data} />)
 						}
 					/>
 				</ListItemButton>
 			</ListItem>
 		);
-	}
+	},
 );
 
 export default MessageListItem;

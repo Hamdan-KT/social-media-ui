@@ -32,17 +32,11 @@ const StyledBtn = styled(Button)(({ theme, variant, color }) => ({
 			: theme.palette.grey[200],
 	color:
 		variant === "contained"
-			? color ?? theme.palette.background.default
-			: color ?? theme.palette.text.primary,
-	border:
-		variant === "contained"
-			? "none"
-			: `1.5px solid ${theme.palette.common.black}`,
+			? (color ?? theme.palette.background.default)
+			: (color ?? theme.palette.text.primary),
+	border: "none",
 	"&:hover": {
-		border:
-			variant === "contained"
-				? "none"
-				: `1.5px solid ${theme.palette.common.black}`,
+		border: "none",
 		backgroundColor:
 			variant === "contained"
 				? theme.palette.primary.main
@@ -102,10 +96,8 @@ function FollowBtn({
 				padding: {
 					xs: isFollowinUser
 						? "calc(0.25rem - 1.5px) 1.7rem"
-						: "0.25rem 1.7rem",
-					sm: isFollowinUser
-					? "calc(0.25rem - 1.5px) 0.4rem"
-					: "0.25rem 0.4rem",
+						: "calc(0.25rem - 1.5px) 1.7rem",
+					sm: isFollowinUser ? "0.25rem 0.5rem" : "0.25rem 0.5rem",
 				},
 				...sx,
 			}}
@@ -125,28 +117,28 @@ function FollowBtn({
 							userFollowingStatus,
 							isPublic,
 							userID,
-					  })
+						})
 					: !isFollowinUser
-					? handlefollowUser.mutate({
-							isFollowinUser,
-							isPublic,
-							userID,
-					  })
-					: handleUnfollowUser.mutate({
-							isFollowinUser,
-							userFollowingStatus,
-							isPublic,
-							userID,
-					  })
+						? handlefollowUser.mutate({
+								isFollowinUser,
+								isPublic,
+								userID,
+							})
+						: handleUnfollowUser.mutate({
+								isFollowinUser,
+								userFollowingStatus,
+								isPublic,
+								userID,
+							})
 			}
 		>
 			{!isFollowinUser && !userFollowingStatus
 				? "Follow"
 				: !isFollowinUser &&
-				  !isPublic &&
-				  userFollowingStatus == relationStatus.REQUESTED
-				? "Requested"
-				: "Following"}
+					  !isPublic &&
+					  userFollowingStatus == relationStatus.REQUESTED
+					? "Requested"
+					: "Following"}
 		</StyledBtn>
 	);
 }
