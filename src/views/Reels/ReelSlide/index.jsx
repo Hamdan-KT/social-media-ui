@@ -21,22 +21,22 @@ const CommonBox = styled("div")(({ theme }) => ({
 	width: "auto",
 }));
 
-function ReelSlide({ reel = "", isActive = false }) {
+function ReelSlide({ reel = "" }) {
 	const theme = useTheme();
 	const matchDownSm = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
 		<CommonBox
 			sx={{
-				width: { xs: "auto", sm: "auto" },
-				maxWidth: {xs: "100%", sm: "auto"},
+				width: { xs: "100%", sm: "auto" },
+				maxWidth: { xs: "100%", sm: "100%" },
+				minHeight: { xs: "92vh", sm: "96vh" },
 				height: { xs: "92vh", sm: "96vh" },
-				aspectRatio: "9/16",
 				borderRadius: "8px",
 				position: "relative",
 			}}
 		>
-			<ReelVideo src={reel} isActive={isActive} />
+			<ReelVideo src={reel} />
 			<CommonBox
 				sx={{
 					gap: "0.5rem",

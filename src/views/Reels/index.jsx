@@ -33,7 +33,7 @@ const Reels = () => {
 				width: "100%",
 				maxHeight: { xs: "92vh", sm: "96vh" },
 				position: "relative",
-				gap: "0.7rem",
+				gap: { xs: "0", sm: "0.7rem" },
 				flexDirection: "column",
 				justifyContent: "start",
 				overflowY: "scroll",

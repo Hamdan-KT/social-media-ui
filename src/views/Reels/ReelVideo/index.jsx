@@ -81,6 +81,8 @@ const ReelVideo = ({
 				position: "relative",
 				scrollSnapAlign: "start",
 				scrollSnapStop: "always",
+				boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
+				borderRadius: "8px",
 				...wrapperSx,
 			}}
 		>
@@ -147,7 +149,6 @@ const ReelVideo = ({
 					height: "100%",
 					objectFit: "cover",
 					display: "flex",
-					boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
 					borderRadius: "8px",
 					userSelect: "none",
 					...style,
