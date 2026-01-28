@@ -40,7 +40,7 @@ const CommonBox = styled("div")(({ theme }) => ({
 
 const StorySM = forwardRef(function Story(
 	{ story, isActive, handleNext, handlePrev, containerSx, sx, ...others },
-	ref
+	ref,
 ) {
 	const theme = useTheme();
 	const { uId, sId } = useParams(); // userId and storyId from params
@@ -110,7 +110,7 @@ const StorySM = forwardRef(function Story(
 			itemIndex = itemIndex !== -1 ? itemIndex : 0; // updating latest itemIndex
 			return { item: story.items[itemIndex], index: itemIndex };
 		},
-		[sId]
+		[sId],
 	);
 
 	// Navigate to next story
@@ -208,14 +208,13 @@ const StorySM = forwardRef(function Story(
 	// Function to update hold duration counter
 	const updateTouchDownDurationCounter = () => {
 		if (touchHoldDurationRef.current >= storyTouchHoldDurationInframe) {
-			console.log("Hold duration reached!");
 			handlePause();
 			cancelAnimationFrame(touchHoldAnimationRef.current);
 			touchHoldAnimationRef.current = null; // Clear reference
 		} else {
 			touchHoldDurationRef.current++;
 			touchHoldAnimationRef.current = requestAnimationFrame(
-				updateTouchDownDurationCounter
+				updateTouchDownDurationCounter,
 			);
 		}
 	};
@@ -223,11 +222,10 @@ const StorySM = forwardRef(function Story(
 	// Handle touch start
 	const handleTouchStart = (e) => {
 		e.preventDefault();
-		// e.stopPropagation();
 		setIsPressed(true);
 		if (!touchHoldAnimationRef.current) {
 			touchHoldAnimationRef.current = requestAnimationFrame(
-				updateTouchDownDurationCounter
+				updateTouchDownDurationCounter,
 			);
 		}
 	};
@@ -236,17 +234,13 @@ const StorySM = forwardRef(function Story(
 	const handleTouchEnd = useCallback(
 		(dir = "right") => {
 			if (isPressed) {
-				console.log({ durationCount: touchHoldDurationRef.current });
-				console.log({ storyTouchHoldDurationInframe });
 				if (touchHoldDurationRef.current < storyTouchHoldDurationInframe) {
-					console.log("Short hold detected! Navigating to next.");
 					if (dir === "right") {
 						navigateToNext();
 					} else {
 						navigateToPrev();
 					}
 				} else {
-					console.log("Long hold detected!");
 					handlePlay();
 				}
 			}
@@ -259,7 +253,7 @@ const StorySM = forwardRef(function Story(
 			touchHoldDurationRef.current = 0;
 			setIsPressed(false);
 		},
-		[isPressed, navigateToNext, navigateToPrev]
+		[isPressed, navigateToNext, navigateToPrev],
 	);
 
 	return (
