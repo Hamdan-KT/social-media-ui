@@ -3,6 +3,7 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { IconButton, styled, useTheme } from "@mui/material";
 import { useRef } from "react";
 import ReactIcons from "src/utils/ReactIcons";
+import { useInView } from "react-intersection-observer";
 
 const CommonBox = styled("div")(({ theme }) => ({
 	height: "auto",
@@ -25,11 +26,14 @@ const ReelVideo = ({
 	const [duration, setDuration] = useState(null);
 	const videoRef = useRef();
 	const theme = useTheme();
+	const { ref, inView } = useInView({
+		threshold: 0.8,
+	});
 
 	// handle video play
 	const handlePlay = () => {
 		if (videoRef?.current) {
-			videoRef?.current?.play();
+			videoRef?.current?.play().catch(() => {});
 			setIsPlaying(true);
 			setShowControls(false);
 		}
@@ -61,19 +65,22 @@ const ReelVideo = ({
 
 	// handling auto play
 	useEffect(() => {
-		if (isActive) {
+		if (inView) {
 			handlePlay();
 		} else {
 			handlePause();
 		}
-	}, [isActive]);
+	}, [inView]);
 
 	return (
 		<CommonBox
+			ref={ref}
 			sx={{
 				width: "100%",
 				height: "100%",
 				position: "relative",
+				scrollSnapAlign: "start",
+				scrollSnapStop: "always",
 				...wrapperSx,
 			}}
 		>
