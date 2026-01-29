@@ -31,7 +31,7 @@ const Reels = () => {
 		<CommonBox
 			sx={{
 				width: "100%",
-				maxHeight: { xs: "92vh", sm: "96vh" },
+				maxHeight: { xs: "96vh", sm: "96vh" },
 				position: "relative",
 				gap: { xs: "0", sm: "0.7rem" },
 				flexDirection: "column",

@@ -30,8 +30,8 @@ function ReelSlide({ reel = "" }) {
 			sx={{
 				width: { xs: "100%", sm: "auto" },
 				maxWidth: { xs: "100%", sm: "100%" },
-				minHeight: { xs: "92vh", sm: "96vh" },
-				height: { xs: "92vh", sm: "96vh" },
+				minHeight: { xs: "93vh", sm: "96vh" },
+				height: { xs: "93vh", sm: "96vh" },
 				borderRadius: "8px",
 				position: "relative",
 			}}
